@@ -11,6 +11,7 @@ namespace R440O.R440OForms.R440O
     using System.Windows.Forms;
     using InternalBlocks;
     using global::R440O.LearnModule;
+    using global::R440O.TestModule;
     using System.Threading;
 
     /// <summary>
@@ -33,6 +34,7 @@ namespace R440O.R440OForms.R440O
             LearnMain.setHelpForms(this,textHelper);
             LearnMain.setIntent(ModulesEnum.openPowerCabeltoPower);
 
+            TestMain.setIntent(ModulesEnum.openPowerCabeltoPower);
         }
 
         private bool serverErrorFlag = false;
@@ -71,13 +73,7 @@ namespace R440O.R440OForms.R440O
                 form.Activate();
                 return;
             }
-
-     
-          
-
-
-
-       
+            
 
             if ((button.Name == "R440OButtonPowerCabel") && (LearnMain.getIntent() == ModulesEnum.openPowerCabeltoPower))
             {
@@ -116,14 +112,19 @@ namespace R440O.R440OForms.R440O
         {
             Antenna.StopServerPing();
         }
-
+        //На фокус
         private void R440OForm_Activated(object sender, EventArgs e)
         {
-           
+
             if (LearnMain.getIntent() == ModulesEnum.N502Power) LearnMain.setIntent(ModulesEnum.openN502BtoPower);
             if (LearnMain.getIntent() == ModulesEnum.N502Check) LearnMain.setIntent(ModulesEnum.openN502BtoCheck);
             if (LearnMain.getIntent() == ModulesEnum.PowerCabelConnect) LearnMain.setIntent(ModulesEnum.openPowerCabeltoPower);
-            
+
+            //switch (TestMain.getIntent())
+            //{
+            //    case ModulesEnum.PowerCabelConnect:
+            //        break;
+            //}
         }
     }
 }

@@ -18,8 +18,7 @@ namespace R440O.TestModule
         //static IntentionEnum intent = IntentionEnum.open;  Понять как можно использовать 
         public static GlobalIntentEnum globalIntent { get; set; } = GlobalIntentEnum.nill;
         private static R440OForm mainForm;
-
-        //static int blunderMistakes;
+        
         private static int softMistakes;
         private static IDisposable timer;
         private static int timeInMinutes = 0;
@@ -56,7 +55,6 @@ namespace R440O.TestModule
             if(testResult.MinusPoint() == true) //true - провалил, завершаем тест, иначе продолжаем
                 FinishTest();
             softMistakes++;
-            //if (softMistakes > 2)
         }
 
         private static void StartTest()

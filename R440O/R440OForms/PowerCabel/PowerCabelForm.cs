@@ -4,6 +4,7 @@ namespace R440O.R440OForms.PowerCabel
 {
     using BaseClasses;
     using global::R440O.LearnModule;
+    using global::R440O.TestModule;
     using System;
     using System.Windows.Forms;
 
@@ -31,6 +32,9 @@ namespace R440O.R440OForms.PowerCabel
         private void ВыводСообщенияСтанцияСгорела()
         {
             MessageBox.Show("Станция сгорела!", "ОШИБКА");
+
+            if(TestMain.IsTesting)
+                TestMain.MakeBlunderMistake();
         }
 
         #region Кабель СЕТЬ

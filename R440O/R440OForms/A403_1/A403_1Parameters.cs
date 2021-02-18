@@ -33,9 +33,9 @@ namespace R440O.R440OForms.A403_1
         /// </summary>
         public static Dictionary<string, Location> Table = new Dictionary<string, Location>
         {
-            {"+131000", new Location {Az = "+064573", Ym = "+004116", DeltaF = "-058750"} },
-            {"+151000", new Location {Az = "+035441", Ym = "+027497", DeltaF = "-032500"}},
-            {"+171000", new Location {Az = "+030212", Ym = "+029342", DeltaF = "-010625"}},
+            {"+131000", new Location {Az = "+054573", Ym = "+004116", DeltaF = "-058750"} },
+            {"+151000", new Location {Az = "+025441", Ym = "+027497", DeltaF = "-032500"}},
+            {"+171000", new Location {Az = "+020212", Ym = "+029342", DeltaF = "-010625"}},
             {"+191000", new Location {Az = "+034475", Ym = "+027283", DeltaF = "+008750"}},
             {"+211000", new Location {Az = "+047331", Ym = "+022426", DeltaF = "+030625"}}
         };
