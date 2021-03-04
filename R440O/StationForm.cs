@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using R440O.R440OForms.R440O;
+using R440O.TestModule;
 using R440O.ThirdParty;
 
 namespace R440O
@@ -77,6 +78,7 @@ namespace R440O
         {
             IsLearning = false;
             RunR400O(IsLearning);
+            TestMain.StartTest();
         }
     }
 }

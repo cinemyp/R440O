@@ -16,7 +16,7 @@ namespace R440O.TestModule
         {
             InitializeComponent();
             ResultText.Text = tr.result.ToString();
-            TimeResultText.Text = tr.testingTime.ToString();
+            TimeResultText.Text = tr.testingTime.ToShortTimeString();
         }
     }
 }

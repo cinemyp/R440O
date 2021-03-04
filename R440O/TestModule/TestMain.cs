@@ -11,8 +11,6 @@ namespace R440O.TestModule
 {
     static class TestMain
     {
-        
-
         private static ModulesEnum module = ModulesEnum.openN502BtoPower;
         //static IntentionEnum intent = IntentionEnum.open;  Понять как можно использовать 
         public static GlobalIntentEnum globalIntent { get; set; } = GlobalIntentEnum.nill;
@@ -56,7 +54,7 @@ namespace R440O.TestModule
             softMistakes++;
         }
 
-        private static void StartTest()
+        public static void StartTest()
         {
             ParametersConfig.IsTesting = true;
             testResult = new TestResult();
