@@ -20,22 +20,38 @@
             RefreshFormElements();
 
             LearnMain.isMainWindow = false;
-            //если не обучение, код ниже не выполнять
-            if (!ParametersConfig.getIsLearning())
-                return;
-
-            if (LearnMain.getIntent()==ModulesEnum.openN502BtoCheck)
+            //Если проходим режим обучения
+            if (ParametersConfig.getIsLearning())
             {
-                LearnMain.form = this; 
-                LearnMain.setIntent(ModulesEnum.N502Check);
-                
-                
+                switch (LearnMain.getIntent())
+                {
+                    case ModulesEnum.openN502BtoCheck:
+                        LearnMain.form = this;
+                        LearnMain.setIntent(ModulesEnum.N502Check);
+                        if (VoltageStabilizer.VoltageStabilizerParameters.КабельВход > 0)
+                        {
+                            LearnMain.form = this;
+                            LearnMain.setIntent(ModulesEnum.N502Power);
+                        }
+                        break;
+                }
             }
-            if(VoltageStabilizer.VoltageStabilizerParameters.КабельВход > 0)
-            {  
-                LearnMain.form = this; 
-                LearnMain.setIntent(ModulesEnum.N502Power);
+            else if (ParametersConfig.IsTesting)
+            {
+                switch (LearnMain.getIntent())
+                {
+                    case ModulesEnum.openN502BtoCheck:
+                        LearnMain.form = this;
+                        LearnMain.setIntent(ModulesEnum.N502Check);
+                        if (VoltageStabilizer.VoltageStabilizerParameters.КабельВход > 0)
+                        {
+                            LearnMain.form = this;
+                            LearnMain.setIntent(ModulesEnum.N502Power);
+                        }
+                        break;
+                }
             }
+            
 
         }
 
