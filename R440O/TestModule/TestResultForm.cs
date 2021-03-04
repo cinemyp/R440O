@@ -18,5 +18,10 @@ namespace R440O.TestModule
             ResultText.Text = tr.result.ToString();
             TimeResultText.Text = tr.testingTime.ToShortTimeString();
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
     }
 }

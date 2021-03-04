@@ -65,7 +65,7 @@ namespace R440O
 
         private void OnR440oFormClosed()
         {
-            this.Close();
+            this.Show();
         }
 
         private void btnLearning_Click(object sender, EventArgs e)

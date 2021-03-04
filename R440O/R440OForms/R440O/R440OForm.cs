@@ -30,6 +30,8 @@ namespace R440O.R440OForms.R440O
             Antenna.StartServerPing();
             Antenna.ErrorEvent += ServerError;
 
+            TestMain.close += Close;
+
             if(ParametersConfig.getIsLearning())
             {
                 TextHelperForm textHelper = new TextHelperForm();
@@ -100,8 +102,6 @@ namespace R440O.R440OForms.R440O
             {
                 throw;
             }
-
-
         }
 
         private void R440OForm_FormClosed(object sender, FormClosedEventArgs e)
@@ -116,6 +116,7 @@ namespace R440O.R440OForms.R440O
         private void R440OForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             Antenna.StopServerPing();
+            TestMain.close -= Close;
         }
         //На фокус
         private void R440OForm_Activated(object sender, EventArgs e)

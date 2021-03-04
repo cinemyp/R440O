@@ -21,6 +21,9 @@ namespace R440O.TestModule
         private static int timeInMinutes = 0;
         private static TestResult testResult;
 
+        public delegate void ClosingForms();
+        public static event ClosingForms close;
+
         public static void setIntent(ModulesEnum intention)
         {
             module = intention;
@@ -33,10 +36,7 @@ namespace R440O.TestModule
 
         private static void Action()
         {
-            //switch(module)
-            //{
-
-            //}
+            //CHECK: подумать, что тут должно быть и должно ли это быть
         }
         public static void MakeBlunderMistake()
         {
@@ -59,6 +59,7 @@ namespace R440O.TestModule
             ParametersConfig.IsTesting = true;
             testResult = new TestResult();
             timer = EasyTimer.SetInterval(SetTimer, 60000);
+            
         }
 
         private static void SetTimer()
@@ -66,12 +67,12 @@ namespace R440O.TestModule
             timeInMinutes++;
             if (timeInMinutes >= 18 && timeInMinutes < 20) //решил тест за 19 минут - оценка 4
             {
-                //TODO: уменьшаем оценку на балл
+                //уменьшаем оценку на балл
                 testResult.MinusPoint();
             }
             if(timeInMinutes >= 20)
             {
-                //TODO: уменьшаем оценку на балл
+                //уменьшаем оценку на балл
                 testResult.MinusPoint();
                 FinishTest();
                 timer.Dispose();
@@ -86,7 +87,9 @@ namespace R440O.TestModule
 
             TestResultForm tr = new TestResultForm(testResult);
             tr.Show();
-            //TODO: закрыть все остально???
+            //Закрыть окно станции
+            close?.Invoke();
+            //TODO: открыть главное меню
         }
         
     }
