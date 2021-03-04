@@ -32,7 +32,7 @@ namespace R440O.R440OForms.A403_1
         /// Словарь известных значений (время - данные)
         /// </summary>
         public static Dictionary<string, Location> Table = new Dictionary<string, Location>
-        {
+        { 
             {"+131000", new Location {Az = "+054573", Ym = "+004116", DeltaF = "-058750"} },
             {"+151000", new Location {Az = "+025441", Ym = "+027497", DeltaF = "-032500"}},
             {"+171000", new Location {Az = "+020212", Ym = "+029342", DeltaF = "-010625"}},

@@ -33,7 +33,7 @@ namespace R440O.R440OForms.PowerCabel
         {
             MessageBox.Show("Станция сгорела!", "ОШИБКА");
 
-            if(TestMain.IsTesting)
+            if(ParametersConfig.IsTesting)
                 TestMain.MakeBlunderMistake();
         }
 

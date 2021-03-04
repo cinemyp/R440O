@@ -16,15 +16,17 @@ namespace R440O
     {
         private Timer таймерПоискаСервера = new Timer();
         private R440OForm r440OForm;
-
+        private bool IsLearning { get; set; }
+        
         public StationForm()
         {
             InitializeComponent();
-
+            /*
             таймерПоискаСервера.Enabled = true;
             таймерПоискаСервера.Interval = 10000;
             таймерПоискаСервера.Tick += tick;
             таймерПоискаСервера.Start();
+            */
         }
 
         public void tick(object sender, EventArgs e)
@@ -33,7 +35,7 @@ namespace R440O
             {
                 if (HttpHelper.СерверНайден)
                 {
-                    RunR400O();
+                    RunR400O(IsLearning);
                 }
                 else
                 {
@@ -42,9 +44,11 @@ namespace R440O
             }
         }
 
-        public void RunR400O()
+        public void RunR400O(bool isLearning)
         {
             таймерПоискаСервера.Stop();
+            ParametersConfig.setIsLearning(IsLearning);
+            ParametersConfig.IsTesting = !IsLearning;
             ParametersConfig.SetParameters();
             this.Hide();
             r440OForm = new R440OForm();
@@ -54,13 +58,25 @@ namespace R440O
 
         private void OfflineWorkButton_Click(object sender, EventArgs e)
         {
-            ParametersConfig.setIsLearning(true);
-            RunR400O();
+            IsLearning = true;
+            RunR400O(IsLearning);
         }
 
         private void OnR440oFormClosed()
         {
             this.Close();
+        }
+
+        private void btnLearning_Click(object sender, EventArgs e)
+        {
+            IsLearning = true;
+            RunR400O(IsLearning);
+        }
+
+        private void btnExaming_Click(object sender, EventArgs e)
+        {
+            IsLearning = false;
+            RunR400O(IsLearning);
         }
     }
 }

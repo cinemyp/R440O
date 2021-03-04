@@ -11,8 +11,7 @@ namespace R440O.TestModule
 {
     static class TestMain
     {
-        private static bool isTesting = false;
-        public static bool IsTesting { get { return isTesting; } }
+        
 
         private static ModulesEnum module = ModulesEnum.openN502BtoPower;
         //static IntentionEnum intent = IntentionEnum.open;  Понять как можно использовать 
@@ -59,7 +58,7 @@ namespace R440O.TestModule
 
         private static void StartTest()
         {
-            isTesting = true;
+            ParametersConfig.IsTesting = true;
             testResult = new TestResult();
             timer = EasyTimer.SetInterval(SetTimer, 60000);
         }
@@ -82,7 +81,7 @@ namespace R440O.TestModule
         }
         private static void FinishTest()
         {
-            isTesting = false;
+            ParametersConfig.IsTesting = false;
             //TODO: сформровать результаты и отправить на сервер
             testResult.testingTime = new DateTime();
             testResult.testingTime.AddMinutes(timeInMinutes);

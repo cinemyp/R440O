@@ -22,8 +22,11 @@ namespace R440O.LearnModule
         static R440OForm mainForm;
         static public Form form { get; set; }
         static Control curButton { get; set; }
+
         public static void setIntent(ModulesEnum intention)
         {
+            if (!ParametersConfig.getIsLearning())
+                return;
             module = intention;
             Action();
         }

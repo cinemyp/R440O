@@ -20,6 +20,9 @@
             RefreshFormElements();
 
             LearnMain.isMainWindow = false;
+            //если не обучение, код ниже не выполнять
+            if (!ParametersConfig.getIsLearning())
+                return;
 
             if (LearnMain.getIntent()==ModulesEnum.openN502BtoCheck)
             {
@@ -40,7 +43,7 @@
         {
             MessageBox.Show("Станция сгорела!", "ОШИБКА");
 
-            if (TestMain.IsTesting)
+            if (ParametersConfig.IsTesting)
                 TestMain.MakeBlunderMistake();
             
         }
@@ -49,7 +52,7 @@
         {
             MessageBox.Show("Некорректное действие!", "ОШИБКА");
 
-            if (TestMain.IsTesting)
+            if (ParametersConfig.IsTesting)
                 TestMain.MakeSoftMistake();
         }
 
@@ -357,6 +360,9 @@
             N502BParameters.ParameterChanged -= RefreshFormElements;
             N502BParameters.СтанцияСгорела -= ВыводСообщенияСтанцияСгорела;
             N502BParameters.НекорректноеДействие -= ВыводСообщенияНекорректноеДействие;
+
+            if (!ParametersConfig.getIsLearning())
+                return;
 
             if(LearnMain.getIntent()==ModulesEnum.N502Check)
             {

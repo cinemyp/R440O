@@ -37,6 +37,8 @@ namespace R440O
     public static class ParametersConfig
     {
         private static bool isLearning = false;
+        private static bool isTesting = false;
+        public static bool IsTesting { get { return isTesting; } set { isTesting = value; } }
 
         public static bool getIsLearning()
         {
@@ -192,7 +194,7 @@ namespace R440O
 
 
             //С300М_3
-            C300M_3Parameters.КнопкиВидРаботы[5] = true;
+            C300M_3Parameters.КнопкиВидРаботы[5] = true;                                
             C300M_3Parameters.КнопкиКонтрольРежима[3] = true;
             C300M_3Parameters.ПереключательВолна1 = 8;
             C300M_3Parameters.ПереключательВолна10 = 0;
@@ -200,7 +202,7 @@ namespace R440O
             C300M_3Parameters.ПереключательВолна1000 = 0;
             C300M_3Parameters.ТумблерУправление = true;
 
-            //С300М_4
+            //С300М_4         
             C300M_4Parameters.КнопкиВидРаботы[5] = true;
             C300M_4Parameters.КнопкиКонтрольРежима[3] = true;
             C300M_4Parameters.ПереключательВолна1 = 8;

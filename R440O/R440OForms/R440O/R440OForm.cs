@@ -29,12 +29,17 @@ namespace R440O.R440OForms.R440O
             this.InitializeComponent();
             Antenna.StartServerPing();
             Antenna.ErrorEvent += ServerError;
-            TextHelperForm textHelper = new TextHelperForm();
-            textHelper.Show();
-            LearnMain.setHelpForms(this,textHelper);
-            LearnMain.setIntent(ModulesEnum.openPowerCabeltoPower);
 
-            TestMain.setIntent(ModulesEnum.openPowerCabeltoPower);
+            if(ParametersConfig.getIsLearning())
+            {
+                TextHelperForm textHelper = new TextHelperForm();
+                textHelper.Show();
+                LearnMain.setHelpForms(this, textHelper);
+                LearnMain.setIntent(ModulesEnum.openPowerCabeltoPower);
+            }
+            
+            if(ParametersConfig.IsTesting)
+                TestMain.setIntent(ModulesEnum.openPowerCabeltoPower);
         }
 
         private bool serverErrorFlag = false;
