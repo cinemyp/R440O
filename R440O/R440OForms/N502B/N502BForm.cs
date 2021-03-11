@@ -1,6 +1,5 @@
 ﻿namespace R440O.R440OForms.N502B
 {
-
     using System;
     using System.Globalization;
     using System.Windows.Forms;
@@ -28,6 +27,8 @@
                     case ModulesEnum.openN502BtoCheck:
                         LearnMain.form = this;
                         LearnMain.setIntent(ModulesEnum.N502Check);
+                        break;
+                    case ModulesEnum.openN502BtoPower:
                         if (VoltageStabilizer.VoltageStabilizerParameters.КабельВход > 0)
                         {
                             LearnMain.form = this;
@@ -36,7 +37,7 @@
                         break;
                 }
             }
-            else if (ParametersConfig.IsTesting)
+            if (ParametersConfig.IsTesting)
             {
                 switch (TestMain.getIntent())
                 {
