@@ -22,6 +22,7 @@ namespace R440O.LearnModule
         static R440OForm mainForm;
         static public Form form { get; set; }
         static Control curButton { get; set; }
+        
 
         public static void setIntent(ModulesEnum intention)
         {
@@ -68,7 +69,13 @@ namespace R440O.LearnModule
             textHelper.helpTextBox.Text = helpText;
         }
 
-       
+        public static void CloseHelper()
+        {
+            if (textHelper == null)
+                return;
+            textHelper.Close();
+            textHelper.Dispose();
+        }
 
         public static void Action()
         {

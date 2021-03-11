@@ -115,6 +115,7 @@ namespace R440O.R440OForms.R440O
         private void R440OForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             Antenna.StopServerPing();
+            LearnMain.CloseHelper();
             TestMain.close -= Close;
             SetDefaultParameters();
         }
