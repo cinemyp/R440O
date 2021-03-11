@@ -63,5 +63,11 @@ namespace R440O.R440OForms.PowerCabel
         /// Вызывается, если пользователь совершил неправильные действия по обесточиванию станции.
         /// </summary>
         public static event ParameterChangedHandler СтанцияСгорела;
+
+        public static void SetDefaultParameters()
+        {
+            ТумблерОсвещение = false;
+            КабельСеть = false;
+        }
     }
 }

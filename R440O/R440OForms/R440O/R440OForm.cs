@@ -39,8 +39,7 @@ namespace R440O.R440OForms.R440O
                 LearnMain.setHelpForms(this, textHelper);
                 LearnMain.setIntent(ModulesEnum.openPowerCabeltoPower);
             }
-            
-            if(ParametersConfig.IsTesting)
+            else if(ParametersConfig.IsTesting)
                 TestMain.setIntent(ModulesEnum.openPowerCabeltoPower);
         }
 
@@ -117,6 +116,7 @@ namespace R440O.R440OForms.R440O
         {
             Antenna.StopServerPing();
             TestMain.close -= Close;
+            SetDefaultParameters();
         }
         //На фокус
         private void R440OForm_Activated(object sender, EventArgs e)
@@ -131,6 +131,14 @@ namespace R440O.R440OForms.R440O
             //    case ModulesEnum.PowerCabelConnect:
             //        break;
             //}
+        }
+
+        private void SetDefaultParameters()
+        {
+            N502B.N502BParameters.SetDefaultParameters();
+            VoltageStabilizer.VoltageStabilizerParameters.SetDefaultParameters();
+            PowerCabel.PowerCabelParameters.SetDefaultParameters();
+
         }
     }
 }

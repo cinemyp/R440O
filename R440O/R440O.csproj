@@ -152,6 +152,7 @@
     <Compile Include="StationForm.Designer.cs">
       <DependentUpon>StationForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="TestModule\TestModuleEnum.cs" />
     <Compile Include="TestModule\TestMain.cs" />
     <Compile Include="TestModule\TestResult.cs" />
     <Compile Include="TestModule\TestResultForm.cs">

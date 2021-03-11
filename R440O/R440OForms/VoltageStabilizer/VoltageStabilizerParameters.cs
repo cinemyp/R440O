@@ -131,6 +131,11 @@ namespace R440O.R440OForms.VoltageStabilizer
 
         #endregion
 
+        public static void SetDefaultParameters()
+        {
+            КабельВход = 0;
+            ПереключательКонтрольНапр = 1;
 
+        }
     }
 }
