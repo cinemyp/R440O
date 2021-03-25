@@ -43,9 +43,12 @@
                 {
                     case ModulesEnum.openN502BtoCheck:
                         TestMain.setIntent(ModulesEnum.N502Check);
+                        break;
+                    case ModulesEnum.openN502BtoPower:
                         if (VoltageStabilizer.VoltageStabilizerParameters.КабельВход > 0)
                         {
-                            TestMain.setIntent(ModulesEnum.N502Power);
+                            LearnMain.form = this;
+                            LearnMain.setIntent(ModulesEnum.N502Power);
                         }
                         break;
                 }
