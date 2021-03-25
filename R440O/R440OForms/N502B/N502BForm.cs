@@ -1,6 +1,5 @@
 ﻿namespace R440O.R440OForms.N502B
 {
-
     using System;
     using System.Globalization;
     using System.Windows.Forms;
@@ -16,7 +15,7 @@
             InitializeComponent();
             N502BParameters.ParameterChanged += RefreshFormElements;
             N502BParameters.СтанцияСгорела += ВыводСообщенияСтанцияСгорела;
-            N502BParameters.НекорректноеДействие += ВыводСообщенияНекорректноеДействие;
+            N502BParameters.НекорректноеДействие+= ВыводСообщенияНекорректноеДействие;
             RefreshFormElements();
 
             LearnMain.isMainWindow = false;
@@ -28,6 +27,8 @@
                     case ModulesEnum.openN502BtoCheck:
                         LearnMain.form = this;
                         LearnMain.setIntent(ModulesEnum.N502Check);
+                        break;
+                    case ModulesEnum.openN502BtoPower:
                         if (VoltageStabilizer.VoltageStabilizerParameters.КабельВход > 0)
                         {
                             LearnMain.form = this;
@@ -36,15 +37,18 @@
                         break;
                 }
             }
-            else if (ParametersConfig.IsTesting)
+            if (ParametersConfig.IsTesting)
             {
                 switch (TestMain.getIntent())
                 {
                     case ModulesEnum.openN502BtoCheck:
                         TestMain.setIntent(ModulesEnum.N502Check);
+                        break;
+                    case ModulesEnum.openN502BtoPower:
                         if (VoltageStabilizer.VoltageStabilizerParameters.КабельВход > 0)
                         {
-                            TestMain.setIntent(ModulesEnum.N502Power);
+                            LearnMain.form = this;
+                            LearnMain.setIntent(ModulesEnum.N502Power);
                         }
                         break;
                 }
