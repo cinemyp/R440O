@@ -15,7 +15,7 @@
             InitializeComponent();
             N502BParameters.ParameterChanged += RefreshFormElements;
             N502BParameters.СтанцияСгорела += ВыводСообщенияСтанцияСгорела;
-            N502BParameters.НекорректноеДействие += ВыводСообщенияНекорректноеДействие;
+            N502BParameters.НекорректноеДействие+= ВыводСообщенияНекорректноеДействие;
             RefreshFormElements();
 
             LearnMain.isMainWindow = false;

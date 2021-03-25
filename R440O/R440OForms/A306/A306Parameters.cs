@@ -165,6 +165,19 @@ namespace R440O.R440OForms.A306
 
         #endregion
 
+        public static void SetDefaultParameters()
+        {
+
+            _тумблерДистанцМестн = false;
+            _тумблерПитание = false;
+            _активныйВход = -1;
+
+            Выходы.Reset();
+            КабелиВходы.Reset();
+
+
+        }
+
         public delegate void ParameterChangedHandler();
         public static event ParameterChangedHandler ParameterChanged;
 
@@ -182,6 +195,7 @@ namespace R440O.R440OForms.A306
 
     public class A306InputsCables
     {
+
         public static bool[] Inputs = { true, true, true, true, true, true };
         public bool this[int inputNumber]
         {
@@ -190,6 +204,11 @@ namespace R440O.R440OForms.A306
             {
                 Inputs[inputNumber] = value;
             }
+        }
+
+        public void Reset()
+        {
+            Inputs = new bool[] { true, true, true, true, true, true };
         }
     }
 
@@ -224,6 +243,11 @@ namespace R440O.R440OForms.A306
 
                 A306Parameters.ResetParameters();
             }
+        }
+
+        public void Reset()
+        {
+            Outputs = new int[]{ -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1 }; 
         }
     }
 }

@@ -276,6 +276,18 @@ namespace R440O.R440OForms.A304
             }
         }
 
+        public static void SetDefaultParameters()
+        {
+            ResetParameters();
+            _тумблерУправление1 = false;
+            _тумблерУправление1 = false;
+            _тумблерУправление2 = false;
+            _тумблерКомплект = false;
+            _переключательВыборСтвола = 0;
+            _переключательКонтроль = 0;
+
+        }
+
         public delegate void ParameterChangedHandler();
         public static event ParameterChangedHandler ParameterChanged;
 
