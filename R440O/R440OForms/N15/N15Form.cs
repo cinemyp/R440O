@@ -518,21 +518,25 @@ namespace R440O.R440OForms.N15
         private void N15Form_FormClosed(object sender, FormClosedEventArgs e)
         {
             N15Parameters.ParameterChanged -= RefreshFormElements;
-            
-            if(LearnMain.getIntent() == ModulesEnum.N15Power)
+
+            if (LearnMain.getIntent() == ModulesEnum.N15Power)
             {
-                if(LearnMain.globalIntent == GlobalIntentEnum.OneChannel)
+                if (LearnMain.globalIntent == GlobalIntentEnum.OneChannel)
                 {
-                    if(N15Parameters.ТумблерЦ300М1 && N15Parameters.ТумблерЦ300М2 && N15Parameters.ТумблерЦ300М3 && N15Parameters.ТумблерЦ300М4 &&
-                        N15Parameters.ТумблерАФСС && !N15Parameters.ТумблерАнтЭкв && N15Parameters.ТумблерА403 && N15Parameters.ЛампочкаБМА_1 && 
-                        N15Parameters.ЛампочкаБМА_2 && N15Parameters.ЛампочкаМШУ && N15Parameters.ТумблерТлфТлгПрд && N15.N15Parameters.ТумблерТлфТлгПрм )
+                    if (N15Parameters.ТумблерЦ300М1 && N15Parameters.ТумблерЦ300М2 && N15Parameters.ТумблерЦ300М3 && N15Parameters.ТумблерЦ300М4 &&
+                        N15Parameters.ТумблерАФСС && !N15Parameters.ТумблерАнтЭкв && N15Parameters.ТумблерА403 && N15Parameters.ЛампочкаБМА_1 &&
+                        N15Parameters.ЛампочкаБМА_2 && N15Parameters.ЛампочкаМШУ && N15Parameters.ТумблерТлфТлгПрд && N15Parameters.ТумблерТлфТлгПрм)
                     {
                         LearnMain.setIntent(ModulesEnum.A205_m1_Open);
-                    } else
+                    }
+                    else
                     {
                         LearnMain.setIntent(ModulesEnum.openN15);
                     }
                 }
+            }
+            
+
             }
         }
 

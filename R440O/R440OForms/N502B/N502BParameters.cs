@@ -438,7 +438,12 @@ namespace R440O.R440OForms.N502B
         private static void OnParameterChanged()
         {
             var handler = ParameterChanged;
-            if (handler != null) handler();
+            if (handler != null)
+            {
+                handler();
+
+                MessageBox.Show("н502б");
+            }
         }
 
         public static void ResetParameters()

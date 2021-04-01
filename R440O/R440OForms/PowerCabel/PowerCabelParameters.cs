@@ -51,8 +51,13 @@ namespace R440O.R440OForms.PowerCabel
         private static void OnParameterChanged()
         {
             var handler = ParameterChanged;
-            if (handler != null) handler();
+            if (handler != null)
+            {
+                handler();
+                System.Windows.Forms.MessageBox.Show("Кабель напряжения");
+            }
         }
+
 
         public static void ResetParameters()
         {

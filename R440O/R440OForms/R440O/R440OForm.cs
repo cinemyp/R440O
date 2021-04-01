@@ -136,6 +136,9 @@ namespace R440O.R440OForms.R440O
 
         private void SetDefaultParameters()
         {
+            A306.A306Parameters.SetDefaultParameters();
+            A304.A304Parameters.SetDefaultParameters();
+            N15.N15Parameters.SetDefaultParameters();
             N502B.N502BParameters.SetDefaultParameters();
             VoltageStabilizer.VoltageStabilizerParameters.SetDefaultParameters();
             PowerCabel.PowerCabelParameters.SetDefaultParameters();

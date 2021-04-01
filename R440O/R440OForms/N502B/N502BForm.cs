@@ -10,8 +10,11 @@
 
     public partial class N502BForm : Form, IRefreshableForm
     {
+        bool isCurrentTestBlock = false;
+
         public N502BForm()
         {
+            
             InitializeComponent();
             N502BParameters.ParameterChanged += RefreshFormElements;
             N502BParameters.СтанцияСгорела += ВыводСообщенияСтанцияСгорела;
@@ -22,6 +25,7 @@
             //Если проходим режим обучения
             if (ParametersConfig.getIsLearning())
             {
+                isCurrentTestBlock = false;
                 switch (LearnMain.getIntent())
                 {
                     case ModulesEnum.openN502BtoCheck:
@@ -39,6 +43,7 @@
             }
             if (ParametersConfig.IsTesting)
             {
+                isCurrentTestBlock = true;
                 switch (TestMain.getIntent())
                 {
                     case ModulesEnum.openN502BtoCheck:
@@ -267,6 +272,7 @@
 
         public void RefreshFormElements()
         {
+
             ВремяРаботы.Text = Math.Round(N502BParameters.ВремяРаботыСтанции.TotalHours, 1).ToString(CultureInfo.CurrentCulture);
 
             this.RefreshLamps();
@@ -402,6 +408,7 @@
             }
             
         }
+        
         
     }
 }
