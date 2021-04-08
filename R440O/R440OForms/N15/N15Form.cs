@@ -4,8 +4,6 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-using R440O.InternalBlocks;
-using R440O.Parameters;
 using R440O.R440OForms.N15Inside;
 using R440O.R440OForms.N16;
 using R440O.ThirdParty;
@@ -44,8 +42,8 @@ namespace R440O.R440OForms.N15
                     LearnMain.setIntent(ModulesEnum.H15Inside_open_from_H15);
                     break;
             }
-            
-            
+
+
         }
 
         #region Инициализация элементов управления
@@ -535,11 +533,10 @@ namespace R440O.R440OForms.N15
                     }
                 }
             }
-            
 
-            }
+
         }
-
-        
     }
+
+
 }

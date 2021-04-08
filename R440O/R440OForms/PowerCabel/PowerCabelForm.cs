@@ -23,18 +23,19 @@ namespace R440O.R440OForms.PowerCabel
             PowerCabelParameters.СтанцияСгорела += ВыводСообщенияСтанцияСгорела;
             this.RefreshFormElements();
 
-            if (LearnMain.getIntent() == ModulesEnum.PowerCabelConnect)
-            { 
+            if (LearnMain.getIntent() == ModulesEnum.openPowerCabeltoPower)
+            {
+                LearnMain.setIntent(ModulesEnum.PowerCabelConnect);
                 LearnMain.form = this;
                 LearnMain.Action();
             }
+            if (TestMain.getIntent() == ModulesEnum.openPowerCabeltoPower)
+                TestMain.setIntent(ModulesEnum.PowerCabelConnect);
         }
         private void ВыводСообщенияСтанцияСгорела()
         {
             MessageBox.Show("Станция сгорела!", "ОШИБКА");
-
-            if(ParametersConfig.IsTesting)
-                TestMain.MakeBlunderMistake();
+            TestMain.MakeBlunderMistake();
         }
 
         #region Кабель СЕТЬ
@@ -71,9 +72,13 @@ namespace R440O.R440OForms.PowerCabel
             if (!PowerCabelParameters.КабельСеть)
             {
                 LearnMain.setIntent(ModulesEnum.openPowerCabeltoPower);
-            }      
-            else   LearnMain.setIntent(ModulesEnum.openN502BtoCheck);
-            
+                TestMain.setIntent(ModulesEnum.openPowerCabeltoPower);
+            }
+            else
+            {
+                LearnMain.setIntent(ModulesEnum.openN502BtoCheck);
+                TestMain.setIntent(ModulesEnum.openN502BtoCheck);
+            }
             PowerCabelParameters.ParameterChanged -= RefreshFormElements;
             PowerCabelParameters.СтанцияСгорела -= ВыводСообщенияСтанцияСгорела;
         }

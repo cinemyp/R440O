@@ -79,13 +79,6 @@ namespace R440O.R440OForms.R440O
                 form.Activate();
                 return;
             }
-            
-
-            if ((button.Name == "R440OButtonPowerCabel") && (LearnMain.getIntent() == ModulesEnum.openPowerCabeltoPower))
-            {
-                LearnMain.setIntent(ModulesEnum.PowerCabelConnect);
-            }
-
 
             // Открытие новой формы соответствующей нажатой кнопке
             try

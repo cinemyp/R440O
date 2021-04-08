@@ -119,8 +119,6 @@ namespace R440O.R440OForms.VoltageStabilizer
             if (handler != null)
             {
                 handler();
-
-                System.Windows.Forms.MessageBox.Show("Стабилизатор напряжения");
             }
         }
 

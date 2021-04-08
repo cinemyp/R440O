@@ -8,6 +8,7 @@ namespace R440O.LearnModule
 {
     enum ModulesEnum
     {
+        nill,
         openN15,
         N15Power,
         openN502BtoCheck,
