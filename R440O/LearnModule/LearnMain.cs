@@ -13,8 +13,9 @@ namespace R440O.LearnModule
     static class LearnMain
     {
         public static bool isMainWindow = true;
-        static ModulesEnum module = ModulesEnum.openN502BtoPower;
-        static IntentionEnum intent = IntentionEnum.open;
+        static ModulesEnum module = ModulesEnum.nill;
+        //static IntentionEnum intent = IntentionEnum.open;
+        //для выбора режима прохождения обучения
         public static GlobalIntentEnum globalIntent { get; set; } = GlobalIntentEnum.nill;
         static String helpText { get; set; }
         static List<HighLightModule> modules = new List<HighLightModule>();
@@ -79,6 +80,8 @@ namespace R440O.LearnModule
 
         public static void Action()
         {
+            if (!ParametersConfig.getIsLearning())
+                return;
             if (modules != null) StopHighLight();
 
             List<Control> controls = new List<Control>();

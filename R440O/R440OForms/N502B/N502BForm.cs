@@ -10,55 +10,51 @@
 
     public partial class N502BForm : Form, IRefreshableForm
     {
-        bool isCurrentTestBlock = false;
 
         public N502BForm()
         {
-            
+
             InitializeComponent();
             N502BParameters.ParameterChanged += RefreshFormElements;
             N502BParameters.СтанцияСгорела += ВыводСообщенияСтанцияСгорела;
-            N502BParameters.НекорректноеДействие+= ВыводСообщенияНекорректноеДействие;
+            N502BParameters.НекорректноеДействие += ВыводСообщенияНекорректноеДействие;
             RefreshFormElements();
 
             LearnMain.isMainWindow = false;
-            //Если проходим режим обучения
-            if (ParametersConfig.getIsLearning())
+
+            switch (LearnMain.getIntent())
             {
-                isCurrentTestBlock = false;
-                switch (LearnMain.getIntent())
-                {
-                    case ModulesEnum.openN502BtoCheck:
+                case ModulesEnum.openN502BtoCheck:
+                    LearnMain.form = this;
+                    LearnMain.setIntent(ModulesEnum.N502Check);
+                    break;
+                case ModulesEnum.openN502BtoPower:
+                    if (VoltageStabilizer.VoltageStabilizerParameters.КабельВход > 0)
+                    {
                         LearnMain.form = this;
-                        LearnMain.setIntent(ModulesEnum.N502Check);
-                        break;
-                    case ModulesEnum.openN502BtoPower:
-                        if (VoltageStabilizer.VoltageStabilizerParameters.КабельВход > 0)
-                        {
-                            LearnMain.form = this;
-                            LearnMain.setIntent(ModulesEnum.N502Power);
-                        }
-                        break;
-                }
-            }
-            if (ParametersConfig.IsTesting)
-            {
-                isCurrentTestBlock = true;
-                switch (TestMain.getIntent())
-                {
-                    case ModulesEnum.openN502BtoCheck:
-                        TestMain.setIntent(ModulesEnum.N502Check);
-                        break;
-                    case ModulesEnum.openN502BtoPower:
-                        if (VoltageStabilizer.VoltageStabilizerParameters.КабельВход > 0)
-                        {
-                            LearnMain.form = this;
-                            LearnMain.setIntent(ModulesEnum.N502Power);
-                        }
-                        break;
-                }
+                        LearnMain.setIntent(ModulesEnum.N502Power);
+                    }
+                    break;
+                default:
+                    break;
             }
             
+            switch (TestMain.getIntent())
+            {
+                case ModulesEnum.openN502BtoCheck:
+                    TestMain.setIntent(ModulesEnum.N502Check);
+                    break;
+                case ModulesEnum.openN502BtoPower:
+                    if (VoltageStabilizer.VoltageStabilizerParameters.КабельВход > 0)
+                    {
+                        TestMain.setIntent(ModulesEnum.N502Power);
+                    }
+                    break;
+                default:
+                    break;
+            }
+
+
 
         }
 
@@ -385,28 +381,41 @@
             N502BParameters.СтанцияСгорела -= ВыводСообщенияСтанцияСгорела;
             N502BParameters.НекорректноеДействие -= ВыводСообщенияНекорректноеДействие;
 
-            if (!ParametersConfig.getIsLearning())
-                return;
-
-            if(LearnMain.getIntent()==ModulesEnum.N502Check)
+            switch (LearnMain.getIntent())
             {
-               LearnMain.setIntent(ModulesEnum.openVoltageStabilizer);     
+                case ModulesEnum.N502Check:
+                    LearnMain.setIntent(ModulesEnum.openVoltageStabilizer);
+                    break;
+                case ModulesEnum.N502Power:
+                    if ((N502BParameters.ЛампочкаСфазировано) &&
+                        (N502BParameters.Н15Включен) &&
+                        (N502BParameters.ТумблерЭлектрооборудование) &&
+                        (N502BParameters.ТумблерН13_1) &&
+                        (N502BParameters.ТумблерН13_2) &&
+                        (N502BParameters.ТумблерВыпрямитель27В))
+                        LearnMain.setIntent(ModulesEnum.openN15);
+                    break;
             }
-
-            if ((LearnMain.getIntent() == ModulesEnum.N502Power) && 
-                (N502BParameters.ЛампочкаСфазировано) && 
-                (N502BParameters.Н15Включен) && 
-                (N502BParameters.ТумблерЭлектрооборудование) &&
-                (N502BParameters.ТумблерН13_1) && 
-                (N502BParameters.ТумблерН13_2) && 
-                (N502BParameters.ТумблерВыпрямитель27В)) 
+            switch (TestMain.getIntent())
             {
-                if (LearnMain.globalIntent == GlobalIntentEnum.nill)
-                    LearnMain.setIntent(ModulesEnum.chooseLearnType);
-
-                LearnMain.setIntent(ModulesEnum.openN15);
+                case ModulesEnum.N502Check:
+                    TestMain.setIntent(ModulesEnum.openVoltageStabilizer);
+                    break;
+                case ModulesEnum.N502Power:
+                    if ((N502BParameters.ЛампочкаСфазировано) &&
+                        (N502BParameters.Н15Включен) &&
+                        (N502BParameters.ТумблерЭлектрооборудование) &&
+                        (N502BParameters.ТумблерН13_1) &&
+                        (N502BParameters.ТумблерН13_2) &&
+                        (N502BParameters.ТумблерВыпрямитель27В))
+                        TestMain.setIntent(ModulesEnum.openN15);
+                    break;
             }
-            
+            //if (LearnMain.globalIntent == GlobalIntentEnum.nill)
+            //    LearnMain.setIntent(ModulesEnum.chooseLearnType);
+
+
+
         }
         
         

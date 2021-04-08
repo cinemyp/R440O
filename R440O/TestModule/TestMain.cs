@@ -11,7 +11,7 @@ namespace R440O.TestModule
 {
     static class TestMain
     {
-        private static ModulesEnum module = ModulesEnum.openN502BtoPower;
+        private static ModulesEnum module = ModulesEnum.nill;
         //static IntentionEnum intent = IntentionEnum.open;  Понять как можно использовать 
         public static GlobalIntentEnum globalIntent { get; set; } = GlobalIntentEnum.nill;
         private static R440OForm mainForm;
@@ -26,6 +26,8 @@ namespace R440O.TestModule
 
         public static void setIntent(ModulesEnum intention)
         {
+            if (ParametersConfig.IsTesting == false)
+                return;
             module = intention;
             Action();
         }
@@ -40,6 +42,8 @@ namespace R440O.TestModule
         }
         public static void MakeBlunderMistake()
         {
+            if (ParametersConfig.IsTesting == false)
+                return;
             //blunderMistakes++;
             //TODO: сказать, ты лох тупой, завершить тестирование и послать нахуй
             testResult.MinusPoint(3);
@@ -48,8 +52,10 @@ namespace R440O.TestModule
 
         public static void MakeSoftMistake()
         {
+            if (ParametersConfig.IsTesting == false)
+                return;
             //TODO: прибавляем не грубую ошибку (студент совершил некорректное действие)
-            if(testResult.MinusPoint() == true) //true - провалил, завершаем тест, иначе продолжаем
+            if (testResult.MinusPoint() == true) //true - провалил, завершаем тест, иначе продолжаем
                 FinishTest();
             softMistakes++;
         }
@@ -80,6 +86,7 @@ namespace R440O.TestModule
         }
         private static void FinishTest()
         {
+            
             ParametersConfig.IsTesting = false;
             //TODO: сформровать результаты и отправить на сервер
             testResult.testingTime = new DateTime();

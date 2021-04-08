@@ -3,6 +3,7 @@
     using System.Windows.Forms;
     using BaseClasses;
     using global::R440O.LearnModule;
+    using global::R440O.TestModule;
     using ThirdParty;
 
     /// <summary>
@@ -24,6 +25,10 @@
             {
                 LearnMain.form = this;
                 LearnMain.setIntent(ModulesEnum.VoltageStabilizerSetUp);
+            }
+            if (TestMain.getIntent() == ModulesEnum.openVoltageStabilizer)
+            {
+                TestMain.setIntent(ModulesEnum.VoltageStabilizerSetUp);
             }
         }
 
@@ -128,6 +133,13 @@
             { 
                 LearnMain.setIntent(ModulesEnum.openN502BtoPower);
             } else LearnMain.setIntent(ModulesEnum.openVoltageStabilizer);
+
+            if ((TestMain.getIntent() == ModulesEnum.VoltageStabilizerSetUp)
+                && (VoltageStabilizerParameters.КабельВход > 0))
+            {
+                TestMain.setIntent(ModulesEnum.openN502BtoPower);
+            }
+            else TestMain.setIntent(ModulesEnum.openVoltageStabilizer);
         }
        
     }

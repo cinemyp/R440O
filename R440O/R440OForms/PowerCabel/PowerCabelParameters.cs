@@ -54,7 +54,6 @@ namespace R440O.R440OForms.PowerCabel
             if (handler != null)
             {
                 handler();
-                System.Windows.Forms.MessageBox.Show("Кабель напряжения");
             }
         }
 

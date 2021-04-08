@@ -441,8 +441,6 @@ namespace R440O.R440OForms.N502B
             if (handler != null)
             {
                 handler();
-
-                MessageBox.Show("н502б");
             }
         }
 
