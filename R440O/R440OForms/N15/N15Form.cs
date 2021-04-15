@@ -12,6 +12,7 @@ namespace R440O.R440OForms.N15
 {
     using BaseClasses;
     using global::R440O.LearnModule;
+    using global::R440O.TestModule;
     using System;
     using System.Linq;
     using System.Windows.Forms;
@@ -42,7 +43,15 @@ namespace R440O.R440OForms.N15
                     LearnMain.setIntent(ModulesEnum.H15Inside_open_from_H15);
                     break;
             }
-
+            switch (TestMain.getIntent())
+            {
+                case ModulesEnum.openN15:
+                    TestMain.setIntent(ModulesEnum.N15Power);
+                    break;
+                case ModulesEnum.H15Inside_open:
+                    TestMain.setIntent(ModulesEnum.H15Inside_open_from_H15);
+                    break;
+            }
 
         }
 
