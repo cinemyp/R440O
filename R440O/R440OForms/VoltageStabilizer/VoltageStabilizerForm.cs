@@ -9,8 +9,10 @@
     /// <summary>
     /// Форма блока стабилизатор напряжения
     /// </summary>
-    public partial class VoltageStabilizerForm : Form, IRefreshableForm
+    public partial class VoltageStabilizerForm : Form, IRefreshableForm, ITestModule
     {
+        public bool IsExactModule { get; set; }
+
         /// <summary>
         /// Инициализирует новый экземпляр класса <see cref="VoltageStabilizerForm"/>
         /// </summary>
@@ -28,6 +30,7 @@
             }
             if (TestMain.getIntent() == ModulesEnum.openVoltageStabilizer)
             {
+                IsExactModule = true;
                 TestMain.setIntent(ModulesEnum.VoltageStabilizerSetUp);
             }
         }
@@ -128,6 +131,11 @@
             VoltageStabilizerParameters.ParameterChanged -= RefreshFormElements;
             VoltageStabilizerParameters.ОператорСтанцииПораженТоком -= ВыводСообщенияОператорСтанцииПоражёнТоком;
 
+            if(ParametersConfig.IsTesting)
+            {
+                VoltageStabilizerParameters.ParameterChanged -= HandleTestingModule;
+            }
+
             if((LearnMain.getIntent() == ModulesEnum.VoltageStabilizerSetUp)
                 && (VoltageStabilizerParameters.КабельВход>0))
             { 
@@ -141,6 +149,11 @@
             }
             else TestMain.setIntent(ModulesEnum.openVoltageStabilizer);
         }
-       
+
+        public void HandleTestingModule()
+        {
+            if (IsExactModule == false)
+                TestMain.MakeSoftMistake();
+        }
     }
 }

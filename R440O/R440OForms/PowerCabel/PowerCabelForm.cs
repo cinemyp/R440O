@@ -11,8 +11,11 @@ namespace R440O.R440OForms.PowerCabel
     /// <summary>
     /// Форма блока кабель питания
     /// </summary>
-    public partial class PowerCabelForm : Form, IRefreshableForm
+    public partial class PowerCabelForm : Form, IRefreshableForm, ITestModule
     {
+        public bool IsExactModule { get; set; }
+        public bool ModuleHasDone { get; set; }
+
         /// <summary>
         /// Инициализирует новый экземпляр класса <see cref="PowerCabelForm"/>
         /// </summary>
@@ -21,6 +24,10 @@ namespace R440O.R440OForms.PowerCabel
             InitializeComponent();
             PowerCabelParameters.ParameterChanged += RefreshFormElements;
             PowerCabelParameters.СтанцияСгорела += ВыводСообщенияСтанцияСгорела;
+
+            if(ParametersConfig.IsTesting)
+                PowerCabelParameters.ParameterChanged += HandleTestingModule;
+
             this.RefreshFormElements();
 
             if (LearnMain.getIntent() == ModulesEnum.openPowerCabeltoPower)
@@ -29,8 +36,12 @@ namespace R440O.R440OForms.PowerCabel
                 LearnMain.form = this;
                 LearnMain.Action();
             }
+
             if (TestMain.getIntent() == ModulesEnum.openPowerCabeltoPower)
+            {
                 TestMain.setIntent(ModulesEnum.PowerCabelConnect);
+                IsExactModule = true;
+            }
         }
         private void ВыводСообщенияСтанцияСгорела()
         {
@@ -66,9 +77,16 @@ namespace R440O.R440OForms.PowerCabel
         }
         #endregion
 
+        public void HandleTestingModule()
+        {
+            if(IsExactModule == false)
+            {
+                TestMain.MakeSoftMistake();
+            }
+        }
+
         private void PowerCabelForm_FormClosed(object sender, FormClosedEventArgs e)
         {
-
             if (!PowerCabelParameters.КабельСеть)
             {
                 LearnMain.setIntent(ModulesEnum.openPowerCabeltoPower);
@@ -79,8 +97,14 @@ namespace R440O.R440OForms.PowerCabel
                 LearnMain.setIntent(ModulesEnum.openN502BtoCheck);
                 TestMain.setIntent(ModulesEnum.openN502BtoCheck);
             }
+
             PowerCabelParameters.ParameterChanged -= RefreshFormElements;
             PowerCabelParameters.СтанцияСгорела -= ВыводСообщенияСтанцияСгорела;
+
+            if (ParametersConfig.IsTesting)
+            {
+                PowerCabelParameters.ParameterChanged -= HandleTestingModule;
+            }
         }
     }
 }

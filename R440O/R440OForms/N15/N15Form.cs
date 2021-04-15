@@ -12,6 +12,7 @@ namespace R440O.R440OForms.N15
 {
     using BaseClasses;
     using global::R440O.LearnModule;
+    using global::R440O.TestModule;
     using System;
     using System.Linq;
     using System.Windows.Forms;
@@ -19,8 +20,10 @@ namespace R440O.R440OForms.N15
     /// <summary>
     /// Форма блока Н-15
     /// </summary>
-    public partial class N15Form : Form, IRefreshableForm
+    public partial class N15Form : Form, IRefreshableForm, ITestModule
     {
+        public bool IsExactModule { get; set; }
+        
         /// <summary>
         /// Инициализирует новый экземпляр класса <see cref="N15Form"/>
         /// </summary>
@@ -28,9 +31,12 @@ namespace R440O.R440OForms.N15
         {
             this.InitializeComponent();
             N15Parameters.ParameterChanged += RefreshFormElements;
+
+            if (ParametersConfig.IsTesting)
+                N15Parameters.ParameterChanged += HandleTestingModule;
+
             N15Parameters.IndicatorChanged += RefreshIndicator;
             RefreshFormElements();
-
 
             LearnMain.form = this;
             switch (LearnMain.getIntent())
@@ -42,8 +48,6 @@ namespace R440O.R440OForms.N15
                     LearnMain.setIntent(ModulesEnum.H15Inside_open_from_H15);
                     break;
             }
-
-
         }
 
         #region Инициализация элементов управления
@@ -372,7 +376,7 @@ namespace R440O.R440OForms.N15
         #region Регуляторы
 
         private static bool isManipulation;
-
+        
         private void Регулятор_MouseDown(object sender, MouseEventArgs e)
         {
             isManipulation = true;
@@ -533,8 +537,12 @@ namespace R440O.R440OForms.N15
                     }
                 }
             }
+        }
 
-
+        public void HandleTestingModule()
+        {
+            if (IsExactModule == false)
+                TestMain.MakeSoftMistake();
         }
     }
 
