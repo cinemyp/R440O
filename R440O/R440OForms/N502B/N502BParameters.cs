@@ -12,6 +12,8 @@ namespace R440O.R440OForms.N502B
 
     public static class N502BParameters
     {
+        static bool ModuleHasDone { get; set; }
+
         static N502BParameters()
         {
             StationTimer = new Timer();

@@ -82,6 +82,7 @@
       <DependentUpon>BackgroundImages.resx</DependentUpon>
     </Compile>
     <Compile Include="BaseClasses\IRefreshableForm.cs" />
+    <Compile Include="BaseClasses\ITestModule.cs" />
     <Compile Include="ControlElementImages.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

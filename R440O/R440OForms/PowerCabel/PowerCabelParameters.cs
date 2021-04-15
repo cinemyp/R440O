@@ -1,9 +1,7 @@
 ﻿using System;
-using R440O.R440OForms.VoltageStabilizer;
 
 namespace R440O.R440OForms.PowerCabel
 {
-
     using N502B;
 
     public static class PowerCabelParameters
@@ -37,8 +35,9 @@ namespace R440O.R440OForms.PowerCabel
             {
                 if (!N502BParameters.ПереключательСеть) _кабельСеть = value;
                 else СтанцияСгорела();
-
+                
                 OnParameterChanged();
+
                 N502BParameters.ResetParameters();
             }
         }
