@@ -8,14 +8,18 @@
     using global::R440O.LearnModule;
     using global::R440O.TestModule;
 
-    public partial class N502BForm : Form, IRefreshableForm
+    public partial class N502BForm : Form, IRefreshableForm, ITestModule
     {
+        public bool IsExactModule { get; set; }
 
         public N502BForm()
         {
-
             InitializeComponent();
             N502BParameters.ParameterChanged += RefreshFormElements;
+
+            if (ParametersConfig.IsTesting)
+                N502BParameters.ParameterChanged += HandleTestingModule;
+
             N502BParameters.СтанцияСгорела += ВыводСообщенияСтанцияСгорела;
             N502BParameters.НекорректноеДействие += ВыводСообщенияНекорректноеДействие;
             RefreshFormElements();
@@ -42,9 +46,11 @@
             switch (TestMain.getIntent())
             {
                 case ModulesEnum.openN502BtoCheck:
+                    IsExactModule = true;
                     TestMain.setIntent(ModulesEnum.N502Check);
                     break;
                 case ModulesEnum.openN502BtoPower:
+                    IsExactModule = true;
                     if (VoltageStabilizer.VoltageStabilizerParameters.КабельВход > 0)
                     {
                         TestMain.setIntent(ModulesEnum.N502Power);
@@ -52,10 +58,8 @@
                     break;
                 default:
                     break;
+                    
             }
-
-
-
         }
 
         private void ВыводСообщенияСтанцияСгорела()
@@ -381,6 +385,11 @@
             N502BParameters.СтанцияСгорела -= ВыводСообщенияСтанцияСгорела;
             N502BParameters.НекорректноеДействие -= ВыводСообщенияНекорректноеДействие;
 
+            if (ParametersConfig.IsTesting)
+            {
+                N502BParameters.ParameterChanged -= HandleTestingModule;
+            }
+
             switch (LearnMain.getIntent())
             {
                 case ModulesEnum.N502Check:
@@ -408,16 +417,23 @@
                         (N502BParameters.ТумблерН13_1) &&
                         (N502BParameters.ТумблерН13_2) &&
                         (N502BParameters.ТумблерВыпрямитель27В))
+                    {
                         TestMain.setIntent(ModulesEnum.openN15);
+                        IsExactModule = false;
+                    }
                     break;
             }
             //if (LearnMain.globalIntent == GlobalIntentEnum.nill)
             //    LearnMain.setIntent(ModulesEnum.chooseLearnType);
 
-
-
         }
-        
-        
+
+        public void HandleTestingModule()
+        {
+            if(IsExactModule == false)
+            {
+                TestMain.MakeSoftMistake();
+            }
+        }
     }
 }

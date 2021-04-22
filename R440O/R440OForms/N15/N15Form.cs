@@ -20,8 +20,10 @@ namespace R440O.R440OForms.N15
     /// <summary>
     /// Форма блока Н-15
     /// </summary>
-    public partial class N15Form : Form, IRefreshableForm
+    public partial class N15Form : Form, IRefreshableForm, ITestModule
     {
+        public bool IsExactModule { get; set; }
+        
         /// <summary>
         /// Инициализирует новый экземпляр класса <see cref="N15Form"/>
         /// </summary>
@@ -29,9 +31,16 @@ namespace R440O.R440OForms.N15
         {
             this.InitializeComponent();
             N15Parameters.ParameterChanged += RefreshFormElements;
-            N15Parameters.IndicatorChanged += RefreshIndicator;
-            RefreshFormElements();
 
+            if (ParametersConfig.IsTesting)
+            {
+                N15Parameters.ParameterChanged += HandleTestingModule;
+                N15LocalParameters.ParameterChanged += HandleTestingModule;
+            }
+
+            N15Parameters.IndicatorChanged += RefreshIndicator;
+
+            RefreshFormElements();
 
             LearnMain.form = this;
             switch (LearnMain.getIntent())
@@ -47,11 +56,13 @@ namespace R440O.R440OForms.N15
             {
                 case ModulesEnum.openN15:
                     TestMain.setIntent(ModulesEnum.N15Power);
+                    IsExactModule = true;
                     break;
                 case ModulesEnum.H15Inside_open:
                     TestMain.setIntent(ModulesEnum.H15Inside_open_from_H15);
                     break;
             }
+
 
         }
 
@@ -181,6 +192,8 @@ namespace R440O.R440OForms.N15
         /// <param name="parameterName"></param>
         private void RefreshFormElement(string parameterName)
         {
+            if (Panel.Controls.Count == 0)
+                return;
             var item = Panel.Controls.Find(parameterName, false)[0];
             if (item == null) return;
             if (!item.Name.Contains("Тумблер")) return;
@@ -381,7 +394,7 @@ namespace R440O.R440OForms.N15
         #region Регуляторы
 
         private static bool isManipulation;
-
+        
         private void Регулятор_MouseDown(object sender, MouseEventArgs e)
         {
             isManipulation = true;
@@ -526,6 +539,12 @@ namespace R440O.R440OForms.N15
         {
             N15Parameters.ParameterChanged -= RefreshFormElements;
 
+            if(ParametersConfig.IsTesting)
+            {
+                N15Parameters.ParameterChanged -= HandleTestingModule;
+                N15LocalParameters.ParameterChanged -= HandleTestingModule;
+            }
+
             if (LearnMain.getIntent() == ModulesEnum.N15Power)
             {
                 if (LearnMain.globalIntent == GlobalIntentEnum.OneChannel)
@@ -543,7 +562,26 @@ namespace R440O.R440OForms.N15
                 }
             }
 
+            if (TestMain.getIntent() == ModulesEnum.N15Power)
+            {
+                if (N15Parameters.ТумблерЦ300М1 && N15Parameters.ТумблерЦ300М2 && N15Parameters.ТумблерЦ300М3 && N15Parameters.ТумблерЦ300М4 &&
+                    N15Parameters.ТумблерАФСС && !N15Parameters.ТумблерАнтЭкв && N15Parameters.ТумблерА403 && N15Parameters.ЛампочкаБМА_1 &&
+                    N15Parameters.ЛампочкаБМА_2 && N15Parameters.ЛампочкаМШУ && N15Parameters.ТумблерТлфТлгПрд && N15Parameters.ТумблерТлфТлгПрм)
+                {
+                    TestMain.setIntent(ModulesEnum.A205_m1_Open);
+                }
+                else
+                {
+                    TestMain.setIntent(ModulesEnum.openN15);
+                }
 
+            }
+        }
+
+        public void HandleTestingModule()
+        {
+            if (IsExactModule == false)
+                TestMain.MakeSoftMistake();
         }
     }
 
