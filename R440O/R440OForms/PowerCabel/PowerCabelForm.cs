@@ -14,7 +14,6 @@ namespace R440O.R440OForms.PowerCabel
     public partial class PowerCabelForm : Form, IRefreshableForm, ITestModule
     {
         public bool IsExactModule { get; set; }
-        public bool ModuleHasDone { get; set; }
 
         /// <summary>
         /// Инициализирует новый экземпляр класса <see cref="PowerCabelForm"/>

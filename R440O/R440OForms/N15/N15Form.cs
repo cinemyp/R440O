@@ -33,9 +33,13 @@ namespace R440O.R440OForms.N15
             N15Parameters.ParameterChanged += RefreshFormElements;
 
             if (ParametersConfig.IsTesting)
+            {
                 N15Parameters.ParameterChanged += HandleTestingModule;
+                N15LocalParameters.ParameterChanged += HandleTestingModule;
+            }
 
             N15Parameters.IndicatorChanged += RefreshIndicator;
+
             RefreshFormElements();
 
             LearnMain.form = this;
@@ -46,6 +50,16 @@ namespace R440O.R440OForms.N15
                     break;
                 case ModulesEnum.H15Inside_open:
                     LearnMain.setIntent(ModulesEnum.H15Inside_open_from_H15);
+                    break;
+            }
+            switch (TestMain.getIntent())
+            {
+                case ModulesEnum.openN15:
+                    TestMain.setIntent(ModulesEnum.N15Power);
+                    IsExactModule = true;
+                    break;
+                case ModulesEnum.H15Inside_open:
+                    TestMain.setIntent(ModulesEnum.H15Inside_open_from_H15);
                     break;
             }
 
@@ -178,6 +192,8 @@ namespace R440O.R440OForms.N15
         /// <param name="parameterName"></param>
         private void RefreshFormElement(string parameterName)
         {
+            if (Panel.Controls.Count == 0)
+                return;
             var item = Panel.Controls.Find(parameterName, false)[0];
             if (item == null) return;
             if (!item.Name.Contains("Тумблер")) return;
@@ -523,6 +539,12 @@ namespace R440O.R440OForms.N15
         {
             N15Parameters.ParameterChanged -= RefreshFormElements;
 
+            if(ParametersConfig.IsTesting)
+            {
+                N15Parameters.ParameterChanged -= HandleTestingModule;
+                N15LocalParameters.ParameterChanged -= HandleTestingModule;
+            }
+
             if (LearnMain.getIntent() == ModulesEnum.N15Power)
             {
                 if (LearnMain.globalIntent == GlobalIntentEnum.OneChannel)
@@ -538,6 +560,21 @@ namespace R440O.R440OForms.N15
                         LearnMain.setIntent(ModulesEnum.openN15);
                     }
                 }
+            }
+
+            if (TestMain.getIntent() == ModulesEnum.N15Power)
+            {
+                if (N15Parameters.ТумблерЦ300М1 && N15Parameters.ТумблерЦ300М2 && N15Parameters.ТумблерЦ300М3 && N15Parameters.ТумблерЦ300М4 &&
+                    N15Parameters.ТумблерАФСС && !N15Parameters.ТумблерАнтЭкв && N15Parameters.ТумблерА403 && N15Parameters.ЛампочкаБМА_1 &&
+                    N15Parameters.ЛампочкаБМА_2 && N15Parameters.ЛампочкаМШУ && N15Parameters.ТумблерТлфТлгПрд && N15Parameters.ТумблерТлфТлгПрм)
+                {
+                    TestMain.setIntent(ModulesEnum.A205_m1_Open);
+                }
+                else
+                {
+                    TestMain.setIntent(ModulesEnum.openN15);
+                }
+
             }
         }
 
