@@ -2,10 +2,6 @@
 using R440O.R440OForms.R440O;
 using R440O.ThirdParty;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace R440O.TestModule
 {
@@ -14,7 +10,6 @@ namespace R440O.TestModule
         private static ModulesEnum module = ModulesEnum.nill;
         //static IntentionEnum intent = IntentionEnum.open;  Понять как можно использовать 
         public static GlobalIntentEnum globalIntent { get; set; } = GlobalIntentEnum.nill;
-        private static R440OForm mainForm;
         
         private static int softMistakes;
         private static IDisposable timer;
@@ -93,7 +88,7 @@ namespace R440O.TestModule
             testResult.testingTime.AddMinutes(timeInMinutes);
 
             TestResultForm tr = new TestResultForm(testResult);
-            tr.Show();
+            tr.ShowDialog();
             //Закрыть окно станции
             close?.Invoke();
             //TODO: открыть главное меню
