@@ -2,10 +2,11 @@
 
 namespace R440O.R440OForms.VoltageStabilizer
 {
-    using N502B;
+    using global::R440O.BaseClasses;
 
     public static class VoltageStabilizerParameters
     {
+        public static ITestModule TestModuleRef { get; set; }
         #region Лампочки
 
         public static bool ЛампочкаСеть
@@ -110,16 +111,20 @@ namespace R440O.R440OForms.VoltageStabilizer
         #endregion
 
         #region Обновление переменных и формы
+        public delegate void TestModuleHandler(ITestModule module);
+        public static event TestModuleHandler Action;
         public delegate void ParameterChangedHandler();
         public static event ParameterChangedHandler ParameterChanged;
 
         private static void OnParameterChanged()
         {
-            var handler = ParameterChanged;
-            if (handler != null)
-            {
-                handler();
-            }
+            ParameterChanged?.Invoke();
+            OnAction();
+        }
+
+        private static void OnAction()
+        {
+            Action?.Invoke(TestModuleRef);
         }
 
         public static void ResetParameters()
