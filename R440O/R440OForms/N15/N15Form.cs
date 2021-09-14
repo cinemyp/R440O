@@ -34,8 +34,10 @@ namespace R440O.R440OForms.N15
 
             if (ParametersConfig.IsTesting)
             {
-                N15Parameters.ParameterChanged += HandleTestingModule;
-                N15LocalParameters.ParameterChanged += HandleTestingModule;
+                N15Parameters.TestModuleRef = this;
+                N15Parameters.Action += TestMain.Action;
+                N15LocalParameters.TestModuleRef = this;
+                N15LocalParameters.Action += TestMain.Action;
             }
 
             N15Parameters.IndicatorChanged += RefreshIndicator;
@@ -539,10 +541,10 @@ namespace R440O.R440OForms.N15
         {
             N15Parameters.ParameterChanged -= RefreshFormElements;
 
-            if(ParametersConfig.IsTesting)
+            if (ParametersConfig.IsTesting)
             {
-                N15Parameters.ParameterChanged -= HandleTestingModule;
-                N15LocalParameters.ParameterChanged -= HandleTestingModule;
+                N15Parameters.Action -= TestMain.Action;
+                N15LocalParameters.Action -= TestMain.Action;
             }
 
             if (LearnMain.getIntent() == ModulesEnum.N15Power)
@@ -576,12 +578,6 @@ namespace R440O.R440OForms.N15
                 }
 
             }
-        }
-
-        public void HandleTestingModule()
-        {
-            if (IsExactModule == false)
-                TestMain.MakeSoftMistake();
         }
     }
 

@@ -3,6 +3,7 @@
 namespace R440O.R440OForms.VoltageStabilizer
 {
     using global::R440O.BaseClasses;
+    using global::R440O.R440OForms.N502B;
 
     public static class VoltageStabilizerParameters
     {

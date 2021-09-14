@@ -43,6 +43,8 @@ namespace R440O.R440OForms.N15
 
     public static class N15Parameters
     {
+        public static ITestModule TestModuleRef { get; set; }
+        
         public static bool Включен
         {
             get { return N502BParameters.Н15Включен && НеполноеВключение; }
@@ -934,21 +936,27 @@ namespace R440O.R440OForms.N15
             B3_2Parameters.ResetParameters();
         }
 
+        public delegate void TestModuleHandler(ITestModule module);
+        public static event TestModuleHandler Action;
         public delegate void ParameterChangedHandler();
         public static event ParameterChangedHandler ParameterChanged;
 
         private static void OnParameterChanged()
         {
-            var handler = ParameterChanged;
-            if (handler != null) handler();
+            ParameterChanged?.Invoke();
+            OnAction();
+        }
+
+        private static void OnAction()
+        {
+            Action?.Invoke(TestModuleRef);
         }
 
         public static event ParameterChangedHandler IndicatorChanged;
 
         private static void OnIndicatorChanged()
         {
-            var handler = IndicatorChanged;
-            if (handler != null) handler();
+            IndicatorChanged?.Invoke();
         }
         #endregion
 

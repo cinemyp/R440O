@@ -14,6 +14,7 @@ namespace R440O.R440OForms.N15Inside
 
     public class N15InsideParameters
     {
+        public static ITestModule TestModuleRef { get; set; }
         #region Работа блока
         public static bool Включен
         {
@@ -306,14 +307,20 @@ namespace R440O.R440OForms.N15Inside
         }
         #endregion
 
+        public delegate void TestModuleHandler(ITestModule module);
+        public static event TestModuleHandler Action;
         public delegate void ParameterChangedHandler();
         public static event ParameterChangedHandler ParameterChanged;
 
         private static void OnParameterChanged()
         {
-            var handler = ParameterChanged;
-            if (handler != null) handler();
+            ParameterChanged?.Invoke();
             A205M_1Parameters.ResetParameters();
+            OnAction();
+        }
+        private static void OnAction()
+        {
+            Action?.Invoke(TestModuleRef);
         }
     }
 }

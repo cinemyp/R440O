@@ -5,12 +5,15 @@
     using ThirdParty;
     using ShareTypes.SignalTypes;
     using global::R440O.LearnModule;
+    using global::R440O.TestModule;
 
     /// <summary>
     /// Форма внутренней части блока Н15
     /// </summary>
-    public partial class N15InsideForm : Form, IRefreshableForm
+    public partial class N15InsideForm : Form, IRefreshableForm, ITestModule
     {
+        public bool IsExactModule { get; set; }
+
         /// <summary>
         /// Инициализирует новый экземпляр класса <see cref="N15InsideForm"/>
         /// </summary>
@@ -19,7 +22,11 @@
             this.InitializeComponent();
             N15InsideParameters.ParameterChanged += RefreshFormElements;
             RefreshFormElements();
-
+            if (ParametersConfig.IsTesting)
+            {
+                N15InsideParameters.TestModuleRef = this;
+                N15InsideParameters.Action += TestMain.Action;
+            }
             LearnMain.form = this;
             switch (LearnMain.getIntent())
             {
@@ -40,6 +47,10 @@
         private void N15InsideForm_FormClosed(object sender, FormClosedEventArgs e)
         {
             N15InsideParameters.ParameterChanged -= RefreshFormElements;
+            if (ParametersConfig.IsTesting)
+            {
+                N15InsideParameters.Action -= TestMain.Action;
+            }
             Owner.Show();
         }
 
