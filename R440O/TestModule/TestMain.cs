@@ -2,6 +2,7 @@
 using R440O.R440OForms.R440O;
 using R440O.ThirdParty;
 using System;
+using System.Diagnostics;
 
 namespace R440O.TestModule
 {
@@ -14,6 +15,7 @@ namespace R440O.TestModule
         private static int softMistakes;
         private static IDisposable timer;
         private static int timeInMinutes = 0;
+        private static Stopwatch stopwatch;
         private static TestResult testResult;
 
         public delegate void ClosingForms();
@@ -34,6 +36,7 @@ namespace R440O.TestModule
         private static void Action()
         {
             //CHECK: подумать, что тут должно быть и должно ли это быть
+            
         }
         public static void MakeBlunderMistake()
         {
@@ -59,8 +62,9 @@ namespace R440O.TestModule
         {
             ParametersConfig.IsTesting = true;
             testResult = new TestResult();
+            stopwatch = new Stopwatch();
+            stopwatch.Start();
             timer = EasyTimer.SetInterval(SetTimer, 60000);
-            
         }
 
         private static void SetTimer()
@@ -76,16 +80,15 @@ namespace R440O.TestModule
                 //уменьшаем оценку на балл
                 testResult.MinusPoint();
                 FinishTest();
-                timer.Dispose();
             }
         }
         private static void FinishTest()
         {
-            
             ParametersConfig.IsTesting = false;
+            stopwatch.Stop();
+            timer.Dispose();
             //TODO: сформровать результаты и отправить на сервер
-            testResult.testingTime = new DateTime();
-            testResult.testingTime.AddMinutes(timeInMinutes);
+            testResult.testingTime = new DateTime().AddMilliseconds(stopwatch.ElapsedMilliseconds);
 
             TestResultForm tr = new TestResultForm(testResult);
             tr.ShowDialog();

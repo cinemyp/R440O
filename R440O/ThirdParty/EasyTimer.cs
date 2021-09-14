@@ -11,7 +11,6 @@ namespace R440O.ThirdParty
         public static IDisposable SetInterval(Action method, int delayMilliseconds)
         {
             Timer timer = new Timer(delayMilliseconds);
-
             timer.Elapsed += (source, e) =>
             {
                 method();
