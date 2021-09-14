@@ -7,12 +7,15 @@ namespace R440O.R440OForms.A205M_1
     using ThirdParty;
     using BaseClasses;
     using global::R440O.LearnModule;
+    using global::R440O.TestModule;
 
     /// <summary>
     /// Форма блока А205М-1
     /// </summary>
-    public partial class A205M_1Form : Form, IRefreshableForm
+    public partial class A205M_1Form : Form, IRefreshableForm, ITestModule
     {
+        public bool IsExactModule { get; set; }
+
         /// <summary>
         /// Инициализирует новый экземпляр класса <see cref="A205M_1Form"/>.
         /// </summary>
@@ -21,10 +24,22 @@ namespace R440O.R440OForms.A205M_1
             this.InitializeComponent();
             A205M_1Parameters.ParameterChanged += RefreshFormElements;
             RefreshFormElements();
+
+            if (ParametersConfig.IsTesting)
+            {
+                A205M_1Parameters.TestModuleRef = this;
+                A205M_1Parameters.Action += TestMain.Action;
+            }
+
             if (LearnMain.getIntent() == ModulesEnum.A205_m1_Open)
             {
                 LearnMain.form = this;
                 LearnMain.setIntent(ModulesEnum.A205_m1_Power);
+            }
+
+            if (TestMain.getIntent() == ModulesEnum.A205_m1_Open)
+            {
+                TestMain.setIntent(ModulesEnum.A205_m1_Power);
             }
         }
 
@@ -232,6 +247,17 @@ namespace R440O.R440OForms.A205M_1
                     }
                     else LearnMain.setIntent(ModulesEnum.A205_m1_Open);
                 }
+            }
+            if (TestMain.getIntent() == ModulesEnum.A205_m1_Power)
+            {
+                //if (LearnMain.globalIntent == GlobalIntentEnum.OneChannel)
+                //{
+                    if (A205M_1Parameters.ПереключательВидРаботы == 3 && A205M_1Parameters.ПереключательВходЧТ == 1)
+                    {
+                        TestMain.setIntent(ModulesEnum.H15Inside_open);
+                    }
+                    else TestMain.setIntent(ModulesEnum.A205_m1_Open);
+                //}
             }
         }
     }

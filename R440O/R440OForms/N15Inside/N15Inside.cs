@@ -22,11 +22,13 @@
             this.InitializeComponent();
             N15InsideParameters.ParameterChanged += RefreshFormElements;
             RefreshFormElements();
+
             if (ParametersConfig.IsTesting)
             {
                 N15InsideParameters.TestModuleRef = this;
                 N15InsideParameters.Action += TestMain.Action;
             }
+
             LearnMain.form = this;
             switch (LearnMain.getIntent())
             {
@@ -35,6 +37,15 @@
                     {
                         LearnMain.setIntent(ModulesEnum.H15Inside_power);
                     }
+                    break;
+            }
+            switch (TestMain.getIntent())
+            {
+                case ModulesEnum.H15Inside_open_from_H15:
+                    //if (TestMain.globalIntent == GlobalIntentEnum.OneChannel)
+                    //{
+                        TestMain.setIntent(ModulesEnum.H15Inside_power);
+                    //}
                     break;
             }
         }
