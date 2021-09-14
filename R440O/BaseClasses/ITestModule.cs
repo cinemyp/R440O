@@ -9,8 +9,5 @@ namespace R440O.BaseClasses
     public interface ITestModule
     {
         bool IsExactModule { get; set; }
-       
-
-        void HandleTestingModule();
     }
 }

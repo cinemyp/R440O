@@ -1,4 +1,5 @@
-﻿using R440O.LearnModule;
+﻿using R440O.BaseClasses;
+using R440O.LearnModule;
 using R440O.R440OForms.R440O;
 using R440O.ThirdParty;
 using System;
@@ -26,17 +27,18 @@ namespace R440O.TestModule
             if (ParametersConfig.IsTesting == false)
                 return;
             module = intention;
-            Action();
         }
         public static ModulesEnum getIntent()
         {
             return module;
         }
 
-        private static void Action()
+        public static void Action(ITestModule module)
         {
-            //CHECK: подумать, что тут должно быть и должно ли это быть
-            
+            if (module.IsExactModule == false)
+            {
+                MakeSoftMistake();
+            }
         }
         public static void MakeBlunderMistake()
         {
