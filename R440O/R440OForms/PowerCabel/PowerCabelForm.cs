@@ -1,6 +1,4 @@
-﻿using System.Runtime.CompilerServices;
-
-namespace R440O.R440OForms.PowerCabel
+﻿namespace R440O.R440OForms.PowerCabel
 {
     using BaseClasses;
     using global::R440O.LearnModule;
@@ -24,8 +22,11 @@ namespace R440O.R440OForms.PowerCabel
             PowerCabelParameters.ParameterChanged += RefreshFormElements;
             PowerCabelParameters.СтанцияСгорела += ВыводСообщенияСтанцияСгорела;
 
-            if(ParametersConfig.IsTesting)
-                PowerCabelParameters.ParameterChanged += HandleTestingModule;
+            if (ParametersConfig.IsTesting)
+            {
+                PowerCabelParameters.TestModuleRef = this;
+                PowerCabelParameters.Action += TestMain.Action;
+            }
 
             this.RefreshFormElements();
 
@@ -75,15 +76,7 @@ namespace R440O.R440OForms.PowerCabel
                 : null;
         }
         #endregion
-
-        public void HandleTestingModule()
-        {
-            if(IsExactModule == false)
-            {
-                TestMain.MakeSoftMistake();
-            }
-        }
-
+        
         private void PowerCabelForm_FormClosed(object sender, FormClosedEventArgs e)
         {
             if (!PowerCabelParameters.КабельСеть)
@@ -102,7 +95,7 @@ namespace R440O.R440OForms.PowerCabel
 
             if (ParametersConfig.IsTesting)
             {
-                PowerCabelParameters.ParameterChanged -= HandleTestingModule;
+                PowerCabelParameters.Action -= TestMain.Action;
             }
         }
     }

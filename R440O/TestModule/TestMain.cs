@@ -89,9 +89,9 @@ namespace R440O.TestModule
             ParametersConfig.IsTesting = false;
             stopwatch.Stop();
             timer.Dispose();
-            //TODO: сформровать результаты и отправить на сервер
             testResult.testingTime = new DateTime().AddMilliseconds(stopwatch.ElapsedMilliseconds);
 
+            //TODO: сформровать результаты и отправить на сервер
             TestResultForm tr = new TestResultForm(testResult);
             tr.ShowDialog();
             //Закрыть окно станции
