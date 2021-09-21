@@ -11,7 +11,7 @@ namespace R440O.TestModule
     {
         private static ModulesEnum module = ModulesEnum.nill;
         //static IntentionEnum intent = IntentionEnum.open;  Понять как можно использовать 
-        public static GlobalIntentEnum globalIntent { get; set; } = GlobalIntentEnum.nill;
+        public static GlobalIntentEnum globalIntent { get; set; } = GlobalIntentEnum.Normativ95;
         
         private static int softMistakes;
         private static IDisposable timer;

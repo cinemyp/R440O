@@ -60,6 +60,10 @@ namespace R440O.R440OForms.N15
                     TestMain.setIntent(ModulesEnum.N15Power);
                     IsExactModule = true;
                     break;
+                case ModulesEnum.openN15SmallLoop:
+                    TestMain.setIntent(ModulesEnum.N15SmallLoop);
+                    IsExactModule = true;
+                    break;
                 case ModulesEnum.H15Inside_open:
                     TestMain.setIntent(ModulesEnum.H15Inside_open_from_H15);
                     break;
@@ -563,20 +567,29 @@ namespace R440O.R440OForms.N15
                     }
                 }
             }
-
-            if (TestMain.getIntent() == ModulesEnum.N15Power)
+            switch(TestMain.getIntent())
             {
-                if (N15Parameters.ТумблерЦ300М1 && N15Parameters.ТумблерЦ300М2 && N15Parameters.ТумблерЦ300М3 && N15Parameters.ТумблерЦ300М4 &&
-                    N15Parameters.ТумблерАФСС && !N15Parameters.ТумблерАнтЭкв && N15Parameters.ТумблерА403 && N15Parameters.ЛампочкаБМА_1 &&
-                    N15Parameters.ЛампочкаБМА_2 && N15Parameters.ЛампочкаМШУ && N15Parameters.ТумблерТлфТлгПрд && N15Parameters.ТумблерТлфТлгПрм)
-                {
-                    TestMain.setIntent(ModulesEnum.A205_m1_Open);
-                }
-                else
-                {
-                    TestMain.setIntent(ModulesEnum.openN15);
-                }
-
+                //NB: здесь оставлена проверка на 95 норматив
+                case ModulesEnum.N15Power:
+                    if (N15LocalParameters.локТумблерА205Base && N15LocalParameters.локТумблерА20512 && N15Parameters.Н13_1)
+                    {
+                        TestMain.setIntent(ModulesEnum.A205_m1_Open);
+                    }
+                    else
+                    {
+                        TestMain.setIntent(ModulesEnum.openN15);
+                    }
+                    break;
+                case ModulesEnum.N15SmallLoop:
+                    if (N15Parameters.ТумблерМШУ && N15Parameters.ТумблерН12С && N15Parameters.ТумблерА503Б)
+                    {
+                        TestMain.setIntent(ModulesEnum.A304_open);
+                    }
+                    else
+                    {
+                        TestMain.setIntent(ModulesEnum.openN15SmallLoop);
+                    }
+                    break;
             }
         }
     }
