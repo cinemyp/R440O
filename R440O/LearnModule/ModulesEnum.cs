@@ -11,7 +11,7 @@ namespace R440O.LearnModule
         nill,
         openN15,
         N15Power,
-        openN15SmallLoop,
+        openN15SmallLoop, //малый шлейф
         N15SmallLoop,
         openN502BtoCheck,
         openN502BtoPower,
@@ -48,6 +48,7 @@ namespace R440O.LearnModule
         H15Inside_open,
         H15Inside_open_from_H15,
         H15Inside_power,
-        A304_open
+        A304_open,
+        A304_set_trunk
     }
 }

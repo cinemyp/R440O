@@ -2,6 +2,7 @@
 {
     using System.Windows.Forms;
     using BaseClasses;
+    using global::R440O.LearnModule;
     using global::R440O.TestModule;
     using ThirdParty;
 
@@ -25,6 +26,13 @@
             {
                 A304Parameters.TestModuleRef = this;
                 A304Parameters.Action += TestMain.Action;
+            }
+            switch (TestMain.getIntent())
+            {
+                case ModulesEnum.A304_open:
+                    TestMain.setIntent(ModulesEnum.A304_set_trunk);
+                    IsExactModule = true;
+                    break;
             }
         }
 
@@ -191,6 +199,21 @@
         private void A304Form_FormClosed(object sender, FormClosedEventArgs e)
         {
             A304Parameters.ParameterChanged -= RefreshFormElements;
+            switch (TestMain.getIntent())
+            {
+                case ModulesEnum.A304_set_trunk:
+                    if (A304Parameters.Комплект2Включен && 
+                        A304Parameters.ПереключательВыборСтвола == 5 && 
+                        A304Parameters.ТумблерКомплект == false)
+                    {
+                        TestMain.setIntent(ModulesEnum.H15Inside_open);
+                    }
+                    else
+                    {
+                        TestMain.setIntent(ModulesEnum.A304_open);
+                    }
+                    break;
+            }
         }
 
 

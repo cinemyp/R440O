@@ -62,6 +62,23 @@
             {
                 N15InsideParameters.Action -= TestMain.Action;
             }
+            switch (TestMain.getIntent())
+            {
+                case ModulesEnum.H15Inside_power:
+                    if (N15InsideParameters.ПереключательПУЛ480ПРМ_1 == 3 &&
+                        N15InsideParameters.ПереключательПУЛ480ПРМ_2 == 3 &&
+                        N15InsideParameters.ПереключательПУЛ48ПРД_1 == 3 &&
+                        N15InsideParameters.ПереключательПУЛ48ПРД_2 == 3 &&
+                        N15InsideParameters.ТумблерПУЛ480ПРМ_1 == Модуляция.ОФТ &&
+                        N15InsideParameters.ТумблерПУЛ480ПРМ_2 == Модуляция.ОФТ &&
+                        N15InsideParameters.ТумблерПУЛ48ПРД_1 == Модуляция.ОФТ &&
+                        N15InsideParameters.ТумблерПУЛ48ПРД_2 == Модуляция.ОФТ)
+                    {
+                        //TestMain.setIntent(ModulesEnum.N15);
+                        //TODO: доделать переход на н15
+                    }
+                    break;
+            }
             Owner.Show();
         }
 
