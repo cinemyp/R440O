@@ -40,6 +40,7 @@ namespace R440O.R440OForms.A205M_1
             if (TestMain.getIntent() == ModulesEnum.A205_m1_Open)
             {
                 TestMain.setIntent(ModulesEnum.A205_m1_Power);
+                IsExactModule = true;
             }
         }
 
@@ -248,26 +249,27 @@ namespace R440O.R440OForms.A205M_1
                     }
                     else LearnMain.setIntent(ModulesEnum.A205_m1_Open);
                 }
-                else if(TestMain.globalIntent == GlobalIntentEnum.Normativ95)
-                {
-                    if (A205M_1Parameters.ПереключательВидРаботы == 3 &&
-                        A205M_1Parameters.ПереключательВходЧТ == 1)
-                    {
-                        LearnMain.setIntent(ModulesEnum.openN15SmallLoop);
-                    }
-                    else LearnMain.setIntent(ModulesEnum.A205_m1_Open);
-                }
+                
             }
             if (TestMain.getIntent() == ModulesEnum.A205_m1_Power)
             {
-                //if (LearnMain.globalIntent == GlobalIntentEnum.OneChannel)
-                //{
+                if (TestMain.globalIntent == GlobalIntentEnum.OneChannel)
+                {
                     if (A205M_1Parameters.ПереключательВидРаботы == 3 && A205M_1Parameters.ПереключательВходЧТ == 1)
                     {
                         TestMain.setIntent(ModulesEnum.H15Inside_open);
                     }
                     else TestMain.setIntent(ModulesEnum.A205_m1_Open);
-                //}
+                }
+                else if (TestMain.globalIntent == GlobalIntentEnum.Normativ95)
+                {
+                    if (A205M_1Parameters.ПереключательВидРаботы == 3 &&
+                        A205M_1Parameters.ПереключательВходЧТ == 1)
+                    {
+                        TestMain.setIntent(ModulesEnum.openN15SmallLoop);
+                    }
+                    else TestMain.setIntent(ModulesEnum.A205_m1_Open);
+                }
             }
         }
     }

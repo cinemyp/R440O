@@ -206,7 +206,7 @@
                         A304Parameters.ПереключательВыборСтвола == 5 && 
                         A304Parameters.ТумблерКомплект == false)
                     {
-                        TestMain.setIntent(ModulesEnum.H15Inside_open);
+                        TestMain.setIntent(ModulesEnum.A306_open);
                     }
                     else
                     {

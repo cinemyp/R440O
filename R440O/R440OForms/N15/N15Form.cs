@@ -66,6 +66,7 @@ namespace R440O.R440OForms.N15
                     break;
                 case ModulesEnum.H15Inside_open:
                     TestMain.setIntent(ModulesEnum.H15Inside_open_from_H15);
+                    IsExactModule = true;
                     break;
             }
 

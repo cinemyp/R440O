@@ -10,6 +10,7 @@ using R440O.ThirdParty;
 using System.Collections.Generic;
 using System.Windows.Forms;
 using R440O.BaseClasses;
+using R440O.TestModule;
 
 namespace R440O.R440OForms.C300M_1
 {
@@ -459,6 +460,10 @@ namespace R440O.R440OForms.C300M_1
                 {
                     if (Включен)
                     {
+                        if (ParametersConfig.IsTesting)
+                        {
+                            TestMain.CheckTest();
+                        }
                         switch (КнопкиКонтрольРежима.PressedButton)
                         {
                             case 0:
@@ -511,7 +516,7 @@ namespace R440O.R440OForms.C300M_1
             get
             {
                 return Включен ? A306Parameters.ВыходнойСигнал1 : new BroadcastSignal();
-            }
+            }                   
         }
 
         public static Signal ПойманныйСигнал
@@ -674,7 +679,7 @@ namespace R440O.R440OForms.C300M_1
                         if (СоответствиеМодуляции(сигнал))
                         {
                             ОстановитьТаймер();
-                            СигналПойман = true;
+                            СигналПойман = true; 
                             break;
                         }
                         else

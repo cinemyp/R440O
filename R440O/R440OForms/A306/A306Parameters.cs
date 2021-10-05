@@ -8,11 +8,14 @@ using R440O.R440OForms.C300M_2;
 using R440O.R440OForms.C300M_3;
 using R440O.R440OForms.C300M_4;
 using System.Collections.Generic;
+using R440O.BaseClasses;
 
 namespace R440O.R440OForms.A306
 {
     public static class A306Parameters
     {
+        public static ITestModule TestModuleRef { get; set; }
+
         public static bool Включен
         {
             get
@@ -178,13 +181,21 @@ namespace R440O.R440OForms.A306
 
         }
 
+        public delegate void TestModuleHandler(ITestModule module);
+        public static event TestModuleHandler Action;
         public delegate void ParameterChangedHandler();
+
         public static event ParameterChangedHandler ParameterChanged;
 
         private static void OnParameterChanged()
         {
             var handler = ParameterChanged;
             if (handler != null) handler();
+            OnAction();
+        }
+        private static void OnAction()
+        {
+            Action?.Invoke(TestModuleRef);
         }
 
         public static void ResetParameters()

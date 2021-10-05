@@ -3,6 +3,8 @@ using R440O.BaseClasses;
 
 namespace R440O.R440OForms.A306
 {
+    using global::R440O.LearnModule;
+    using global::R440O.TestModule;
     using System;
     using System.Drawing;
     using System.Windows.Forms;
@@ -10,8 +12,10 @@ namespace R440O.R440OForms.A306
     /// <summary>
     /// Форма блока А306
     /// </summary>
-    public partial class A306Form : Form, IRefreshableForm
+    public partial class A306Form : Form, IRefreshableForm, ITestModule
     {
+        public bool IsExactModule { get; set; }
+
         /// <summary>
         /// Инициализирует новый экземпляр класса <see cref="A306Form"/>.
         /// </summary>
@@ -19,6 +23,19 @@ namespace R440O.R440OForms.A306
         {
             InitializeComponent();
             A306Parameters.ParameterChanged += RefreshFormElements;
+
+            if (ParametersConfig.IsTesting)
+            {
+                A306Parameters.TestModuleRef = this;
+                A306Parameters.Action += TestMain.Action;
+            }
+            switch (TestMain.getIntent())
+            {
+                case ModulesEnum.A306_open:
+                    TestMain.setIntent(ModulesEnum.A306_set);
+                    IsExactModule = true;
+                    break;
+            }
         }
 
         #region Тумблеры
@@ -314,6 +331,24 @@ namespace R440O.R440OForms.A306
         private void A306Form_FormClosed(object sender, FormClosedEventArgs e)
         {
             A306Parameters.ParameterChanged -= RefreshFormElements;
+            if (ParametersConfig.IsTesting)
+            {
+                A306Parameters.Action -= TestMain.Action;
+            }
+
+            switch (TestMain.getIntent())
+            {
+                case ModulesEnum.A306_set:
+                    if(A306Parameters.Выходы[1] == 0)
+                    {
+                        TestMain.setIntent(ModulesEnum.H15Inside_open);
+                    }
+                    else
+                    {
+                        TestMain.setIntent(ModulesEnum.A306_open);
+                    }
+                    break;
+            }
         }
     }
 }
