@@ -2,10 +2,13 @@
 
 namespace R440O.R440OForms.PowerCabel
 {
+    using global::R440O.BaseClasses;
     using N502B;
 
     public static class PowerCabelParameters
     {
+        public static ITestModule TestModuleRef { get; set; }
+
         static PowerCabelParameters()
         {
             Напряжение = 380;
@@ -43,19 +46,21 @@ namespace R440O.R440OForms.PowerCabel
         }
 
         public static int Напряжение;
-
+        public delegate void TestModuleHandler(ITestModule module);
+        public static event TestModuleHandler Action;
         public delegate void ParameterChangedHandler();
         public static event ParameterChangedHandler ParameterChanged;
 
         private static void OnParameterChanged()
         {
-            var handler = ParameterChanged;
-            if (handler != null)
-            {
-                handler();
-            }
+            ParameterChanged?.Invoke();
+            OnAction();
         }
 
+        private static void OnAction()
+        {
+            Action?.Invoke(TestModuleRef);
+        }
 
         public static void ResetParameters()
         {

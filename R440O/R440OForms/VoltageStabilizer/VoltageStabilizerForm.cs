@@ -12,7 +12,6 @@
     public partial class VoltageStabilizerForm : Form, IRefreshableForm, ITestModule
     {
         public bool IsExactModule { get; set; }
-
         /// <summary>
         /// Инициализирует новый экземпляр класса <see cref="VoltageStabilizerForm"/>
         /// </summary>
@@ -23,7 +22,13 @@
             VoltageStabilizerParameters.ОператорСтанцииПораженТоком += ВыводСообщенияОператорСтанцииПоражёнТоком;
             RefreshFormElements();
 
-            if(LearnMain.getIntent()==ModulesEnum.openVoltageStabilizer)
+            if (ParametersConfig.IsTesting)
+            {
+                VoltageStabilizerParameters.TestModuleRef = this;
+                VoltageStabilizerParameters.Action += TestMain.Action;
+            }
+
+            if (LearnMain.getIntent()==ModulesEnum.openVoltageStabilizer)
             {
                 LearnMain.form = this;
                 LearnMain.setIntent(ModulesEnum.VoltageStabilizerSetUp);
@@ -132,12 +137,12 @@
             VoltageStabilizerParameters.ParameterChanged -= RefreshFormElements;
             VoltageStabilizerParameters.ОператорСтанцииПораженТоком -= ВыводСообщенияОператорСтанцииПоражёнТоком;
 
-            if(ParametersConfig.IsTesting)
+            if (ParametersConfig.IsTesting)
             {
-                VoltageStabilizerParameters.ParameterChanged -= HandleTestingModule;
+                VoltageStabilizerParameters.Action -= TestMain.Action;
             }
 
-            if((LearnMain.getIntent() == ModulesEnum.VoltageStabilizerSetUp)
+            if ((LearnMain.getIntent() == ModulesEnum.VoltageStabilizerSetUp)
                 && (VoltageStabilizerParameters.КабельВход>0))
             { 
                 LearnMain.setIntent(ModulesEnum.openN502BtoPower);
@@ -149,12 +154,6 @@
                 TestMain.setIntent(ModulesEnum.openN502BtoPower);
             }
             else TestMain.setIntent(ModulesEnum.openVoltageStabilizer);
-        }
-
-        public void HandleTestingModule()
-        {
-            if (IsExactModule == false)
-                TestMain.MakeSoftMistake();
         }
     }
 }

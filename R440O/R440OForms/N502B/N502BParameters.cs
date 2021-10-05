@@ -9,10 +9,12 @@ namespace R440O.R440OForms.N502B
     using PowerCabel;
     using VoltageStabilizer;
     using N15;
+    using global::R440O.BaseClasses;
 
     public static class N502BParameters
     {
         static bool ModuleHasDone { get; set; }
+        public static ITestModule TestModuleRef { get; set; }
 
         static N502BParameters()
         {
@@ -427,7 +429,8 @@ namespace R440O.R440OForms.N502B
         }
         #endregion
 
-
+        public delegate void TestModuleHandler(ITestModule module);
+        public static event TestModuleHandler Action;
         public delegate void ParameterChangedHandler();
         public static event ParameterChangedHandler ParameterChanged;
 
@@ -439,11 +442,13 @@ namespace R440O.R440OForms.N502B
 
         private static void OnParameterChanged()
         {
-            var handler = ParameterChanged;
-            if (handler != null)
-            {
-                handler();
-            }
+            ParameterChanged?.Invoke();
+            OnAction();
+        }
+
+        private static void OnAction()
+        {
+            Action?.Invoke(TestModuleRef);
         }
 
         public static void ResetParameters()

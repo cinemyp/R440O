@@ -3,11 +3,14 @@ using ShareTypes.SignalTypes;
 
 namespace R440O.R440OForms.A304
 {
+    using global::R440O.BaseClasses;
     using InternalBlocks;
     using N15;
 
     public static class A304Parameters
     {
+        public static ITestModule TestModuleRef { get; set; }
+
         public static bool Включен
         {
             get { return N15Parameters.НеполноеВключение; }
@@ -288,13 +291,20 @@ namespace R440O.R440OForms.A304
 
         }
 
+        public delegate void TestModuleHandler(ITestModule module);
+        public static event TestModuleHandler Action;
         public delegate void ParameterChangedHandler();
         public static event ParameterChangedHandler ParameterChanged;
 
         private static void OnParameterChanged()
         {
-            var handler = ParameterChanged;
-            if (handler != null) handler();
+            ParameterChanged?.Invoke();
+            OnAction();
+        }
+
+        private static void OnAction()
+        {
+            Action?.Invoke(TestModuleRef);
         }
     }
 }

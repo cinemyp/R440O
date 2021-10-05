@@ -12,6 +12,7 @@ namespace R440O.LearnModule
         OneChannel,
         Discrete,
         SHPS,
-        DUB5
+        DUB5,
+        Normativ95
     }
 }
