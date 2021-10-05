@@ -18,7 +18,10 @@
             N502BParameters.ParameterChanged += RefreshFormElements;
 
             if (ParametersConfig.IsTesting)
-                N502BParameters.ParameterChanged += HandleTestingModule;
+            {
+                N502BParameters.TestModuleRef = this;
+                N502BParameters.Action += TestMain.Action;
+            }
 
             N502BParameters.СтанцияСгорела += ВыводСообщенияСтанцияСгорела;
             N502BParameters.НекорректноеДействие += ВыводСообщенияНекорректноеДействие;
@@ -387,7 +390,7 @@
 
             if (ParametersConfig.IsTesting)
             {
-                N502BParameters.ParameterChanged -= HandleTestingModule;
+                N502BParameters.Action -= TestMain.Action;
             }
 
             switch (LearnMain.getIntent())
@@ -427,13 +430,6 @@
             //    LearnMain.setIntent(ModulesEnum.chooseLearnType);
 
         }
-
-        public void HandleTestingModule()
-        {
-            if(IsExactModule == false)
-            {
-                TestMain.MakeSoftMistake();
-            }
-        }
+        
     }
 }

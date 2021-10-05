@@ -1,14 +1,25 @@
-﻿namespace R440O.R440OForms.N15
+﻿using R440O.BaseClasses;
+
+namespace R440O.R440OForms.N15
 {
     public static class N15LocalParameters
     {
+        public static ITestModule TestModuleRef { get; set; }
+
+        public delegate void TestModuleHandler(ITestModule module);
+        public static event TestModuleHandler Action;
         public delegate void ParameterChangedHandler();
         public static event ParameterChangedHandler ParameterChanged;
 
         private static void OnParameterChanged()
         {
-            var handler = ParameterChanged;
-            if (handler != null) handler();
+            ParameterChanged?.Invoke();
+            OnAction();
+        }
+
+        private static void OnAction()
+        {
+            Action?.Invoke(TestModuleRef);
         }
 
         #region Тумблеры левая часть

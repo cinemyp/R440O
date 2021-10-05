@@ -1,11 +1,9 @@
-﻿using R440O.LearnModule;
+﻿using R440O.BaseClasses;
+using R440O.LearnModule;
 using R440O.R440OForms.R440O;
 using R440O.ThirdParty;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Diagnostics;
 
 namespace R440O.TestModule
 {
@@ -13,12 +11,12 @@ namespace R440O.TestModule
     {
         private static ModulesEnum module = ModulesEnum.nill;
         //static IntentionEnum intent = IntentionEnum.open;  Понять как можно использовать 
-        public static GlobalIntentEnum globalIntent { get; set; } = GlobalIntentEnum.nill;
-        private static R440OForm mainForm;
+        public static GlobalIntentEnum globalIntent { get; set; } = GlobalIntentEnum.Normativ95;
         
         private static int softMistakes;
         private static IDisposable timer;
         private static int timeInMinutes = 0;
+        private static Stopwatch stopwatch;
         private static TestResult testResult;
 
         public delegate void ClosingForms();
@@ -29,16 +27,18 @@ namespace R440O.TestModule
             if (ParametersConfig.IsTesting == false)
                 return;
             module = intention;
-            Action();
         }
         public static ModulesEnum getIntent()
         {
             return module;
         }
 
-        private static void Action()
+        public static void Action(ITestModule module)
         {
-            //CHECK: подумать, что тут должно быть и должно ли это быть
+            if (module.IsExactModule == false)
+            {
+                MakeSoftMistake();
+            }
         }
         public static void MakeBlunderMistake()
         {
@@ -64,8 +64,9 @@ namespace R440O.TestModule
         {
             ParametersConfig.IsTesting = true;
             testResult = new TestResult();
+            stopwatch = new Stopwatch();
+            stopwatch.Start();
             timer = EasyTimer.SetInterval(SetTimer, 60000);
-            
         }
 
         private static void SetTimer()
@@ -81,19 +82,18 @@ namespace R440O.TestModule
                 //уменьшаем оценку на балл
                 testResult.MinusPoint();
                 FinishTest();
-                timer.Dispose();
             }
         }
         private static void FinishTest()
         {
-            
             ParametersConfig.IsTesting = false;
-            //TODO: сформровать результаты и отправить на сервер
-            testResult.testingTime = new DateTime();
-            testResult.testingTime.AddMinutes(timeInMinutes);
+            stopwatch.Stop();
+            timer.Dispose();
+            testResult.testingTime = new DateTime().AddMilliseconds(stopwatch.ElapsedMilliseconds);
 
+            //TODO: сформровать результаты и отправить на сервер
             TestResultForm tr = new TestResultForm(testResult);
-            tr.Show();
+            tr.ShowDialog();
             //Закрыть окно станции
             close?.Invoke();
             //TODO: открыть главное меню

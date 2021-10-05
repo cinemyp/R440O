@@ -16,7 +16,7 @@ namespace R440O.TestModule
         {
             InitializeComponent();
             ResultText.Text = tr.result.ToString();
-            TimeResultText.Text = tr.testingTime.ToShortTimeString();
+            TimeResultText.Text = tr.testingTime.ToString("mm:ss");
         }
 
         private void button1_Click(object sender, EventArgs e)

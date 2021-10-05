@@ -5,12 +5,15 @@
     using ThirdParty;
     using ShareTypes.SignalTypes;
     using global::R440O.LearnModule;
+    using global::R440O.TestModule;
 
     /// <summary>
     /// Форма внутренней части блока Н15
     /// </summary>
-    public partial class N15InsideForm : Form, IRefreshableForm
+    public partial class N15InsideForm : Form, IRefreshableForm, ITestModule
     {
+        public bool IsExactModule { get; set; }
+
         /// <summary>
         /// Инициализирует новый экземпляр класса <see cref="N15InsideForm"/>
         /// </summary>
@@ -20,6 +23,12 @@
             N15InsideParameters.ParameterChanged += RefreshFormElements;
             RefreshFormElements();
 
+            if (ParametersConfig.IsTesting)
+            {
+                N15InsideParameters.TestModuleRef = this;
+                N15InsideParameters.Action += TestMain.Action;
+            }
+
             LearnMain.form = this;
             switch (LearnMain.getIntent())
             {
@@ -28,6 +37,15 @@
                     {
                         LearnMain.setIntent(ModulesEnum.H15Inside_power);
                     }
+                    break;
+            }
+            switch (TestMain.getIntent())
+            {
+                case ModulesEnum.H15Inside_open_from_H15:
+                    //if (TestMain.globalIntent == GlobalIntentEnum.OneChannel)
+                    //{
+                        TestMain.setIntent(ModulesEnum.H15Inside_power);
+                    //}
                     break;
             }
         }
@@ -40,6 +58,27 @@
         private void N15InsideForm_FormClosed(object sender, FormClosedEventArgs e)
         {
             N15InsideParameters.ParameterChanged -= RefreshFormElements;
+            if (ParametersConfig.IsTesting)
+            {
+                N15InsideParameters.Action -= TestMain.Action;
+            }
+            switch (TestMain.getIntent())
+            {
+                case ModulesEnum.H15Inside_power:
+                    if (N15InsideParameters.ПереключательПУЛ480ПРМ_1 == 3 &&
+                        N15InsideParameters.ПереключательПУЛ480ПРМ_2 == 3 &&
+                        N15InsideParameters.ПереключательПУЛ48ПРД_1 == 3 &&
+                        N15InsideParameters.ПереключательПУЛ48ПРД_2 == 3 &&
+                        N15InsideParameters.ТумблерПУЛ480ПРМ_1 == Модуляция.ОФТ &&
+                        N15InsideParameters.ТумблерПУЛ480ПРМ_2 == Модуляция.ОФТ &&
+                        N15InsideParameters.ТумблерПУЛ48ПРД_1 == Модуляция.ОФТ &&
+                        N15InsideParameters.ТумблерПУЛ48ПРД_2 == Модуляция.ОФТ)
+                    {
+                        //TestMain.setIntent(ModulesEnum.N15);
+                        //TODO: доделать переход на н15
+                    }
+                    break;
+            }
             Owner.Show();
         }
 
