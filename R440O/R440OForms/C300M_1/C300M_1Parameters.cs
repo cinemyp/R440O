@@ -9,11 +9,13 @@ using R440O.R440OForms.K01M_01;
 using R440O.ThirdParty;
 using System.Collections.Generic;
 using System.Windows.Forms;
+using R440O.BaseClasses;
 
 namespace R440O.R440OForms.C300M_1
 {
     public static class C300M_1Parameters
     {
+        public static ITestModule TestModuleRef { get; set; }
 
         #region Private
 
@@ -828,7 +830,8 @@ namespace R440O.R440OForms.C300M_1
         #endregion
 
         #region ParameterChanged
-
+        public delegate void TestModuleHandler(ITestModule module);
+        public static event TestModuleHandler Action;
         public delegate void ParameterChangedHandler();
 
         public static event ParameterChangedHandler ParameterChanged;
@@ -837,6 +840,11 @@ namespace R440O.R440OForms.C300M_1
         {
             var handler = ParameterChanged;
             if (handler != null) handler();
+            OnAction();
+        }
+        private static void OnAction()
+        {
+            Action?.Invoke(TestModuleRef);
         }
 
         public static void ResetParameters()

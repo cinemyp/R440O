@@ -49,6 +49,7 @@ namespace R440O.LearnModule
         H15Inside_open_from_H15,
         H15Inside_power,
         A304_open,
-        A304_set_trunk
+        A304_set_trunk,
+        N15_power_C300m1
     }
 }

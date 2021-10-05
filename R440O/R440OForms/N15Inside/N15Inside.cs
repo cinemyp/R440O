@@ -45,6 +45,7 @@
                     //if (TestMain.globalIntent == GlobalIntentEnum.OneChannel)
                     //{
                         TestMain.setIntent(ModulesEnum.H15Inside_power);
+                    IsExactModule = true;
                     //}
                     break;
             }
@@ -74,7 +75,7 @@
                         N15InsideParameters.ТумблерПУЛ48ПРД_1 == Модуляция.ОФТ &&
                         N15InsideParameters.ТумблерПУЛ48ПРД_2 == Модуляция.ОФТ)
                     {
-                        //TestMain.setIntent(ModulesEnum.N15);
+                        TestMain.setIntent(ModulesEnum.N15_power_C300m1);
                         //TODO: доделать переход на н15
                     }
                     break;

@@ -10,12 +10,17 @@ namespace R440O.R440OForms.C300M_1
     using ThirdParty;
     using System.Reflection;
     using System;
+    using global::R440O.TestModule;
+    using global::R440O.BaseClasses;
+    using global::R440O.LearnModule;
 
     /// <summary>
     /// Форма блока С300М_2
     /// </summary>
-    public partial class C300M_1Form : Form
+    public partial class C300M_1Form : Form, ITestModule
     {
+        public bool IsExactModule { get; set; }
+
         /// <summary>
         /// Инициализирует новый экземпляр класса <see cref="C300M_1Form"/>
         /// </summary>
@@ -24,6 +29,19 @@ namespace R440O.R440OForms.C300M_1
             InitializeComponent();
             C300M_1Parameters.ParameterChanged += RefreshForm;
             RefreshForm();
+
+            if (ParametersConfig.IsTesting)
+            {
+                C300M_1Parameters.TestModuleRef = this;
+                C300M_1Parameters.Action += TestMain.Action;
+            }
+            switch (TestMain.getIntent())
+            {
+                case ModulesEnum.C300_m1_Open:
+                    TestMain.setIntent(ModulesEnum.C300_m1_Power);
+                    IsExactModule = true;
+                    break;
+            }
         }
 
         #region Кнопки ВИД РАБОТЫ
@@ -360,5 +378,19 @@ namespace R440O.R440OForms.C300M_1
             C300M_1Parameters.КнопкаПоиск = false;
         }
         #endregion
+
+        private void C300M_1Form_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            if (ParametersConfig.IsTesting)
+            {
+                C300M_1Parameters.Action -= TestMain.Action;
+            }
+            switch (TestMain.getIntent())
+            {
+                //case ModulesEnum.C300_m1_Power:
+                //    TestMain.setIntent(ModulesEnum.C300_m1_Power);
+                //    break;
+            }
+        }
     }
 }

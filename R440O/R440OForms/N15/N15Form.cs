@@ -590,6 +590,12 @@ namespace R440O.R440OForms.N15
                         TestMain.setIntent(ModulesEnum.openN15SmallLoop);
                     }
                     break;
+                case ModulesEnum.N15_power_C300m1:
+                    if(N15LocalParameters.локТумблерЦ300М1)
+                    {
+                        TestMain.setIntent(ModulesEnum.C300_m1_Open);
+                    }
+                    break;
             }
         }
     }
