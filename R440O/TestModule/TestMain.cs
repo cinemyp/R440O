@@ -40,6 +40,9 @@ namespace R440O.TestModule
                 MakeSoftMistake();
             }
         }
+
+        #region Сделать ошибку
+        
         public static void MakeBlunderMistake()
         {
             if (ParametersConfig.IsTesting == false)
@@ -59,6 +62,7 @@ namespace R440O.TestModule
                 FinishTest();
             softMistakes++;
         }
+        #endregion
 
         public static void StartTest()
         {
@@ -99,5 +103,13 @@ namespace R440O.TestModule
             //TODO: открыть главное меню
         }
         
+        public static void CheckTest()
+        {
+            if(R440OForms.C300M_1.C300M_1Parameters.СигналПойман)
+            {
+                FinishTest();
+            }
+        }
+
     }
 }
