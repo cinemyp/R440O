@@ -70,7 +70,10 @@ namespace R440O
 
             //Установка некоторых значений в память Н15
             N15LocalParameters.локТумблер5Мгц = false;
-            N16Parameters.ЩелевойМостН13 = 2;
+            N15LocalParameters.локКнопкаН13_1 = true;
+            N15LocalParameters.локКнопкаН13_2 = false;
+            N15LocalParameters.локКнопкаН13_12 = false;
+            N16Parameters.ЩелевойМостН13 = 1;
             N15Parameters.ТумблерАнтЭкв = false;
 
             //A304
@@ -105,7 +108,12 @@ namespace R440O
             // Настройка А-306
 
             A306Parameters.ТумблерДистанцМестн = true;
-            A306Parameters.Выходы[1] = 0;
+            A306Parameters.Выходы[1] = 4;
+            A306Parameters.Выходы[11] = 0;
+            A306Parameters.Выходы[12] = 1;
+            A306Parameters.Выходы[13] = 2;
+            A306Parameters.Выходы[14] = 3;
+
         }
 
         public static void НастройкаAппаратурыCлужебнойCвязи()
@@ -225,7 +233,7 @@ namespace R440O
         /// <summary>
         /// Устанавливает определённый набор параметров станции в заданное положение
         /// </summary>
-        public static void SetParameters(bool setDeveloperState = false)
+        public static void SetParameters(bool setDeveloperState = true)
         {
             #region Сборы2015
 
