@@ -16,7 +16,7 @@ namespace R440O.LearnModule
         static ModulesEnum module = ModulesEnum.nill;
         //static IntentionEnum intent = IntentionEnum.open;
         //для выбора режима прохождения обучения
-        public static GlobalIntentEnum globalIntent { get; set; } = GlobalIntentEnum.nill;
+        public static GlobalIntentEnum globalIntent { get; set; } = GlobalIntentEnum.OneChannel;
         static String helpText { get; set; }
         static List<HighLightModule> modules = new List<HighLightModule>();
         static TextHelperForm textHelper;

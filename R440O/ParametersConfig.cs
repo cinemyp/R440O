@@ -233,7 +233,7 @@ namespace R440O
         /// <summary>
         /// Устанавливает определённый набор параметров станции в заданное положение
         /// </summary>
-        public static void SetParameters(bool setDeveloperState = true)
+        public static void SetParameters(bool setDeveloperState = false)
         {
             #region Сборы2015
 
