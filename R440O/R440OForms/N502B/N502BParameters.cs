@@ -110,7 +110,7 @@ namespace R440O.R440OForms.N502B
             set
             {
                 _тумблерЭлектрооборудование = value;
-                N15Parameters.ResetParameters();
+                N15Parameters.getInstance().ResetParameters();
                 OnParameterChanged();
             }
         }
@@ -121,7 +121,7 @@ namespace R440O.R440OForms.N502B
             set
             {
                 _тумблерВыпрямитель27В = value;
-                N15Parameters.ResetParameters();
+                N15Parameters.getInstance().ResetParameters();
                 OnParameterChanged();
             }
         }
@@ -131,7 +131,7 @@ namespace R440O.R440OForms.N502B
             set
             {
                 _тумблерН15 = value;
-                N15Parameters.ResetParameters();
+                N15Parameters.getInstance().ResetParameters();
                 OnParameterChanged();
             }
         }
@@ -152,8 +152,8 @@ namespace R440O.R440OForms.N502B
             set
             {
                 _тумблерН13_1 = value;
-                N15Parameters.Н13_1 = false;
-                N15Parameters.ResetParametersAlternative();
+                N15Parameters.getInstance().Н13_1 = false;
+                N15Parameters.getInstance().ResetParametersAlternative();
                 N16Parameters.ResetParameters();
                 OnParameterChanged();
             }
@@ -165,8 +165,8 @@ namespace R440O.R440OForms.N502B
             set
             {
                 _тумблерН13_2 = value;
-                N15Parameters.Н13_2 = false;
-                N15Parameters.ResetParametersAlternative();
+                N15Parameters.getInstance().Н13_2 = false;
+                N15Parameters.getInstance().ResetParametersAlternative();
                 N16Parameters.ResetParameters();
                 OnParameterChanged();
             }
@@ -312,7 +312,7 @@ namespace R440O.R440OForms.N502B
             {
                 bool flag = value != _нагрузка;
                 _нагрузка = value;
-                if (flag) N15Parameters.ResetParameters();
+                if (flag) N15Parameters.getInstance().ResetParameters();
             }
         }
 
@@ -391,7 +391,7 @@ namespace R440O.R440OForms.N502B
             {
                 if (property.Name.Contains("Лампочка"))
                 {
-                    if ((bool)property.GetValue(null))
+                    if ((bool)property.GetValue(N15Parameters.getInstance()))
                     {
                         quantity++;
                     }

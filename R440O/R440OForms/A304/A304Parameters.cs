@@ -13,14 +13,14 @@ namespace R440O.R440OForms.A304
 
         public static bool Включен
         {
-            get { return N15Parameters.НеполноеВключение; }
+            get { return N15Parameters.getInstance().НеполноеВключение; }
         }
 
         public static bool Комплект1Включен
         {
             get
             {
-                return (ТумблерУправление1 && N15Parameters.ТумблерА30412) ||
+                return (ТумблерУправление1 && N15Parameters.getInstance().ТумблерА30412) ||
                        (!ТумблерУправление1 && Кнопка1К);
             }
         }
@@ -29,7 +29,7 @@ namespace R440O.R440OForms.A304
         {
             get
             {
-                return (ТумблерУправление2 && !N15Parameters.ТумблерА30412) ||
+                return (ТумблерУправление2 && !N15Parameters.getInstance().ТумблерА30412) ||
                        (!ТумблерУправление2 && Кнопка2К);
             }
         }
@@ -54,8 +54,8 @@ namespace R440O.R440OForms.A304
             get
             {
                 return Включен &&
-                    ((!ТумблерУправление1 && Кнопка1К && N15Parameters.Включен) ||
-                     (ТумблерУправление1 && MSHUParameters.Включен && N15Parameters.ТумблерА30412));
+                    ((!ТумблерУправление1 && Кнопка1К && N15Parameters.getInstance().Включен) ||
+                     (ТумблерУправление1 && MSHUParameters.Включен && N15Parameters.getInstance().ТумблерА30412));
             }
         }
 
@@ -67,8 +67,8 @@ namespace R440O.R440OForms.A304
             get
             {
                 return Включен &&
-                    ((!ТумблерУправление2 && Кнопка2К && N15Parameters.Включен) ||
-                     (ТумблерУправление2 && MSHUParameters.Включен && !N15Parameters.ТумблерА30412));
+                    ((!ТумблерУправление2 && Кнопка2К && N15Parameters.getInstance().Включен) ||
+                     (ТумблерУправление2 && MSHUParameters.Включен && !N15Parameters.getInstance().ТумблерА30412));
             }
         }
         #endregion
@@ -88,8 +88,8 @@ namespace R440O.R440OForms.A304
             set
             {
                 _тумблерУправление1 = value;
-                Кнопка1К = (MSHUParameters.Включен && Включен && !value && N15Parameters.ТумблерА30412);
-                N15Parameters.ResetParametersAlternative();
+                Кнопка1К = (MSHUParameters.Включен && Включен && !value && N15Parameters.getInstance().ТумблерА30412);
+                N15Parameters.getInstance().ResetParametersAlternative();
             }
         }
         private static bool _тумблерУправление1;
@@ -107,8 +107,8 @@ namespace R440O.R440OForms.A304
             set
             {
                 _тумблерУправление2 = value;
-                Кнопка2К = (MSHUParameters.Включен && Включен && !value && !N15Parameters.ТумблерА30412);
-                N15Parameters.ResetParametersAlternative();
+                Кнопка2К = (MSHUParameters.Включен && Включен && !value && !N15Parameters.getInstance().ТумблерА30412);
+                N15Parameters.getInstance().ResetParametersAlternative();
             }
         }
         private static bool _тумблерУправление2;
@@ -196,10 +196,10 @@ namespace R440O.R440OForms.A304
 
             set
             {
-                if (!ТумблерУправление1 && Включен && N15Parameters.Включен) _кнопка1К = value;
+                if (!ТумблерУправление1 && Включен && N15Parameters.getInstance().Включен) _кнопка1К = value;
                 ResetParameters();
 
-                N15Parameters.ResetParametersAlternative();
+                N15Parameters.getInstance().ResetParametersAlternative();
             }
         }
 
@@ -214,10 +214,10 @@ namespace R440O.R440OForms.A304
 
             set
             {
-                if (!ТумблерУправление2 && Включен && N15Parameters.Включен) _кнопка2К = value;
+                if (!ТумблерУправление2 && Включен && N15Parameters.getInstance().Включен) _кнопка2К = value;
                 ResetParameters();
 
-                N15Parameters.ResetParametersAlternative();
+                N15Parameters.getInstance().ResetParametersAlternative();
             }
         }
 

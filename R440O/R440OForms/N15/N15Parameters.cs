@@ -41,16 +41,23 @@ namespace R440O.R440OForms.N15
     using СостоянияЭлементов.Контур_П;
     using InternalBlocks;
 
-    public static class N15Parameters
+    public class N15Parameters
     {
-        public static ITestModule TestModuleRef { get; set; }
-        
-        public static bool Включен
+        private static N15Parameters instance;
+        public static N15Parameters getInstance()
+        {
+            if (instance == null)
+                instance = new N15Parameters();
+            return instance;
+        }
+        public ITestModule TestModuleRef { get; set; }
+
+        public bool Включен
         {
             get { return N502BParameters.getInstance().Н15Включен && НеполноеВключение; }
         }
 
-        public static bool НеполноеВключение
+        public bool НеполноеВключение
         {
             get
             {
@@ -58,11 +65,11 @@ namespace R440O.R440OForms.N15
             }
         }
 
-        private static double _регуляторУровень = 100;
+        private double _регуляторУровень = 100;
         /// <summary>
         /// Угол от -120 до 120
         /// </summary>
-        public static double РегуляторУровень
+        public double РегуляторУровень
         {
             get { return _регуляторУровень; }
             set
@@ -74,9 +81,9 @@ namespace R440O.R440OForms.N15
 
         #region Индикатор
 
-        private static float _индикаторМощностьВыхода = N16Parameters.ЗначениеМощностьВыходаRnd;
+        private float _индикаторМощностьВыхода = N16Parameters.ЗначениеМощностьВыходаRnd;
 
-        public static float ИндикаторМощностьВыхода
+        public float ИндикаторМощностьВыхода
         {
             get
             {
@@ -95,21 +102,21 @@ namespace R440O.R440OForms.N15
         #endregion
 
         #region Кнопки
-        private static bool _кнопкаСтанцияВкл;
-        private static bool _кнопкаСтанцияВыкл;
+        private bool _кнопкаСтанцияВкл;
+        private bool _кнопкаСтанцияВыкл;
 
-        private static bool _кнопкаПрмНаведениеЦ300М1;
-        private static bool _кнопкаПрмНаведениеЦ300М2;
-        private static bool _кнопкаПрмНаведениеЦ300М3;
-        private static bool _кнопкаПрмНаведениеЦ300М4;
-        private static bool _кнопкаМощностьН16;
-        private static bool _кнопкаМощностьАнт;
-        private static bool _кнопкаМощностьСброс;
+        private bool _кнопкаПрмНаведениеЦ300М1;
+        private bool _кнопкаПрмНаведениеЦ300М2;
+        private bool _кнопкаПрмНаведениеЦ300М3;
+        private bool _кнопкаПрмНаведениеЦ300М4;
+        private bool _кнопкаМощностьН16;
+        private bool _кнопкаМощностьАнт;
+        private bool _кнопкаМощностьСброс;
 
-        private static int _кнопкаН13;
-        private static bool _кнопкаСброс;
+        private int _кнопкаН13;
+        private bool _кнопкаСброс;
 
-        public static bool КнопкаСтанцияВкл
+        public bool КнопкаСтанцияВкл
         {
             get
             {
@@ -122,7 +129,7 @@ namespace R440O.R440OForms.N15
             }
         }
 
-        public static bool КнопкаСтанцияВыкл
+        public bool КнопкаСтанцияВыкл
         {
             get
             {
@@ -140,7 +147,7 @@ namespace R440O.R440OForms.N15
             }
         }
 
-        public static bool КнопкаПРМНаведениеЦ300М1
+        public bool КнопкаПРМНаведениеЦ300М1
         {
             get { return _кнопкаПрмНаведениеЦ300М1; }
             set
@@ -150,7 +157,7 @@ namespace R440O.R440OForms.N15
         }
 
 
-        public static bool КнопкаПРМНаведениеЦ300М2
+        public bool КнопкаПРМНаведениеЦ300М2
         {
             get { return _кнопкаПрмНаведениеЦ300М2; }
             set
@@ -159,7 +166,7 @@ namespace R440O.R440OForms.N15
             }
         }
 
-        public static bool КнопкаПРМНаведениеЦ300М3
+        public bool КнопкаПРМНаведениеЦ300М3
         {
             get { return _кнопкаПрмНаведениеЦ300М3; }
             set
@@ -168,7 +175,7 @@ namespace R440O.R440OForms.N15
             }
         }
 
-        public static bool КнопкаПРМНаведениеЦ300М4
+        public bool КнопкаПРМНаведениеЦ300М4
         {
             get { return _кнопкаПрмНаведениеЦ300М4; }
             set
@@ -177,7 +184,7 @@ namespace R440O.R440OForms.N15
             }
         }
 
-        public static bool КнопкаМощностьН16
+        public bool КнопкаМощностьН16
         {
             get { return _кнопкаМощностьН16; }
             set
@@ -186,7 +193,7 @@ namespace R440O.R440OForms.N15
             }
         }
 
-        public static bool КнопкаМощностьАнт
+        public bool КнопкаМощностьАнт
         {
             get { return _кнопкаМощностьАнт; }
             set
@@ -196,7 +203,7 @@ namespace R440O.R440OForms.N15
             }
         }
 
-        public static bool КнопкаМощностьСброс
+        public bool КнопкаМощностьСброс
         {
             get { return _кнопкаМощностьСброс; }
             set
@@ -213,7 +220,7 @@ namespace R440O.R440OForms.N15
         /// 2 - КнопкаН13_2 (Последняя нажатая клавиша - Н13_2)
         /// 3 - КнопкаН13_12 (Последняя нажатая клавиша - Н13_12)
         /// </summary>
-        public static int КнопкаН13
+        public int КнопкаН13
         {
             get { return _кнопкаН13; }
             set
@@ -222,13 +229,13 @@ namespace R440O.R440OForms.N15
             }
         }
 
-        private static bool _Н13_1;
-        private static bool _Н13_2;
+        private bool _Н13_1;
+        private bool _Н13_2;
 
         /// <summary>
         /// Параметр для включения блока Н13_1
         /// </summary>
-        public static bool Н13_1
+        public bool Н13_1
         {
             get { return _Н13_1; }
             set
@@ -241,7 +248,7 @@ namespace R440O.R440OForms.N15
         /// <summary>
         /// Параметр для включения блока Н13_2
         /// </summary>
-        public static bool Н13_2
+        public bool Н13_2
         {
             get { return _Н13_2; }
             set
@@ -251,7 +258,7 @@ namespace R440O.R440OForms.N15
             }
         }
 
-        public static bool КнопкаСброс
+        public bool КнопкаСброс
         {
             get { return _кнопкаСброс; }
             set
@@ -262,32 +269,32 @@ namespace R440O.R440OForms.N15
         #endregion
 
         #region Тумблеры левая часть
-        private static bool _тумблерЦ300М1;
-        private static bool _тумблерЦ300М2;
-        private static bool _тумблерЦ300М3;
-        private static bool _тумблерЦ300М4;
-        private static bool _тумблерН12С;
-        private static bool _тумблерМшу;
-        private static bool _тумблерБма1;
-        private static bool _тумблерБма2;
-        private static bool _тумблерА205Base;
-        private static bool _тумблерА20512;
-        private static bool _тумблерА30412;
-        private static bool _тумблерАфсс;
-        private static bool _тумблерА1;
-        private static bool _тумблерА403;
-        private static bool _тумблерК11;
-        private static bool _тумблерК12;
-        private static bool _тумблерБ11;
-        private static bool _тумблерБ12;
-        private static bool _тумблерБ21;
-        private static bool _тумблерБ22;
-        private static bool _тумблерБ31;
-        private static bool _тумблерБ32;
-        private static bool _тумблерДаб5;
-        private static bool _тумблерРН;
+        private bool _тумблерЦ300М1;
+        private bool _тумблерЦ300М2;
+        private bool _тумблерЦ300М3;
+        private bool _тумблерЦ300М4;
+        private bool _тумблерН12С;
+        private bool _тумблерМшу;
+        private bool _тумблерБма1;
+        private bool _тумблерБма2;
+        private bool _тумблерА205Base;
+        private bool _тумблерА20512;
+        private bool _тумблерА30412;
+        private bool _тумблерАфсс;
+        private bool _тумблерА1;
+        private bool _тумблерА403;
+        private bool _тумблерК11;
+        private bool _тумблерК12;
+        private bool _тумблерБ11;
+        private bool _тумблерБ12;
+        private bool _тумблерБ21;
+        private bool _тумблерБ22;
+        private bool _тумблерБ31;
+        private bool _тумблерБ32;
+        private bool _тумблерДаб5;
+        private bool _тумблерРН;
 
-        public static bool ТумблерЦ300М1
+        public bool ТумблерЦ300М1
         {
             get { return _тумблерЦ300М1; }
             set
@@ -297,7 +304,7 @@ namespace R440O.R440OForms.N15
             }
         }
 
-        public static bool ТумблерЦ300М2
+        public bool ТумблерЦ300М2
         {
             get { return _тумблерЦ300М2; }
             set
@@ -306,7 +313,7 @@ namespace R440O.R440OForms.N15
             }
         }
 
-        public static bool ТумблерЦ300М3
+        public bool ТумблерЦ300М3
         {
             get { return _тумблерЦ300М3; }
             set
@@ -316,7 +323,7 @@ namespace R440O.R440OForms.N15
             }
         }
 
-        public static bool ТумблерЦ300М4
+        public bool ТумблерЦ300М4
         {
             get { return _тумблерЦ300М4; }
             set
@@ -326,7 +333,7 @@ namespace R440O.R440OForms.N15
             }
         }
 
-        public static bool ТумблерН12С
+        public bool ТумблерН12С
         {
             get { return _тумблерН12С; }
             set
@@ -335,7 +342,7 @@ namespace R440O.R440OForms.N15
             }
         }
 
-        public static bool ТумблерМШУ
+        public bool ТумблерМШУ
         {
             get { return _тумблерМшу; }
             set
@@ -344,7 +351,7 @@ namespace R440O.R440OForms.N15
             }
         }
 
-        public static bool ТумблерБМА_1
+        public bool ТумблерБМА_1
         {
             get { return _тумблерБма1; }
             set
@@ -353,7 +360,7 @@ namespace R440O.R440OForms.N15
             }
         }
 
-        public static bool ТумблерБМА_2
+        public bool ТумблерБМА_2
         {
             get { return _тумблерБма2; }
             set
@@ -362,7 +369,7 @@ namespace R440O.R440OForms.N15
             }
         }
 
-        public static bool ТумблерА205Base
+        public bool ТумблерА205Base
         {
             get { return _тумблерА205Base; }
             set
@@ -371,7 +378,7 @@ namespace R440O.R440OForms.N15
             }
         }
 
-        public static bool ТумблерА20512
+        public bool ТумблерА20512
         {
             get { return _тумблерА20512; }
             set
@@ -389,7 +396,7 @@ namespace R440O.R440OForms.N15
             }
         }
 
-        public static bool ТумблерА30412
+        public bool ТумблерА30412
         {
             get { return _тумблерА30412; }
             set
@@ -400,7 +407,7 @@ namespace R440O.R440OForms.N15
             }
         }
 
-        public static bool ТумблерАФСС
+        public bool ТумблерАФСС
         {
             get { return _тумблерАфсс; }
             set
@@ -409,7 +416,7 @@ namespace R440O.R440OForms.N15
             }
         }
 
-        public static bool ТумблерА1
+        public bool ТумблерА1
         {
             get { return _тумблерА1; }
             set
@@ -418,7 +425,7 @@ namespace R440O.R440OForms.N15
             }
         }
 
-        public static bool ТумблерА403
+        public bool ТумблерА403
         {
             get { return _тумблерА403; }
             set
@@ -428,7 +435,7 @@ namespace R440O.R440OForms.N15
             }
         }
 
-        public static bool ТумблерК1_1
+        public bool ТумблерК1_1
         {
             get { return _тумблерК11; }
             set
@@ -438,7 +445,7 @@ namespace R440O.R440OForms.N15
             }
         }
 
-        public static bool ТумблерК1_2
+        public bool ТумблерК1_2
         {
             get { return _тумблерК12; }
             set
@@ -447,7 +454,7 @@ namespace R440O.R440OForms.N15
             }
         }
 
-        public static bool ТумблерБ1_1
+        public bool ТумблерБ1_1
         {
             get { return _тумблерБ11; }
             set
@@ -456,7 +463,7 @@ namespace R440O.R440OForms.N15
             }
         }
 
-        public static bool ТумблерБ1_2
+        public bool ТумблерБ1_2
         {
             get { return _тумблерБ12; }
             set
@@ -465,7 +472,7 @@ namespace R440O.R440OForms.N15
             }
         }
 
-        public static bool ТумблерБ2_1
+        public bool ТумблерБ2_1
         {
             get { return _тумблерБ21; }
             set
@@ -474,7 +481,7 @@ namespace R440O.R440OForms.N15
             }
         }
 
-        public static bool ТумблерБ2_2
+        public bool ТумблерБ2_2
         {
             get { return _тумблерБ22; }
             set
@@ -483,7 +490,7 @@ namespace R440O.R440OForms.N15
             }
         }
 
-        public static bool ТумблерБ3_1
+        public bool ТумблерБ3_1
         {
             get { return _тумблерБ31; }
             set
@@ -492,7 +499,7 @@ namespace R440O.R440OForms.N15
             }
         }
 
-        public static bool ТумблерБ3_2
+        public bool ТумблерБ3_2
         {
             get { return _тумблерБ32; }
             set
@@ -501,7 +508,7 @@ namespace R440O.R440OForms.N15
             }
         }
 
-        public static bool ТумблерДАБ_5
+        public bool ТумблерДАБ_5
         {
             get { return _тумблерДаб5; }
             set
@@ -510,7 +517,7 @@ namespace R440O.R440OForms.N15
             }
         }
 
-        public static bool ТумблерР_Н
+        public bool ТумблерР_Н
         {
             get { return _тумблерРН; }
             set
@@ -523,17 +530,17 @@ namespace R440O.R440OForms.N15
 
         #region Тумблеры правая часть
 
-        private static bool _тумблерА503Б;
-        private static int _тумблерФаза = 0;
-        private static int _тумблерУров1 = 0;
-        private static int _тумблерУров2 = 0;
-        private static int _тумблер5Мгц = 0;
-        private static bool _тумблерАнтЭкв;
-        private static bool _тумблерТлфТлгПрм;
-        private static bool _тумблерТлфТлгПрд;
+        private bool _тумблерА503Б;
+        private int _тумблерФаза = 0;
+        private int _тумблерУров1 = 0;
+        private int _тумблерУров2 = 0;
+        private int _тумблер5Мгц = 0;
+        private bool _тумблерАнтЭкв;
+        private bool _тумблерТлфТлгПрм;
+        private bool _тумблерТлфТлгПрд;
 
 
-        public static bool ТумблерА503Б
+        public bool ТумблерА503Б
         {
             get { return _тумблерА503Б; }
             set
@@ -550,7 +557,7 @@ namespace R440O.R440OForms.N15
         /// 0 - Среднее положение
         /// 1 - Нижнее положение
         /// </summary>
-        public static int ТумблерФаза
+        public int ТумблерФаза
         {
             get { return _тумблерФаза; }
             set
@@ -566,7 +573,7 @@ namespace R440O.R440OForms.N15
         /// 0 - Среднее положение
         /// 1 - Нижнее положение
         /// </summary>
-        public static int ТумблерУров1
+        public int ТумблерУров1
         {
             get { return _тумблерУров1; }
             set
@@ -582,7 +589,7 @@ namespace R440O.R440OForms.N15
         /// 0 - Среднее положение
         /// 1 - Нижнее положение
         /// </summary>
-        public static int ТумблерУров2
+        public int ТумблерУров2
         {
             get { return _тумблерУров2; }
             set
@@ -598,7 +605,7 @@ namespace R440O.R440OForms.N15
         /// 0 - Среднее положение
         /// 1 - Нижнее положение
         /// </summary>
-        public static int Тумблер5Мгц
+        public int Тумблер5Мгц
         {
             get { return _тумблер5Мгц; }
             set
@@ -608,17 +615,17 @@ namespace R440O.R440OForms.N15
                     switch (value)
                     {
                         case -1:
-                            N15LocalParameters.локТумблер5Мгц = true;
+                            N15LocalParameters.getInstance().локТумблер5Мгц = true;
                             break;
                         case 1:
-                            N15LocalParameters.локТумблер5Мгц = false;
+                            N15LocalParameters.getInstance().локТумблер5Мгц = false;
                             break;
                     }
                 //OnParameterChanged();
             }
         }
 
-        public static bool ТумблерАнтЭкв
+        public bool ТумблерАнтЭкв
         {
             get { return _тумблерАнтЭкв; }
             set
@@ -628,7 +635,7 @@ namespace R440O.R440OForms.N15
             }
         }
 
-        public static bool ТумблерТлфТлгПрм
+        public bool ТумблерТлфТлгПрм
         {
             get { return _тумблерТлфТлгПрм; }
             set
@@ -638,7 +645,7 @@ namespace R440O.R440OForms.N15
             }
         }
 
-        public static bool ТумблерТлфТлгПрд
+        public bool ТумблерТлфТлгПрд
         {
             get { return _тумблерТлфТлгПрд; }
             set
@@ -652,29 +659,29 @@ namespace R440O.R440OForms.N15
 
         #region Лампочки верхняя часть
 
-        public static bool ЛампочкаЦ300МВкл1 { get { return C300M_1Parameters.Включен; } }
-        public static bool ЛампочкаЦ300МВкл2 { get { return C300M_2Parameters.Включен; } }
-        public static bool ЛампочкаЦ300МВкл3 { get { return Лампочка27В && ЛампочкаН15БП && ТумблерЦ300М3; } }
-        public static bool ЛампочкаЦ300МВкл4 { get { return Лампочка27В && ЛампочкаН15БП && ТумблерЦ300М4; } }
-        public static bool ЛампочкаЦ300МСигнал1 { get { return C300M_1Parameters.ЛампочкаСигнал; } }
-        public static bool ЛампочкаЦ300МСигнал2 { get { return C300M_2Parameters.ЛампочкаСигнал; } }
-        public static bool ЛампочкаЦ300МСигнал3 { get { return C300M_3Parameters.ЛампочкаСигнал; } }
-        public static bool ЛампочкаЦ300МСигнал4 { get { return C300M_4Parameters.ЛампочкаСигнал; } }
-        public static bool ЛампочкаЦ300МНеиспр1 { get; set; }
-        public static bool ЛампочкаЦ300МНеиспр2 { get; set; }
-        public static bool ЛампочкаЦ300МНеиспр3 { get; set; }
-        public static bool ЛампочкаЦ300МНеиспр4 { get; set; }
-        public static bool ЛампочкаППВВкл1 { get { return NKN_1Parameters.ПолноеВключение || (NKN_1Parameters.НеполноеВключение && NKN_1Parameters.Питание220Включено); } }
-        public static bool ЛампочкаППВВкл2 { get { return NKN_2Parameters.ПолноеВключение || (NKN_2Parameters.НеполноеВключение && NKN_2Parameters.Питание220Включено); } }
-        public static bool ЛампочкаППВРабота1 { get { return A205M_1Parameters.Работа; } }
-        public static bool ЛампочкаППВРабота2 { get { return A205M_2Parameters.Работа; } }
+        public bool ЛампочкаЦ300МВкл1 { get { return C300M_1Parameters.Включен; } }
+        public bool ЛампочкаЦ300МВкл2 { get { return C300M_2Parameters.Включен; } }
+        public bool ЛампочкаЦ300МВкл3 { get { return Лампочка27В && ЛампочкаН15БП && ТумблерЦ300М3; } }
+        public bool ЛампочкаЦ300МВкл4 { get { return Лампочка27В && ЛампочкаН15БП && ТумблерЦ300М4; } }
+        public bool ЛампочкаЦ300МСигнал1 { get { return C300M_1Parameters.ЛампочкаСигнал; } }
+        public bool ЛампочкаЦ300МСигнал2 { get { return C300M_2Parameters.ЛампочкаСигнал; } }
+        public bool ЛампочкаЦ300МСигнал3 { get { return C300M_3Parameters.ЛампочкаСигнал; } }
+        public bool ЛампочкаЦ300МСигнал4 { get { return C300M_4Parameters.ЛампочкаСигнал; } }
+        public bool ЛампочкаЦ300МНеиспр1 { get; set; }
+        public bool ЛампочкаЦ300МНеиспр2 { get; set; }
+        public bool ЛампочкаЦ300МНеиспр3 { get; set; }
+        public bool ЛампочкаЦ300МНеиспр4 { get; set; }
+        public bool ЛампочкаППВВкл1 { get { return NKN_1Parameters.ПолноеВключение || (NKN_1Parameters.НеполноеВключение && NKN_1Parameters.Питание220Включено); } }
+        public bool ЛампочкаППВВкл2 { get { return NKN_2Parameters.ПолноеВключение || (NKN_2Parameters.НеполноеВключение && NKN_2Parameters.Питание220Включено); } }
+        public bool ЛампочкаППВРабота1 { get { return A205M_1Parameters.Работа; } }
+        public bool ЛампочкаППВРабота2 { get { return A205M_2Parameters.Работа; } }
 
-        public static bool ЛампочкаА205Неиспр1
+        public bool ЛампочкаА205Неиспр1
         {
             get { return A205M_1Parameters.Включен && !A205M_1Parameters.Работа; }
         }
 
-        public static bool ЛампочкаА205Неиспр2
+        public bool ЛампочкаА205Неиспр2
         {
             get
             {
@@ -682,12 +689,12 @@ namespace R440O.R440OForms.N15
             }
         }
 
-        public static bool ЛампочкаУМ1Работа1
+        public bool ЛампочкаУМ1Работа1
         {
             get { return NKN_1Parameters.ПолноеВключение && NKN_1Parameters.ДистанционноеВключение; }
         }
 
-        public static bool ЛампочкаУМ1Работа2
+        public bool ЛампочкаУМ1Работа2
         {
             get { return NKN_2Parameters.ПолноеВключение && NKN_2Parameters.ДистанционноеВключение; }
         }
@@ -696,118 +703,118 @@ namespace R440O.R440OForms.N15
         #region Лампочки левая часть
 
 
-        public static bool ЛампочкаН12С
+        public bool ЛампочкаН12С
         {
             get { return Включен && N12SParameters.Включен; }
         }
 
-        public static bool ЛампочкаМШУ
+        public bool ЛампочкаМШУ
         {
             get { return Включен && MSHUParameters.Включен; }
         }
 
-        public static bool ЛампочкаБМА_1
+        public bool ЛампочкаБМА_1
         {
             //Добавить для 1 и 2 БМА параметры включения и завязать здесь
             get { return Включен && ТумблерБМА_1; }
         }
 
-        public static bool ЛампочкаБМА_2
+        public bool ЛампочкаБМА_2
         {
             get { return Включен && ТумблерБМА_2; }
         }
 
-        public static bool Лампочка27В
+        public bool Лампочка27В
         {
             get { return НеполноеВключение; }
         }
 
-        public static bool ЛампочкаН15БП
+        public bool ЛампочкаН15БП
         {
             get { return НеполноеВключение; }
         }
 
-        public static bool ЛампочкаАФСС
+        public bool ЛампочкаАФСС
         {
             get { return Включен && ЛампочкаН15БП && ТумблерАФСС && Kontur_P3Parameters.ТумблерСеть == EТумблерСеть.ВКЛ; }
         }
 
-        public static bool ЛампочкаА1
+        public bool ЛампочкаА1
         {
             get { return A1Parameters.Включен; }
         }
 
-        public static bool ЛампочкаА403Вкл
+        public bool ЛампочкаА403Вкл
         {
             get { return Включен && A403_1Parameters.Включен; }
         }
 
-        public static bool ЛампочкаА403Неиспр
+        public bool ЛампочкаА403Неиспр
         {
             get { return false; }
         }
 
-        public static bool ЛампочкаП220272
+        public bool ЛампочкаП220272
         {
             get { return Включен && P220_27G_2Parameters.ЛампочкаСеть; }
         }
 
-        public static bool ЛампочкаП220273
+        public bool ЛампочкаП220273
         {
             get { return НеполноеВключение; }
         }
 
-        public static bool ЛампочкаА306
+        public bool ЛампочкаА306
         {
             get { return ЛампочкаМШУ; }
         }
 
-        public static bool ЛампочкаА3041
+        public bool ЛампочкаА3041
         {
             get { return A304Parameters.Лампочка1К; }
         }
 
-        public static bool ЛампочкаА3042
+        public bool ЛампочкаА3042
         {
             get { return A304Parameters.Лампочка2К; }
         }
 
-        public static bool ЛампочкаБ1_1
+        public bool ЛампочкаБ1_1
         {
             get { return B1_1Parameters.Включен; }
         }
 
-        public static bool ЛампочкаБ1_2
+        public bool ЛампочкаБ1_2
         {
             get { return B1_2Parameters.Включен; }
         }
 
-        public static bool ЛампочкаБ2_1
+        public bool ЛампочкаБ2_1
         {
             get { return B2_1Parameters.Включен; }
         }
 
-        public static bool ЛампочкаБ2_2
+        public bool ЛампочкаБ2_2
         {
             get { return B2_2Parameters.Включен; }
         }
 
-        public static bool ЛампочкаБ3_1
+        public bool ЛампочкаБ3_1
         {
             get { return B3_1Parameters.Включен; }
         }
 
-        public static bool ЛампочкаБ3_2
+        public bool ЛампочкаБ3_2
         {
             get { return B3_2Parameters.Включен; }
         }
 
-        public static bool ЛампочкаДАБ_5
+        public bool ЛампочкаДАБ_5
         {
             get { return Лампочка27В && ЛампочкаН15БП && ТумблерДАБ_5 && DAB_5Parameters.ТумблерПитание; }
         }
 
-        public static bool ЛампочкаР_Н
+        public bool ЛампочкаР_Н
         {
             get { return false; }
         }
@@ -816,36 +823,36 @@ namespace R440O.R440OForms.N15
 
         #region Лампочки правая часть
 
-        public static bool ЛампочкаН16Н13_1
+        public bool ЛампочкаН16Н13_1
         {
             get { return N16Parameters.ЛампочкаН13_1; }
         }
 
-        public static bool ЛампочкаН16Н13_2
+        public bool ЛампочкаН16Н13_2
         {
             get { return N16Parameters.ЛампочкаН13_2; }
         }
 
-        public static bool ЛампочкаН16Н13_12
+        public bool ЛампочкаН16Н13_12
         {
             get { return N16Parameters.ЛампочкаН13_12; }
         }
-        public static bool ЛампочкаН13_11Ступень { get { return N13_1Parameters.ЛампочкаАнодВключен; } }
-        public static bool ЛампочкаН13_21Ступень { get { return N13_2Parameters.ЛампочкаАнодВключен; } }
-        public static bool ЛампочкаН13_1ПолноеВкл { get { return N13_1Parameters.ЛампочкаАнодВключен; } }
-        public static bool ЛампочкаН13_2ПолноеВкл { get { return N13_2Parameters.ЛампочкаАнодВключен; } }
-        public static bool ЛампочкаН13_1Неисправность { get { return N13_1Parameters.Неисправен; } }
-        public static bool ЛампочкаН13_2Неисправность { get { return N13_2Parameters.Неисправен; } }
-        public static bool Лампочка5мГц2 { get { return НеполноеВключение && N15LocalParameters.локТумблер5Мгц; } }
-        public static bool Лампочка5мГц3 { get { return НеполноеВключение && !N15LocalParameters.локТумблер5Мгц; } }
+        public bool ЛампочкаН13_11Ступень { get { return N13_1Parameters.ЛампочкаАнодВключен; } }
+        public bool ЛампочкаН13_21Ступень { get { return N13_2Parameters.ЛампочкаАнодВключен; } }
+        public bool ЛампочкаН13_1ПолноеВкл { get { return N13_1Parameters.ЛампочкаАнодВключен; } }
+        public bool ЛампочкаН13_2ПолноеВкл { get { return N13_2Parameters.ЛампочкаАнодВключен; } }
+        public bool ЛампочкаН13_1Неисправность { get { return N13_1Parameters.Неисправен; } }
+        public bool ЛампочкаН13_2Неисправность { get { return N13_2Parameters.Неисправен; } }
+        public bool Лампочка5мГц2 { get { return НеполноеВключение && N15LocalParameters.getInstance().локТумблер5Мгц; } }
+        public bool Лампочка5мГц3 { get { return НеполноеВключение && !N15LocalParameters.getInstance().локТумблер5Мгц; } }
 
-        public static bool ЛампочкаА503Б
+        public bool ЛампочкаА503Б
         {
             get { return A503BParameters.Включен; }
         }
 
-        public static bool ЛампочкаАнт { get { return N16Parameters.ЛампочкаАнтенна; } }
-        public static bool ЛампочкаЭкв { get { return N16Parameters.ЛампочкаЭквивалент; } }
+        public bool ЛампочкаАнт { get { return N16Parameters.ЛампочкаАнтенна; } }
+        public bool ЛампочкаЭкв { get { return N16Parameters.ЛампочкаЭквивалент; } }
 
         #endregion
 
@@ -854,8 +861,8 @@ namespace R440O.R440OForms.N15
         /// <summary>
         /// Сброс параметров для блоков без дублирующих лампочек
         /// </summary>
-        public static void ResetParameters()
-        {        
+        public void ResetParameters()
+        {
             N16Parameters.ResetParameters();
             #region БМА
 
@@ -906,7 +913,7 @@ namespace R440O.R440OForms.N15
             OnParameterChanged();
         }
 
-        public static void ResetC300M()
+        public void ResetC300M()
         {
             C300M_1Parameters.ResetParameters();
             C300M_2Parameters.ResetParameters();
@@ -917,7 +924,7 @@ namespace R440O.R440OForms.N15
         /// <summary>
         /// Сброс параметров для блоков с дублирующими лампочками
         /// </summary>
-        public static void ResetParametersAlternative()
+        public void ResetParametersAlternative()
         {
             OnParameterChanged();
         }
@@ -925,7 +932,7 @@ namespace R440O.R440OForms.N15
         /// <summary>
         /// Отдельная перезагрузка аппаратуры Дискрет.
         /// </summary>
-        public static void ResetDiscret()
+        public void ResetDiscret()
         {
             A1Parameters.ResetParameters();
             B1_1Parameters.ResetParameters();
@@ -937,24 +944,24 @@ namespace R440O.R440OForms.N15
         }
 
         public delegate void TestModuleHandler(ITestModule module);
-        public static event TestModuleHandler Action;
+        public event TestModuleHandler Action;
         public delegate void ParameterChangedHandler();
-        public static event ParameterChangedHandler ParameterChanged;
+        public event ParameterChangedHandler ParameterChanged;
 
-        private static void OnParameterChanged()
+        private void OnParameterChanged()
         {
             ParameterChanged?.Invoke();
             OnAction();
         }
 
-        private static void OnAction()
+        private void OnAction()
         {
             Action?.Invoke(TestModuleRef);
         }
 
-        public static event ParameterChangedHandler IndicatorChanged;
+        public event ParameterChangedHandler IndicatorChanged;
 
-        private static void OnIndicatorChanged()
+        private void OnIndicatorChanged()
         {
             IndicatorChanged?.Invoke();
         }
@@ -965,10 +972,10 @@ namespace R440O.R440OForms.N15
         /// <summary>
         /// Уставнавливает настоящие настройки станции в соответствии с включенными тумблерами
         /// </summary>
-        public static void SetCurrentParameters()
+        public void SetCurrentParameters()
         {
-            var parametersList = typeof (N15Parameters).GetProperties();
-            var localParametersList = typeof (N15LocalParameters).GetProperties();
+            var parametersList = typeof(N15Parameters).GetProperties();
+            var localParametersList = typeof(N15LocalParameters).GetProperties();
 
             foreach (var localProperty in localParametersList)
             {
@@ -984,16 +991,16 @@ namespace R440O.R440OForms.N15
                 }
             }
 
-            Н13_1 = (N15LocalParameters.локКнопкаН13_1 || N15LocalParameters.локКнопкаН13_12);
-            Н13_2 = (N15LocalParameters.локКнопкаН13_2 || N15LocalParameters.локКнопкаН13_12);
+            Н13_1 = (N15LocalParameters.getInstance().локКнопкаН13_1 || N15LocalParameters.getInstance().локКнопкаН13_12);
+            Н13_2 = (N15LocalParameters.getInstance().локКнопкаН13_2 || N15LocalParameters.getInstance().локКнопкаН13_12);
         }
 
         /// <summary>
         /// Сбрасывает настоящие настройки станции
         /// </summary>
-        public static void ResetCurrentParameters()
+        public void ResetCurrentParameters()
         {
-            var parametersList = typeof (N15Parameters).GetProperties();
+            var parametersList = typeof(N15Parameters).GetProperties();
 
             foreach (var property in parametersList.Where(property => property.Name.Contains("Тумблер")
                                                                       && !property.Name.Contains("А503Б") &&
@@ -1012,7 +1019,7 @@ namespace R440O.R440OForms.N15
         }
 
         #endregion
-        public static void SetDefaultParameters()
+        public void SetDefaultParameters()
         {
             РегуляторУровень = 0;
             _кнопкаСтанцияВкл = false;
@@ -1064,7 +1071,7 @@ namespace R440O.R440OForms.N15
             _тумблерТлфТлгПрм = false;
             _тумблерТлфТлгПрд = false;
             OnParameterChanged();
-            N15LocalParameters.SetDefaultParameters();
+            N15LocalParameters.getInstance().SetDefaultParameters();
         }
     }
 }

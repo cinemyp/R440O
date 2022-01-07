@@ -217,7 +217,7 @@ namespace R440O.R440OForms.N18_M
             set
             {
                 if (value > 0 && value < 6) _переключательПРД = value;
-                N15Parameters.ResetDiscret();
+                N15Parameters.getInstance().ResetDiscret();
                 OnParameterChanged();
             }
         }
@@ -238,7 +238,7 @@ namespace R440O.R440OForms.N18_M
                 OnParameterChanged();
                 A205M_1Parameters.ResetParameters();
                 A205M_2Parameters.ResetParameters();
-                N15Parameters.ResetParameters();
+                N15Parameters.getInstance().ResetParameters();
             }
         }
 
@@ -560,7 +560,7 @@ namespace R440O.R440OForms.N18_M
         /// </summary>
         private static void OnParameterChanged()
         {
-            N15Parameters.ResetDiscret();
+            N15Parameters.getInstance().ResetDiscret();
             //BMA_M_1Parameters.ResetParameters();
             BMBParameters.ResetParameters();
             var handler = ParameterChanged;

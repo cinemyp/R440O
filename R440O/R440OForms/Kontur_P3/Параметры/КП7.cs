@@ -10,7 +10,7 @@ namespace R440O.R440OForms.Kontur_P3.Параметры
         {
             get
             {
-                return N15Parameters.ЛампочкаАФСС;
+                return N15Parameters.getInstance().ЛампочкаАФСС;
             }
         }
         #endregion
@@ -23,7 +23,7 @@ namespace R440O.R440OForms.Kontur_P3.Параметры
             set
             {
                 _ТумблерСеть = value;
-                N15Parameters.ResetParameters();
+                N15Parameters.getInstance().ResetParameters();
                 ResetToDefaultsWhenTurnOnOff();
                 Refresh();
             }

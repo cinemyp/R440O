@@ -51,7 +51,7 @@ namespace R440O.R440OForms.C300M_3
 
         public static bool НеполноеВключение
         {
-            get { return N15Parameters.Включен; }
+            get { return N15Parameters.getInstance().Включен; }
         }
 
         public static bool Включен
@@ -59,7 +59,7 @@ namespace R440O.R440OForms.C300M_3
             get
             {
                 return НеполноеВключение &&
-                       ((ТумблерУправление && N15Parameters.ТумблерЦ300М3) || (!ТумблерУправление && КнопкиПитание));
+                       ((ТумблерУправление && N15Parameters.getInstance().ТумблерЦ300М3) || (!ТумблерУправление && КнопкиПитание));
             }
         }
 
@@ -308,7 +308,7 @@ namespace R440O.R440OForms.C300M_3
 
                 //Если блок включен дистанционно и мы переключаем тумблер на местное управление,
                 //то питание должно остаться, для этого нужно присвоить КнопкамПитание значение true;
-                КнопкиПитание = (!value && N15Parameters.ТумблерЦ300М3);
+                КнопкиПитание = (!value && N15Parameters.getInstance().ТумблерЦ300М3);
             }
         }
 
@@ -461,7 +461,7 @@ namespace R440O.R440OForms.C300M_3
                             case 0:
                                 if (!ЛампочкаСигнал)
                                     return 0;
-                                return _индикаторСигнал = (float)((N15Parameters.РегуляторУровень - ПойманныйСигнал.Level) / 2);
+                                return _индикаторСигнал = (float)((N15Parameters.getInstance().РегуляторУровень - ПойманныйСигнал.Level) / 2);
 
                             case 1:
                                 if (ТумблерРегулировкаУровня)
@@ -704,7 +704,7 @@ namespace R440O.R440OForms.C300M_3
                 _сигналПойман = value;
                 if (_сигналПойман ^ last_value)
                 {
-                    N15Parameters.ResetParametersAlternative();
+                    N15Parameters.getInstance().ResetParametersAlternative();
                 }
                 if (_сигналПойман)
                 {
@@ -812,7 +812,7 @@ namespace R440O.R440OForms.C300M_3
             //Разница между частотой приема, и частотой со 2ого гетеродина должна быть 70Мгц +-300/60 Кгц
             //А также регулятор уровень на Н15 должен быть выше чем уровень сигнала.
             return !КнопкаПоиск && Math.Abs(ЗначениеПоиска - ТочкаПоиска(сигнал)) < 2 &&
-                N15Parameters.РегуляторУровень > сигнал.Level && !ШирокополосныйСигнал(сигнал);
+                N15Parameters.getInstance().РегуляторУровень > сигнал.Level && !ШирокополосныйСигнал(сигнал);
         }
 
         /// <summary>

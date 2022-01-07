@@ -15,8 +15,8 @@ using ShareTypes.SignalTypes;
         {
             get
             {
-                return (N15Parameters.ЛампочкаП220272 || N15Parameters.ЛампочкаП220273) &&
-                       (ТумблерМуДу || !ТумблерМуДу && N15Parameters.ТумблерБ2_2);
+                return (N15Parameters.getInstance().ЛампочкаП220272 || N15Parameters.getInstance().ЛампочкаП220273) &&
+                       (ТумблерМуДу || !ТумблерМуДу && N15Parameters.getInstance().ТумблерБ2_2);
             }
         }
 
@@ -153,7 +153,7 @@ using ShareTypes.SignalTypes;
             set
             {
                 _кнопкаБК1 = _кнопкаБК1 == value ? 0 : value;
-                N15Parameters.ResetDiscret();
+                N15Parameters.getInstance().ResetDiscret();
                 OnParameterChanged();
             }
         }
@@ -164,7 +164,7 @@ using ShareTypes.SignalTypes;
             set
             {
                 _кнопкаБК2 = _кнопкаБК2 == value ? 0 : value;
-                N15Parameters.ResetDiscret();
+                N15Parameters.getInstance().ResetDiscret();
                 OnParameterChanged();
             }
         }
@@ -178,7 +178,7 @@ using ShareTypes.SignalTypes;
             set
             {
                 _тумблерМуДу = value;
-                N15Parameters.ResetDiscret();
+                N15Parameters.getInstance().ResetDiscret();
             }
         }
         #endregion

@@ -19,7 +19,7 @@ using ShareTypes.SignalTypes;
             get
             {
                 return (P220_27G_2Parameters.Включен || P220_27G_3Parameters.Включен) &&
-                       (ТумблерМуДу || !ТумблерМуДу && N15Parameters.ТумблерБ1_2);
+                       (ТумблерМуДу || !ТумблерМуДу && N15Parameters.getInstance().ТумблерБ1_2);
             }
         }
 

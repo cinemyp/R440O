@@ -19,7 +19,7 @@ namespace R440O.R440OForms.B1_1
             get
             {
                 return (P220_27G_2Parameters.Включен || P220_27G_3Parameters.Включен) &&
-                       (ТумблерМуДу || !ТумблерМуДу && N15Parameters.ТумблерБ1_1);
+                       (ТумблерМуДу || !ТумблерМуДу && N15Parameters.getInstance().ТумблерБ1_1);
             }
         }
 

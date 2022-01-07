@@ -12,8 +12,8 @@
         {
             get
             {
-                return (N15Parameters.ЛампочкаП220272 || N15Parameters.ЛампочкаП220273) &&
-                       (ТумблерМуДу || !ТумблерМуДу && N15Parameters.ТумблерБ3_2);
+                return (N15Parameters.getInstance().ЛампочкаП220272 || N15Parameters.getInstance().ЛампочкаП220273) &&
+                       (ТумблерМуДу || !ТумблерМуДу && N15Parameters.getInstance().ТумблерБ3_2);
             }
         }
 
@@ -152,7 +152,7 @@
             set
             {
                 if (value >= 0 && value <= 5) _колодкаКРПР = value;
-                N15Parameters.ResetDiscret();
+                N15Parameters.getInstance().ResetDiscret();
                 OnParameterChanged();
             }
         }
@@ -164,7 +164,7 @@
             set
             {
                 if (value >= 0 && value <= 9) _колодкаУКК1 = value;
-                N15Parameters.ResetDiscret();
+                N15Parameters.getInstance().ResetDiscret();
                 OnParameterChanged();
             }
         }
@@ -176,7 +176,7 @@
             set
             {
                 if (value >= 0 && value <= 9) _колодкаУКК2 = value;
-                N15Parameters.ResetDiscret();
+                N15Parameters.getInstance().ResetDiscret();
                 OnParameterChanged();
             }
         }
@@ -188,7 +188,7 @@
             {
                 if (value) _колодкаОКпр1Ас = false;
                 _колодкаОКпр1Син = value;
-                N15Parameters.ResetDiscret();
+                N15Parameters.getInstance().ResetDiscret();
                 OnParameterChanged();
             }
         }
@@ -200,7 +200,7 @@
             {
                 if (value) _колодкаОКпр1Син = false;
                 _колодкаОКпр1Ас = value;
-                N15Parameters.ResetDiscret();
+                N15Parameters.getInstance().ResetDiscret();
                 OnParameterChanged();
             }
         }
@@ -212,7 +212,7 @@
             {
                 if (value) _колодкаОКпр2Ас = false;
                 _колодкаОКпр2Син = value;
-                N15Parameters.ResetDiscret();
+                N15Parameters.getInstance().ResetDiscret();
                 OnParameterChanged();
             }
         }
@@ -224,7 +224,7 @@
             {
                 if (value) _колодкаОКпр2Син = false;
                 _колодкаОКпр2Ас = value;
-                N15Parameters.ResetDiscret();
+                N15Parameters.getInstance().ResetDiscret();
                 OnParameterChanged();
             }
         }
@@ -236,7 +236,7 @@
             {
                 if (value) _колодкаТлГпр12 = false;
                 _колодкаТлГпр11 = value;
-                N15Parameters.ResetDiscret();
+                N15Parameters.getInstance().ResetDiscret();
                 OnParameterChanged();
             }
         }
@@ -248,7 +248,7 @@
             {
                 if (value) _колодкаТлГпр11 = false;
                 _колодкаТлГпр12 = value;
-                N15Parameters.ResetDiscret();
+                N15Parameters.getInstance().ResetDiscret();
                 OnParameterChanged();
             }
         }
@@ -260,7 +260,7 @@
             {
                 if (value) _колодкаТлГпр22 = false;
                 _колодкаТлГпр21 = value;
-                N15Parameters.ResetDiscret();
+                N15Parameters.getInstance().ResetDiscret();
                 OnParameterChanged();
             }
         }
@@ -272,7 +272,7 @@
             {
                 if (value) _колодкаТлГпр21 = false;
                 _колодкаТлГпр22 = value;
-                N15Parameters.ResetDiscret();
+                N15Parameters.getInstance().ResetDiscret();
                 OnParameterChanged();
             }
         }
@@ -284,7 +284,7 @@
             {
                 if (value) _колодкаТлГпр32 = false;
                 _колодкаТлГпр31 = value;
-                N15Parameters.ResetDiscret();
+                N15Parameters.getInstance().ResetDiscret();
                 OnParameterChanged();
             }
         }
@@ -296,7 +296,7 @@
             {
                 if (value) _колодкаТлГпр31 = false;
                 _колодкаТлГпр32 = value;
-                N15Parameters.ResetDiscret();
+                N15Parameters.getInstance().ResetDiscret();
                 OnParameterChanged();
             }
         }
@@ -324,7 +324,7 @@
             set
             {
                 _тумблерМуДу = value;
-                N15Parameters.ResetDiscret();
+                N15Parameters.getInstance().ResetDiscret();
                 OnParameterChanged();
             }
         }

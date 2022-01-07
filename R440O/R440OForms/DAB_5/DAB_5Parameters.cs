@@ -11,7 +11,7 @@
     {
         public static bool Включен
         {
-            get { return N15Parameters.ЛампочкаДАБ_5; }
+            get { return N15Parameters.getInstance().ЛампочкаДАБ_5; }
         }
 
         private static bool _тумблерПитание;
@@ -21,7 +21,7 @@
             set
             {
                 _тумблерПитание = value;
-                N15Parameters.ResetParametersAlternative();
+                N15Parameters.getInstance().ResetParametersAlternative();
                 if (ЛампочкаПитание)
                     SetDefaultParameters();
                 else
@@ -43,7 +43,7 @@
 
         public static bool ЛампочкаОбход
         {
-            get { return N15Parameters.ТумблерДАБ_5 && N15Parameters.Включен && ОбходВкл; }
+            get { return N15Parameters.getInstance().ТумблерДАБ_5 && N15Parameters.getInstance().Включен && ОбходВкл; }
         }
 
         public static bool ЛампочкаРежимАвтом

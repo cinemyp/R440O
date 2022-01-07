@@ -6,7 +6,7 @@
     {
         public static bool Включен
         {
-            get { return N15Parameters.Включен && ТумблерСеть; }
+            get { return N15Parameters.getInstance().Включен && ТумблерСеть; }
         }
         ////Лампочки
         public static bool ЛампочкаНеиспр { get; set; }
@@ -28,9 +28,9 @@
             get
             {
                 return Включен && (!ТумблерУправление ||
-                                   (N15Parameters.ТумблерА1 || N15Parameters.ТумблерБ1_1 || N15Parameters.ТумблерБ1_2 ||
-                                    N15Parameters.ТумблерБ2_1 || N15Parameters.ТумблерБ2_2 || N15Parameters.ТумблерБ3_1 ||
-                                    N15Parameters.ТумблерБ3_2));
+                                   (N15Parameters.getInstance().ТумблерА1 || N15Parameters.getInstance().ТумблерБ1_1 || N15Parameters.getInstance().ТумблерБ1_2 ||
+                                    N15Parameters.getInstance().ТумблерБ2_1 || N15Parameters.getInstance().ТумблерБ2_2 || N15Parameters.getInstance().ТумблерБ3_1 ||
+                                    N15Parameters.getInstance().ТумблерБ3_2));
             }
         }
 
@@ -57,8 +57,8 @@
             {
                 _тумблерСеть = value;
                 OnParameterChanged();
-                N15Parameters.ResetParametersAlternative();
-                N15Parameters.ResetDiscret();
+                N15Parameters.getInstance().ResetParametersAlternative();
+                N15Parameters.getInstance().ResetDiscret();
             }
         }
 

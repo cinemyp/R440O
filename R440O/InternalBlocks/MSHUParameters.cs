@@ -12,7 +12,7 @@
     {
         public static bool Включен
         {
-            get { return N15Parameters.ТумблерМШУ; }
+            get { return N15Parameters.getInstance().ТумблерМШУ; }
         }
 
         /// <summary>
@@ -26,7 +26,7 @@
             {
                 if (!Включен) return new BroadcastSignal();
 
-                var inputSignal = N15Parameters.ТумблерАнтЭкв ? Antenna.ВыходнойСигнал
+                var inputSignal = N15Parameters.getInstance().ТумблерАнтЭкв ? Antenna.ВыходнойСигнал
                     : A503BParameters.ВыходнойСигнал;
 
                 if (inputSignal == null) return new BroadcastSignal();

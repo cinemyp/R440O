@@ -18,8 +18,8 @@ namespace R440O.R440OForms.PU_K1_1
         {
             get
             {
-                return (N15Parameters.Включен && (ТумблерПитание == 0 && N15Parameters.ТумблерК1_1) || ТумблерПитание == 2)
-                    && N15Parameters.Лампочка27В;
+                return (N15Parameters.getInstance().Включен && (ТумблерПитание == 0 && N15Parameters.getInstance().ТумблерК1_1) || ТумблерПитание == 2)
+                    && N15Parameters.getInstance().Лампочка27В;
             }
         }
 

@@ -16,7 +16,7 @@ namespace R440O.R440OForms.NKN_2
 
         public static bool ПолноеВключение //горят лампочки фаз
         {
-            get { return НеполноеВключение && Питание220Включено && N15Parameters.Включен; }
+            get { return НеполноеВключение && Питание220Включено && N15Parameters.getInstance().Включен; }
         }
 
         private static bool _дистанционноеВключение;
@@ -61,7 +61,7 @@ namespace R440O.R440OForms.NKN_2
                 _питание220Включено = value;
 
                 OnParameterChanged();
-                N15Parameters.ResetParametersAlternative();
+                N15Parameters.getInstance().ResetParametersAlternative();
                 A205M_2Parameters.ResetParameters();
             }
         }
@@ -77,7 +77,7 @@ namespace R440O.R440OForms.NKN_2
 
         public static void ResetParameters()
         {
-            if ((N15Parameters.НеполноеВключение && !N15Parameters.Включен && НеполноеВключение && ПолноеВключение) || !НеполноеВключение)
+            if ((N15Parameters.getInstance().НеполноеВключение && !N15Parameters.getInstance().Включен && НеполноеВключение && ПолноеВключение) || !НеполноеВключение)
                 _питание220Включено = false;
             OnParameterChanged();
         }

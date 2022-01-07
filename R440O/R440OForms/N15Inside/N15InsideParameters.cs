@@ -20,7 +20,7 @@ namespace R440O.R440OForms.N15Inside
         {
             get
             {
-                return N15Parameters.Включен;
+                return N15Parameters.getInstance().Включен;
             }
         }
 
@@ -34,7 +34,7 @@ namespace R440O.R440OForms.N15Inside
             {
                 if (!Включен) return null;
 
-                if (N15Parameters.ТумблерТлфТлгПрд && !PU_K1_1Parameters.КулонК1Подключен)
+                if (N15Parameters.getInstance().ТумблерТлфТлгПрд && !PU_K1_1Parameters.КулонК1Подключен)
                 {    
                     if (N18_MParameters.ПереключательПРД == 2 && A1Parameters.ВыходнойСигнал != null &&
                     Signal.IsEquivalentSpeed(СкоростьПередачи, A1Parameters.ВыходнойСигнал.GroupSpeed))
@@ -71,7 +71,7 @@ namespace R440O.R440OForms.N15Inside
             get
             {
                 if (Включен &&
-                    N15Parameters.ТумблерТлфТлгПрм && C300M_1Parameters.ПойманныйСигнал != null &&
+                    N15Parameters.getInstance().ТумблерТлфТлгПрм && C300M_1Parameters.ПойманныйСигнал != null &&
                     Signal.IsEquivalentSpeed(C300M_1Parameters.ПойманныйСигнал.GroupSpeed, СкоростьПриема) &&
                     C300M_1Parameters.ПойманныйСигнал.Modulation == ТумблерПУЛ480ПРМ_1)
                     return C300M_1Parameters.ПойманныйСигнал;
@@ -102,7 +102,7 @@ namespace R440O.R440OForms.N15Inside
             {
                 _тумблерПУЛ480ПРМ_1 = value;
                 OnParameterChanged();
-                N15Parameters.ResetDiscret();
+                N15Parameters.getInstance().ResetDiscret();
             }
         }
 
@@ -131,7 +131,7 @@ namespace R440O.R440OForms.N15Inside
             {
                 _тумблерПУЛ48ПРД_1 = value;
                 OnParameterChanged();
-                N15Parameters.ResetDiscret();
+                N15Parameters.getInstance().ResetDiscret();
             }
         }
 
@@ -200,7 +200,7 @@ namespace R440O.R440OForms.N15Inside
                 {
                     _переключательПУЛ480ПРМ_1 = value;
                     OnParameterChanged();
-                    N15Parameters.ResetDiscret();
+                    N15Parameters.getInstance().ResetDiscret();
                 }
             }
         }
@@ -231,7 +231,7 @@ namespace R440O.R440OForms.N15Inside
                 {
                     _переключательПУЛ480ПРМ_2 = value;
                     OnParameterChanged();
-                    N15Parameters.ResetDiscret();
+                    N15Parameters.getInstance().ResetDiscret();
                 }
             }
         }
@@ -277,7 +277,7 @@ namespace R440O.R440OForms.N15Inside
                 {
                     _переключательПУЛ48ПРД_1 = value;
                     OnParameterChanged();
-                    N15Parameters.ResetDiscret();
+                    N15Parameters.getInstance().ResetDiscret();
                 }
             }
         }
@@ -301,7 +301,7 @@ namespace R440O.R440OForms.N15Inside
                 {
                     _переключательПУЛ48ПРД_2 = value;
                     OnParameterChanged();
-                    N15Parameters.ResetDiscret();
+                    N15Parameters.getInstance().ResetDiscret();
                 }
             }
         }

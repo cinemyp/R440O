@@ -69,12 +69,12 @@ namespace R440O
             N502BParameters.getInstance().ТумблерН15 = true;
 
             //Установка некоторых значений в память Н15
-            N15LocalParameters.локТумблер5Мгц = false;
-            N15LocalParameters.локКнопкаН13_1 = true;
-            N15LocalParameters.локКнопкаН13_2 = false;
-            N15LocalParameters.локКнопкаН13_12 = false;
+            N15LocalParameters.getInstance().локТумблер5Мгц = false;
+            N15LocalParameters.getInstance().локКнопкаН13_1 = true;
+            N15LocalParameters.getInstance().локКнопкаН13_2 = false;
+            N15LocalParameters.getInstance().локКнопкаН13_12 = false;
             N16Parameters.ЩелевойМостН13 = 1;
-            N15Parameters.ТумблерАнтЭкв = false;
+            N15Parameters.getInstance().ТумблерАнтЭкв = false;
 
             //A304
             A304Parameters.ТумблерУправление1 = true;
@@ -86,14 +86,14 @@ namespace R440O
         {
 
             // Подготовка Н-15
-            N15LocalParameters.локТумблерЦ300М1 = true;
-            N15LocalParameters.локТумблерЦ300М2 = true;
-            N15LocalParameters.локТумблерЦ300М3 = true;
-            N15LocalParameters.локТумблерЦ300М4 = true;
-            N15LocalParameters.локТумблерМШУ = true;
-            N15LocalParameters.локТумблерА20512 = true;
-            N15LocalParameters.локТумблерА205Base = true;
-            N15Parameters.ТумблерА503Б = true;
+            N15LocalParameters.getInstance().локТумблерЦ300М1 = true;
+            N15LocalParameters.getInstance().локТумблерЦ300М2 = true;
+            N15LocalParameters.getInstance().локТумблерЦ300М3 = true;
+            N15LocalParameters.getInstance().локТумблерЦ300М4 = true;
+            N15LocalParameters.getInstance().локТумблерМШУ = true;
+            N15LocalParameters.getInstance().локТумблерА20512 = true;
+            N15LocalParameters.getInstance().локТумблерА205Base = true;
+            N15Parameters.getInstance().ТумблерА503Б = true;
 
 
             // Настройка А205М
@@ -119,14 +119,14 @@ namespace R440O
         public static void НастройкаAппаратурыCлужебнойCвязи()
         {
             //// Поключение АФСС
-            N15LocalParameters.локТумблерАФСС = true;
+            N15LocalParameters.getInstance().локТумблерАФСС = true;
             Kontur_P3Parameters.ТумблерСеть = EТумблерСеть.ВКЛ;
 
             //// Подключение ДАБ-5
-            N15LocalParameters.локТумблерАФСС = true;
+            N15LocalParameters.getInstance().локТумблерАФСС = true;
 
             //БМА
-            N15LocalParameters.локТумблерБМА_1 = true;
+            N15LocalParameters.getInstance().локТумблерБМА_1 = true;
 
             // Настройка БМА 1
             BMA_M_1Parameters.ПереключательРежимы = 2;
@@ -147,28 +147,28 @@ namespace R440O
             N18_MParameters.ПереключательПРМ1 = 4;
 
             // Генераторы
-            N15Parameters.Тумблер5Мгц = 0;
+            N15Parameters.getInstance().Тумблер5Мгц = 0;
             P220_27G_2Parameters.ТумблерСеть = true;
             P220_27G_2Parameters.ТумблерУправление = true;
             P220_27G_3Parameters.ТумблерСеть = true;
             P220_27G_3Parameters.ТумблерУправление = true;
 
-            N15LocalParameters.локТумблерА1 = true;
+            N15LocalParameters.getInstance().локТумблерА1 = true;
 
             // Приемная часть
-            N15LocalParameters.локТумблерБ1_1 = true;
-            N15LocalParameters.локТумблерБ2_1 = true;
-            N15LocalParameters.локТумблерБ3_1 = true;
-            N15LocalParameters.локТумблерБ1_2 = true;
-            N15LocalParameters.локТумблерБ2_2 = true;
-            N15LocalParameters.локТумблерБ3_2 = true;
+            N15LocalParameters.getInstance().локТумблерБ1_1 = true;
+            N15LocalParameters.getInstance().локТумблерБ2_1 = true;
+            N15LocalParameters.getInstance().локТумблерБ3_1 = true;
+            N15LocalParameters.getInstance().локТумблерБ1_2 = true;
+            N15LocalParameters.getInstance().локТумблерБ2_2 = true;
+            N15LocalParameters.getInstance().локТумблерБ3_2 = true;
         }
 
         public static void НастройкаПУЛов()
         {
             //ПУЛы
-            N15Parameters.ТумблерТлфТлгПрд = true;
-            N15Parameters.ТумблерТлфТлгПрм = true;
+            N15Parameters.getInstance().ТумблерТлфТлгПрд = true;
+            N15Parameters.getInstance().ТумблерТлфТлгПрм = true;
             N15InsideParameters.ПереключательПУЛ48ПРД_1 = 3;
             N15InsideParameters.ТумблерПУЛ48ПРД_1 = Модуляция.ОФТ;
             N15InsideParameters.ПереключательПУЛ48ПРД_2 = 3;

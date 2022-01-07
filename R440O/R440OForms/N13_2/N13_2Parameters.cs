@@ -14,12 +14,12 @@ namespace R440O.R440OForms.N13_2
 
         public static bool Включен
         {
-            get { return N15Parameters.Н13_2 && N502BParameters.getInstance().ТумблерН13_2; }
+            get { return N15Parameters.getInstance().Н13_2 && N502BParameters.getInstance().ТумблерН13_2; }
         }
 
         public static bool Неисправен
         {
-            get { return N15Parameters.Н13_2 && !N502BParameters.getInstance().ТумблерН13_2; }
+            get { return N15Parameters.getInstance().Н13_2 && !N502BParameters.getInstance().ТумблерН13_2; }
         }
         public static bool ЛампочкаПерегрузкаИстКоллектора
         {

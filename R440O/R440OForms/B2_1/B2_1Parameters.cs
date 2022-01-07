@@ -13,8 +13,8 @@
         {
             get
             {
-                return (N15Parameters.ЛампочкаП220272 || N15Parameters.ЛампочкаП220273) &&
-                       (ТумблерМуДу || !ТумблерМуДу && N15Parameters.ТумблерБ2_1);
+                return (N15Parameters.getInstance().ЛампочкаП220272 || N15Parameters.getInstance().ЛампочкаП220273) &&
+                       (ТумблерМуДу || !ТумблерМуДу && N15Parameters.getInstance().ТумблерБ2_1);
             }
         }
 
@@ -166,7 +166,7 @@
             set
             {
                 _кнопкаБК1 = _кнопкаБК1 == value ? 0 : value;
-                N15Parameters.ResetDiscret();
+                N15Parameters.getInstance().ResetDiscret();
                 OnParameterChanged();
             }
         }
@@ -177,7 +177,7 @@
             set
             {
                 _кнопкаБК2 = _кнопкаБК2 == value ? 0 : value;
-                N15Parameters.ResetDiscret();
+                N15Parameters.getInstance().ResetDiscret();
                 OnParameterChanged();
             }
         }
@@ -191,7 +191,7 @@
             set
             {
                 _тумблерМуДу = value;
-                N15Parameters.ResetDiscret();
+                N15Parameters.getInstance().ResetDiscret();
             }
         }
         #endregion

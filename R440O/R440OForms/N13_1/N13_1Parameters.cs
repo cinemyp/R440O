@@ -17,13 +17,13 @@ namespace R440O.R440OForms.N13_1
         {
             get
             {
-                return N15Parameters.Н13_1 && N502BParameters.getInstance().ТумблерН13_1;
+                return N15Parameters.getInstance().Н13_1 && N502BParameters.getInstance().ТумблерН13_1;
             }
         }
 
         public static bool Неисправен
         {
-            get { return N15Parameters.Н13_1 && !N502BParameters.getInstance().ТумблерН13_1; }
+            get { return N15Parameters.getInstance().Н13_1 && !N502BParameters.getInstance().ТумблерН13_1; }
         }
         public static bool ЛампочкаПерегрузкаИстКоллектора
         {

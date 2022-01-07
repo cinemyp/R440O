@@ -15,7 +15,7 @@ namespace R440O.R440OForms.N16
         {
             get
             {
-                return (N15Parameters.НеполноеВключение);
+                return (N15Parameters.getInstance().НеполноеВключение);
             }
         }
 
@@ -66,7 +66,7 @@ namespace R440O.R440OForms.N16
             if ((ТумблерФаза == 0 && ТумблерУровень1 == 0 && ТумблерУровень2 == 0) ||
                 (Math.Abs(ЗначениеМощностьВыхода - ИндикаторМощностьВыхода) < 0.1 &&
                  Math.Abs(ЗначениеМощностьНагрузки - ИндикаторМощностьНагрузки) < 0.1) ||
-                Math.Abs(ЗначениеМощностьВыхода - N15Parameters.ИндикаторМощностьВыхода) < 0.1)
+                Math.Abs(ЗначениеМощностьВыхода - N15Parameters.getInstance().ИндикаторМощностьВыхода) < 0.1)
             {
                 Timer.Tick -= timer_Tick;
                 Timer.Stop();
@@ -106,15 +106,15 @@ namespace R440O.R440OForms.N16
             }
             else
             {
-                if (N15Parameters.КнопкаМощностьН16 && !КнопкаВкл &&
+                if (N15Parameters.getInstance().КнопкаМощностьН16 && !КнопкаВкл &&
                     (N13_1Parameters.Включен || N13_2Parameters.Включен) &&     //анод включен
                     (NKN_1Parameters.ПолноеВключение && NKN_1Parameters.ДистанционноеВключение ||  //ум1 включен
                      NKN_2Parameters.ПолноеВключение && NKN_2Parameters.ДистанционноеВключение))    //ум2 включен
                 {
-                    if (ЗначениеМощностьВыхода - N15Parameters.ИндикаторМощностьВыхода > 0)
-                        N15Parameters.ИндикаторМощностьВыхода += 0.1F;
+                    if (ЗначениеМощностьВыхода - N15Parameters.getInstance().ИндикаторМощностьВыхода > 0)
+                        N15Parameters.getInstance().ИндикаторМощностьВыхода += 0.1F;
                     else
-                        N15Parameters.ИндикаторМощностьВыхода -= 0.1F;
+                        N15Parameters.getInstance().ИндикаторМощностьВыхода -= 0.1F;
                 }
                 else
                 {
@@ -308,7 +308,7 @@ namespace R440O.R440OForms.N16
                         break;
                 }
                 OnParameterChanged();
-                N15Parameters.ResetParametersAlternative();
+                N15Parameters.getInstance().ResetParametersAlternative();
             }
         }
 
@@ -328,7 +328,7 @@ namespace R440O.R440OForms.N16
                         : !КнопкаЭквивалент;
                 }
                 OnParameterChanged();
-                N15Parameters.ResetParametersAlternative();
+                N15Parameters.getInstance().ResetParametersAlternative();
             }
         }
 
@@ -349,7 +349,7 @@ namespace R440O.R440OForms.N16
             set
             {
                 _кнопкаВкл = value;
-                if (N15Parameters.КнопкаМощностьН16) N15Parameters.ResetParametersAlternative();
+                if (N15Parameters.getInstance().КнопкаМощностьН16) N15Parameters.getInstance().ResetParametersAlternative();
                 OnParameterChanged();
             }
         }
@@ -360,7 +360,7 @@ namespace R440O.R440OForms.N16
             set
             {
                 _кнопкаН13_12 = value;
-                ЩелевойМостН13 = N15Parameters.КнопкаН13;
+                ЩелевойМостН13 = N15Parameters.getInstance().КнопкаН13;
             }
         }
 
@@ -370,7 +370,7 @@ namespace R440O.R440OForms.N16
             set
             {
                 _кнопкаН13_1 = value;
-                ЩелевойМостН13 = N15Parameters.КнопкаН13;
+                ЩелевойМостН13 = N15Parameters.getInstance().КнопкаН13;
             }
         }
 
@@ -380,7 +380,7 @@ namespace R440O.R440OForms.N16
             set
             {
                 _кнопкаН13_2 = value;
-                ЩелевойМостН13 = N15Parameters.КнопкаН13;
+                ЩелевойМостН13 = N15Parameters.getInstance().КнопкаН13;
             }
         }
 
@@ -390,7 +390,7 @@ namespace R440O.R440OForms.N16
             set
             {
                 _кнопкаАнтенна = value;
-                КоаксиальныйПереключатель = N15Parameters.ТумблерАнтЭкв;
+                КоаксиальныйПереключатель = N15Parameters.getInstance().ТумблерАнтЭкв;
             }
         }
 
@@ -400,7 +400,7 @@ namespace R440O.R440OForms.N16
             set
             {
                 _кнопкаЭквивалент = value;
-                КоаксиальныйПереключатель = N15Parameters.ТумблерАнтЭкв;
+                КоаксиальныйПереключатель = N15Parameters.getInstance().ТумблерАнтЭкв;
             }
         }
 
@@ -443,8 +443,8 @@ namespace R440O.R440OForms.N16
             N13_1Parameters.ResetParameters();
             N13_2Parameters.ResetParameters();
 
-            //if (N15Parameters.Н13_1 && N13_1Parameters.Включен) N15Parameters.Н13_1 = false;
-            //if (N15Parameters.Н13_2 && N13_2Parameters.Включен) N15Parameters.Н13_2 = false;
+            //if (N15Parameters.getInstance().Н13_1 && N13_1Parameters.Включен) N15Parameters.getInstance().Н13_1 = false;
+            //if (N15Parameters.getInstance().Н13_2 && N13_2Parameters.Включен) N15Parameters.getInstance().Н13_2 = false;
         }
 
         private static void OnParameterChanged()

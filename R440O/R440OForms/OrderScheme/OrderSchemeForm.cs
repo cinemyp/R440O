@@ -29,7 +29,7 @@
         private void CorrectStation()
         {
             //C300M_1Parameters.КнопкаВидРаботы = 8;
-            //N15Parameters.ТумблерА503Б = false;
+            //N15Parameters.getInstance().ТумблерА503Б = false;
             //N15InsideParameters.ПереключательПУЛ480ПРМ_1 = 8;
             //N18_MParameters.ПереключательВходБ22 = 1;
             //N18_MParameters.ПереключательПРМ1 = 1;

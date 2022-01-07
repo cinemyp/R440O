@@ -20,7 +20,7 @@ namespace R440O.R440OForms.A306
         {
             get
             {
-                return N15Parameters.Включен && MSHUParameters.Включен && (ТумблерДистанцМестн
+                return N15Parameters.getInstance().Включен && MSHUParameters.Включен && (ТумблерДистанцМестн
                                                                            || !ТумблерДистанцМестн && ТумблерПитание);
             }
         }

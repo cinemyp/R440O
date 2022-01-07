@@ -40,7 +40,7 @@ namespace R440O.R440OForms.BMA_M_1
                     BMBParameters.ОбнулитьНабор();
                     BMBParameters.МерцаниеЛампочиНаправления(1);
                 }
-                N15Parameters.ResetParametersAlternative();
+                N15Parameters.getInstance().ResetParametersAlternative();
                 OnParameterChanged();
             }
         }
@@ -575,7 +575,7 @@ namespace R440O.R440OForms.BMA_M_1
                     case 1:
                     case 6:
                         {
-                            return Питание //N15Parameters.ЛампочкаБМА_1                            
+                            return Питание //N15Parameters.getInstance().ЛампочкаБМА_1                            
                                    && !(КнопкаШлейфДК == 3
                                         && BMBParameters.ПереключательРаботаКонтроль == 1
                                         && BMBParameters.КнопкаПередачаВызоваДк == СостоянияЭлементов.БМБ.Кнопка.Горит
@@ -603,7 +603,7 @@ namespace R440O.R440OForms.BMA_M_1
                     case 1:
                     case 6:
                         {
-                            return Питание //N15Parameters.ЛампочкаБМА_1                            
+                            return Питание //N15Parameters.getInstance().ЛампочкаБМА_1                            
                                    && КнопкаШлейфТЧ == 3;
                         }
                     case 4:
@@ -656,7 +656,7 @@ namespace R440O.R440OForms.BMA_M_1
         {
             get
             {
-                return Питание //N15Parameters.ЛампочкаБМА_1
+                return Питание //N15Parameters.getInstance().ЛампочкаБМА_1
                     && (ПереключательКонтроль > 1 && ПереключательКонтроль < 6)
                     && _лампочкаКонтрольНенорм;
             }
@@ -974,7 +974,7 @@ namespace R440O.R440OForms.BMA_M_1
 
         public static void ResetLampsValue()
         {
-            ЛампочкаКонтрольНенорм = N15Parameters.ЛампочкаБМА_1;
+            ЛампочкаКонтрольНенорм = N15Parameters.getInstance().ЛампочкаБМА_1;
             ЛампочкаКонтрольНорм = !ЛампочкаКонтрольНенорм;
         }
     }
