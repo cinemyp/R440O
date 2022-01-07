@@ -387,7 +387,7 @@ namespace R440O.R440OForms.N15
                 NKN_1Parameters.ДистанционноеВключение = ТумблерА205Base && value;
                 NKN_1Parameters.Питание220Включено = NKN_1Parameters.ДистанционноеВключение;
                 NKN_1Parameters.ResetParameters();
-                A205M_1Parameters.ResetParameters();
+                A205M_1Parameters.getInstance().ResetParameters();
 
                 NKN_2Parameters.ДистанционноеВключение = ТумблерА205Base && !value;
                 NKN_2Parameters.Питание220Включено = NKN_2Parameters.ДистанционноеВключение;
@@ -673,12 +673,12 @@ namespace R440O.R440OForms.N15
         public bool ЛампочкаЦ300МНеиспр4 { get; set; }
         public bool ЛампочкаППВВкл1 { get { return NKN_1Parameters.ПолноеВключение || (NKN_1Parameters.НеполноеВключение && NKN_1Parameters.Питание220Включено); } }
         public bool ЛампочкаППВВкл2 { get { return NKN_2Parameters.ПолноеВключение || (NKN_2Parameters.НеполноеВключение && NKN_2Parameters.Питание220Включено); } }
-        public bool ЛампочкаППВРабота1 { get { return A205M_1Parameters.Работа; } }
+        public bool ЛампочкаППВРабота1 { get { return A205M_1Parameters.getInstance().Работа; } }
         public bool ЛампочкаППВРабота2 { get { return A205M_2Parameters.Работа; } }
 
         public bool ЛампочкаА205Неиспр1
         {
-            get { return A205M_1Parameters.Включен && !A205M_1Parameters.Работа; }
+            get { return A205M_1Parameters.getInstance().Включен && !A205M_1Parameters.getInstance().Работа; }
         }
 
         public bool ЛампочкаА205Неиспр2
@@ -904,7 +904,7 @@ namespace R440O.R440OForms.N15
 
             NKN_1Parameters.ResetParameters();
             NKN_2Parameters.ResetParameters();
-            A205M_1Parameters.ResetParameters();
+            A205M_1Parameters.getInstance().ResetParameters();
             A205M_2Parameters.ResetParameters();
 
             //A503BParameters.ResetParameters();
@@ -987,7 +987,7 @@ namespace R440O.R440OForms.N15
                                 && localProperty.Name != "локКнопкаН13_1" && localProperty.Name != "локКнопкаН13_2" &&
                                 localProperty.Name != "локКнопкаН13_12" && localProperty.Name != "локТумблерАнтЭкв"))
                 {
-                    property.SetValue("1", localProperty.GetValue("1"));
+                    property.SetValue(N15Parameters.getInstance(), localProperty.GetValue(N15LocalParameters.getInstance()));
                 }
             }
 

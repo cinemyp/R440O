@@ -127,7 +127,7 @@ namespace R440O.R440OForms.N15
                                                                         !property.Name.Contains("АнтЭкв") &&
                                                                         !property.Name.Contains("А20512")))
                 {
-                    item.BackgroundImage = (bool)property.GetValue(null)
+                    item.BackgroundImage = (bool)property.GetValue(N15LocalParameters.getInstance())
                         ? ControlElementImages.tumblerType3Up
                         : ControlElementImages.tumblerType3Down;
                 }
@@ -176,13 +176,13 @@ namespace R440O.R440OForms.N15
                     if (item.Name.Contains("Ц300М") || item.Name.Contains("ППВ") || item.Name.Contains("А205") ||
                         item.Name.Contains("УМ1"))
                     {
-                        item.BackgroundImage = (bool)property.GetValue(null)
+                        item.BackgroundImage = (bool)property.GetValue(N15Parameters.getInstance())
                             ? ControlElementImages.lampType8OnRed
                             : null;
                     }
                     else
                     {
-                        item.BackgroundImage = (bool)property.GetValue(null)
+                        item.BackgroundImage = (bool)property.GetValue(N15Parameters.getInstance())
                             ? ControlElementImages.lampType5OnRed
                             : null;
                     }
@@ -208,7 +208,7 @@ namespace R440O.R440OForms.N15
             var propertyList = typeof(N15LocalParameters).GetProperties();
             foreach (var property in propertyList.Where(property => ("лок" + item.Name) == property.Name && !item.Name.Contains("А20512")))
             {
-                item.BackgroundImage = (bool)property.GetValue(null)
+                item.BackgroundImage = (bool)property.GetValue(N15LocalParameters.getInstance())
                         ? ControlElementImages.tumblerType3Up
                         : ControlElementImages.tumblerType3Down;
             }
@@ -429,8 +429,8 @@ namespace R440O.R440OForms.N15
         {
             var button = sender as Button;
             var localParameter = typeof(N15LocalParameters).GetProperty("лок" + button.Name);
-            var newValue = !(bool)localParameter.GetValue(null);
-            localParameter.SetValue(null, newValue);
+            var newValue = !(bool)localParameter.GetValue(N15LocalParameters.getInstance());
+            localParameter.SetValue(N15LocalParameters.getInstance(), newValue);
             RefreshFormElement(button.Name);
         }
         private void ТумблерА30412_Click(object sender, EventArgs e)

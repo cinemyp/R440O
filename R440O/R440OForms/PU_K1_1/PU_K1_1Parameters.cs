@@ -180,7 +180,7 @@ namespace R440O.R440OForms.PU_K1_1
             K02M_01Parameters.ResetParameters();
             K03M_01Parameters.ResetParameters();
             K05M_01Parameters.ResetParameters();
-            A205M_1Parameters.ResetParameters();
+            A205M_1Parameters.getInstance().ResetParameters();
             A205M_2Parameters.ResetParameters();
         }
 

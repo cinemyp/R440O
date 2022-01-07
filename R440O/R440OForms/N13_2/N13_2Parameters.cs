@@ -64,9 +64,9 @@ namespace R440O.R440OForms.N13_2
             get
             {
                 Signal inputSignal = null;
-                if (NKN_1Parameters.ДистанционноеВключение && A205M_1Parameters.ВыходнойСигнал != null)
+                if (NKN_1Parameters.ДистанционноеВключение && A205M_1Parameters.getInstance().ВыходнойСигнал != null)
                 {
-                    inputSignal = A205M_1Parameters.ВыходнойСигнал;
+                    inputSignal = A205M_1Parameters.getInstance().ВыходнойСигнал;
                 }
 
                 if (NKN_2Parameters.ДистанционноеВключение && A205M_2Parameters.ВыходнойСигнал != null)

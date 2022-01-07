@@ -236,7 +236,7 @@ namespace R440O.R440OForms.N18_M
             {
                 if (value > 0 && value < 5) _переключательВходК121 = value;
                 OnParameterChanged();
-                A205M_1Parameters.ResetParameters();
+                A205M_1Parameters.getInstance().ResetParameters();
                 A205M_2Parameters.ResetParameters();
                 N15Parameters.getInstance().ResetParameters();
             }

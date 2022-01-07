@@ -38,7 +38,7 @@ namespace R440O.R440OForms.N18_M_H28
         public static void ResetParameters()
         {
             N18_MParameters.ResetParameters();
-            A205M_1Parameters.ResetParameters();
+            A205M_1Parameters.getInstance().ResetParameters();
             A205M_2Parameters.ResetParameters();
             OnParameterChanged();
         }

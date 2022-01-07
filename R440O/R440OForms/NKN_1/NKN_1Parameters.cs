@@ -63,7 +63,7 @@ namespace R440O.R440OForms.NKN_1
 
                 OnParameterChanged();
                 N15Parameters.getInstance().ResetParametersAlternative();
-                A205M_1Parameters.ResetParameters();
+                A205M_1Parameters.getInstance().ResetParameters();
                 //A503BParameters.ResetParameters();
             }
         }

@@ -97,12 +97,12 @@ namespace R440O
 
 
             // Настройка А205М
-            A205M_1Parameters.ПереключательВидРаботы = 3;
-            A205M_1Parameters.ПереключательВолнаX1 = 8;
-            A205M_1Parameters.ПереключательВолнаX10 = 0;
-            A205M_1Parameters.ПереключательВолнаX100 = 0;
-            A205M_1Parameters.ПереключательВолнаX1000 = 2;
-            A205M_1Parameters.ПереключательВолнаX10000 = 2;
+            A205M_1Parameters.getInstance().ПереключательВидРаботы = 3;
+            A205M_1Parameters.getInstance().ПереключательВолнаX1 = 8;
+            A205M_1Parameters.getInstance().ПереключательВолнаX10 = 0;
+            A205M_1Parameters.getInstance().ПереключательВолнаX100 = 0;
+            A205M_1Parameters.getInstance().ПереключательВолнаX1000 = 2;
+            A205M_1Parameters.getInstance().ПереключательВолнаX10000 = 2;
             // Настройка А-304
             A304Parameters.ПереключательВыборСтвола = 5;
             // Настройка А-306

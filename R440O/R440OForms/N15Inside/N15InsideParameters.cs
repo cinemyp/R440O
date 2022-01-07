@@ -315,7 +315,7 @@ namespace R440O.R440OForms.N15Inside
         private static void OnParameterChanged()
         {
             ParameterChanged?.Invoke();
-            A205M_1Parameters.ResetParameters();
+            A205M_1Parameters.getInstance().ResetParameters();
             OnAction();
         }
         private static void OnAction()
