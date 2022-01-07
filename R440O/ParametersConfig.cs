@@ -107,12 +107,12 @@ namespace R440O
             A304Parameters.getInstance().ПереключательВыборСтвола = 5;
             // Настройка А-306
 
-            A306Parameters.ТумблерДистанцМестн = true;
-            A306Parameters.Выходы[1] = 4;
-            A306Parameters.Выходы[11] = 0;
-            A306Parameters.Выходы[12] = 1;
-            A306Parameters.Выходы[13] = 2;
-            A306Parameters.Выходы[14] = 3;
+            A306Parameters.getInstance().ТумблерДистанцМестн = true;
+            A306Parameters.getInstance().Выходы[1] = 4;
+            A306Parameters.getInstance().Выходы[11] = 0;
+            A306Parameters.getInstance().Выходы[12] = 1;
+            A306Parameters.getInstance().Выходы[13] = 2;
+            A306Parameters.getInstance().Выходы[14] = 3;
 
         }
 

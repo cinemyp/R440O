@@ -507,7 +507,7 @@ namespace R440O.R440OForms.C300M_2
         {
             get
             {
-                return Включен ? A306Parameters.ВыходнойСигнал2 : new BroadcastSignal();
+                return Включен ? A306Parameters.getInstance().ВыходнойСигнал2 : new BroadcastSignal();
             }
         }
 

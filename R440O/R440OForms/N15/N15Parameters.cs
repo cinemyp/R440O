@@ -879,7 +879,7 @@ namespace R440O.R440OForms.N15
 
             #region МШУ и АФСС
 
-            A306Parameters.ResetParameters();
+            A306Parameters.getInstance().ResetParameters();
             Kontur_P3Parameters.ResetToDefaultsWhenTurnOnOff();
             Kontur_P3Parameters.Refresh();
 

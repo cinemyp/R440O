@@ -12,11 +12,18 @@ using R440O.BaseClasses;
 
 namespace R440O.R440OForms.A306
 {
-    public static class A306Parameters
+    public class A306Parameters
     {
-        public static ITestModule TestModuleRef { get; set; }
+        private static A306Parameters instance;
+        public static A306Parameters getInstance()
+        {
+            if (instance == null)
+                instance = new A306Parameters();
+            return instance;
+        }
+        public ITestModule TestModuleRef { get; set; }
 
-        public static bool Включен
+        public bool Включен
         {
             get
             {
@@ -29,17 +36,17 @@ namespace R440O.R440OForms.A306
         /// Номер выхода на который поступает сигнал с МШУ, исключая выход КВ
         /// Частота входного сигнала 320...370 МГц. Каждый выход имеет шаг разницы в 5 МГЦ
         /// </summary>
-        public static int ПолучитьНомерВыхода(Signal сигнал)
+        public int ПолучитьНомерВыхода(Signal сигнал)
         {
             return (Включен) ? (сигнал.Frequency - 320000) / 5000 : -1;
         }
 
-                /// <summary>
+        /// <summary>
         /// Проверка подключения приемника к выходу на который подается сигнал
         /// </summary>
         /// <param name="output"></param>
         /// <returns></returns>
-        private static bool IsRightSet(int output, Signal сигнал)
+        private bool IsRightSet(int output, Signal сигнал)
         {
             var НомерВыхода = ПолучитьНомерВыхода(сигнал);
             //Если НомерВыхода неопределен, значит сигнал с МШУ не подается
@@ -51,16 +58,16 @@ namespace R440O.R440OForms.A306
             //Проверка подключения через выходы НО-1
             if ((Выходы[11] == output || Выходы[12] == output || Выходы[13] == output || Выходы[14] == output) &&
                     (Выходы[НомерВыхода] == 4))
-                    return true;
+                return true;
             //Проверка подключения через выходы НО-2
             if ((Выходы[15] == output || Выходы[16] == output || Выходы[17] == output || Выходы[18] == output) &&
                     (Выходы[НомерВыхода] == 5))
-                    return true;
+                return true;
 
             return false;
         }
 
-        private static List<Signal> GetRightSet(int output)
+        private List<Signal> GetRightSet(int output)
         {
             var outputSignals = new List<Signal>();
             foreach (var сигнал in MSHUParameters.ВыходнойСигнал.Signals)
@@ -70,22 +77,22 @@ namespace R440O.R440OForms.A306
         }
 
 
-        public static BroadcastSignal ВыходнойСигнал1
+        public BroadcastSignal ВыходнойСигнал1
         {
             get { return new BroadcastSignal { Signals = GetRightSet(0) }; }
         }
 
-        public static BroadcastSignal ВыходнойСигнал2
+        public BroadcastSignal ВыходнойСигнал2
         {
             get { return new BroadcastSignal { Signals = GetRightSet(1) }; }
         }
 
-        public static BroadcastSignal ВыходнойСигнал3
+        public BroadcastSignal ВыходнойСигнал3
         {
             get { return new BroadcastSignal { Signals = GetRightSet(2) }; }
         }
 
-        public static BroadcastSignal ВыходнойСигнал4
+        public BroadcastSignal ВыходнойСигнал4
         {
             get { return new BroadcastSignal { Signals = GetRightSet(3) }; }
         }
@@ -93,17 +100,17 @@ namespace R440O.R440OForms.A306
 
 
         #region Лампочки
-        public static bool ЛампочкаСетьВкл
+        public bool ЛампочкаСетьВкл
         {
             get { return Включен; }
         }
 
-        public static bool ЛампочкаНО1Вкл
+        public bool ЛампочкаНО1Вкл
         {
             get { return !КабелиВходы[4] && Включен; }
         }
 
-        public static bool ЛампочкаНО2Вкл
+        public bool ЛампочкаНО2Вкл
         {
             get { return !КабелиВходы[5] && Включен; }
         }
@@ -114,7 +121,7 @@ namespace R440O.R440OForms.A306
         /// <summary>
         /// Положение переключателя  определяющее тип питания блока. true - дистанционное, false - местное
         /// </summary>
-        public static bool ТумблерДистанцМестн
+        public bool ТумблерДистанцМестн
         {
             get { return _тумблерДистанцМестн; }
             set
@@ -123,12 +130,12 @@ namespace R440O.R440OForms.A306
                 ResetParameters();
             }
         }
-        private static bool _тумблерДистанцМестн;
+        private bool _тумблерДистанцМестн;
 
         /// <summary>
         /// Положение переключателя  определяющее включен блок или нет. true - вкл, false - выкл
         /// </summary>
-        public static bool ТумблерПитание
+        public bool ТумблерПитание
         {
             get { return _тумблерПитание; }
             set
@@ -137,14 +144,14 @@ namespace R440O.R440OForms.A306
                 ResetParameters();
             }
         }
-        private static bool _тумблерПитание;
+        private bool _тумблерПитание;
         #endregion
 
         #region Коммутация
 
-        private static int _активныйВход = -1;
+        private int _активныйВход = -1;
 
-        public static int АктивныйВход
+        public int АктивныйВход
         {
             get { return _активныйВход; }
             set { _активныйВход = value; }
@@ -158,17 +165,17 @@ namespace R440O.R440OForms.A306
         /// Выходы НО-2: с 15 по 18;
         /// Возможные значения: Входы 0, 1, 2, 3, НО-1:4, HO-2:5
         /// </summary>
-        public static A306Outputs Выходы = new A306Outputs();
+        public A306Outputs Выходы = new A306Outputs();
 
         /// <summary>
         /// с 0 по 3 - входы каналов, 4 - вход НО1, 5 - вход НО2
         /// true - кабель не воткнут, висит на планке
         /// </summary>
-        public static A306InputsCables КабелиВходы = new A306InputsCables();
+        public A306InputsCables КабелиВходы = new A306InputsCables();
 
         #endregion
 
-        public static void SetDefaultParameters()
+        public void SetDefaultParameters()
         {
 
             _тумблерДистанцМестн = false;
@@ -182,32 +189,32 @@ namespace R440O.R440OForms.A306
         }
 
         public delegate void TestModuleHandler(ITestModule module);
-        public static event TestModuleHandler Action;
+        public event TestModuleHandler Action;
         public delegate void ParameterChangedHandler();
 
-        public static event ParameterChangedHandler ParameterChanged;
+        public event ParameterChangedHandler ParameterChanged;
 
-        private static void OnParameterChanged()
+        private void OnParameterChanged()
         {
             var handler = ParameterChanged;
             if (handler != null) handler();
             OnAction();
         }
-        private static void OnAction()
+        private void OnAction()
         {
             Action?.Invoke(TestModuleRef);
         }
 
-        public static void ResetParameters()
-        {            
-            OnParameterChanged();            
+        public void ResetParameters()
+        {
+            OnParameterChanged();
         }
     }
 
     public class A306InputsCables
     {
 
-        public static bool[] Inputs = { true, true, true, true, true, true };
+        public bool[] Inputs = { true, true, true, true, true, true };
         public bool this[int inputNumber]
         {
             get { return Inputs[inputNumber]; }
@@ -225,7 +232,7 @@ namespace R440O.R440OForms.A306
 
     public class A306Outputs
     {
-        public static int[] Outputs = { -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1 };
+        public int[] Outputs = { -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1 };
 
         public int this[int outputNumber]
         {
@@ -234,31 +241,31 @@ namespace R440O.R440OForms.A306
             {
                 if (Outputs[outputNumber] != -1 && value != -1) //что-то есть, и что-то втыкаем
                 {
-                    A306Parameters.КабелиВходы[Outputs[outputNumber]] = true;
+                    A306Parameters.getInstance().КабелиВходы[Outputs[outputNumber]] = true;
                     Outputs[outputNumber] = value;
-                    A306Parameters.КабелиВходы[value] = false;
-                    A306Parameters.АктивныйВход = -1;
+                    A306Parameters.getInstance().КабелиВходы[value] = false;
+                    A306Parameters.getInstance().АктивныйВход = -1;
                 }
                 else if (Outputs[outputNumber] != -1) //если что-то воткнуто, надо выдернуть
                 {
-                    A306Parameters.АктивныйВход = Outputs[outputNumber];
-                    A306Parameters.КабелиВходы[Outputs[outputNumber]] = true;
+                    A306Parameters.getInstance().АктивныйВход = Outputs[outputNumber];
+                    A306Parameters.getInstance().КабелиВходы[Outputs[outputNumber]] = true;
                     Outputs[outputNumber] = -1;
                 }
                 else if (Outputs[outputNumber] == -1 && value != -1) //ничего нет, просто втыкаем
                 {
-                    Outputs[outputNumber] = value; // value == A306Parameters.АктивныйВход 
-                    A306Parameters.КабелиВходы[Outputs[outputNumber]] = false;
-                    A306Parameters.АктивныйВход = -1;
+                    Outputs[outputNumber] = value; // value == A306Parameters.getInstance().АктивныйВход 
+                    A306Parameters.getInstance().КабелиВходы[Outputs[outputNumber]] = false;
+                    A306Parameters.getInstance().АктивныйВход = -1;
                 }
 
-                A306Parameters.ResetParameters();
+                A306Parameters.getInstance().ResetParameters();
             }
         }
 
         public void Reset()
         {
-            Outputs = new int[]{ -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1 }; 
+            Outputs = new int[] { -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1 };
         }
     }
 }
