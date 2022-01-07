@@ -183,13 +183,13 @@ namespace R440O
         public static void НастройкаПриемниковС300М()
         {
             //С300М_1
-            C300M_1Parameters.КнопкиВидРаботы[5] = true;
-            C300M_1Parameters.КнопкиКонтрольРежима[3] = true;
-            C300M_1Parameters.ПереключательВолна1 = 8;
-            C300M_1Parameters.ПереключательВолна10 = 0;
-            C300M_1Parameters.ПереключательВолна100 = 5;
-            C300M_1Parameters.ПереключательВолна1000 = 0;
-            C300M_1Parameters.ТумблерУправление = true;
+            C300M_1Parameters.getInstance().КнопкиВидРаботы[5] = true;
+            C300M_1Parameters.getInstance().КнопкиКонтрольРежима[3] = true;
+            C300M_1Parameters.getInstance().ПереключательВолна1 = 8;
+            C300M_1Parameters.getInstance().ПереключательВолна10 = 0;
+            C300M_1Parameters.getInstance().ПереключательВолна100 = 5;
+            C300M_1Parameters.getInstance().ПереключательВолна1000 = 0;
+            C300M_1Parameters.getInstance().ТумблерУправление = true;
 
             //С300М_2
             C300M_2Parameters.КнопкиВидРаботы[5] = true;

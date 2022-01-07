@@ -10,7 +10,7 @@
         /// </summary>
         public static bool ЛампочкаКомплект1
         {
-            get { return C300M_1Parameters.ЛампочкаПитание; }
+            get { return C300M_1Parameters.getInstance().ЛампочкаПитание; }
         }
 
         /// <summary>

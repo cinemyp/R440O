@@ -42,7 +42,7 @@ namespace R440O.Test.MainTest
         {
             OpenR440O();
             N15StrartStation();
-            C300M_1Parameters.ЗначениеПоиска = 0;
+            C300M_1Parameters.getInstance().ЗначениеПоиска = 0;
         }
 
         [TearDown]
@@ -82,7 +82,7 @@ namespace R440O.Test.MainTest
             N15InsideParameters.ПереключательПУЛ48ПРД_2 = 2;
             N15InsideParameters.ПереключательПУЛ480ПРМ_1 = 2;
             N15InsideParameters.ПереключательПУЛ480ПРМ_2 = 2;
-            C300M_1Parameters.КнопкиВидРаботы[4] = true;         
+            C300M_1Parameters.getInstance().КнопкиВидРаботы[4] = true;         
         }
 
         private void ResetStation()
@@ -95,7 +95,7 @@ namespace R440O.Test.MainTest
             N15InsideParameters.ПереключательПУЛ48ПРД_2 = 3;
             N15InsideParameters.ПереключательПУЛ480ПРМ_1 = 3;
             N15InsideParameters.ПереключательПУЛ480ПРМ_2 = 3;
-            C300M_1Parameters.КнопкиВидРаботы[5] = true;
+            C300M_1Parameters.getInstance().КнопкиВидРаботы[5] = true;
             BMA_M_1Parameters.ПереключательРежимы = 2;
             N18_M_H28Parameters.АктивныйКабель = 0;
 
@@ -125,7 +125,7 @@ namespace R440O.Test.MainTest
         public void MainTest()
         {
             Application.DoEvents();
-            Assert.IsTrue(C300M_1Parameters.СигналПойман);
+            Assert.IsTrue(C300M_1Parameters.getInstance().СигналПойман);
         }
 
         /// <summary>

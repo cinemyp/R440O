@@ -882,9 +882,9 @@ namespace R440O.R440OForms.BMA_M_2
             {
                 // Получение сингала по каналу 1 с Б1 через Н18
                 if (N18_MParameters.Проверить_комутацию(ГнездаН18.Контроль_Прм_Тлф1, ГнездаН18.КоммутацияПрм_Канал1_БМА2) &&
-                    C300M_1Parameters.ПойманныйСигнал != null)
+                    C300M_1Parameters.getInstance().ПойманныйСигнал != null)
                 {
-                    var сигнал = C300M_1Parameters.ПойманныйСигнал.ChanelbyNumber(1);
+                    var сигнал = C300M_1Parameters.getInstance().ПойманныйСигнал.ChanelbyNumber(1);
                     if (сигнал == null)
                         return null;
                     return сигнал.Information ? сигнал : null;

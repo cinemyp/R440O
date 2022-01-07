@@ -26,9 +26,9 @@ namespace R440O.R440OForms.K01M_01
                     else
                     {
 
-                        if (N18_M_AngleSwitchParameters.ГнездоПРМ1 == 1 && C300M_1Parameters.ВходящийСигнал != null)
+                        if (N18_M_AngleSwitchParameters.ГнездоПРМ1 == 1 && C300M_1Parameters.getInstance().ВходящийСигнал != null)
                         {
-                            сигнал = C300M_1Parameters.ВходящийСигнал.Signals
+                            сигнал = C300M_1Parameters.getInstance().ВходящийСигнал.Signals
                                 .Select(s => s.KulonSignal)
                                 .Where(k => k != null)
                                 .ToList();

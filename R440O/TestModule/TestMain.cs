@@ -105,7 +105,7 @@ namespace R440O.TestModule
         
         public static void CheckTest()
         {
-            if(R440OForms.C300M_1.C300M_1Parameters.СигналПойман)
+            if(R440OForms.C300M_1.C300M_1Parameters.getInstance().СигналПойман)
             {
                 FinishTest();
             }

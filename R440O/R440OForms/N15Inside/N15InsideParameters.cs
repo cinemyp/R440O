@@ -71,10 +71,10 @@ namespace R440O.R440OForms.N15Inside
             get
             {
                 if (Включен &&
-                    N15Parameters.getInstance().ТумблерТлфТлгПрм && C300M_1Parameters.ПойманныйСигнал != null &&
-                    Signal.IsEquivalentSpeed(C300M_1Parameters.ПойманныйСигнал.GroupSpeed, СкоростьПриема) &&
-                    C300M_1Parameters.ПойманныйСигнал.Modulation == ТумблерПУЛ480ПРМ_1)
-                    return C300M_1Parameters.ПойманныйСигнал;
+                    N15Parameters.getInstance().ТумблерТлфТлгПрм && C300M_1Parameters.getInstance().ПойманныйСигнал != null &&
+                    Signal.IsEquivalentSpeed(C300M_1Parameters.getInstance().ПойманныйСигнал.GroupSpeed, СкоростьПриема) &&
+                    C300M_1Parameters.getInstance().ПойманныйСигнал.Modulation == ТумблерПУЛ480ПРМ_1)
+                    return C300M_1Parameters.getInstance().ПойманныйСигнал;
                 return null;
             }
         }
