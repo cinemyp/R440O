@@ -45,12 +45,12 @@ namespace R440O.R440OForms.PowerCabel
             get { return _кабельСеть; }
             set
             {
-                if (!N502BParameters.ПереключательСеть) _кабельСеть = value;
+                if (!N502BParameters.getInstance().ПереключательСеть) _кабельСеть = value;
                 else СтанцияСгорела();
                 
                 OnParameterChanged();
 
-                N502BParameters.ResetParameters();
+                N502BParameters.getInstance().ResetParameters();
             }
         }
 

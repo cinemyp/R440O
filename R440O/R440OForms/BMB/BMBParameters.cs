@@ -175,9 +175,9 @@ namespace R440O.R440OForms.BMB
         {
             get
             {
-                return N502BParameters.ТумблерВыпрямитель27В
-                       && N502BParameters.ТумблерЭлектрооборудование
-                       && N502BParameters.ЛампочкаСфазировано
+                return N502BParameters.getInstance().ТумблерВыпрямитель27В
+                       && N502BParameters.getInstance().ТумблерЭлектрооборудование
+                       && N502BParameters.getInstance().ЛампочкаСфазировано
                        && _кнопкаПитание == Кнопка.Нажата
                     ? Кнопка.Горит
                     : _кнопкаПитание;

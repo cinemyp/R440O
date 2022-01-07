@@ -15,16 +15,16 @@
         public N502BForm()
         {
             InitializeComponent();
-            N502BParameters.ParameterChanged += RefreshFormElements;
+            N502BParameters.getInstance().ParameterChanged += RefreshFormElements;
 
             if (ParametersConfig.IsTesting)
             {
-                N502BParameters.TestModuleRef = this;
-                N502BParameters.Action += TestMain.Action;
+                N502BParameters.getInstance().TestModuleRef = this;
+                N502BParameters.getInstance().Action += TestMain.Action;
             }
 
-            N502BParameters.СтанцияСгорела += ВыводСообщенияСтанцияСгорела;
-            N502BParameters.НекорректноеДействие += ВыводСообщенияНекорректноеДействие;
+            N502BParameters.getInstance().СтанцияСгорела += ВыводСообщенияСтанцияСгорела;
+            N502BParameters.getInstance().НекорректноеДействие += ВыводСообщенияНекорректноеДействие;
             RefreshFormElements();
 
             LearnMain.isMainWindow = false;
@@ -86,32 +86,32 @@
 
         private void ТумблерЭлектрооборудование_Click(object sender, System.EventArgs e)
         {
-            N502BParameters.ТумблерЭлектрооборудование = !N502BParameters.ТумблерЭлектрооборудование;
+            N502BParameters.getInstance().ТумблерЭлектрооборудование = !N502BParameters.getInstance().ТумблерЭлектрооборудование;
         }
 
         private void ТумблерВыпрямитель27В_Click(object sender, System.EventArgs e)
         {
-            N502BParameters.ТумблерВыпрямитель27В = !N502BParameters.ТумблерВыпрямитель27В;
+            N502BParameters.getInstance().ТумблерВыпрямитель27В = !N502BParameters.getInstance().ТумблерВыпрямитель27В;
         }
 
         private void ТумблерОсвещение_Click(object sender, System.EventArgs e)
         {
-            N502BParameters.ТумблерОсвещение = !N502BParameters.ТумблерОсвещение;
+            N502BParameters.getInstance().ТумблерОсвещение = !N502BParameters.getInstance().ТумблерОсвещение;
         }
 
         private void ТумблерН131_Click(object sender, System.EventArgs e)
         {
-            N502BParameters.ТумблерН13_1 = !N502BParameters.ТумблерН13_1;
+            N502BParameters.getInstance().ТумблерН13_1 = !N502BParameters.getInstance().ТумблерН13_1;
         }
 
         private void ТумблерН132_Click(object sender, System.EventArgs e)
         {
-            N502BParameters.ТумблерН13_2 = !N502BParameters.ТумблерН13_2;
+            N502BParameters.getInstance().ТумблерН13_2 = !N502BParameters.getInstance().ТумблерН13_2;
         }
 
         private void ТумблерН15_Click(object sender, System.EventArgs e)
         {
-            N502BParameters.ТумблерН15 = !N502BParameters.ТумблерН15;
+            N502BParameters.getInstance().ТумблерН15 = !N502BParameters.getInstance().ТумблерН15;
         }
 
         private void ТумблерОсвещение1_MouseDown(object sender, MouseEventArgs e)
@@ -119,24 +119,24 @@
             switch (e.Button)
             {
                 case MouseButtons.Left:
-                    switch (N502BParameters.ТумблерОсвещение1)
+                    switch (N502BParameters.getInstance().ТумблерОсвещение1)
                     {
                         case 1:
-                            N502BParameters.ТумблерОсвещение1 = 2;
+                            N502BParameters.getInstance().ТумблерОсвещение1 = 2;
                             break;
                         case 2:
-                            N502BParameters.ТумблерОсвещение1 = 3;
+                            N502BParameters.getInstance().ТумблерОсвещение1 = 3;
                             break;
                     }
                     break;
                 case MouseButtons.Right:
-                    switch (N502BParameters.ТумблерОсвещение1)
+                    switch (N502BParameters.getInstance().ТумблерОсвещение1)
                     {
                         case 3:
-                            N502BParameters.ТумблерОсвещение1 = 2;
+                            N502BParameters.getInstance().ТумблерОсвещение1 = 2;
                             break;
                         case 2:
-                            N502BParameters.ТумблерОсвещение1 = 1;
+                            N502BParameters.getInstance().ТумблерОсвещение1 = 1;
                             break;
                     }
                     break;
@@ -148,24 +148,24 @@
             switch (e.Button)
             {
                 case MouseButtons.Left:
-                    switch (N502BParameters.ТумблерОсвещение2)
+                    switch (N502BParameters.getInstance().ТумблерОсвещение2)
                     {
                         case 1:
-                            N502BParameters.ТумблерОсвещение2 = 2;
+                            N502BParameters.getInstance().ТумблерОсвещение2 = 2;
                             break;
                         case 2:
-                            N502BParameters.ТумблерОсвещение2 = 3;
+                            N502BParameters.getInstance().ТумблерОсвещение2 = 3;
                             break;
                     }
                     break;
                 case MouseButtons.Right:
-                    switch (N502BParameters.ТумблерОсвещение2)
+                    switch (N502BParameters.getInstance().ТумблерОсвещение2)
                     {
                         case 3:
-                            N502BParameters.ТумблерОсвещение2 = 2;
+                            N502BParameters.getInstance().ТумблерОсвещение2 = 2;
                             break;
                         case 2:
-                            N502BParameters.ТумблерОсвещение2 = 1;
+                            N502BParameters.getInstance().ТумблерОсвещение2 = 1;
                             break;
                     }
                     break;
@@ -198,13 +198,13 @@
         private void КнопкаВклНагрузки_MouseDown(object sender, MouseEventArgs e)
         {
             КнопкаВклНагрузки.BackgroundImage = null;
-            N502BParameters.КнопкаВклНагрузки = true;
+            N502BParameters.getInstance().КнопкаВклНагрузки = true;
         }
 
         private void КнопкаВклНагрузки_MouseUp(object sender, MouseEventArgs e)
         {
             КнопкаВклНагрузки.BackgroundImage = ControlElementImages.buttonRoundType3;
-            N502BParameters.КнопкаВклНагрузки = false;
+            N502BParameters.getInstance().КнопкаВклНагрузки = false;
         }
         #endregion
 
@@ -212,22 +212,22 @@
 
         private void ПереключательСеть_Click(object sender, System.EventArgs e)
         {
-            N502BParameters.ПереключательСеть = !N502BParameters.ПереключательСеть;
+            N502BParameters.getInstance().ПереключательСеть = !N502BParameters.getInstance().ПереключательСеть;
 
-            if (N502BParameters.ЛампочкаСеть && N502BParameters.ПереключательСеть) N502BParameters.StationTimer.Start();
-                else N502BParameters.StationTimer.Stop();
+            if (N502BParameters.getInstance().ЛампочкаСеть && N502BParameters.getInstance().ПереключательСеть) N502BParameters.getInstance().StationTimer.Start();
+                else N502BParameters.getInstance().StationTimer.Stop();
         }
 
         private void ПереключательНапряжение_MouseUp(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left)
             {
-                N502BParameters.ПереключательНапряжение += 1;
+                N502BParameters.getInstance().ПереключательНапряжение += 1;
             }
 
             if (e.Button == MouseButtons.Right)
             {
-                N502BParameters.ПереключательНапряжение -= 1;
+                N502BParameters.getInstance().ПереключательНапряжение -= 1;
             }
         }
 
@@ -235,13 +235,13 @@
         {
             if (e.Button == MouseButtons.Left)
             {
-                N502BParameters.ПереключательФазировка += 1;
-                if (N502BParameters.ПереключательФазировка == 5) N502BParameters.ПереключательФазировка = 1;
+                N502BParameters.getInstance().ПереключательФазировка += 1;
+                if (N502BParameters.getInstance().ПереключательФазировка == 5) N502BParameters.getInstance().ПереключательФазировка = 1;
             }
             if (e.Button == MouseButtons.Right)
             {
-                N502BParameters.ПереключательФазировка -= 1;
-                if (N502BParameters.ПереключательФазировка == 0) N502BParameters.ПереключательФазировка = 4;
+                N502BParameters.getInstance().ПереключательФазировка -= 1;
+                if (N502BParameters.getInstance().ПереключательФазировка == 0) N502BParameters.getInstance().ПереключательФазировка = 4;
             }
         }
 
@@ -249,11 +249,11 @@
         {
             if (e.Button == MouseButtons.Left)
             {
-                N502BParameters.ПереключательКонтрольНапряжения += 1;
+                N502BParameters.getInstance().ПереключательКонтрольНапряжения += 1;
             }
             if (e.Button == MouseButtons.Right)
             {
-                N502BParameters.ПереключательКонтрольНапряжения -= 1;
+                N502BParameters.getInstance().ПереключательКонтрольНапряжения -= 1;
             }
         }
 
@@ -261,11 +261,11 @@
         {
             if (e.Button == MouseButtons.Left)
             {
-                N502BParameters.ПереключательТокНагрузкиИЗаряда += 1;
+                N502BParameters.getInstance().ПереключательТокНагрузкиИЗаряда += 1;
             }
             if (e.Button == MouseButtons.Right)
             {
-                N502BParameters.ПереключательТокНагрузкиИЗаряда -= 1;
+                N502BParameters.getInstance().ПереключательТокНагрузкиИЗаряда -= 1;
             }
         }
 
@@ -276,50 +276,50 @@
         public void RefreshFormElements()
         {
 
-            ВремяРаботы.Text = Math.Round(N502BParameters.ВремяРаботыСтанции.TotalHours, 1).ToString(CultureInfo.CurrentCulture);
+            ВремяРаботы.Text = Math.Round(N502BParameters.getInstance().ВремяРаботыСтанции.TotalHours, 1).ToString(CultureInfo.CurrentCulture);
 
             this.RefreshLamps();
             this.RefreshTogglesPosition();
             this.RefreshTumblersPosition();
 
-            var angle = N502BParameters.ИндикаторНапряжение * 0.25F - 70;
+            var angle = N502BParameters.getInstance().ИндикаторНапряжение * 0.25F - 70;
             ИндикаторНапряжение.BackgroundImage =
                 TransformImageHelper.RotateImageByAngle(ControlElementImages.arrow2, angle);
 
-            angle = N502BParameters.ИндикаторТокНагрузки * 0.25F - 70;
+            angle = N502BParameters.getInstance().ИндикаторТокНагрузки * 0.25F - 70;
             ИндикаторТокНагрузки.BackgroundImage =
                 TransformImageHelper.RotateImageByAngle(ControlElementImages.arrow2, angle);
 
-            angle = N502BParameters.ИндикаторКонтрольНапряжения * 1.5F - 60;
+            angle = N502BParameters.getInstance().ИндикаторКонтрольНапряжения * 1.5F - 60;
             ИндикаторКонтрольНапряжения.BackgroundImage =
                 TransformImageHelper.RotateImageByAngle(ControlElementImages.arrow2, angle);
 
-            angle = N502BParameters.ИндикаторТокНагрузкиИЗаряда * 1.75F - 70;
+            angle = N502BParameters.getInstance().ИндикаторТокНагрузкиИЗаряда * 1.75F - 70;
             ИндикаторТокНагрузкиИЗаряда.BackgroundImage =
                 TransformImageHelper.RotateImageByAngle(ControlElementImages.arrow2, angle);
         }
 
         private void RefreshTumblersPosition()
         {
-            ТумблерЭлектрооборудование.BackgroundImage = N502BParameters.ТумблерЭлектрооборудование ?
+            ТумблерЭлектрооборудование.BackgroundImage = N502BParameters.getInstance().ТумблерЭлектрооборудование ?
                 ControlElementImages.tumblerType2Up : ControlElementImages.tumblerType2Down;
 
-            ТумблерВыпрямитель27В.BackgroundImage = N502BParameters.ТумблерВыпрямитель27В ?
+            ТумблерВыпрямитель27В.BackgroundImage = N502BParameters.getInstance().ТумблерВыпрямитель27В ?
                 ControlElementImages.tumblerType2Up : ControlElementImages.tumblerType2Down;
 
-            ТумблерОсвещение.BackgroundImage = !N502BParameters.ТумблерОсвещение ?
+            ТумблерОсвещение.BackgroundImage = !N502BParameters.getInstance().ТумблерОсвещение ?
                 ControlElementImages.tumblerType2Down : ControlElementImages.tumblerType2Up;
 
-            ТумблерН13_1.BackgroundImage = !N502BParameters.ТумблерН13_1 ?
+            ТумблерН13_1.BackgroundImage = !N502BParameters.getInstance().ТумблерН13_1 ?
                 ControlElementImages.tumblerType2Down : ControlElementImages.tumblerType2Up;
 
-            ТумблерН13_2.BackgroundImage = !N502BParameters.ТумблерН13_2 ?
+            ТумблерН13_2.BackgroundImage = !N502BParameters.getInstance().ТумблерН13_2 ?
                 ControlElementImages.tumblerType2Down : ControlElementImages.tumblerType2Up;
 
-            ТумблерН15.BackgroundImage = !N502BParameters.ТумблерН15 ?
+            ТумблерН15.BackgroundImage = !N502BParameters.getInstance().ТумблерН15 ?
                 ControlElementImages.tumblerType2Down : ControlElementImages.tumblerType2Up;
 
-            switch (N502BParameters.ТумблерОсвещение1)
+            switch (N502BParameters.getInstance().ТумблерОсвещение1)
             {
                 case 2:
                     ТумблерОсвещение1.BackgroundImage = ControlElementImages.tumblerType5Middle;
@@ -332,7 +332,7 @@
                     break;
             }
 
-            switch (N502BParameters.ТумблерОсвещение2)
+            switch (N502BParameters.getInstance().ТумблерОсвещение2)
             {
                 case 2:
                     ТумблерОсвещение2.BackgroundImage = ControlElementImages.tumblerType5Middle;
@@ -348,34 +348,34 @@
 
         private void RefreshTogglesPosition()
         {
-            ПереключательСеть.BackgroundImage = N502BParameters.ПереключательСеть
+            ПереключательСеть.BackgroundImage = N502BParameters.getInstance().ПереключательСеть
                 ? ControlElementImages.tumblerN502BPowerUp
                 : ControlElementImages.tumblerN502BPowerDown;
 
-            var angle = N502BParameters.ПереключательНапряжение * 38 - 150;
+            var angle = N502BParameters.getInstance().ПереключательНапряжение * 38 - 150;
             ПереключательНапряжение.BackgroundImage =
                 TransformImageHelper.RotateImageByAngle(ControlElementImages.toggleType2, angle);
 
-            angle = N502BParameters.ПереключательФазировка * 90 - 180;
+            angle = N502BParameters.getInstance().ПереключательФазировка * 90 - 180;
             ПереключательФазировка.BackgroundImage =
                 TransformImageHelper.RotateImageByAngle(ControlElementImages.toggleType5, angle);
 
-            angle = N502BParameters.ПереключательКонтрольНапряжения * 45 - 90;
+            angle = N502BParameters.getInstance().ПереключательКонтрольНапряжения * 45 - 90;
             ПереключательКонтрольНапряжения.BackgroundImage =
                 TransformImageHelper.RotateImageByAngle(ControlElementImages.toggleType1, angle);
 
-            angle = N502BParameters.ПереключательТокНагрузкиИЗаряда * 40 - 180;
+            angle = N502BParameters.getInstance().ПереключательТокНагрузкиИЗаряда * 40 - 180;
             ПереключательТокНагрузкиИЗаряда.BackgroundImage =
                 TransformImageHelper.RotateImageByAngle(ControlElementImages.toggleType4, angle);
         }
 
         private void RefreshLamps()
         {
-            ЛампочкаСеть.BackgroundImage = N502BParameters.ЛампочкаСеть
+            ЛампочкаСеть.BackgroundImage = N502BParameters.getInstance().ЛампочкаСеть
                 ? ControlElementImages.lampType12OnRed
                 : null;
 
-            ЛампочкаСфазировано.BackgroundImage = N502BParameters.ЛампочкаСфазировано
+            ЛампочкаСфазировано.BackgroundImage = N502BParameters.getInstance().ЛампочкаСфазировано
                 ? ControlElementImages.lampType12OnRed
                 : null;
         }
@@ -384,13 +384,13 @@
 
         private void N502BForm_FormClosed(object sender, FormClosedEventArgs e)
         {
-            N502BParameters.ParameterChanged -= RefreshFormElements;
-            N502BParameters.СтанцияСгорела -= ВыводСообщенияСтанцияСгорела;
-            N502BParameters.НекорректноеДействие -= ВыводСообщенияНекорректноеДействие;
+            N502BParameters.getInstance().ParameterChanged -= RefreshFormElements;
+            N502BParameters.getInstance().СтанцияСгорела -= ВыводСообщенияСтанцияСгорела;
+            N502BParameters.getInstance().НекорректноеДействие -= ВыводСообщенияНекорректноеДействие;
 
             if (ParametersConfig.IsTesting)
             {
-                N502BParameters.Action -= TestMain.Action;
+                N502BParameters.getInstance().Action -= TestMain.Action;
             }
 
             switch (LearnMain.getIntent())
@@ -399,12 +399,12 @@
                     LearnMain.setIntent(ModulesEnum.openVoltageStabilizer);
                     break;
                 case ModulesEnum.N502Power:
-                    if ((N502BParameters.ЛампочкаСфазировано) &&
-                        (N502BParameters.Н15Включен) &&
-                        (N502BParameters.ТумблерЭлектрооборудование) &&
-                        (N502BParameters.ТумблерН13_1) &&
-                        (N502BParameters.ТумблерН13_2) &&
-                        (N502BParameters.ТумблерВыпрямитель27В))
+                    if ((N502BParameters.getInstance().ЛампочкаСфазировано) &&
+                        (N502BParameters.getInstance().Н15Включен) &&
+                        (N502BParameters.getInstance().ТумблерЭлектрооборудование) &&
+                        (N502BParameters.getInstance().ТумблерН13_1) &&
+                        (N502BParameters.getInstance().ТумблерН13_2) &&
+                        (N502BParameters.getInstance().ТумблерВыпрямитель27В))
                         LearnMain.setIntent(ModulesEnum.openN15);
                     break;
             }
@@ -414,12 +414,12 @@
                     TestMain.setIntent(ModulesEnum.openVoltageStabilizer);
                     break;
                 case ModulesEnum.N502Power:
-                    if ((N502BParameters.ЛампочкаСфазировано) &&
-                        (N502BParameters.Н15Включен) &&
-                        (N502BParameters.ТумблерЭлектрооборудование) &&
-                        (N502BParameters.ТумблерН13_1) &&
-                        (N502BParameters.ТумблерН13_2) &&
-                        (N502BParameters.ТумблерВыпрямитель27В))
+                    if ((N502BParameters.getInstance().ЛампочкаСфазировано) &&
+                        (N502BParameters.getInstance().Н15Включен) &&
+                        (N502BParameters.getInstance().ТумблерЭлектрооборудование) &&
+                        (N502BParameters.getInstance().ТумблерН13_1) &&
+                        (N502BParameters.getInstance().ТумблерН13_2) &&
+                        (N502BParameters.getInstance().ТумблерВыпрямитель27В))
                     {
                         TestMain.setIntent(ModulesEnum.openN15);
                         IsExactModule = false;

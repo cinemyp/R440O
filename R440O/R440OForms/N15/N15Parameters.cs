@@ -47,14 +47,14 @@ namespace R440O.R440OForms.N15
         
         public static bool Включен
         {
-            get { return N502BParameters.Н15Включен && НеполноеВключение; }
+            get { return N502BParameters.getInstance().Н15Включен && НеполноеВключение; }
         }
 
         public static bool НеполноеВключение
         {
             get
             {
-                return N502BParameters.ВыпрямительВключен && N502BParameters.ЭлектрообуродованиеВключено;
+                return N502BParameters.getInstance().ВыпрямительВключен && N502BParameters.getInstance().ЭлектрообуродованиеВключено;
             }
         }
 

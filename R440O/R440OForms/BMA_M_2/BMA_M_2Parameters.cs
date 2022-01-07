@@ -21,7 +21,7 @@ namespace R440O.R440OForms.BMA_M_2
 
         public static bool ПитаниеН502
         {
-            get { return N502BParameters.ЭлектрообуродованиеВключено && N502BParameters.ВыпрямительВключен; }
+            get { return N502BParameters.getInstance().ЭлектрообуродованиеВключено && N502BParameters.getInstance().ВыпрямительВключен; }
         }
 
         #region Питание

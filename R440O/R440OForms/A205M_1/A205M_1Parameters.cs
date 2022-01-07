@@ -258,9 +258,9 @@ namespace R440O.R440OForms.A205M_1
         {
             get
             {
-                if ((N502BParameters.ЛампочкаСфазировано
-                     && N502BParameters.ТумблерЭлектрооборудование
-                     && N502BParameters.ТумблерВыпрямитель27В))
+                if ((N502BParameters.getInstance().ЛампочкаСфазировано
+                     && N502BParameters.getInstance().ТумблерЭлектрооборудование
+                     && N502BParameters.getInstance().ТумблерВыпрямитель27В))
                 {
                     switch (_переключательКонтроль)
                     {

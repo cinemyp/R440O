@@ -14,8 +14,8 @@ namespace R440O.R440OForms.VoltageStabilizer
         {
             get
             {
-                return N502BParameters.ПереключательСеть &&
-                           N502BParameters.ЛампочкаСеть
+                return N502BParameters.getInstance().ПереключательСеть &&
+                           N502BParameters.getInstance().ЛампочкаСеть
                              && КабельПодключенПравильно;
             }
         }
@@ -23,8 +23,8 @@ namespace R440O.R440OForms.VoltageStabilizer
         {
             get
             {
-                return N502BParameters.ПереключательСеть &&
-                           N502BParameters.ЛампочкаСеть
+                return N502BParameters.getInstance().ПереключательСеть &&
+                           N502BParameters.getInstance().ЛампочкаСеть
                              && !КабельПодключенПравильно;
             }
         }
@@ -90,14 +90,14 @@ namespace R440O.R440OForms.VoltageStabilizer
 
             set
             {
-                if (N502BParameters.ЛампочкаСеть && N502BParameters.ПереключательСеть && ОператорСтанцииПораженТоком != null)
+                if (N502BParameters.getInstance().ЛампочкаСеть && N502BParameters.getInstance().ПереключательСеть && ОператорСтанцииПораженТоком != null)
                 {
                     ОператорСтанцииПораженТоком();
                 }
                 else _кабельВход = value;
 
                 OnParameterChanged();
-                N502BParameters.ResetParameters();
+                N502BParameters.getInstance().ResetParameters();
             }
         }
 

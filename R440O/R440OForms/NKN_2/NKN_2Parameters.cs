@@ -11,7 +11,7 @@ namespace R440O.R440OForms.NKN_2
     {
         public static bool НеполноеВключение //без н15, горит МУ и все
         {
-            get { return N502BParameters.ВыпрямительВключен && N502BParameters.ЭлектрообуродованиеВключено; }
+            get { return N502BParameters.getInstance().ВыпрямительВключен && N502BParameters.getInstance().ЭлектрообуродованиеВключено; }
         }
 
         public static bool ПолноеВключение //горят лампочки фаз

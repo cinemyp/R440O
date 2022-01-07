@@ -57,16 +57,16 @@ namespace R440O
             VoltageStabilizerParameters.КабельВход = PowerCabelParameters.getInstance().Напряжение;
 
             // Сброс случайных значений Фазировка и Напряжение, Включаем Н502Б и Нагрузку
-            N502BParameters.ПереключательСеть = true;
-            N502BParameters.ПереключательФазировка = N502BParameters.Фазировка;
-            N502BParameters.КнопкаВклНагрузки = true;
-            N502BParameters.ТумблерН13_1 = true;
-            N502BParameters.ТумблерН13_2 = true;
+            N502BParameters.getInstance().ПереключательСеть = true;
+            N502BParameters.getInstance().ПереключательФазировка = N502BParameters.getInstance().Фазировка;
+            N502BParameters.getInstance().КнопкаВклНагрузки = true;
+            N502BParameters.getInstance().ТумблерН13_1 = true;
+            N502BParameters.getInstance().ТумблерН13_2 = true;
 
             //Устанавливаем переключатели
-            N502BParameters.ТумблерЭлектрооборудование = true;
-            N502BParameters.ТумблерВыпрямитель27В = true;
-            N502BParameters.ТумблерН15 = true;
+            N502BParameters.getInstance().ТумблерЭлектрооборудование = true;
+            N502BParameters.getInstance().ТумблерВыпрямитель27В = true;
+            N502BParameters.getInstance().ТумблерН15 = true;
 
             //Установка некоторых значений в память Н15
             N15LocalParameters.локТумблер5Мгц = false;
