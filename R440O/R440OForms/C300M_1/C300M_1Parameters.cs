@@ -23,6 +23,7 @@ namespace R440O.R440OForms.C300M_1
                 instance = new C300M_1Parameters();
             return instance;
         }
+
         public ITestModule TestModuleRef { get; set; }
 
         #region Private

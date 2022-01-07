@@ -63,6 +63,8 @@ namespace R440O.R440OForms.PowerCabel
         private void OnParameterChanged()
         {
             ParameterChanged?.Invoke();
+
+            JsonAdapter.StationAdapterJson.StoreStationStateToJson();
             OnAction();
         }
 

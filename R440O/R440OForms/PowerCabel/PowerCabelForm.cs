@@ -21,7 +21,7 @@
             InitializeComponent();
             PowerCabelParameters.getInstance().ParameterChanged += RefreshFormElements;
             PowerCabelParameters.getInstance().СтанцияСгорела += ВыводСообщенияСтанцияСгорела;
-
+            
             if (ParametersConfig.IsTesting)
             {
                 PowerCabelParameters.getInstance().TestModuleRef = this;
