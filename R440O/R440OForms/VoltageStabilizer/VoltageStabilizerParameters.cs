@@ -106,7 +106,7 @@ namespace R440O.R440OForms.VoltageStabilizer
         /// </summary>
         public static bool КабельПодключенПравильно
         {
-            get { return _кабельВход == PowerCabelParameters.Напряжение; }
+            get { return _кабельВход == PowerCabelParameters.getInstance().Напряжение; }
         }
 
         #endregion

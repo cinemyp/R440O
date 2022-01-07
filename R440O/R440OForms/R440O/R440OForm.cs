@@ -134,7 +134,7 @@ namespace R440O.R440OForms.R440O
             N15.N15Parameters.SetDefaultParameters();
             N502B.N502BParameters.SetDefaultParameters();
             VoltageStabilizer.VoltageStabilizerParameters.SetDefaultParameters();
-            PowerCabel.PowerCabelParameters.SetDefaultParameters();
+            PowerCabel.PowerCabelParameters.getInstance().SetDefaultParameters();
 
         }
     }

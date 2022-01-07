@@ -45,7 +45,7 @@ namespace R440O.R440OForms.N502B
                 Interval = 60 * 1000
             };
             StationTimer.Tick += StationTimer_Tick;
-            if (PowerCabelParameters.КабельСеть && ПереключательСеть) StationTimer.Start();
+            if (PowerCabelParameters.getInstance().КабельСеть && ПереключательСеть) StationTimer.Start();
             else StationTimer.Stop();
         }
 
@@ -65,7 +65,7 @@ namespace R440O.R440OForms.N502B
         /// </summary>
         public static bool ЛампочкаСеть
         {
-            get { return PowerCabelParameters.КабельСеть; }
+            get { return PowerCabelParameters.getInstance().КабельСеть; }
         }
 
         /// <summary>
@@ -343,7 +343,7 @@ namespace R440O.R440OForms.N502B
                         case 1:
                         case 2:
                         case 3:
-                            return PowerCabelParameters.Напряжение;
+                            return PowerCabelParameters.getInstance().Напряжение;
                         case 5:
                         case 6:
                         case 7:
