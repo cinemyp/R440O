@@ -54,7 +54,7 @@ namespace R440O
         {
             //Подключаем кабели
             PowerCabelParameters.getInstance().КабельСеть = true;
-            VoltageStabilizerParameters.КабельВход = PowerCabelParameters.getInstance().Напряжение;
+            VoltageStabilizerParameters.getInstance().КабельВход = PowerCabelParameters.getInstance().Напряжение;
 
             // Сброс случайных значений Фазировка и Напряжение, Включаем Н502Б и Нагрузку
             N502BParameters.getInstance().ПереключательСеть = true;

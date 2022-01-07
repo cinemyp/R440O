@@ -217,8 +217,8 @@ namespace R440O.R440OForms.N502B
             get { return _переключательСеть; }
             set
             {
-                if (!VoltageStabilizerParameters.КабельПодключенПравильно
-                    && VoltageStabilizerParameters.КабельВход != 0
+                if (!VoltageStabilizerParameters.getInstance().КабельПодключенПравильно
+                    && VoltageStabilizerParameters.getInstance().КабельВход != 0
                     && !_переключательСеть
                     && ЛампочкаСеть
                     && СтанцияСгорела != null)
@@ -231,7 +231,7 @@ namespace R440O.R440OForms.N502B
                     //Нагрузка слетает при переключении
                     Нагрузка = false;
                 }
-                VoltageStabilizerParameters.ResetParameters();
+                VoltageStabilizerParameters.getInstance().ResetParameters();
                 OnParameterChanged();
             }
         }
@@ -332,7 +332,7 @@ namespace R440O.R440OForms.N502B
             set
             {
                 _кнопкаВклНагрузки = value;
-                if (value && !Нагрузка && ПереключательСеть && VoltageStabilizerParameters.КабельПодключенПравильно &&
+                if (value && !Нагрузка && ПереключательСеть && VoltageStabilizerParameters.getInstance().КабельПодключенПравильно &&
                     ЛампочкаСеть && ПереключательФазировка == Фазировка) Нагрузка = true;
                 OnParameterChanged();
             }
@@ -356,7 +356,7 @@ namespace R440O.R440OForms.N502B
                         case 5:
                         case 6:
                         case 7:
-                            if ((Нагрузка && VoltageStabilizerParameters.КабельПодключенПравильно) &&
+                            if ((Нагрузка && VoltageStabilizerParameters.getInstance().КабельПодключенПравильно) &&
                                 (ЛампочкаСфазировано || (КнопкаВклНагрузки && !ЛампочкаСфазировано))) return 220;
                             else return 0;
                         default:
