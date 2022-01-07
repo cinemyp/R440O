@@ -77,9 +77,9 @@ namespace R440O
             N15Parameters.getInstance().ТумблерАнтЭкв = false;
 
             //A304
-            A304Parameters.ТумблерУправление1 = true;
-            A304Parameters.ТумблерУправление2 = true;
-            A304Parameters.ТумблерКомплект = false;
+            A304Parameters.getInstance().ТумблерУправление1 = true;
+            A304Parameters.getInstance().ТумблерУправление2 = true;
+            A304Parameters.getInstance().ТумблерКомплект = false;
         }
 
         public static void НастройкаПоМаломуШлейфу()
@@ -104,7 +104,7 @@ namespace R440O
             A205M_1Parameters.getInstance().ПереключательВолнаX1000 = 2;
             A205M_1Parameters.getInstance().ПереключательВолнаX10000 = 2;
             // Настройка А-304
-            A304Parameters.ПереключательВыборСтвола = 5;
+            A304Parameters.getInstance().ПереключательВыборСтвола = 5;
             // Настройка А-306
 
             A306Parameters.ТумблерДистанцМестн = true;

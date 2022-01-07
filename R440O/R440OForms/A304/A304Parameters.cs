@@ -7,16 +7,23 @@ namespace R440O.R440OForms.A304
     using InternalBlocks;
     using N15;
 
-    public static class A304Parameters
+    public class A304Parameters
     {
-        public static ITestModule TestModuleRef { get; set; }
+        private static A304Parameters instance;
+        public static A304Parameters getInstance()
+        {
+            if (instance == null)
+                instance = new A304Parameters();
+            return instance;
+        }
+        public ITestModule TestModuleRef { get; set; }
 
-        public static bool Включен
+        public bool Включен
         {
             get { return N15Parameters.getInstance().НеполноеВключение; }
         }
 
-        public static bool Комплект1Включен
+        public bool Комплект1Включен
         {
             get
             {
@@ -25,7 +32,7 @@ namespace R440O.R440OForms.A304
             }
         }
 
-        public static bool Комплект2Включен
+        public bool Комплект2Включен
         {
             get
             {
@@ -34,12 +41,12 @@ namespace R440O.R440OForms.A304
             }
         }
 
-        public static int? ВыходнаяЧастота
+        public int? ВыходнаяЧастота
         {
             get
             {
                 if (Комплект1Включен && ТумблерКомплект || Комплект2Включен && !ТумблерКомплект)
-                    return ПереключательВыборСтвола*6250 + 378750;
+                    return ПереключательВыборСтвола * 6250 + 378750;
                 return null;
             }
         }
@@ -49,7 +56,7 @@ namespace R440O.R440OForms.A304
         /// <summary>
         /// Параметр для лампочки. Возможные состояния: true, false
         /// </summary>
-        public static bool Лампочка1К
+        public bool Лампочка1К
         {
             get
             {
@@ -62,7 +69,7 @@ namespace R440O.R440OForms.A304
         /// <summary>
         /// Параметр для лампочки. Возможные состояния: true, false
         /// </summary>
-        public static bool Лампочка2К
+        public bool Лампочка2К
         {
             get
             {
@@ -78,7 +85,7 @@ namespace R440O.R440OForms.A304
         /// <summary>
         /// Выбор способа включения. Возможные состояния: true - Дистанционное; false - Местное;
         /// </summary>
-        public static bool ТумблерУправление1
+        public bool ТумблерУправление1
         {
             get
             {
@@ -92,12 +99,12 @@ namespace R440O.R440OForms.A304
                 N15Parameters.getInstance().ResetParametersAlternative();
             }
         }
-        private static bool _тумблерУправление1;
+        private bool _тумблерУправление1;
 
         /// <summary>
         /// Выбор способа включения. Возможные состояния: true - Дистанционное; false - Местное;
         /// </summary>
-        public static bool ТумблерУправление2
+        public bool ТумблерУправление2
         {
             get
             {
@@ -111,13 +118,13 @@ namespace R440O.R440OForms.A304
                 N15Parameters.getInstance().ResetParametersAlternative();
             }
         }
-        private static bool _тумблерУправление2;
+        private bool _тумблерУправление2;
 
         /// <summary>
         /// Выбор комплекта оборудования. Возможные состояния: true - 1; false - 2;
         /// </summary>
         /// 
-        public static bool ТумблерКомплект
+        public bool ТумблерКомплект
         {
             get
             {
@@ -130,14 +137,14 @@ namespace R440O.R440OForms.A304
                 ResetParameters();
             }
         }
-        private static bool _тумблерКомплект = true;
+        private bool _тумблерКомплект = true;
         #endregion
 
         #region Переключатели
         /// <summary>
         /// Положение переключателя выбора ствола.
         /// </summary>
-        public static int ПереключательВыборСтвола
+        public int ПереключательВыборСтвола
         {
             get
             {
@@ -153,7 +160,7 @@ namespace R440O.R440OForms.A304
                 }
             }
         }
-        private static int _переключательВыборСтвола;
+        private int _переключательВыборСтвола;
         /// <summary>
         /// Положение переключателя контроля
         /// 0 - ОГ,
@@ -166,7 +173,7 @@ namespace R440O.R440OForms.A304
         /// 7 - -5В,
         /// 8 - -12.6В.
         /// </summary>
-        public static int ПереключательКонтроль
+        public int ПереключательКонтроль
         {
             get
             {
@@ -182,12 +189,12 @@ namespace R440O.R440OForms.A304
                 }
             }
         }
-        private static int _переключательКонтроль;
+        private int _переключательКонтроль;
         #endregion
 
         #region Кнопки
 
-        public static bool Кнопка1К
+        public bool Кнопка1К
         {
             get
             {
@@ -203,9 +210,9 @@ namespace R440O.R440OForms.A304
             }
         }
 
-        private static bool _кнопка1К;
+        private bool _кнопка1К;
 
-        public static bool Кнопка2К
+        public bool Кнопка2К
         {
             get
             {
@@ -221,11 +228,11 @@ namespace R440O.R440OForms.A304
             }
         }
 
-        private static bool _кнопка2К;
+        private bool _кнопка2К;
 
         #endregion
 
-        public static int ИндикаторНапряжение
+        public int ИндикаторНапряжение
         {
             get
             {
@@ -267,7 +274,7 @@ namespace R440O.R440OForms.A304
             }
         }
 
-        public static void ResetParameters()
+        public void ResetParameters()
         {
             OnParameterChanged();
 
@@ -279,7 +286,7 @@ namespace R440O.R440OForms.A304
             }
         }
 
-        public static void SetDefaultParameters()
+        public void SetDefaultParameters()
         {
             ResetParameters();
             _тумблерУправление1 = false;
@@ -292,17 +299,17 @@ namespace R440O.R440OForms.A304
         }
 
         public delegate void TestModuleHandler(ITestModule module);
-        public static event TestModuleHandler Action;
+        public event TestModuleHandler Action;
         public delegate void ParameterChangedHandler();
-        public static event ParameterChangedHandler ParameterChanged;
+        public event ParameterChangedHandler ParameterChanged;
 
-        private static void OnParameterChanged()
+        private void OnParameterChanged()
         {
             ParameterChanged?.Invoke();
             OnAction();
         }
 
-        private static void OnAction()
+        private void OnAction()
         {
             Action?.Invoke(TestModuleRef);
         }

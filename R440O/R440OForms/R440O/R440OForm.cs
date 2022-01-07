@@ -130,7 +130,7 @@ namespace R440O.R440OForms.R440O
         private void SetDefaultParameters()
         {
             A306.A306Parameters.SetDefaultParameters();
-            A304.A304Parameters.SetDefaultParameters();
+            A304.A304Parameters.getInstance().SetDefaultParameters();
             N15.N15Parameters.getInstance().SetDefaultParameters();
             N502B.N502BParameters.getInstance().SetDefaultParameters();
             VoltageStabilizer.VoltageStabilizerParameters.getInstance().SetDefaultParameters();

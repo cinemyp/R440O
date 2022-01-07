@@ -9,7 +9,7 @@
         /// </summary>
         public static bool ЛампочкаКомплект1
         {
-            get { return A304Parameters.Лампочка1К; }
+            get { return A304Parameters.getInstance().Лампочка1К; }
         }
 
         /// <summary>
@@ -17,7 +17,7 @@
         /// </summary>
         public static bool ЛампочкаКомплект2
         {
-            get { return A304Parameters.Лампочка2К; }
+            get { return A304Parameters.getInstance().Лампочка2К; }
         }
 
         public delegate void ParameterChangedHandler();

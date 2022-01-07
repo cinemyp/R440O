@@ -403,7 +403,7 @@ namespace R440O.R440OForms.N15
             {
                 _тумблерА30412 = value;
                 OnParameterChanged();
-                A304Parameters.ResetParameters();
+                A304Parameters.getInstance().ResetParameters();
             }
         }
 
@@ -771,12 +771,12 @@ namespace R440O.R440OForms.N15
 
         public bool ЛампочкаА3041
         {
-            get { return A304Parameters.Лампочка1К; }
+            get { return A304Parameters.getInstance().Лампочка1К; }
         }
 
         public bool ЛампочкаА3042
         {
-            get { return A304Parameters.Лампочка2К; }
+            get { return A304Parameters.getInstance().Лампочка2К; }
         }
 
         public bool ЛампочкаБ1_1
@@ -899,7 +899,7 @@ namespace R440O.R440OForms.N15
             #endregion
 
             N12SParameters.ResetParameters();
-            A304Parameters.ResetParameters();
+            A304Parameters.getInstance().ResetParameters();
             A403_1Parameters.ResetParameters();
 
             NKN_1Parameters.ResetParameters();
