@@ -10,6 +10,7 @@ namespace R440O.R440OForms.N502B
     using VoltageStabilizer;
     using N15;
     using global::R440O.BaseClasses;
+    using global::R440O.JsonAdapter;
 
     public class N502BParameters
     {
@@ -233,6 +234,7 @@ namespace R440O.R440OForms.N502B
                 }
                 VoltageStabilizerParameters.getInstance().ResetParameters();
                 OnParameterChanged();
+                OnAction("ПереключательСеть", Convert.ToInt32(_переключательСеть));
             }
         }
 
@@ -271,6 +273,7 @@ namespace R440O.R440OForms.N502B
                         Нагрузка = false;
                     }
                 OnParameterChanged();
+                OnAction("ПереключательФазировка", _переключательФазировка);
             }
         }
 
@@ -438,7 +441,7 @@ namespace R440O.R440OForms.N502B
         }
         #endregion
 
-        public delegate void TestModuleHandler(ITestModule module);
+        public delegate void TestModuleHandler(ActionStation action);
         public event TestModuleHandler Action;
         public delegate void ParameterChangedHandler();
         public event ParameterChangedHandler ParameterChanged;
@@ -452,12 +455,12 @@ namespace R440O.R440OForms.N502B
         private void OnParameterChanged()
         {
             ParameterChanged?.Invoke();
-            OnAction();
         }
 
-        private void OnAction()
+        private void OnAction(string name, int value)
         {
-            Action?.Invoke(TestModuleRef);
+            var action = new ActionStation(name, value);
+            Action?.Invoke(action);
         }
 
         public void ResetParameters()

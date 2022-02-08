@@ -25,7 +25,7 @@
             if (ParametersConfig.IsTesting)
             {
                 A304Parameters.getInstance().TestModuleRef = this;
-                A304Parameters.getInstance().Action += TestMain.Action;
+                //A304Parameters.getInstance().Action += TestMain.Action;
             }
             switch (TestMain.getIntent())
             {

@@ -1,8 +1,10 @@
 ﻿using R440O.BaseClasses;
+using R440O.JsonAdapter;
 using R440O.LearnModule;
 using R440O.R440OForms.R440O;
 using R440O.ThirdParty;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 
 namespace R440O.TestModule
@@ -19,6 +21,10 @@ namespace R440O.TestModule
         private static Stopwatch stopwatch;
         private static TestResult testResult;
 
+        private static ActionStation expectedAction;
+        private static List<ActionStation> standardActions;
+        private static int step = 0;
+
         public delegate void ClosingForms();
         public static event ClosingForms close;
 
@@ -33,11 +39,18 @@ namespace R440O.TestModule
             return module;
         }
 
-        public static void Action(ITestModule module)
+        public static void Action(ActionStation action)
         {
-            if (module.IsExactModule == false)
+            if(expectedAction.Equals(action))
             {
-                MakeSoftMistake();
+                step += 1;
+                if (step >= standardActions.Count)
+                    return;
+                expectedAction = standardActions[step];
+            }
+            else
+            {
+                System.Windows.Forms.MessageBox.Show("Error");
             }
         }
 
@@ -64,8 +77,26 @@ namespace R440O.TestModule
         }
         #endregion
 
+        private static void LoadStandard()
+        {
+            expectedAction = standardActions[0];
+        }
+
+        private static void CreateStandard()
+        {
+            standardActions = new List<ActionStation>();
+            standardActions.Add(new ActionStation("КабельСеть", 1));
+            standardActions.Add(new ActionStation("ПереключательФазировка", 2));
+            standardActions.Add(new ActionStation("ПереключательСеть", 1));
+            standardActions.Add(new ActionStation("ПереключательСеть", 0));
+            standardActions.Add(new ActionStation("ПереключательФазировка", 1));
+            standardActions.Add(new ActionStation("КабельВход", R440OForms.PowerCabel.PowerCabelParameters.getInstance().Напряжение));
+        }
+
         public static void StartTest()
         {
+            CreateStandard();
+            LoadStandard();
             ParametersConfig.IsTesting = true;
             testResult = new TestResult();
             stopwatch = new Stopwatch();

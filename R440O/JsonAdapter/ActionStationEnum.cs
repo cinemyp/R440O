@@ -8,8 +8,8 @@ namespace R440O.JsonAdapter
 {
     public enum ActionStationEnum
     {
-        SwitchOn,
-        SwitchOff,
+        SwitchOff = 0,
+        SwitchOn = 1,
         Rotate,
         Push,
     }

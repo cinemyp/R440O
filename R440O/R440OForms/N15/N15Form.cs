@@ -35,9 +35,9 @@ namespace R440O.R440OForms.N15
             if (ParametersConfig.IsTesting)
             {
                 N15Parameters.getInstance().TestModuleRef = this;
-                N15Parameters.getInstance().Action += TestMain.Action;
+                //N15Parameters.getInstance().Action += TestMain.Action;
                 N15LocalParameters.getInstance().TestModuleRef = this;
-                N15LocalParameters.getInstance().Action += TestMain.Action;
+                //N15LocalParameters.getInstance().Action += TestMain.Action;
             }
 
             N15Parameters.getInstance().IndicatorChanged += RefreshIndicator;
@@ -548,8 +548,8 @@ namespace R440O.R440OForms.N15
 
             if (ParametersConfig.IsTesting)
             {
-                N15Parameters.getInstance().Action -= TestMain.Action;
-                N15LocalParameters.getInstance().Action -= TestMain.Action;
+                //N15Parameters.getInstance().Action -= TestMain.Action;
+                //N15LocalParameters.getInstance().Action -= TestMain.Action;
             }
 
             if (LearnMain.getIntent() == ModulesEnum.N15Power)

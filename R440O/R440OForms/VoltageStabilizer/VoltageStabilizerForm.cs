@@ -24,7 +24,6 @@
 
             if (ParametersConfig.IsTesting)
             {
-                VoltageStabilizerParameters.TestModuleRef = this;
                 VoltageStabilizerParameters.getInstance().Action += TestMain.Action;
             }
 
@@ -139,7 +138,7 @@
 
             if (ParametersConfig.IsTesting)
             {
-                VoltageStabilizerParameters.getInstance().Action -= TestMain.Action;
+                //VoltageStabilizerParameters.getInstance().Action -= TestMain.Action;
             }
 
             if ((LearnMain.getIntent() == ModulesEnum.VoltageStabilizerSetUp)

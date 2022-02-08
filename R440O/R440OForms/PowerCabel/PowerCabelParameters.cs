@@ -3,6 +3,7 @@
 namespace R440O.R440OForms.PowerCabel
 {
     using global::R440O.BaseClasses;
+    using global::R440O.JsonAdapter;
     using N502B;
 
     public class PowerCabelParameters
@@ -49,13 +50,14 @@ namespace R440O.R440OForms.PowerCabel
                 else СтанцияСгорела();
                 
                 OnParameterChanged();
+                OnAction("КабельСеть", Convert.ToInt32(_кабельСеть));
 
                 N502BParameters.getInstance().ResetParameters();
             }
         }
 
         public int Напряжение;
-        public delegate void TestModuleHandler(ITestModule module);
+        public delegate void TestModuleHandler(ActionStation action);
         public event TestModuleHandler Action;
         public delegate void ParameterChangedHandler();
         public event ParameterChangedHandler ParameterChanged;
@@ -63,14 +65,12 @@ namespace R440O.R440OForms.PowerCabel
         private void OnParameterChanged()
         {
             ParameterChanged?.Invoke();
-
-            JsonAdapter.StationAdapterJson.StoreStationStateToJson();
-            OnAction();
         }
 
-        private void OnAction()
+        private void OnAction(string name, int value)
         {
-            Action?.Invoke(TestModuleRef);
+            var action = new ActionStation(name, value);
+            Action?.Invoke(action);
         }
 
         public void ResetParameters()

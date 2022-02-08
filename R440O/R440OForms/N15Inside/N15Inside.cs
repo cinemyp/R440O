@@ -26,7 +26,7 @@
             if (ParametersConfig.IsTesting)
             {
                 N15InsideParameters.TestModuleRef = this;
-                N15InsideParameters.Action += TestMain.Action;
+                //N15InsideParameters.Action += TestMain.Action;
             }
 
             LearnMain.form = this;
@@ -61,7 +61,7 @@
             N15InsideParameters.ParameterChanged -= RefreshFormElements;
             if (ParametersConfig.IsTesting)
             {
-                N15InsideParameters.Action -= TestMain.Action;
+                //N15InsideParameters.Action -= TestMain.Action;
             }
             switch (TestMain.getIntent())
             {

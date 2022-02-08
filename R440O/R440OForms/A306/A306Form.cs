@@ -27,7 +27,7 @@ namespace R440O.R440OForms.A306
             if (ParametersConfig.IsTesting)
             {
                 A306Parameters.getInstance().TestModuleRef = this;
-                A306Parameters.getInstance().Action += TestMain.Action;
+                //A306Parameters.getInstance().Action += TestMain.Action;
             }
             switch (TestMain.getIntent())
             {
@@ -333,7 +333,7 @@ namespace R440O.R440OForms.A306
             A306Parameters.getInstance().ParameterChanged -= RefreshFormElements;
             if (ParametersConfig.IsTesting)
             {
-                A306Parameters.getInstance().Action -= TestMain.Action;
+                //A306Parameters.getInstance().Action -= TestMain.Action;
             }
 
             switch (TestMain.getIntent())

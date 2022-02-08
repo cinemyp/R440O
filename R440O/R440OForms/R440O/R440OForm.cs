@@ -13,6 +13,7 @@ namespace R440O.R440OForms.R440O
     using global::R440O.LearnModule;
     using global::R440O.TestModule;
     using System.Threading;
+    using System.Collections.Generic;
 
     /// <summary>
     /// Форма станции Р440-О
@@ -88,12 +89,28 @@ namespace R440O.R440OForms.R440O
                 // ReSharper disable once AssignNullToNotNullAttribute by trycatch
                 var thisForm = Activator.CreateInstance(Type.GetType(typeName));
                 var newForm = (Form)thisForm;
+                var controls = newForm.Controls[0].Controls;
+                List<Button> list = new List<Button>();
+
+                foreach (var c in controls.OfType<Button>())
+                {
+                    c.Click += (send, ev) => ClickHandler(send, ev);
+                    list.Add(c);
+                }
+
                 newForm.Show(this);
             }
             catch (Exception ex)
             {
                 throw;
             }
+        }
+
+        private void ClickHandler(object sender, EventArgs e)
+        {
+            var obj = (Button)sender;
+            var parent = obj.Parent.Parent;
+            
         }
 
         private void R440OForm_FormClosed(object sender, FormClosedEventArgs e)

@@ -28,7 +28,7 @@ namespace R440O.R440OForms.A205M_1
             if (ParametersConfig.IsTesting)
             {
                 A205M_1Parameters.getInstance().TestModuleRef = this;
-                A205M_1Parameters.getInstance().Action += TestMain.Action;
+                //A205M_1Parameters.getInstance().Action += TestMain.Action;
             }
 
             if (LearnMain.getIntent() == ModulesEnum.A205_m1_Open)

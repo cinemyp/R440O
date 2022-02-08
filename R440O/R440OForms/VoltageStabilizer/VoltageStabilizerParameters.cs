@@ -3,6 +3,7 @@
 namespace R440O.R440OForms.VoltageStabilizer
 {
     using global::R440O.BaseClasses;
+    using global::R440O.JsonAdapter;
     using global::R440O.R440OForms.N502B;
 
     public class VoltageStabilizerParameters
@@ -104,6 +105,7 @@ namespace R440O.R440OForms.VoltageStabilizer
                 else _кабельВход = value;
 
                 OnParameterChanged();
+                OnAction("КабельВход", _кабельВход);
                 N502BParameters.getInstance().ResetParameters();
             }
         }
@@ -119,7 +121,7 @@ namespace R440O.R440OForms.VoltageStabilizer
         #endregion
 
         #region Обновление переменных и формы
-        public delegate void TestModuleHandler(ITestModule module);
+        public delegate void TestModuleHandler(ActionStation action);
         public event TestModuleHandler Action;
         public delegate void ParameterChangedHandler();
         public event ParameterChangedHandler ParameterChanged;
@@ -127,12 +129,12 @@ namespace R440O.R440OForms.VoltageStabilizer
         private void OnParameterChanged()
         {
             ParameterChanged?.Invoke();
-            OnAction();
         }
 
-        private void OnAction()
+        private void OnAction(string name, int value)
         {
-            Action?.Invoke(TestModuleRef);
+            var action = new ActionStation(name, value);
+            Action?.Invoke(action);
         }
 
         public void ResetParameters()

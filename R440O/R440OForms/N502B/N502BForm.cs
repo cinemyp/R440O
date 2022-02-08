@@ -19,7 +19,6 @@
 
             if (ParametersConfig.IsTesting)
             {
-                N502BParameters.getInstance().TestModuleRef = this;
                 N502BParameters.getInstance().Action += TestMain.Action;
             }
 
@@ -390,7 +389,7 @@
 
             if (ParametersConfig.IsTesting)
             {
-                N502BParameters.getInstance().Action -= TestMain.Action;
+                //N502BParameters.getInstance().Action -= TestMain.Action;
             }
 
             switch (LearnMain.getIntent())
