@@ -333,7 +333,11 @@ namespace R440O.R440OForms.A306
             A306Parameters.getInstance().ParameterChanged -= RefreshFormElements;
             if (ParametersConfig.IsTesting)
             {
-                //A306Parameters.getInstance().Action -= TestMain.Action;
+                var blockParams = A306Parameters.getInstance();
+                bool def = blockParams.ТумблерДистанцМестн &&
+                    blockParams.ТумблерПитание;
+
+                TestMain.Action(new JsonAdapter.ActionStation() { Name = "А306", Value = Convert.ToInt32(def) });
             }
 
             switch (TestMain.getIntent())
