@@ -244,7 +244,7 @@ namespace R440O.R440OForms.A205M_1
                 bool def = blockParams.ПереключательКонтроль == 10 &&
                     !blockParams.ТумблерКЭД;
 
-                TestMain.Action(new JsonAdapter.ActionStation() { Name = "Н502Б", Value = Convert.ToInt32(def) });
+                TestMain.Action(new JsonAdapter.ActionStation() { Name = "А205М-1", Value = Convert.ToInt32(def) });
             }
             A205M_1Parameters.getInstance().ParameterChanged -= RefreshFormElements;
             if(LearnMain.getIntent() == ModulesEnum.A205_m1_Power)

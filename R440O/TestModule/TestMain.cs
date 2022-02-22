@@ -119,7 +119,7 @@ namespace R440O.TestModule
             standardActions.Add(new ActionStation("П220/27-Г", 1, false));
             standardActions.Add(new ActionStation("Н12С", 1, false));
             standardActions.Add(new ActionStation("А403-1", 1, false));
-            standardActions.Add(new ActionStation("А205М", 1, false));
+            standardActions.Add(new ActionStation("А205М-1", 1, false));
             standardActions.Add(new ActionStation("Н13-1", 1, false));
             standardActions.Add(new ActionStation("Н13-2", 1, false));
             standardActions.Add(new ActionStation("Н16", 1, false));
