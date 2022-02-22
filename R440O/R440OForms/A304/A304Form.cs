@@ -1,5 +1,6 @@
 ﻿namespace R440O.R440OForms.A304
 {
+    using System;
     using System.Windows.Forms;
     using BaseClasses;
     using global::R440O.LearnModule;
@@ -195,6 +196,15 @@
 
         private void A304Form_FormClosed(object sender, FormClosedEventArgs e)
         {
+            if (ParametersConfig.IsTesting)
+            {
+                var blockParams = A304Parameters.getInstance();
+                bool def = blockParams.ТумблерКомплект &&
+                    blockParams.ТумблерУправление1 &&
+                    blockParams.ПереключательКонтроль == 1;
+
+                TestMain.Action(new JsonAdapter.ActionStation() { Name = "А304", Value = Convert.ToInt32(def) });
+            }
             A304Parameters.getInstance().ParameterChanged -= RefreshFormElements;
             switch (TestMain.getIntent())
             {
