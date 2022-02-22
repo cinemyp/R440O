@@ -8,6 +8,7 @@ namespace R440O.R440OForms.A205M_1
     using BaseClasses;
     using global::R440O.LearnModule;
     using global::R440O.TestModule;
+    using System;
 
     /// <summary>
     /// Форма блока А205М-1
@@ -237,6 +238,14 @@ namespace R440O.R440OForms.A205M_1
 
         private void A205M_1Form_FormClosed(object sender, FormClosedEventArgs e)
         {
+            if (ParametersConfig.IsTesting)
+            {
+                var blockParams = A205M_1Parameters.getInstance();
+                bool def = blockParams.ПереключательКонтроль == 10 &&
+                    !blockParams.ТумблерКЭД;
+
+                TestMain.Action(new JsonAdapter.ActionStation() { Name = "Н502Б", Value = Convert.ToInt32(def) });
+            }
             A205M_1Parameters.getInstance().ParameterChanged -= RefreshFormElements;
             if(LearnMain.getIntent() == ModulesEnum.A205_m1_Power)
             {

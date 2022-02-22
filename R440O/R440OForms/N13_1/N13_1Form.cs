@@ -8,6 +8,8 @@ using R440O.ThirdParty;
 
 namespace R440O.R440OForms.N13_1
 {
+    using global::R440O.TestModule;
+    using System;
     using System.Windows.Forms;
 
     /// <summary>
@@ -47,6 +49,13 @@ namespace R440O.R440OForms.N13_1
 
         private void N13_1Form_FormClosed(object sender, FormClosedEventArgs e)
         {
+            if (ParametersConfig.IsTesting)
+            {
+                var blockParams = N13_1Parameters.getInstance();
+                bool def = true;
+
+                TestMain.Action(new JsonAdapter.ActionStation() { Name = "Н13-1", Value = Convert.ToInt32(def) });
+            }
             N13_1Parameters.getInstance().ParameterChanged -= RefreshFormElements;
         }
     }
