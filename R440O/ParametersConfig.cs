@@ -134,10 +134,10 @@ namespace R440O
             BMA_M_1Parameters.КнопкаПитаниеВкл = 2;
 
             // Настройка БМБ
-            BMBParameters.КнопкаПитание = СостоянияЭлементов.БМБ.Кнопка.Горит;
-            BMBParameters.КнопкаСлСвязь = СостоянияЭлементов.БМБ.Кнопка.Горит;
-            BMBParameters.ПереключательНаправление = 1;
-            BMBParameters.ПереключательРаботаКонтроль = 1;
+            BMBParameters.getInstance().КнопкаПитание = СостоянияЭлементов.БМБ.Кнопка.Горит;
+            BMBParameters.getInstance().КнопкаСлСвязь = СостоянияЭлементов.БМБ.Кнопка.Горит;
+            BMBParameters.getInstance().ПереключательНаправление = 1;
+            BMBParameters.getInstance().ПереключательРаботаКонтроль = 1;
         }
 
         public static void НастройкаДискрета()

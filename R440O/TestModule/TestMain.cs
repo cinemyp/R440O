@@ -1,6 +1,7 @@
 ﻿using R440O.BaseClasses;
 using R440O.JsonAdapter;
 using R440O.LearnModule;
+using R440O.R440OForms.N502B;
 using R440O.R440OForms.R440O;
 using R440O.ThirdParty;
 using System;
@@ -22,6 +23,7 @@ namespace R440O.TestModule
         private static TestResult testResult;
 
         private static ActionStation expectedAction;
+        private static ActionStation previousAction;
         private static List<ActionStation> standardActions;
         private static int step = 0;
 
@@ -41,12 +43,20 @@ namespace R440O.TestModule
 
         public static void Action(ActionStation action)
         {
-            if(expectedAction.Equals(action))
+            if (expectedAction.Equals(action))
             {
                 step += 1;
                 if (step >= standardActions.Count)
                     return;
+                previousAction = expectedAction;
                 expectedAction = standardActions[step];
+            }
+            else if (previousAction != null && (action.Name == expectedAction.Name || 
+                previousAction.Equals(action) || 
+                action.Name == previousAction.Name))
+            {
+                //пользователь работает с тем параметром, который нужен, 
+                //поэтому оставляем и ничего не делаем
             }
             else
             {
@@ -85,12 +95,72 @@ namespace R440O.TestModule
         private static void CreateStandard()
         {
             standardActions = new List<ActionStation>();
+
+            //Включение
             standardActions.Add(new ActionStation("КабельСеть", 1));
-            standardActions.Add(new ActionStation("ПереключательФазировка", 2));
-            standardActions.Add(new ActionStation("ПереключательСеть", 1));
-            standardActions.Add(new ActionStation("ПереключательСеть", 0));
-            standardActions.Add(new ActionStation("ПереключательФазировка", 1));
+            //Проверка напряжения
+            //standardActions.Add(new ActionStation("ПереключательФазировка", 2));
+            //standardActions.Add(new ActionStation("ПереключательСеть", 1));
+            //standardActions.Add(new ActionStation("ПереключательСеть", 0));
+            //standardActions.Add(new ActionStation("ПереключательФазировка", 1));
+            //Подключение кабеля на стабилизаторе
             standardActions.Add(new ActionStation("КабельВход", R440OForms.PowerCabel.PowerCabelParameters.getInstance().Напряжение));
+            //standardActions.Add(new ActionStation("ПереключательФазировка", N502BParameters.getInstance().Фазировка));
+            //standardActions.Add(new ActionStation("ПереключательСеть", 1));
+            standardActions.Add(new ActionStation("Нагрузка", 1));
+
+            //Н15
+            standardActions.Add(new ActionStation("локТумблерМШУ", 1));
+            standardActions.Add(new ActionStation("КнопкаСтанцияВкл", 1));
+            standardActions.Add(new ActionStation("локКнопкаН13_1", 1));
+            standardActions.Add(new ActionStation("КнопкаСтанцияВкл", 1));
+
+            standardActions.Add(new ActionStation("локТумблерЦ300М1", 1));
+            standardActions.Add(new ActionStation("КнопкаСтанцияВкл", 1));
+            standardActions.Add(new ActionStation("локТумблерЦ300М2", 1));
+            standardActions.Add(new ActionStation("КнопкаСтанцияВкл", 1));
+            standardActions.Add(new ActionStation("локТумблерЦ300М3", 1));
+            standardActions.Add(new ActionStation("КнопкаСтанцияВкл", 1));
+            standardActions.Add(new ActionStation("локТумблерЦ300М4", 1));
+            standardActions.Add(new ActionStation("КнопкаСтанцияВкл", 1));
+            
+            standardActions.Add(new ActionStation("локТумблерН12С", 1));
+            standardActions.Add(new ActionStation("КнопкаСтанцияВкл", 1));
+            standardActions.Add(new ActionStation("локТумблерБМА_1", 1));
+            standardActions.Add(new ActionStation("КнопкаСтанцияВкл", 1));
+            standardActions.Add(new ActionStation("локТумблерБМА_2", 1));
+            standardActions.Add(new ActionStation("КнопкаСтанцияВкл", 1));
+            
+            standardActions.Add(new ActionStation("локТумблерАФСС", 1));
+            standardActions.Add(new ActionStation("локТумблерА1", 1));
+            standardActions.Add(new ActionStation("локТумблерА403", 1));
+            standardActions.Add(new ActionStation("КнопкаСтанцияВкл", 1));
+
+            standardActions.Add(new ActionStation("локТумблерК1_1", 1));
+            standardActions.Add(new ActionStation("локТумблерК1_2", 1));
+            standardActions.Add(new ActionStation("КнопкаСтанцияВкл", 1));
+
+            standardActions.Add(new ActionStation("локТумблерБ1_1", 1));
+            standardActions.Add(new ActionStation("локТумблерБ2_1", 1));
+            standardActions.Add(new ActionStation("локТумблерБ3_1", 1));
+            standardActions.Add(new ActionStation("КнопкаСтанцияВкл", 1));
+
+            standardActions.Add(new ActionStation("локТумблерБ1_2", 1));
+            standardActions.Add(new ActionStation("локТумблерБ2_2", 1));
+            standardActions.Add(new ActionStation("локТумблерБ3_2", 1));
+            standardActions.Add(new ActionStation("КнопкаСтанцияВкл", 1));
+
+            standardActions.Add(new ActionStation("локТумблерДАБ_5", 1));
+            standardActions.Add(new ActionStation("локТумблерР_Н", 1));
+            standardActions.Add(new ActionStation("КнопкаСтанцияВкл", 1));
+
+            //БМБ
+            standardActions.Add(new ActionStation("КнопкаПитание", 1));
+            //C1_67
+            standardActions.Add(new ActionStation("C1_67ТумблерСеть", 1));
+            //Я2М-67
+            standardActions.Add(new ActionStation("ТумблерСеть", 1));
+
         }
 
         public static void StartTest()

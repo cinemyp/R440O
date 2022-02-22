@@ -34,10 +34,8 @@ namespace R440O.R440OForms.N15
 
             if (ParametersConfig.IsTesting)
             {
-                N15Parameters.getInstance().TestModuleRef = this;
-                //N15Parameters.getInstance().Action += TestMain.Action;
-                N15LocalParameters.getInstance().TestModuleRef = this;
-                //N15LocalParameters.getInstance().Action += TestMain.Action;
+                N15Parameters.getInstance().Action += TestMain.Action;
+                N15LocalParameters.getInstance().Action += TestMain.Action;
             }
 
             N15Parameters.getInstance().IndicatorChanged += RefreshIndicator;
@@ -224,24 +222,28 @@ namespace R440O.R440OForms.N15
         private void КнопкаСтанцияВкл_MouseDown(object sender, MouseEventArgs e)
         {
             this.КнопкаСтанцияВкл.BackgroundImage = null;
+            N15Parameters.getInstance().КнопкаСтанцияВкл = true;
             N15Parameters.getInstance().SetCurrentParameters();
             N15Parameters.getInstance().ResetParameters();
         }
 
         private void КнопкаСтанцияВкл_MouseUp(object sender, MouseEventArgs e)
         {
+            N15Parameters.getInstance().КнопкаСтанцияВкл = false;
             this.КнопкаСтанцияВкл.BackgroundImage = ControlElementImages.buttonN15On;
         }
 
         private void КнопкаСтанцияВыкл_MouseDown(object sender, MouseEventArgs e)
         {
             this.КнопкаСтанцияВыкл.BackgroundImage = null;
+            N15Parameters.getInstance().КнопкаСтанцияВыкл = false;
             N15Parameters.getInstance().ResetCurrentParameters();
             N15Parameters.getInstance().ResetParameters();
         }
 
         private void КнопкаСтанцияВыкл_MouseUp(object sender, MouseEventArgs e)
         {
+            N15Parameters.getInstance().КнопкаСтанцияВыкл = true;
             this.КнопкаСтанцияВыкл.BackgroundImage = ControlElementImages.buttonN15Off;
         }
 

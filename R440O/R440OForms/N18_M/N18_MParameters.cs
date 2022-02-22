@@ -562,7 +562,7 @@ namespace R440O.R440OForms.N18_M
         {
             N15Parameters.getInstance().ResetDiscret();
             //BMA_M_1Parameters.ResetParameters();
-            BMBParameters.ResetParameters();
+            BMBParameters.getInstance().ResetParameters();
             var handler = ParameterChanged;
             if (handler != null) handler();
         }

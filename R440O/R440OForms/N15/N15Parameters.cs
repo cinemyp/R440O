@@ -40,6 +40,7 @@ namespace R440O.R440OForms.N15
     using P220_27G_3;
     using СостоянияЭлементов.Контур_П;
     using InternalBlocks;
+    using global::R440O.JsonAdapter;
 
     public class N15Parameters
     {
@@ -50,7 +51,6 @@ namespace R440O.R440OForms.N15
                 instance = new N15Parameters();
             return instance;
         }
-        public ITestModule TestModuleRef { get; set; }
 
         public bool Включен
         {
@@ -126,6 +126,7 @@ namespace R440O.R440OForms.N15
             {
                 _кнопкаСтанцияВкл = value;
                 OnParameterChanged();
+                OnAction("КнопкаСтанцияВкл", Convert.ToInt32(_кнопкаСтанцияВкл));
             }
         }
 
@@ -138,6 +139,7 @@ namespace R440O.R440OForms.N15
             set
             {
                 _кнопкаСтанцияВыкл = value;
+                OnAction("КнопкаСтанцияВыкл", Convert.ToInt32(_кнопкаСтанцияВыкл));
                 if (value)
                 {
                     ResetParameters();
@@ -548,6 +550,8 @@ namespace R440O.R440OForms.N15
                 _тумблерА503Б = value;
                 ResetParameters();
                 OnParameterChanged();
+                OnAction("ТумблерА503Б", Convert.ToInt32(_тумблерА503Б));
+
             }
         }
 
@@ -867,7 +871,7 @@ namespace R440O.R440OForms.N15
             #region БМА
 
 
-            BMBParameters.ResetParameters();
+            BMBParameters.getInstance().ResetParameters();
             BMA_M_1Parameters.DisposeAllTimers();
             BMA_M_1Parameters.ResetLampsValue();
             BMA_M_1Parameters.ResetParameters();
@@ -943,7 +947,7 @@ namespace R440O.R440OForms.N15
             B3_2Parameters.ResetParameters();
         }
 
-        public delegate void TestModuleHandler(ITestModule module);
+        public delegate void TestModuleHandler(ActionStation action);
         public event TestModuleHandler Action;
         public delegate void ParameterChangedHandler();
         public event ParameterChangedHandler ParameterChanged;
@@ -951,12 +955,12 @@ namespace R440O.R440OForms.N15
         private void OnParameterChanged()
         {
             ParameterChanged?.Invoke();
-            OnAction();
         }
 
-        private void OnAction()
+        private void OnAction(string name, int value)
         {
-            Action?.Invoke(TestModuleRef);
+            var action = new ActionStation(name, value);
+            Action?.Invoke(action);
         }
 
         public event ParameterChangedHandler IndicatorChanged;
@@ -1011,7 +1015,7 @@ namespace R440O.R440OForms.N15
                                                                       !property.Name.Contains("ТлфТлг")
                                                                       && !property.Name.Contains("А30412")))
             {
-                property.SetValue("1", false);
+                property.SetValue(this, false);
             }
 
             Н13_1 = false;

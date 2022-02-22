@@ -14,6 +14,7 @@ namespace R440O.R440OForms.R440O
     using global::R440O.TestModule;
     using System.Threading;
     using System.Collections.Generic;
+    using global::R440O.JsonAdapter;
 
     /// <summary>
     /// Форма станции Р440-О
@@ -153,6 +154,11 @@ namespace R440O.R440OForms.R440O
             VoltageStabilizer.VoltageStabilizerParameters.getInstance().SetDefaultParameters();
             PowerCabel.PowerCabelParameters.getInstance().SetDefaultParameters();
 
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            StationAdapterJson.StoreStationStateToJson();
         }
     }
 }

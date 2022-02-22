@@ -9,6 +9,7 @@
     using ThirdParty;
     using СостоянияЭлементов.БМБ;
     using global::R440O.LearnModule;
+    using global::R440O.TestModule;
 
     /// <summary>
     /// Форма блока БМБ
@@ -21,10 +22,13 @@
         public BMBForm()
         {
             InitializeComponent();
-            BMBParameters.RefreshForm += RefreshFormElements;
+            BMBParameters.getInstance().RefreshForm += RefreshFormElements;
             N18_M.N18_MParameters.ParameterChanged += RefreshFormElements;
             RefreshFormElements();
-           
+            if (ParametersConfig.IsTesting)
+            {
+                BMBParameters.getInstance().Action += TestMain.Action;
+            }
         }
 
         #region Переключатели
@@ -33,12 +37,12 @@
         {
             if (e.Button == MouseButtons.Left)
             {
-                BMBParameters.ПереключательПодключениеРезерва += 1;
+                BMBParameters.getInstance().ПереключательПодключениеРезерва += 1;
             }
 
             if (e.Button == MouseButtons.Right)
             {
-                BMBParameters.ПереключательПодключениеРезерва -= 1;
+                BMBParameters.getInstance().ПереключательПодключениеРезерва -= 1;
             }
         }
 
@@ -46,12 +50,12 @@
         {
             if (e.Button == MouseButtons.Left)
             {
-                BMBParameters.ПереключательНаправление += 1;
+                BMBParameters.getInstance().ПереключательНаправление += 1;
             }
 
             if (e.Button == MouseButtons.Right)
             {
-                BMBParameters.ПереключательНаправление -= 1;
+                BMBParameters.getInstance().ПереключательНаправление -= 1;
             }
         }
 
@@ -68,7 +72,7 @@
             InitializeLamps();
 
             // Звук для БМБ
-            if (BMBParameters.ЛампочкаПриемВызова && BMBParameters.КнопкаЗвСигнал == Кнопка.Горит)
+            if (BMBParameters.getInstance().ЛампочкаПриемВызова && BMBParameters.getInstance().КнопкаЗвСигнал == Кнопка.Горит)
             {
                 _player = new SoundPlayer(Properties.Resources.bmb);
                 _player.PlayLooping();
@@ -83,86 +87,86 @@
 
         private void InitializeButtons()
         {
-            this.КнопкаПередачаВызоваДк.BackgroundImage = BMBParameters.КнопкаПередачаВызоваДк == Кнопка.Горит
+            this.КнопкаПередачаВызоваДк.BackgroundImage = BMBParameters.getInstance().КнопкаПередачаВызоваДк == Кнопка.Горит
                 ? null
-                : BMBParameters.КнопкаПередачаВызоваДк == Кнопка.Отжата
+                : BMBParameters.getInstance().КнопкаПередачаВызоваДк == Кнопка.Отжата
                     ? ControlElementImages.buttonSquareYellow1
                     : TransformImageHelper.Scale(ControlElementImages.buttonSquareYellow1, 65);
 
-            this.КнопкаПередачаВызоваТч.BackgroundImage = BMBParameters.КнопкаПередачаВызоваТч == Кнопка.Горит
+            this.КнопкаПередачаВызоваТч.BackgroundImage = BMBParameters.getInstance().КнопкаПередачаВызоваТч == Кнопка.Горит
                 ? null
-                : BMBParameters.КнопкаПередачаВызоваТч == Кнопка.Отжата
+                : BMBParameters.getInstance().КнопкаПередачаВызоваТч == Кнопка.Отжата
                     ? ControlElementImages.buttonSquareYellow1
                     : TransformImageHelper.Scale(ControlElementImages.buttonSquareYellow1, 65);
 
-            this.КнопкаСлСвязь.BackgroundImage = BMBParameters.КнопкаСлСвязь == Кнопка.Горит
+            this.КнопкаСлСвязь.BackgroundImage = BMBParameters.getInstance().КнопкаСлСвязь == Кнопка.Горит
                  ? null
-                 : BMBParameters.КнопкаСлСвязь == Кнопка.Отжата
+                 : BMBParameters.getInstance().КнопкаСлСвязь == Кнопка.Отжата
                      ? ControlElementImages.buttonSquareYellow1
                      : TransformImageHelper.Scale(ControlElementImages.buttonSquareYellow1, 65);
 
-            this.КнопкаПитание.BackgroundImage = BMBParameters.КнопкаПитание == Кнопка.Горит
+            this.КнопкаПитание.BackgroundImage = BMBParameters.getInstance().КнопкаПитание == Кнопка.Горит
                  ? null
-                 : BMBParameters.КнопкаПитание == Кнопка.Отжата
+                 : BMBParameters.getInstance().КнопкаПитание == Кнопка.Отжата
                      ? ControlElementImages.buttonSquareGreen
                      : TransformImageHelper.Scale(ControlElementImages.buttonSquareGreen, 65);
 
-            this.КнопкаЗвСигнал.BackgroundImage = BMBParameters.КнопкаЗвСигнал == Кнопка.Горит
+            this.КнопкаЗвСигнал.BackgroundImage = BMBParameters.getInstance().КнопкаЗвСигнал == Кнопка.Горит
                  ? null
-                 : BMBParameters.КнопкаЗвСигнал == Кнопка.Отжата
+                 : BMBParameters.getInstance().КнопкаЗвСигнал == Кнопка.Отжата
                      ? ControlElementImages.buttonSquareGreen
                      : TransformImageHelper.Scale(ControlElementImages.buttonSquareGreen, 65);
 
-            this.КнопкаПередачаКоманды.BackgroundImage = BMBParameters.КнопкаПередачаКоманды == Кнопка.Горит
+            this.КнопкаПередачаКоманды.BackgroundImage = BMBParameters.getInstance().КнопкаПередачаКоманды == Кнопка.Горит
                  ? ControlElementImages.buttonSquareBlueOn
-                 : BMBParameters.КнопкаПередачаКоманды == Кнопка.Отжата
+                 : BMBParameters.getInstance().КнопкаПередачаКоманды == Кнопка.Отжата
                      ? ControlElementImages.buttonSquareBlueOff
                      : TransformImageHelper.Scale(ControlElementImages.buttonSquareBlueOff, 85);
 
-            this.КнопкаПередачаВызоваДк.Text = BMBParameters.КнопкаПередачаВызоваДк == Кнопка.Горит ? null : "ДК";
-            this.КнопкаПередачаВызоваТч.Text = BMBParameters.КнопкаПередачаВызоваТч == Кнопка.Горит ? null : "ТЧ";
-            this.КнопкаСлСвязь.Text = BMBParameters.КнопкаСлСвязь == Кнопка.Горит ? null : "ВКЛ";
-            this.КнопкаПитание.Text = BMBParameters.КнопкаПитание == Кнопка.Горит ? null : "ВКЛ";
-            this.КнопкаЗвСигнал.Text = BMBParameters.КнопкаЗвСигнал == Кнопка.Горит ? null : "ЗВ.\nСИГН.";
+            this.КнопкаПередачаВызоваДк.Text = BMBParameters.getInstance().КнопкаПередачаВызоваДк == Кнопка.Горит ? null : "ДК";
+            this.КнопкаПередачаВызоваТч.Text = BMBParameters.getInstance().КнопкаПередачаВызоваТч == Кнопка.Горит ? null : "ТЧ";
+            this.КнопкаСлСвязь.Text = BMBParameters.getInstance().КнопкаСлСвязь == Кнопка.Горит ? null : "ВКЛ";
+            this.КнопкаПитание.Text = BMBParameters.getInstance().КнопкаПитание == Кнопка.Горит ? null : "ВКЛ";
+            this.КнопкаЗвСигнал.Text = BMBParameters.getInstance().КнопкаЗвСигнал == Кнопка.Горит ? null : "ЗВ.\nСИГН.";
         }
 
         private void InitializeToggles()
         {
-            var angle = BMBParameters.ПереключательРаботаКонтроль * 30 - 45;
+            var angle = BMBParameters.getInstance().ПереключательРаботаКонтроль * 30 - 45;
             ПереключательРаботаКонтроль.BackgroundImage =
                 TransformImageHelper.RotateImageByAngle(ControlElementImages.toggleType2, angle);
 
-            angle = BMBParameters.ПереключательПодключениеРезерва * 40 - 80;
+            angle = BMBParameters.getInstance().ПереключательПодключениеРезерва * 40 - 80;
             BMBПереключательПодключениеРезерва.BackgroundImage =
                 TransformImageHelper.RotateImageByAngle(ControlElementImages.toggleType2, angle);
 
-            angle = BMBParameters.ПереключательНаправление * 30 - 75;
+            angle = BMBParameters.getInstance().ПереключательНаправление * 30 - 75;
             BMBПереключательНаправление.BackgroundImage =
                 TransformImageHelper.RotateImageByAngle(ControlElementImages.toggleType2, angle);
         }
 
         private void InitializeLamps()
         {
-            ЛампочкаТч.BackgroundImage = BMBParameters.ЛампочкаТч
+            ЛампочкаТч.BackgroundImage = BMBParameters.getInstance().ЛампочкаТч
                 ? ControlElementImages.lampType7OnRed
                 : null;
-            ЛампочкаДк.BackgroundImage = BMBParameters.ЛампочкаДк
+            ЛампочкаДк.BackgroundImage = BMBParameters.getInstance().ЛампочкаДк
                 ? ControlElementImages.lampType7OnRed
                 : null;
 
-            ЛампочкаПриемВызова.BackColor = BMBParameters.ЛампочкаПриемВызова ? Color.FromArgb(100, 50, 250, 50) : Color.Transparent;
+            ЛампочкаПриемВызова.BackColor = BMBParameters.getInstance().ЛампочкаПриемВызова ? Color.FromArgb(100, 50, 250, 50) : Color.Transparent;
 
-            BMBЛампочкаНаправление1.BackgroundImage = BMBParameters.ЛампочкаНаправление1 ? ControlElementImages.lampType7OnRed
+            BMBЛампочкаНаправление1.BackgroundImage = BMBParameters.getInstance().ЛампочкаНаправление1 ? ControlElementImages.lampType7OnRed
                 : null;
-            BMBЛампочкаНаправление2.BackgroundImage = BMBParameters.ЛампочкаНаправление2 ? ControlElementImages.lampType7OnRed
+            BMBЛампочкаНаправление2.BackgroundImage = BMBParameters.getInstance().ЛампочкаНаправление2 ? ControlElementImages.lampType7OnRed
                 : null;
-            BMBЛампочкаНаправление3.BackgroundImage = BMBParameters.ЛампочкаНаправление3 ? ControlElementImages.lampType7OnRed
+            BMBЛампочкаНаправление3.BackgroundImage = BMBParameters.getInstance().ЛампочкаНаправление3 ? ControlElementImages.lampType7OnRed
                 : null;
-            BMBЛампочкаНаправление4.BackgroundImage = BMBParameters.ЛампочкаНаправление4 ? ControlElementImages.lampType7OnRed
+            BMBЛампочкаНаправление4.BackgroundImage = BMBParameters.getInstance().ЛампочкаНаправление4 ? ControlElementImages.lampType7OnRed
                 : null;
 
-            ИндикаторНаборКоманды.Text = BMBParameters.НаборКоманды;
-            ИндикаторПриемКоманды.Text = BMBParameters.ПриемКоманды;
+            ИндикаторНаборКоманды.Text = BMBParameters.getInstance().НаборКоманды;
+            ИндикаторПриемКоманды.Text = BMBParameters.getInstance().ПриемКоманды;
 
         }
         #endregion
@@ -171,39 +175,39 @@
 
         private void КнопкаПитание_Click(object sender, System.EventArgs e)
         {
-            BMBParameters.КнопкаПитание = BMBParameters.КнопкаПитание == Кнопка.Отжата ? Кнопка.Нажата : Кнопка.Отжата;
+            BMBParameters.getInstance().КнопкаПитание = BMBParameters.getInstance().КнопкаПитание == Кнопка.Отжата ? Кнопка.Нажата : Кнопка.Отжата;
         }
 
         private void КнопкаЗвСигнал_Click(object sender, System.EventArgs e)
         {
-            BMBParameters.КнопкаЗвСигнал = BMBParameters.КнопкаЗвСигнал == Кнопка.Отжата ? Кнопка.Нажата : Кнопка.Отжата;
+            BMBParameters.getInstance().КнопкаЗвСигнал = BMBParameters.getInstance().КнопкаЗвСигнал == Кнопка.Отжата ? Кнопка.Нажата : Кнопка.Отжата;
         }
 
         private void КнопкаСлСвязь_Click(object sender, System.EventArgs e)
         {
-            BMBParameters.КнопкаСлСвязь = BMBParameters.КнопкаСлСвязь == Кнопка.Отжата ? Кнопка.Нажата : Кнопка.Отжата;
+            BMBParameters.getInstance().КнопкаСлСвязь = BMBParameters.getInstance().КнопкаСлСвязь == Кнопка.Отжата ? Кнопка.Нажата : Кнопка.Отжата;
         }
 
         private void КнопкаПередачаВызоваТч_Click(object sender, System.EventArgs e)
         {
-            BMBParameters.КнопкаПередачаВызоваТч = BMBParameters.КнопкаПередачаВызоваТч == Кнопка.Отжата ? Кнопка.Нажата : Кнопка.Отжата;
+            BMBParameters.getInstance().КнопкаПередачаВызоваТч = BMBParameters.getInstance().КнопкаПередачаВызоваТч == Кнопка.Отжата ? Кнопка.Нажата : Кнопка.Отжата;
         }
 
         private void КнопкаПередачаВызоваДк_Click(object sender, System.EventArgs e)
         {
-            BMBParameters.КнопкаПередачаВызоваДк = BMBParameters.КнопкаПередачаВызоваДк == Кнопка.Отжата ? Кнопка.Нажата : Кнопка.Отжата;
+            BMBParameters.getInstance().КнопкаПередачаВызоваДк = BMBParameters.getInstance().КнопкаПередачаВызоваДк == Кнопка.Отжата ? Кнопка.Нажата : Кнопка.Отжата;
         }
 
         private void ПереключательРаботаКонтроль_MouseUp(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left)
             {
-                BMBParameters.ПереключательРаботаКонтроль += 1;
+                BMBParameters.getInstance().ПереключательРаботаКонтроль += 1;
             }
 
             if (e.Button == MouseButtons.Right)
             {
-                BMBParameters.ПереключательРаботаКонтроль -= 1;
+                BMBParameters.getInstance().ПереключательРаботаКонтроль -= 1;
             }
         }
         #endregion
@@ -224,20 +228,20 @@
                 var buttonNumber = Convert.ToInt32(button.Name[18].ToString());
                 button.BackgroundImage = null;
                 button.Text = string.Empty + buttonNumber;
-                BMBParameters.ДобавитьЧисло(buttonNumber);
+                BMBParameters.getInstance().ДобавитьЧисло(buttonNumber);
             }
         }
 
         private void КнопкаПередачаКоманды_MouseDown(object sender, MouseEventArgs e)
         {
-            BMBParameters.КнопкаПередачаКоманды = Кнопка.Нажата;
+            BMBParameters.getInstance().КнопкаПередачаКоманды = Кнопка.Нажата;
             this.КнопкаПередачаКоманды.BackgroundImage = TransformImageHelper.Scale(ControlElementImages.buttonSquareBlueOff, 85);
-            BMBParameters.ПередатьКоманду();
+            BMBParameters.getInstance().ПередатьКоманду();
         }
 
         private void КнопкаПередачаКоманды_MouseUp(object sender, MouseEventArgs e)
         {
-            BMBParameters.КнопкаПередачаКоманды = Кнопка.Отжата;
+            BMBParameters.getInstance().КнопкаПередачаКоманды = Кнопка.Отжата;
             this.КнопкаПередачаКоманды.BackgroundImage = ControlElementImages.buttonSquareBlueOff;
             RefreshFormElements();
         }
@@ -245,7 +249,10 @@
 
         private void BMBForm_FormClosed(object sender, FormClosedEventArgs e)
         {
-
+            if (ParametersConfig.IsTesting)
+            {
+                BMBParameters.getInstance().Action -= TestMain.Action;
+            }
         }
     }
 }

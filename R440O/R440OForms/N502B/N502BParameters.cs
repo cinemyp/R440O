@@ -22,10 +22,7 @@ namespace R440O.R440OForms.N502B
                 instance = new N502BParameters();
             return instance;
         }
-
-        bool ModuleHasDone { get; set; }
-        public ITestModule TestModuleRef { get; set; }
-
+        
         protected N502BParameters()
         {
             StationTimer = new Timer();
@@ -234,7 +231,7 @@ namespace R440O.R440OForms.N502B
                 }
                 VoltageStabilizerParameters.getInstance().ResetParameters();
                 OnParameterChanged();
-                OnAction("ПереключательСеть", Convert.ToInt32(_переключательСеть));
+                //OnAction("ПереключательСеть", Convert.ToInt32(_переключательСеть));
             }
         }
 
@@ -273,7 +270,7 @@ namespace R440O.R440OForms.N502B
                         Нагрузка = false;
                     }
                 OnParameterChanged();
-                OnAction("ПереключательФазировка", _переключательФазировка);
+                //OnAction("ПереключательФазировка", _переключательФазировка);
             }
         }
 
@@ -338,6 +335,7 @@ namespace R440O.R440OForms.N502B
                 if (value && !Нагрузка && ПереключательСеть && VoltageStabilizerParameters.getInstance().КабельПодключенПравильно &&
                     ЛампочкаСеть && ПереключательФазировка == Фазировка) Нагрузка = true;
                 OnParameterChanged();
+                OnAction("Нагрузка", Convert.ToInt32(_нагрузка));
             }
         }
 

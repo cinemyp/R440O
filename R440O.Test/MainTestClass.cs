@@ -146,11 +146,11 @@ namespace R440O.Test.MainTest
             // Сигнал с А1 подается на А205
             N18_MParameters.ПереключательПРД = 2;
 
-            BMBParameters.КнопкаПередачаВызоваДк = СостоянияЭлементов.БМБ.Кнопка.Нажата;
+            BMBParameters.getInstance().КнопкаПередачаВызоваДк = СостоянияЭлементов.БМБ.Кнопка.Нажата;
 
             Application.DoEvents();
 
-            Assert.IsTrue(BMBParameters.ЛампочкаДк);
+            Assert.IsTrue(BMBParameters.getInstance().ЛампочкаДк);
         }
 
         /// <summary>
@@ -171,11 +171,11 @@ namespace R440O.Test.MainTest
             // Сигнал с А1 подается на А205
             N18_MParameters.ПереключательПРД = 2;
 
-            BMBParameters.КнопкаПередачаВызоваДк = СостоянияЭлементов.БМБ.Кнопка.Нажата;
+            BMBParameters.getInstance().КнопкаПередачаВызоваДк = СостоянияЭлементов.БМБ.Кнопка.Нажата;
 
             Application.DoEvents();
 
-            Assert.IsTrue(BMBParameters.ЛампочкаДк);
+            Assert.IsTrue(BMBParameters.getInstance().ЛампочкаДк);
         }
 
         /// <summary>
@@ -196,11 +196,11 @@ namespace R440O.Test.MainTest
             // Сигнал с А1 подается на А205
             N18_MParameters.ПереключательПРД = 2;
 
-            BMBParameters.КнопкаПередачаВызоваДк = СостоянияЭлементов.БМБ.Кнопка.Нажата;
+            BMBParameters.getInstance().КнопкаПередачаВызоваДк = СостоянияЭлементов.БМБ.Кнопка.Нажата;
 
             Application.DoEvents();
 
-            Assert.IsTrue(BMBParameters.ЛампочкаДк);
+            Assert.IsTrue(BMBParameters.getInstance().ЛампочкаДк);
         }
 
         /// <summary>
@@ -225,11 +225,11 @@ namespace R440O.Test.MainTest
             // Сигнал с А1 подается на А205
             N18_MParameters.ПереключательПРД = 2;
 
-            BMBParameters.КнопкаПередачаВызоваДк = СостоянияЭлементов.БМБ.Кнопка.Нажата;
+            BMBParameters.getInstance().КнопкаПередачаВызоваДк = СостоянияЭлементов.БМБ.Кнопка.Нажата;
 
             Application.DoEvents();
 
-            Assert.IsTrue(BMBParameters.ЛампочкаДк);
+            Assert.IsTrue(BMBParameters.getInstance().ЛампочкаДк);
         }
 
         /// <summary>
@@ -252,11 +252,11 @@ namespace R440O.Test.MainTest
             // Сигнал с А1 подается на А205
             N18_MParameters.ПереключательПРД = 2;
 
-            BMBParameters.КнопкаПередачаВызоваДк = СостоянияЭлементов.БМБ.Кнопка.Нажата;
+            BMBParameters.getInstance().КнопкаПередачаВызоваДк = СостоянияЭлементов.БМБ.Кнопка.Нажата;
 
             Application.DoEvents();
 
-            Assert.IsTrue(BMBParameters.ЛампочкаДк);
+            Assert.IsTrue(BMBParameters.getInstance().ЛампочкаДк);
         }
             
         /// <summary>
@@ -279,11 +279,11 @@ namespace R440O.Test.MainTest
             // Сигнал с А1 подается на А205
             N18_MParameters.ПереключательПРД = 2;
 
-            BMBParameters.КнопкаПередачаВызоваДк = СостоянияЭлементов.БМБ.Кнопка.Нажата;
+            BMBParameters.getInstance().КнопкаПередачаВызоваДк = СостоянияЭлементов.БМБ.Кнопка.Нажата;
 
             Application.DoEvents();
 
-            Assert.IsTrue(BMBParameters.ЛампочкаДк);
+            Assert.IsTrue(BMBParameters.getInstance().ЛампочкаДк);
         }
 
         /// <summary>
@@ -307,11 +307,11 @@ namespace R440O.Test.MainTest
             // Престроим частоту приема, чтобы следующий тик таймера нашел сигнал
             K04M_01Parameters.ПереключательПрмКгц100 = 5;
 
-            BMBParameters.КнопкаПередачаВызоваДк = СостоянияЭлементов.БМБ.Кнопка.Нажата;
+            BMBParameters.getInstance().КнопкаПередачаВызоваДк = СостоянияЭлементов.БМБ.Кнопка.Нажата;
             
             Application.DoEvents();
 
-            Assert.IsTrue(BMBParameters.ЛампочкаДк);
+            Assert.IsTrue(BMBParameters.getInstance().ЛампочкаДк);
         }
 
         [Test]
@@ -325,11 +325,11 @@ namespace R440O.Test.MainTest
             N18_MParameters.ПереключательПРД = 3;
             N18_MParameters.ПереключательПрдБма12 = 7;
 
-            BMBParameters.КнопкаПередачаВызоваДк = СостоянияЭлементов.БМБ.Кнопка.Нажата;
+            BMBParameters.getInstance().КнопкаПередачаВызоваДк = СостоянияЭлементов.БМБ.Кнопка.Нажата;
 
             Application.DoEvents();
 
-            Assert.IsTrue(BMBParameters.ЛампочкаДк);
+            Assert.IsTrue(BMBParameters.getInstance().ЛампочкаДк);
         }
     }
 }

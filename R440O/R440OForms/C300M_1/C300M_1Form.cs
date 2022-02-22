@@ -215,7 +215,7 @@ namespace R440O.R440OForms.C300M_1
                     {
                         if (item.Name == property.Name)
                         {
-                            angle = System.Convert.ToInt32(property.GetValue(null)) * 30 - 135;
+                            angle = System.Convert.ToInt32(property.GetValue(C300M_1Parameters.getInstance())) * 30 - 135;
                             item.BackgroundImage = TransformImageHelper.RotateImageByAngle(ControlElementImages.toggleType3, angle);
                             break;
                         }

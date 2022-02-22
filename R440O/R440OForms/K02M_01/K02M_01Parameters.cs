@@ -150,7 +150,7 @@ namespace R440O.R440OForms.K02M_01
         {
             if (N18_MParameters.ПереключательВходК121 == 1 || N18_MParameters.ПереключательВходК121 == 2)
             {
-                //BMBParameters.ResetParameters();
+                //BMBParameters.getInstance().ResetParameters();
                 N18_MParameters.ResetParameters();
             }
             OnParameterChanged();

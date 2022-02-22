@@ -10,6 +10,7 @@ namespace R440O.JsonAdapter
     {
         public int Value { get; set; }
         public string Name { get; set; }
+        public bool? IsUserAction { get; set; }
 
         public ActionStation() { }
 
@@ -17,6 +18,13 @@ namespace R440O.JsonAdapter
         {
             Value = value;
             Name = name;
+            IsUserAction = true;
+        }
+        public ActionStation(string name, int value, bool isUserAction)
+        {
+            Value = value;
+            Name = name;
+            IsUserAction = isUserAction;
         }
 
         public override bool Equals(object obj)

@@ -37,8 +37,8 @@ namespace R440O.R440OForms.BMA_M_1
                 _питание = value;
                 if (!last && _питание)
                 {
-                    BMBParameters.ОбнулитьНабор();
-                    BMBParameters.МерцаниеЛампочиНаправления(1);
+                    BMBParameters.getInstance().ОбнулитьНабор();
+                    BMBParameters.getInstance().МерцаниеЛампочиНаправления(1);
                 }
                 N15Parameters.getInstance().ResetParametersAlternative();
                 OnParameterChanged();
@@ -207,7 +207,7 @@ namespace R440O.R440OForms.BMA_M_1
             {
                 if (value >= 1 && value <= 4)
                     _переключательРежимы = value;
-                BMBParameters.ResetParameters();
+                BMBParameters.getInstance().ResetParameters();
                 OnParameterChanged();
             }
         }
@@ -380,7 +380,7 @@ namespace R440O.R440OForms.BMA_M_1
                     _кнопкаШлейфДК = 0;
                 }
                 OnParameterChanged();
-                BMBParameters.ResetParameters();
+                BMBParameters.getInstance().ResetParameters();
             }
         }
 
@@ -407,7 +407,7 @@ namespace R440O.R440OForms.BMA_M_1
                     // _кнопкаШлейфТЧ = Включен ? 2 : 0;
                     _кнопкаШлейфТЧ = 0;
                 }
-                BMBParameters.ResetParameters();
+                BMBParameters.getInstance().ResetParameters();
                 OnParameterChanged();
             }
         }
@@ -425,7 +425,7 @@ namespace R440O.R440OForms.BMA_M_1
                     case 1:
                     case 6:
                         {
-                            return Питание && !(BMBParameters.ЛампочкаДк && BMBParameters.ПереключательРаботаКонтроль == 1
+                            return Питание && !(BMBParameters.getInstance().ЛампочкаДк && BMBParameters.getInstance().ПереключательРаботаКонтроль == 1
                                                 || КнопкаШлейфДК == 3);
                         }
                     case 4:
@@ -472,8 +472,8 @@ namespace R440O.R440OForms.BMA_M_1
                     case 1:
                     case 6:
                         {
-                            return Питание && (BMBParameters.ЛампочкаТч &&
-                                               КнопкаШлейфТЧ == 3 && BMBParameters.ПереключательРаботаКонтроль == 1);
+                            return Питание && (BMBParameters.getInstance().ЛампочкаТч &&
+                                               КнопкаШлейфТЧ == 3 && BMBParameters.getInstance().ПереключательРаботаКонтроль == 1);
                         }
                     case 4:
                         {
@@ -524,9 +524,9 @@ namespace R440O.R440OForms.BMA_M_1
                             return Питание && КнопкаШлейфТЧ != 3;
                             /*return Питание
                                    && !(КнопкаШлейфТЧ == 3
-                                        && BMBParameters.ПереключательРаботаКонтроль == 1
-                                        && BMBParameters.КнопкаПередачаВызоваТч == СостоянияЭлементов.БМБ.Кнопка.Горит
-                                        && BMBParameters.КнопкаСлСвязь == СостоянияЭлементов.БМБ.Кнопка.Горит);*/
+                                        && BMBParameters.getInstance().ПереключательРаботаКонтроль == 1
+                                        && BMBParameters.getInstance().КнопкаПередачаВызоваТч == СостоянияЭлементов.БМБ.Кнопка.Горит
+                                        && BMBParameters.getInstance().КнопкаСлСвязь == СостоянияЭлементов.БМБ.Кнопка.Горит);*/
                         }
                     case 4:
                         {
@@ -577,9 +577,9 @@ namespace R440O.R440OForms.BMA_M_1
                         {
                             return Питание //N15Parameters.getInstance().ЛампочкаБМА_1                            
                                    && !(КнопкаШлейфДК == 3
-                                        && BMBParameters.ПереключательРаботаКонтроль == 1
-                                        && BMBParameters.КнопкаПередачаВызоваДк == СостоянияЭлементов.БМБ.Кнопка.Горит
-                                        && BMBParameters.КнопкаСлСвязь == СостоянияЭлементов.БМБ.Кнопка.Горит);
+                                        && BMBParameters.getInstance().ПереключательРаботаКонтроль == 1
+                                        && BMBParameters.getInstance().КнопкаПередачаВызоваДк == СостоянияЭлементов.БМБ.Кнопка.Горит
+                                        && BMBParameters.getInstance().КнопкаСлСвязь == СостоянияЭлементов.БМБ.Кнопка.Горит);
                         }
                     case 4:
                         {
@@ -628,7 +628,7 @@ namespace R440O.R440OForms.BMA_M_1
                     case 1:
                     case 6:
                         {
-                            return Питание && !(BMBParameters.ЛампочкаДк && BMBParameters.ПереключательРаботаКонтроль == 1
+                            return Питание && !(BMBParameters.getInstance().ЛампочкаДк && BMBParameters.getInstance().ПереключательРаботаКонтроль == 1
                                                 || КнопкаШлейфДК == 3);
                         }
                     case 4:
@@ -901,7 +901,7 @@ namespace R440O.R440OForms.BMA_M_1
             {
                 if (КнопкаШлейфДК == 3)
                 {
-                    return BMBParameters.ВыходнойСигнал;
+                    return BMBParameters.getInstance().ВыходнойСигнал;
                 }
                 var сигнал = СигналКанал1 ?? СигналКанал2 ?? СигналКанал3 ?? СигналКулона ?? СигналЦ3001;
                 if (сигнал == null)
@@ -920,7 +920,7 @@ namespace R440O.R440OForms.BMA_M_1
                                 if (_interval != null)
                                     _interval.Dispose();
                                 _interval =
-                                  ThirdParty.EasyTimer.SetTimeout(() => { _синхронизироваля = !_синхронизироваля; BMBParameters.ResetParameters(); }, 2000);
+                                  ThirdParty.EasyTimer.SetTimeout(() => { _синхронизироваля = !_синхронизироваля; BMBParameters.getInstance().ResetParameters(); }, 2000);
                             }
                             else
                                 _синхронизироваля = сигнал.Speed == 1.2;
@@ -945,7 +945,7 @@ namespace R440O.R440OForms.BMA_M_1
         {
             get
             {
-                return BMBParameters.ВыходнойСигнал;
+                return BMBParameters.getInstance().ВыходнойСигнал;
             }
         }
 
