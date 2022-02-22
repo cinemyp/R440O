@@ -550,8 +550,7 @@ namespace R440O.R440OForms.N15
 
             if (ParametersConfig.IsTesting)
             {
-                //N15Parameters.getInstance().Action -= TestMain.Action;
-                //N15LocalParameters.getInstance().Action -= TestMain.Action;
+                
             }
 
             if (LearnMain.getIntent() == ModulesEnum.N15Power)
@@ -570,36 +569,7 @@ namespace R440O.R440OForms.N15
                     }
                 }
             }
-            switch(TestMain.getIntent())
-            {
-                //NB: здесь оставлена проверка на 95 норматив
-                case ModulesEnum.N15Power:
-                    if (N15LocalParameters.getInstance().локТумблерА205Base && N15LocalParameters.getInstance().локТумблерА20512 && N15Parameters.getInstance().Н13_1)
-                    {
-                        TestMain.setIntent(ModulesEnum.A205_m1_Open);
-                    }
-                    else
-                    {
-                        TestMain.setIntent(ModulesEnum.openN15);
-                    }
-                    break;
-                case ModulesEnum.N15SmallLoop:
-                    if (N15Parameters.getInstance().ТумблерМШУ && N15Parameters.getInstance().ТумблерН12С && N15Parameters.getInstance().ТумблерА503Б)
-                    {
-                        TestMain.setIntent(ModulesEnum.A304_open);
-                    }
-                    else
-                    {
-                        TestMain.setIntent(ModulesEnum.openN15SmallLoop);
-                    }
-                    break;
-                case ModulesEnum.N15_power_C300m1:
-                    if(N15LocalParameters.getInstance().локТумблерЦ300М1)
-                    {
-                        TestMain.setIntent(ModulesEnum.C300_m1_Open);
-                    }
-                    break;
-            }
+            
         }
     }
 

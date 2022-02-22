@@ -26,6 +26,9 @@ namespace R440O.TestModule
         private static ActionStation previousAction;
         private static List<ActionStation> standardActions;
         private static int step = 0;
+        private static bool isCheck = false;
+
+        private static string checkEndName = "ПроверкаЗакончена";
 
         public delegate void ClosingForms();
         public static event ClosingForms close;
@@ -45,11 +48,7 @@ namespace R440O.TestModule
         {
             if (expectedAction.Equals(action))
             {
-                step += 1;
-                if (step >= standardActions.Count)
-                    return;
-                previousAction = expectedAction;
-                expectedAction = standardActions[step];
+                NextStep(action);
             }
             else if (previousAction != null && (action.Name == expectedAction.Name || 
                 previousAction.Equals(action) || 
@@ -58,10 +57,29 @@ namespace R440O.TestModule
                 //пользователь работает с тем параметром, который нужен, 
                 //поэтому оставляем и ничего не делаем
             }
+            else if (isCheck && action.IsUserAction)
+            {
+                //идет проверка на дефолтные значения
+                //пользователь может трогать тумблеры, чтобы выставить необходимые
+            }
+            else if (action.Name == checkEndName)
+            {
+                isCheck = false;
+                NextStep(action);
+            }
             else
             {
                 System.Windows.Forms.MessageBox.Show("Error");
             }
+        }
+
+        private static void NextStep(ActionStation action)
+        {
+            step += 1;
+            if (step >= standardActions.Count)
+                return;
+            previousAction = expectedAction;
+            expectedAction = standardActions[step];
         }
 
         #region Сделать ошибку
@@ -96,8 +114,36 @@ namespace R440O.TestModule
         {
             standardActions = new List<ActionStation>();
 
+            //Проверка
+            standardActions.Add(new ActionStation("Н502Б", 1, false)); //Готово
+            standardActions.Add(new ActionStation("Н15АБ", 1, false));
+            standardActions.Add(new ActionStation("П220/27-Г", 1, false));
+            standardActions.Add(new ActionStation("Н12С", 1, false));
+            standardActions.Add(new ActionStation("А403-1", 1, false));
+            standardActions.Add(new ActionStation("А205М", 1, false));
+            standardActions.Add(new ActionStation("Н13-1", 1, false));
+            standardActions.Add(new ActionStation("Н13-2", 1, false));
+            standardActions.Add(new ActionStation("Н16", 1, false));
+            standardActions.Add(new ActionStation("А304", 1, false));
+            standardActions.Add(new ActionStation("А306", 1, false));
+            standardActions.Add(new ActionStation("Ц300М", 1, false));
+            standardActions.Add(new ActionStation("А1", 1, false));
+            standardActions.Add(new ActionStation("Б1", 1, false));
+            standardActions.Add(new ActionStation("Б2", 1, false));
+            standardActions.Add(new ActionStation("Б3", 1, false));
+            standardActions.Add(new ActionStation("ДАБ5", 1, false));
+            standardActions.Add(new ActionStation("РУБИН-Н", 1, false));
+            standardActions.Add(new ActionStation("КОНТУР-П2", 1, false));
+            standardActions.Add(new ActionStation("К1М", 1, false));
+            standardActions.Add(new ActionStation("БМБ", 1, false));
+            standardActions.Add(new ActionStation("БМА", 1, false));
+            standardActions.Add(new ActionStation("С1-67", 1, false));
+            standardActions.Add(new ActionStation("Я2М-66", 1, false));
+            standardActions.Add(new ActionStation("ПроверкаЗакончена", 1, false));
+
+
             //Включение
-            standardActions.Add(new ActionStation("КабельСеть", 1));
+            standardActions.Add(new ActionStation("КабельСеть", 1, true));
             //Проверка напряжения
             //standardActions.Add(new ActionStation("ПереключательФазировка", 2));
             //standardActions.Add(new ActionStation("ПереключательСеть", 1));
@@ -167,6 +213,7 @@ namespace R440O.TestModule
         {
             CreateStandard();
             LoadStandard();
+            isCheck = true;
             ParametersConfig.IsTesting = true;
             testResult = new TestResult();
             stopwatch = new Stopwatch();

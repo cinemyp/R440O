@@ -10,7 +10,7 @@ namespace R440O.JsonAdapter
     {
         public int Value { get; set; }
         public string Name { get; set; }
-        public bool? IsUserAction { get; set; }
+        public bool IsUserAction { get; set; }
 
         public ActionStation() { }
 

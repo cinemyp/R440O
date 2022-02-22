@@ -389,7 +389,20 @@
 
             if (ParametersConfig.IsTesting)
             {
-                //N502BParameters.getInstance().Action -= TestMain.Action;
+                var blockParams = N502BParameters.getInstance();
+                bool def = !blockParams.ПереключательСеть &&
+                    blockParams.ПереключательФазировка == 1 &&
+                    blockParams.ПереключательТокНагрузкиИЗаряда == 1 &&
+                    blockParams.ПереключательНапряжение == 4 &&
+                    blockParams.ПереключательКонтрольНапряжения == 1 &&
+                    !blockParams.ЭлектрообуродованиеВключено &&
+                    !blockParams.ВыпрямительВключен &&
+                    !blockParams.ТумблерОсвещение &&
+                    !blockParams.ТумблерН13_1 &&
+                    !blockParams.ТумблерН13_2 &&
+                    !blockParams.ТумблерН15;
+
+                TestMain.Action(new JsonAdapter.ActionStation() { Name = "Н502Б", Value = Convert.ToInt32(def) });
             }
 
             switch (LearnMain.getIntent())
