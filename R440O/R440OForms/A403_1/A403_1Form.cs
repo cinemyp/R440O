@@ -16,6 +16,7 @@ namespace R440O.R440OForms.A403_1
     using Parameters;
     using ThirdParty;
     using BaseClasses;
+    using global::R440O.TestModule;
 
     /// <summary>
     /// Форма блока А403-1
@@ -304,6 +305,18 @@ namespace R440O.R440OForms.A403_1
 
         private void A403_1Form_FormClosed(object sender, FormClosedEventArgs e)
         {
+            if (ParametersConfig.IsTesting)
+            {
+                var blockParams = A403_1Parameters.getInstance();
+                bool def = blockParams.ТумблерСеть &&
+                    !blockParams.ТумблерГотов &&
+                    !blockParams.ТумблерАвтКоррекция &&
+                    blockParams.ПереключательПроверка == 2;
+                //Комплект произвольный
+                //Неисправность АПН - не работает???
+
+                TestMain.Action(new JsonAdapter.ActionStation() { Name = "А403-1", Value = Convert.ToInt32(def) });
+            }
             A403_1Parameters.getInstance().ParameterChanged -= RefreshFormElements;
             A403_1Parameters.getInstance().DisplayChanged -= RefreshDisplay;
         }

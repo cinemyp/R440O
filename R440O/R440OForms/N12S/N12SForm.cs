@@ -164,7 +164,7 @@ namespace R440O.R440OForms.N12S
                 var blockParams = N12SParameters.getInstance();
                 bool def = blockParams.ТумблерСеть;
 
-                TestMain.Action(new JsonAdapter.ActionStation() { Name = "Н502Б", Value = Convert.ToInt32(def) });
+                TestMain.Action(new JsonAdapter.ActionStation() { Name = "Н12С", Value = Convert.ToInt32(def) });
             }
             N12SParameters.getInstance().ParameterChanged -= RefreshFormElements;
         }
