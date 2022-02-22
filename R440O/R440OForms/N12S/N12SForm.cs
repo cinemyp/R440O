@@ -12,6 +12,7 @@ using R440O.BaseClasses;
 
 namespace R440O.R440OForms.N12S
 {
+    using global::R440O.TestModule;
     using System.Windows.Forms;
 
     /// <summary>
@@ -158,6 +159,13 @@ namespace R440O.R440OForms.N12S
 
         private void N12SForm_FormClosed(object sender, FormClosedEventArgs e)
         {
+            if (ParametersConfig.IsTesting)
+            {
+                var blockParams = N12SParameters.getInstance();
+                bool def = blockParams.ТумблерСеть;
+
+                TestMain.Action(new JsonAdapter.ActionStation() { Name = "Н502Б", Value = Convert.ToInt32(def) });
+            }
             N12SParameters.getInstance().ParameterChanged -= RefreshFormElements;
         }
     }
