@@ -14,25 +14,39 @@ namespace R440O.R440OForms.A403_1
         public string DeltaF; //доплеровское смещение
     }
 
-    public static class A403_1Parameters
+    public class A403_1Parameters
     {
-        public static string AlphaP = "";
-        public static string BetaP = "";
-        public static string DeltaF = "";
+        private static A403_1Parameters instance;
+        public static A403_1Parameters getInstance()
+        {
+            if (instance == null)
+                instance = new A403_1Parameters();
+            return instance;
+        }
+        public delegate void TestModuleHandler(JsonAdapter.ActionStation action);
+        public event TestModuleHandler Action;
+        private void OnAction(string name, int value)
+        {
+            var action = new JsonAdapter.ActionStation(name, value);
+            Action?.Invoke(action);
+        }
+        public string AlphaP = "";
+        public string BetaP = "";
+        public string DeltaF = "";
 
-        public static bool Включен { get { return ТумблерСеть && N15Parameters.getInstance().ТумблерА403 && N15Parameters.getInstance().Включен; } } 
+        public bool Включен { get { return ТумблерСеть && N15Parameters.getInstance().ТумблерА403 && N15Parameters.getInstance().Включен; } }
         /// <summary>
         /// Показывает, было ли записано значение в ДисплейЗначения
         /// </summary>
-        public static bool IsWritten { get; set; }
+        public bool IsWritten { get; set; }
 
         #region Проверка введенных значений
 
         /// <summary>
         /// Словарь известных значений (время - данные)
         /// </summary>
-        public static Dictionary<string, Location> Table = new Dictionary<string, Location>
-        { 
+        public Dictionary<string, Location> Table = new Dictionary<string, Location>
+        {
             {"+131000", new Location {Az = "+054573", Ym = "+004116", DeltaF = "-058750"} },
             {"+151000", new Location {Az = "+025441", Ym = "+027497", DeltaF = "-032500"}},
             {"+171000", new Location {Az = "+020212", Ym = "+029342", DeltaF = "-010625"}},
@@ -43,7 +57,7 @@ namespace R440O.R440OForms.A403_1
         /// <summary>
         /// Вывод значений угла места и азимута из словаря
         /// </summary>
-        public static void Calculate()
+        public void Calculate()
         {
             if (A403_1ЗначенияПараметров.ДисплейЗначения[0, 0] != "+265419" ||
                 A403_1ЗначенияПараметров.ДисплейЗначения[0, 1] != "+741271" ||
@@ -65,10 +79,10 @@ namespace R440O.R440OForms.A403_1
             BetaP = location.Value.Ym;
             DeltaF = location.Value.DeltaF;
 
-            N12SParameters.FromA403 = true;
-            N12SParameters.ПотенциометрAlphaИ = GetInt(AlphaP) / 1000 + (GetInt(AlphaP) % 1000 / 10f) / 60f;
-            N12SParameters.ПотенциометрBetaИ = GetInt(BetaP) / 1000 + (GetInt(BetaP) % 1000 / 10f) / 60f;
-            N12SParameters.FromA403 = false;
+            N12SParameters.getInstance().FromA403 = true;
+            N12SParameters.getInstance().ПотенциометрAlphaИ = GetInt(AlphaP) / 1000 + (GetInt(AlphaP) % 1000 / 10f) / 60f;
+            N12SParameters.getInstance().ПотенциометрBetaИ = GetInt(BetaP) / 1000 + (GetInt(BetaP) % 1000 / 10f) / 60f;
+            N12SParameters.getInstance().FromA403 = false;
 
             return;
         }
@@ -78,7 +92,7 @@ namespace R440O.R440OForms.A403_1
         /// <summary>
         /// true - 1 комплект, false - 2 комплект
         /// </summary>
-        public static bool Комплект
+        public bool Комплект
         {
             get { return _комплект; }
             set
@@ -89,7 +103,7 @@ namespace R440O.R440OForms.A403_1
             }
         }
 
-        public static string Дисплей
+        public string Дисплей
         {
             get
             {
@@ -106,10 +120,10 @@ namespace R440O.R440OForms.A403_1
                         _значение = DeltaF;
                         break;
                     case 6:
-                        _значение = GradForDisplay(N12SParameters.ПотенциометрAlphaИ);
+                        _значение = GradForDisplay(N12SParameters.getInstance().ПотенциометрAlphaИ);
                         break;
                     case 7:
-                        _значение = GradForDisplay(N12SParameters.ПотенциометрBetaИ);
+                        _значение = GradForDisplay(N12SParameters.getInstance().ПотенциометрBetaИ);
                         break;
                     case 8:
                     case 9:
@@ -123,14 +137,14 @@ namespace R440O.R440OForms.A403_1
 
         #region Private
 
-        private static bool _тумблерСеть;
-        private static bool _тумблерГотов;
-        private static bool _тумблерАвтКоррекция;
-        private static bool _тумблерГруппа;
-        private static bool _тумблерКомплект;
-        private static string _значение = "";
-        private static bool _кнопкаУстВремени;
-        private static bool _комплект;
+        private bool _тумблерСеть;
+        private bool _тумблерГотов;
+        private bool _тумблерАвтКоррекция;
+        private bool _тумблерГруппа;
+        private bool _тумблерКомплект;
+        private string _значение = "";
+        private bool _кнопкаУстВремени;
+        private bool _комплект;
 
         #endregion
 
@@ -139,17 +153,17 @@ namespace R440O.R440OForms.A403_1
         /// <summary>
         /// Переменная для хранения времени работы
         /// </summary>
-        public static int Time { get; set; }
+        public int Time { get; set; }
 
         /// <summary>
         /// Таймер для времени работы
         /// </summary>
-        public static Timer timer = new Timer();
+        public Timer timer = new Timer();
 
         /// <summary>
         /// Обработчик события тика таймера: инкремент времени
         /// </summary>
-        public static void timer_Tick(object sender, EventArgs e)
+        public void timer_Tick(object sender, EventArgs e)
         {
             if (Включен && ТумблерГотов)
             {
@@ -172,7 +186,7 @@ namespace R440O.R440OForms.A403_1
             Time++;
         }
 
-        private static void SetTimer()
+        private void SetTimer()
         {
             if (timer.Enabled && Включен) return;
             timer.Stop();
@@ -202,18 +216,18 @@ namespace R440O.R440OForms.A403_1
         /// <summary>
         /// Возможные состояния: true - работает 1 комплект, false - не работает 1 комплект
         /// </summary>
-        public static bool ЛампочкаКомплект1 { get { return Включен && Комплект; } }
+        public bool ЛампочкаКомплект1 { get { return Включен && Комплект; } }
 
         /// <summary>
         /// Возможные состояния: true - работает 2 комплект, false - не работает 2 комплект
         /// </summary>
-        public static bool ЛампочкаКомплект2 { get { return Включен && !Комплект; } }
+        public bool ЛампочкаКомплект2 { get { return Включен && !Комплект; } }
 
         #endregion
 
         #region Тумблеры
 
-        public static bool ТумблерСеть
+        public bool ТумблерСеть
         {
             get { return _тумблерСеть; }
             set
@@ -225,7 +239,7 @@ namespace R440O.R440OForms.A403_1
             }
         }
 
-        public static bool ТумблерГотов
+        public bool ТумблерГотов
         {
             get { return _тумблерГотов; }
             set
@@ -239,9 +253,9 @@ namespace R440O.R440OForms.A403_1
             }
         }
 
-        private static int GetInt(string s) { return s == "" ? 0 : int.Parse(s); }
+        private int GetInt(string s) { return s == "" ? 0 : int.Parse(s); }
 
-        public static bool ТумблерАвтКоррекция
+        public bool ТумблерАвтКоррекция
         {
             get { return _тумблерАвтКоррекция; }
             set
@@ -254,7 +268,7 @@ namespace R440O.R440OForms.A403_1
         /// <summary>
         /// Возможные состояния: true - 1 Группа, false - 2 Группа
         /// </summary>
-        public static bool ТумблерГруппа
+        public bool ТумблерГруппа
         {
             get { return _тумблерГруппа; }
             set
@@ -273,7 +287,7 @@ namespace R440O.R440OForms.A403_1
         /// <summary>
         /// Возможные состояния: true - 1 комплект, false - 2 комплект
         /// </summary>
-        public static bool ТумблерКомплект
+        public bool ТумблерКомплект
         {
             get { return _тумблерКомплект; }
             set
@@ -295,7 +309,7 @@ namespace R440O.R440OForms.A403_1
         /// <summary>
         /// Положение переключателя проверки
         /// </summary>
-        private static int _переключательПроверка = 1;
+        private int _переключательПроверка = 1;
 
         /// <summary>
         /// Названия положений:
@@ -310,7 +324,7 @@ namespace R440O.R440OForms.A403_1
         /// 9 - Ш,
         /// 10 - К
         /// </summary>
-        public static int ПереключательПроверка
+        public int ПереключательПроверка
         {
             get { return _переключательПроверка; }
             set
@@ -327,7 +341,7 @@ namespace R440O.R440OForms.A403_1
         /// <summary>
         /// Положение переключателя режима работы
         /// </summary>
-        private static int _переключательРежимРаботы = 1;
+        private int _переключательРежимРаботы = 1;
 
         /// <summary>
         /// Названия положений:
@@ -340,7 +354,7 @@ namespace R440O.R440OForms.A403_1
         /// 7 - УВВ,
         /// 8 - БПР,
         /// </summary>
-        public static int ПереключательРежимРаботы
+        public int ПереключательРежимРаботы
         {
             get { return _переключательРежимРаботы; }
             set
@@ -368,9 +382,9 @@ namespace R440O.R440OForms.A403_1
         /// 7 - tсв/Yalpha,
         /// 8 - tуст/Ybeta,
         /// </summary>
-        public static A403_1Кнопки КнопкиПараметры = new A403_1Кнопки();
+        public A403_1Кнопки КнопкиПараметры = new A403_1Кнопки();
 
-        public static bool КнопкаУстВремени
+        public bool КнопкаУстВремени
         {
             get { return _кнопкаУстВремени; }
             set
@@ -412,7 +426,7 @@ namespace R440O.R440OForms.A403_1
         /// 7 - tсв/Yalpha,
         /// 8 - tуст/Ybeta,
         /// </summary>
-        public static A403_1ЗначенияПараметров ДисплейЗначения1К = new A403_1ЗначенияПараметров();
+        public A403_1ЗначенияПараметров ДисплейЗначения1К = new A403_1ЗначенияПараметров();
 
         /// <summary>
         /// Матрица для хранения введённых значений для 2 комплекта, 1 строка соответствует значениям 1 группы переменных, а 2 для 2 группы.
@@ -426,7 +440,7 @@ namespace R440O.R440OForms.A403_1
         /// 7 - tсв/Yalpha,
         /// 8 - tуст/Ybeta,
         /// </summary>
-        public static A403_1ЗначенияПараметров ДисплейЗначения2К = new A403_1ЗначенияПараметров();
+        public A403_1ЗначенияПараметров ДисплейЗначения2К = new A403_1ЗначенияПараметров();
 
 
         /// <summary>
@@ -434,7 +448,7 @@ namespace R440O.R440OForms.A403_1
         /// введенного на табло значения но не сохраненного в ДисплейЗначения, а также
         /// отображения времени таймера
         /// </summary>
-        public static string Значение
+        public string Значение
         {
             get { return _значение; }
             set
@@ -468,7 +482,7 @@ namespace R440O.R440OForms.A403_1
         /// <summary>
         /// Для преобразования значения угла в градусах в строку для отображения на дисплее
         /// </summary>
-        private static string GradForDisplay(double value)
+        private string GradForDisplay(double value)
         {
             var angle = Math.Abs((int)value).ToString().PadLeft(3, '0') +
                         Math.Abs((int)(value % 1 * 60 * 10)).ToString().PadLeft(3, '0');
@@ -479,15 +493,15 @@ namespace R440O.R440OForms.A403_1
 
         public delegate void ParameterChangedHandler();
 
-        public static event ParameterChangedHandler ParameterChanged;
+        public event ParameterChangedHandler ParameterChanged;
 
-        private static void OnParameterChanged()
+        private void OnParameterChanged()
         {
             var handler = ParameterChanged;
             if (handler != null) handler();
         }
 
-        public static void ResetParameters()
+        public void ResetParameters()
         {
             SetTimer();
             OnParameterChanged();
@@ -497,15 +511,15 @@ namespace R440O.R440OForms.A403_1
 
         public delegate void DisplayChangedHandler();
 
-        public static event DisplayChangedHandler DisplayChanged;
+        public event DisplayChangedHandler DisplayChanged;
 
-        private static void OnDisplayChanged()
+        private void OnDisplayChanged()
         {
             var handler = DisplayChanged;
             if (handler != null) handler();
         }
 
-        public static void ResetDisplay()
+        public void ResetDisplay()
         {
             OnDisplayChanged();
         }
@@ -532,10 +546,10 @@ namespace R440O.R440OForms.A403_1
                     for (var i = 0; i < 9; i++)
                         КнопкиПараметры[i] = false;
                     КнопкиПараметры[buttonNumber] = true;
-                    A403_1Parameters.IsWritten = false;
+                    A403_1Parameters.getInstance().IsWritten = false;
                 }
 
-                A403_1Parameters.ResetParameters();
+                A403_1Parameters.getInstance().ResetParameters();
             }
         }
 
@@ -562,7 +576,7 @@ namespace R440O.R440OForms.A403_1
             set
             {
                 //ограничения на размер хранимых значений
-                if (A403_1Parameters.КнопкиПараметры.PressedButton == 8 && группа == 0
+                if (A403_1Parameters.getInstance().КнопкиПараметры.PressedButton == 8 && группа == 0
                     && value.Length == 7) //установка времени
                 {
                     int hours = Int32.Parse(value.Substring(1, 2));
@@ -577,12 +591,12 @@ namespace R440O.R440OForms.A403_1
                           (time % 60 / 10) + (time % 60 % 10);
                 }
                 else if (группа == 1 && value.Length == 2
-                         && (A403_1Parameters.КнопкиПараметры.PressedButton == 3
-                             || A403_1Parameters.КнопкиПараметры.PressedButton == 4))
+                         && (A403_1Parameters.getInstance().КнопкиПараметры.PressedButton == 3
+                             || A403_1Parameters.getInstance().КнопкиПараметры.PressedButton == 4))
                 {
                     ДисплейЗначения[группа, номерКнопки] = value;
                 }
-                else if (A403_1Parameters.КнопкиПараметры.PressedButton != -1 && value.Length == 7)
+                else if (A403_1Parameters.getInstance().КнопкиПараметры.PressedButton != -1 && value.Length == 7)
                 {
                     ДисплейЗначения[группа, номерКнопки] = value;
                 }
@@ -591,9 +605,9 @@ namespace R440O.R440OForms.A403_1
                     return;
                 }
 
-                A403_1Parameters.Значение = "";
-                A403_1Parameters.ResetDisplay();
-                A403_1Parameters.IsWritten = true;
+                A403_1Parameters.getInstance().Значение = "";
+                A403_1Parameters.getInstance().ResetDisplay();
+                A403_1Parameters.getInstance().IsWritten = true;
             }
         }
 

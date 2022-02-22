@@ -16,7 +16,7 @@ namespace R440O.R440OForms.B1_1
         public B1_1Form()
         {
             this.InitializeComponent();
-            B1_1Parameters.ParameterChanged += RefreshFormElements;
+            B1_1Parameters.getInstance().ParameterChanged += RefreshFormElements;
             this.RefreshFormElements();
         }
 
@@ -24,12 +24,12 @@ namespace R440O.R440OForms.B1_1
 
         private void КнопкаСкоростьГР_Click(object sender, System.EventArgs e)
         {
-            B1_1Parameters.КнопкаСкоростьГР = !B1_1Parameters.КнопкаСкоростьГР;
+            B1_1Parameters.getInstance().КнопкаСкоростьГР = !B1_1Parameters.getInstance().КнопкаСкоростьГР;
         }
 
         private void КнопкаСкоростьАБ_1ТЛФ_К_Click(object sender, System.EventArgs e)
         {
-            B1_1Parameters.КнопкаСкоростьАб1ТлфК = !B1_1Parameters.КнопкаСкоростьАб1ТлфК;
+            B1_1Parameters.getInstance().КнопкаСкоростьАб1ТлфК = !B1_1Parameters.getInstance().КнопкаСкоростьАб1ТлфК;
         }
 
         #endregion
@@ -37,30 +37,30 @@ namespace R440O.R440OForms.B1_1
         #region ТЛГпр
         private void КолодкаТЛГпр1_1_Click(object sender, System.EventArgs e)
         {
-            B1_1Parameters.КолодкаТлГпр11 = !B1_1Parameters.КолодкаТлГпр11;
+            B1_1Parameters.getInstance().КолодкаТлГпр11 = !B1_1Parameters.getInstance().КолодкаТлГпр11;
         }
 
         private void КолодкаТЛГпр1_2_Click(object sender, System.EventArgs e)
         {
-            B1_1Parameters.КолодкаТлГпр12 = !B1_1Parameters.КолодкаТлГпр11;
+            B1_1Parameters.getInstance().КолодкаТлГпр12 = !B1_1Parameters.getInstance().КолодкаТлГпр11;
         }
 
         private void КолодкаТЛГпр2_1_Click(object sender, System.EventArgs e)
         {
-            B1_1Parameters.КолодкаТлГпр21 = !B1_1Parameters.КолодкаТлГпр21;
+            B1_1Parameters.getInstance().КолодкаТлГпр21 = !B1_1Parameters.getInstance().КолодкаТлГпр21;
         }
         private void КолодкаТЛГпр2_2_Click(object sender, System.EventArgs e)
         {
-            B1_1Parameters.КолодкаТлГпр22 = !B1_1Parameters.КолодкаТлГпр21;
+            B1_1Parameters.getInstance().КолодкаТлГпр22 = !B1_1Parameters.getInstance().КолодкаТлГпр21;
         }
         private void КолодкаТЛГпр3_1_Click(object sender, System.EventArgs e)
         {
-            B1_1Parameters.КолодкаТлГпр31 = !B1_1Parameters.КолодкаТлГпр31;
+            B1_1Parameters.getInstance().КолодкаТлГпр31 = !B1_1Parameters.getInstance().КолодкаТлГпр31;
         }
 
         private void КолодкаТЛГпр3_2_Click(object sender, System.EventArgs e)
         {
-            B1_1Parameters.КолодкаТлГпр32 = !B1_1Parameters.КолодкаТлГпр32;
+            B1_1Parameters.getInstance().КолодкаТлГпр32 = !B1_1Parameters.getInstance().КолодкаТлГпр32;
         }
         #endregion
 
@@ -69,7 +69,7 @@ namespace R440O.R440OForms.B1_1
         /// </summary>
         private void ТумблерМуДу_Click(object sender, System.EventArgs e)
         {
-            B1_1Parameters.ТумблерМуДу = !B1_1Parameters.ТумблерМуДу;
+            B1_1Parameters.getInstance().ТумблерМуДу = !B1_1Parameters.getInstance().ТумблерМуДу;
         }
 
         public void RefreshFormElements()
@@ -101,31 +101,31 @@ namespace R440O.R440OForms.B1_1
                 }
             }
 
-            this.ТумблерМуДу.BackgroundImage = B1_1Parameters.ТумблерМуДу
+            this.ТумблерМуДу.BackgroundImage = B1_1Parameters.getInstance().ТумблерМуДу
                 ? ControlElementImages.tumblerType4Up
                 : ControlElementImages.tumblerType4Down;
 
-            this.КнопкаСкоростьГР.BackgroundImage = B1_1Parameters.КнопкаСкоростьГР
+            this.КнопкаСкоростьГР.BackgroundImage = B1_1Parameters.getInstance().КнопкаСкоростьГР
                 ? null
                 : ControlElementImages.buttonRectType1;
 
-            this.КнопкаСкоростьАБ_1ТЛФ_К.BackgroundImage = B1_1Parameters.КнопкаСкоростьАб1ТлфК
+            this.КнопкаСкоростьАБ_1ТЛФ_К.BackgroundImage = B1_1Parameters.getInstance().КнопкаСкоростьАб1ТлфК
                 ? null
                 : ControlElementImages.buttonRectType1;
 
-            КолодкаТЛГпр1_1.BackgroundImage = B1_1Parameters.КолодкаТлГпр11 ? ControlElementImages.jumperType1 : null;
-            КолодкаТЛГпр1_2.BackgroundImage = B1_1Parameters.КолодкаТлГпр12 ? ControlElementImages.jumperType1 : null;
-            КолодкаТЛГпр2_1.BackgroundImage = B1_1Parameters.КолодкаТлГпр21 ? ControlElementImages.jumperType1 : null;
-            КолодкаТЛГпр2_2.BackgroundImage = B1_1Parameters.КолодкаТлГпр22 ? ControlElementImages.jumperType1 : null;
-            КолодкаТЛГпр3_1.BackgroundImage = B1_1Parameters.КолодкаТлГпр31 ? ControlElementImages.jumperType1 : null;
-            КолодкаТЛГпр3_2.BackgroundImage = B1_1Parameters.КолодкаТлГпр32 ? ControlElementImages.jumperType1 : null;
+            КолодкаТЛГпр1_1.BackgroundImage = B1_1Parameters.getInstance().КолодкаТлГпр11 ? ControlElementImages.jumperType1 : null;
+            КолодкаТЛГпр1_2.BackgroundImage = B1_1Parameters.getInstance().КолодкаТлГпр12 ? ControlElementImages.jumperType1 : null;
+            КолодкаТЛГпр2_1.BackgroundImage = B1_1Parameters.getInstance().КолодкаТлГпр21 ? ControlElementImages.jumperType1 : null;
+            КолодкаТЛГпр2_2.BackgroundImage = B1_1Parameters.getInstance().КолодкаТлГпр22 ? ControlElementImages.jumperType1 : null;
+            КолодкаТЛГпр3_1.BackgroundImage = B1_1Parameters.getInstance().КолодкаТлГпр31 ? ControlElementImages.jumperType1 : null;
+            КолодкаТЛГпр3_2.BackgroundImage = B1_1Parameters.getInstance().КолодкаТлГпр32 ? ControlElementImages.jumperType1 : null;
 
-            //КолодкаТЛГпр1_1.Visible = !B1_1Parameters.КолодкаТлГпр11;
-            //КолодкаТЛГпр1_2.Visible = !B1_1Parameters.КолодкаТлГпр12;
-            //КолодкаТЛГпр2_1.Visible = !B1_1Parameters.КолодкаТлГпр21;
-            //КолодкаТЛГпр2_2.Visible = !B1_1Parameters.КолодкаТлГпр22;
-            //КолодкаТЛГпр3_1.Visible = !B1_1Parameters.КолодкаТлГпр31;
-            //КолодкаТЛГпр3_2.Visible = !B1_1Parameters.КолодкаТлГпр32;
+            //КолодкаТЛГпр1_1.Visible = !B1_1Parameters.getInstance().КолодкаТлГпр11;
+            //КолодкаТЛГпр1_2.Visible = !B1_1Parameters.getInstance().КолодкаТлГпр12;
+            //КолодкаТЛГпр2_1.Visible = !B1_1Parameters.getInstance().КолодкаТлГпр21;
+            //КолодкаТЛГпр2_2.Visible = !B1_1Parameters.getInstance().КолодкаТлГпр22;
+            //КолодкаТЛГпр3_1.Visible = !B1_1Parameters.getInstance().КолодкаТлГпр31;
+            //КолодкаТЛГпр3_2.Visible = !B1_1Parameters.getInstance().КолодкаТлГпр32;
         }
     }
 }

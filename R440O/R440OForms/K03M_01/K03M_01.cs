@@ -31,7 +31,7 @@ namespace R440O.R440OForms.K03M_01
 
         public K03M_01Form()
         {
-            K03M_01Parameters.ParameterChanged += RefreshFormElements;
+            K03M_01Parameters.getInstance().ParameterChanged += RefreshFormElements;
             this.InitializeComponent();
             RefreshFormElements();
         }
@@ -54,7 +54,7 @@ namespace R440O.R440OForms.K03M_01
                     }
                 }
             }
-            var angle = K03M_01Parameters.ПереключательЗонаПоиска * 30 - 75;
+            var angle = K03M_01Parameters.getInstance().ПереключательЗонаПоиска * 30 - 75;
             ПереключательНапряжение.BackgroundImage =
                 TransformImageHelper.RotateImageByAngle(ControlElementImages.toggleType2, angle);
         }
@@ -136,43 +136,43 @@ namespace R440O.R440OForms.K03M_01
         {
             if (e.Button == MouseButtons.Left)
             {
-                K03M_01Parameters.ПереключательЗонаПоиска += 1;
+                K03M_01Parameters.getInstance().ПереключательЗонаПоиска += 1;
             }
 
             if (e.Button == MouseButtons.Right)
             {
-                K03M_01Parameters.ПереключательЗонаПоиска -= 1;
+                K03M_01Parameters.getInstance().ПереключательЗонаПоиска -= 1;
             }
         }
 
         private void КнопкаЛТЧ_Click(object sender, System.EventArgs e)
         {
-            K03M_01Parameters.ИзменитьВременнуюПозициюПоиска(-100);
+            K03M_01Parameters.getInstance().ИзменитьВременнуюПозициюПоиска(-100);
         }
 
         private void КнопкаПТЧ_Click(object sender, System.EventArgs e)
         {
-            K03M_01Parameters.ИзменитьВременнуюПозициюПоиска(100);
+            K03M_01Parameters.getInstance().ИзменитьВременнуюПозициюПоиска(100);
         }
 
         private void КнопкаЛТВ_Click(object sender, System.EventArgs e)
         {
-            K03M_01Parameters.ИзменитьВременнуюПозициюПоиска(-10);
+            K03M_01Parameters.getInstance().ИзменитьВременнуюПозициюПоиска(-10);
         }
 
         private void КнопкаПТВ_Click(object sender, System.EventArgs e)
         {
-            K03M_01Parameters.ИзменитьВременнуюПозициюПоиска(10);
+            K03M_01Parameters.getInstance().ИзменитьВременнуюПозициюПоиска(10);
         }
 
         private void КнопкаЛГ_Click(object sender, System.EventArgs e)
         {
-            K03M_01Parameters.ИзменитьВременнуюПозициюПоиска(-1);
+            K03M_01Parameters.getInstance().ИзменитьВременнуюПозициюПоиска(-1);
         }
 
         private void КнопкаПГ_Click(object sender, System.EventArgs e)
         {
-            K03M_01Parameters.ИзменитьВременнуюПозициюПоиска(1);
+            K03M_01Parameters.getInstance().ИзменитьВременнуюПозициюПоиска(1);
         }
     }
 }

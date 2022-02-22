@@ -402,7 +402,7 @@ namespace R440O.R440OForms.N15
 
         #region Регуляторы
 
-        private static bool isManipulation;
+        private bool isManipulation;
         
         private void Регулятор_MouseDown(object sender, MouseEventArgs e)
         {

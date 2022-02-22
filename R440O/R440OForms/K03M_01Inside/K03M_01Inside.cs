@@ -25,7 +25,7 @@ namespace R440O.R440OForms.K03M_01Inside
         /// </summary>
         public K03M_01InsideForm()
         {
-            K03M_01InsideParameters.ParameterChanged += RefreshFormElements;
+            K03M_01InsideParameters.getInstance().ParameterChanged += RefreshFormElements;
             this.InitializeComponent();
             this.InitializeTumblers();
         }
@@ -48,7 +48,7 @@ namespace R440O.R440OForms.K03M_01Inside
                 {
                     var index = Convert.ToInt32(item.Name.Substring(item.Name.IndexOf("Переключатель", StringComparison.Ordinal) +
                                                                     "Переключатель".Length));
-                    var angle = K03M_01InsideParameters.Переключатели[index]*30 - 10;
+                    var angle = K03M_01InsideParameters.getInstance().Переключатели[index]*30 - 10;
                         item.BackgroundImage = TransformImageHelper.RotateImageByAngle(
                             ControlElementImages.toggleType2, angle);
                 }
@@ -58,7 +58,7 @@ namespace R440O.R440OForms.K03M_01Inside
                     {
                         var index = Convert.ToInt32(item.Name.Substring(item.Name.IndexOf("Тумблер", StringComparison.Ordinal) +
                                                                         "Тумблер".Length));
-                        item.BackgroundImage = (K03M_01InsideParameters.Переключатели[index] == 0)
+                        item.BackgroundImage = (K03M_01InsideParameters.getInstance().Переключатели[index] == 0)
                         ? ControlElementImages.tumblerType3Left
                         : ControlElementImages.tumblerType3Right;
                     }
@@ -67,10 +67,10 @@ namespace R440O.R440OForms.K03M_01Inside
                     }
                 }
             }
-            ТумблерИП.BackgroundImage = K03M_01InsideParameters.ТумблерИП
+            ТумблерИП.BackgroundImage = K03M_01InsideParameters.getInstance().ТумблерИП
                 ? ControlElementImages.tumblerType4Left
                 : ControlElementImages.tumblerType4Right;
-            ТумблерВклОткл.BackgroundImage = K03M_01InsideParameters.ТумблерВклОткл
+            ТумблерВклОткл.BackgroundImage = K03M_01InsideParameters.getInstance().ТумблерВклОткл
                 ? ControlElementImages.tumblerType4Left
                 : ControlElementImages.tumblerType4Right;
         }
@@ -84,12 +84,12 @@ namespace R440O.R440OForms.K03M_01Inside
                                                                 "Переключатель".Length));
                 if (e.Button == MouseButtons.Left)
                 {
-                    K03M_01InsideParameters.Переключатели[index] += 1;
+                    K03M_01InsideParameters.getInstance().Переключатели[index] += 1;
                 }
 
                 if (e.Button == MouseButtons.Right)
                 {
-                    K03M_01InsideParameters.Переключатели[index] -= 1;
+                    K03M_01InsideParameters.getInstance().Переключатели[index] -= 1;
                 }
             }
         }
@@ -103,21 +103,21 @@ namespace R440O.R440OForms.K03M_01Inside
                                                                 "Тумблер".Length));
                 if (e.Button == MouseButtons.Left)
                 {
-                    if (K03M_01InsideParameters.Переключатели[index] == 0)
-                        K03M_01InsideParameters.Переключатели[index] = 1;
-                    else K03M_01InsideParameters.Переключатели[index] = 0;
+                    if (K03M_01InsideParameters.getInstance().Переключатели[index] == 0)
+                        K03M_01InsideParameters.getInstance().Переключатели[index] = 1;
+                    else K03M_01InsideParameters.getInstance().Переключатели[index] = 0;
                 }
             }
         }
 
         private void ТумблерИП_Click(object sender, EventArgs e)
         {
-            K03M_01InsideParameters.ТумблерИП = !K03M_01InsideParameters.ТумблерИП;
+            K03M_01InsideParameters.getInstance().ТумблерИП = !K03M_01InsideParameters.getInstance().ТумблерИП;
         }
 
         private void ТумблерВклОткл_Click(object sender, EventArgs e)
         {
-            K03M_01InsideParameters.ТумблерВклОткл = !K03M_01InsideParameters.ТумблерВклОткл;
+            K03M_01InsideParameters.getInstance().ТумблерВклОткл = !K03M_01InsideParameters.getInstance().ТумблерВклОткл;
         }
     }
 }

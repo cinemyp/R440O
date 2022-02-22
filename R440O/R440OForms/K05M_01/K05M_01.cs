@@ -19,7 +19,7 @@ namespace R440O.R440OForms.K05M_01
         public K05M_01Form()
         {
             this.InitializeComponent();
-            K05M_01Parameters.ParameterChanged += this.InitializeToggles;
+            K05M_01Parameters.getInstance().ParameterChanged += this.InitializeToggles;
             this.InitializeToggles();
         }
 
@@ -61,7 +61,7 @@ namespace R440O.R440OForms.K05M_01
                         {
                             item.BackgroundImage = TransformImageHelper.RotateImageByAngle(
                                 ControlElementImages.revolverRoundSmall,
-                                (float)K05M_01Parameters.РегуляторУровень * 10);
+                                (float)K05M_01Parameters.getInstance().РегуляторУровень * 10);
                         }
                         else
                         {
@@ -108,7 +108,7 @@ namespace R440O.R440OForms.K05M_01
             if (!isManipulation) return;
             var button = sender as Button;
             var angle = TransformImageHelper.CalculateAngle(button.Width, button.Height, e);
-            K05M_01Parameters.РегуляторУровень = angle / 10;
+            K05M_01Parameters.getInstance().РегуляторУровень = angle / 10;
         }
 
        

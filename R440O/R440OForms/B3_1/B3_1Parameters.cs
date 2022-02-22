@@ -7,8 +7,22 @@
 
     class B3_1Parameters
     {
+        private static B3_1Parameters instance;
+        public static B3_1Parameters getInstance()
+        {
+            if (instance == null)
+                instance = new B3_1Parameters();
+            return instance;
+        }
+        public delegate void TestModuleHandler(JsonAdapter.ActionStation action);
+        public event TestModuleHandler Action;
+        private void OnAction(string name, int value)
+        {
+            var action = new JsonAdapter.ActionStation(name, value);
+            Action?.Invoke(action);
+        }
         #region Работа блока
-        public static bool Включен
+        public bool Включен
         {
             get
             {
@@ -20,15 +34,15 @@
         /// <summary>
         /// Сигнал от ПУЛ ПРМ, при условии, что выбрана правильная колодка.
         /// </summary>
-        public static Signal ВходнойСигнал
+        public Signal ВходнойСигнал
         {
             get
             {
                 if (Включен &&
-                    N15InsideParameters.ВыходПриемногоТракта != null &&
-                    N18_MParameters.ПереключательПРМ1 == 1 &&
-                    ПравильнаяКолодка(N15InsideParameters.ВыходПриемногоТракта.GroupSpeed))
-                    return N15InsideParameters.ВыходПриемногоТракта;
+                    N15InsideParameters.getInstance().ВыходПриемногоТракта != null &&
+                    N18_MParameters.getInstance().ПереключательПРМ1 == 1 &&
+                    ПравильнаяКолодка(N15InsideParameters.getInstance().ВыходПриемногоТракта.GroupSpeed))
+                    return N15InsideParameters.getInstance().ВыходПриемногоТракта;
                 return null;
             }
         }
@@ -36,7 +50,7 @@
         /// <summary>
         /// Первый выход, выходной поток определяется колодкой УКК1.
         /// </summary>
-        public static Signal ВыходнойСигнал1
+        public Signal ВыходнойСигнал1
         {
             get
             {
@@ -50,7 +64,7 @@
         /// <summary>
         /// Второй выход, выходной поток определяется колодкой УКК2.
         /// </summary>
-        public static Signal ВыходнойСигнал2
+        public Signal ВыходнойСигнал2
         {
             get
             {
@@ -64,7 +78,7 @@
         /// <summary>
         /// Соответствии скорости и выбранной колодки КРПР.
         /// </summary>
-        private static bool ПравильнаяКолодка(double groupSpeed)
+        private bool ПравильнаяКолодка(double groupSpeed)
         {
             switch (КолодкаКРПР)
             {
@@ -86,7 +100,7 @@
 
         #region Лампочки
 
-        public static bool ЛампочкаПУЛГ_1
+        public bool ЛампочкаПУЛГ_1
         {
             get { return Включен && !ЛампочкаПУЛГ_2; }
         }
@@ -94,11 +108,11 @@
         /// <summary>
         /// Горит, если есть сигнал от ПУЛа ПРМ.
         /// </summary>
-        public static bool ЛампочкаПУЛГ_2
+        public bool ЛампочкаПУЛГ_2
         {
             get
             {
-                return Включен && N15InsideParameters.Включен && N18_MParameters.ПереключательПРМ1 == 1
+                return Включен && N15InsideParameters.getInstance().Включен && N18_MParameters.getInstance().ПереключательПРМ1 == 1
                     && КолодкаКРПР != 5;
             }
         }
@@ -106,7 +120,7 @@
         /// <summary>
         /// Горит, если не установлена ни одна колодка.
         /// </summary>
-        public static bool ЛампочкаПРИавар
+        public bool ЛампочкаПРИавар
         {
             get
             {
@@ -121,7 +135,7 @@
             }
         }
 
-        public static bool ЛампочкаРС_1
+        public bool ЛампочкаРС_1
         {
             get { return Включен && !ЛампочкаРС_синхр; }
         }
@@ -129,39 +143,39 @@
         /// <summary>
         /// Горит, если от ПУЛа ПРМ сигнал есть и правильно выбрана скорость.
         /// </summary>
-        public static bool ЛампочкаРС_синхр
+        public bool ЛампочкаРС_синхр
         {
             get { return Включен && ВходнойСигнал != null; }
         }
 
-        public static bool ЛампочкаТЛГпр1 { get; set; }
-        public static bool ЛампочкаТЛГпр2 { get; set; }
-        public static bool ЛампочкаТЛГпр3 { get; set; }
+        public bool ЛампочкаТЛГпр1 { get; set; }
+        public bool ЛампочкаТЛГпр2 { get; set; }
+        public bool ЛампочкаТЛГпр3 { get; set; }
 
         /// <summary>
         /// Горит, если выбранный колодкой поток отсутствует.
         /// </summary>
-        public static bool ЛампочкаОКпр1
+        public bool ЛампочкаОКпр1
         {
             get { return ЛампочкаРС_синхр && ВыходнойСигнал1.SelectedFlowElements.Count == 0; }
         }
 
-        public static bool ЛампочкаПФТК1_1 { get { return ЛампочкаРС_1; } }
+        public bool ЛампочкаПФТК1_1 { get { return ЛампочкаРС_1; } }
 
         /// <summary>
         /// Горит, если выбранный поток присутствует.
         /// </summary>
-        public static bool ЛампочкаПФТК1_2 { get { return ЛампочкаПУЛГ_2 && !ЛампочкаОКпр1; } }
+        public bool ЛампочкаПФТК1_2 { get { return ЛампочкаПУЛГ_2 && !ЛампочкаОКпр1; } }
 
-        public static bool ЛампочкаОКпр2
+        public bool ЛампочкаОКпр2
         {
             get { return ЛампочкаРС_синхр && ВыходнойСигнал2.SelectedFlowElements.Count == 0; }
         }
-        public static bool ЛампочкаПФТК2_1 { get { return ЛампочкаРС_1; } }
-        public static bool ЛампочкаПФТК2_2 { get { return ЛампочкаПУЛГ_2 && !ЛампочкаОКпр2; } }
-        public static bool ЛампочкаВУПнеиспр { get; set; }
+        public bool ЛампочкаПФТК2_1 { get { return ЛампочкаРС_1; } }
+        public bool ЛампочкаПФТК2_2 { get { return ЛампочкаПУЛГ_2 && !ЛампочкаОКпр2; } }
+        public bool ЛампочкаВУПнеиспр { get; set; }
 
-        public static bool ЛампочкаВУП1
+        public bool ЛампочкаВУП1
         {
             get
             {
@@ -173,12 +187,12 @@
 
         #region Колодки
 
-        private static int _колодкаКРПР;
+        private int _колодкаКРПР;
 
         /// <summary>
         /// Выбор скорости обрабатываемой блоком.
         /// </summary>
-        public static int КолодкаКРПР
+        public int КолодкаКРПР
         {
             get { return _колодкаКРПР; }
             set
@@ -189,12 +203,12 @@
             }
         }
 
-        private static int _колодкаУКК1;
+        private int _колодкаУКК1;
 
         /// <summary>
         /// Выбор номера потока, который будет передаваться с первого выхода.
         /// </summary>
-        public static int КолодкаУКК1
+        public int КолодкаУКК1
         {
             get { return _колодкаУКК1; }
             set
@@ -205,12 +219,12 @@
             }
         }
 
-        private static int _колодкаУКК2;
+        private int _колодкаУКК2;
 
         /// <summary>
         /// Выбор номера потока, который будет передаваться со второго выхода.
         /// </summary>
-        public static int КолодкаУКК2
+        public int КолодкаУКК2
         {
             get { return _колодкаУКК2; }
             set
@@ -221,7 +235,7 @@
             }
         }
 
-        public static bool КолодкаОКпр1Син
+        public bool КолодкаОКпр1Син
         {
             get { return _колодкаОКпр1Син; }
             set
@@ -233,7 +247,7 @@
             }
         }
 
-        public static bool КолодкаОКпр1Ас
+        public bool КолодкаОКпр1Ас
         {
             get { return _колодкаОКпр1Ас; }
             set
@@ -245,7 +259,7 @@
             }
         }
 
-        public static bool КолодкаОКпр2Син
+        public bool КолодкаОКпр2Син
         {
             get { return _колодкаОКпр2Син; }
             set
@@ -257,7 +271,7 @@
             }
         }
 
-        public static bool КолодкаОКпр2Ас
+        public bool КолодкаОКпр2Ас
         {
             get { return _колодкаОКпр2Ас; }
             set
@@ -269,7 +283,7 @@
             }
         }
 
-        public static bool КолодкаТлГпр11
+        public bool КолодкаТлГпр11
         {
             get { return _колодкаТлГпр11; }
             set
@@ -281,7 +295,7 @@
             }
         }
 
-        public static bool КолодкаТлГпр12
+        public bool КолодкаТлГпр12
         {
             get { return _колодкаТлГпр12; }
             set
@@ -293,7 +307,7 @@
             }
         }
 
-        public static bool КолодкаТлГпр21
+        public bool КолодкаТлГпр21
         {
             get { return _колодкаТлГпр21; }
             set
@@ -305,7 +319,7 @@
             }
         }
 
-        public static bool КолодкаТлГпр22
+        public bool КолодкаТлГпр22
         {
             get { return _колодкаТлГпр22; }
             set
@@ -317,7 +331,7 @@
             }
         }
 
-        public static bool КолодкаТлГпр31
+        public bool КолодкаТлГпр31
         {
             get { return _колодкаТлГпр31; }
             set
@@ -329,7 +343,7 @@
             }
         }
 
-        public static bool КолодкаТлГпр32
+        public bool КолодкаТлГпр32
         {
             get { return _колодкаТлГпр32; }
             set
@@ -341,24 +355,24 @@
             }
         }
 
-        private static bool _тумблерМуДу;
-        private static bool _колодкаОКпр1Син;
-        private static bool _колодкаОКпр1Ас;
-        private static bool _колодкаОКпр2Син;
-        private static bool _колодкаОКпр2Ас;
-        private static bool _колодкаТлГпр11;
-        private static bool _колодкаТлГпр12;
-        private static bool _колодкаТлГпр21;
-        private static bool _колодкаТлГпр22;
-        private static bool _колодкаТлГпр31;
-        private static bool _колодкаТлГпр32;
+        private bool _тумблерМуДу;
+        private bool _колодкаОКпр1Син;
+        private bool _колодкаОКпр1Ас;
+        private bool _колодкаОКпр2Син;
+        private bool _колодкаОКпр2Ас;
+        private bool _колодкаТлГпр11;
+        private bool _колодкаТлГпр12;
+        private bool _колодкаТлГпр21;
+        private bool _колодкаТлГпр22;
+        private bool _колодкаТлГпр31;
+        private bool _колодкаТлГпр32;
 
         #endregion
 
         /// <summary>
         /// Возможные состояния: Му - true, Ду - false
         /// </summary>
-        public static bool ТумблерМуДу
+        public bool ТумблерМуДу
         {
             get { return _тумблерМуДу; }
             set
@@ -370,15 +384,15 @@
         }
 
         public delegate void ParameterChangedHandler();
-        public static event ParameterChangedHandler ParameterChanged;
+        public event ParameterChangedHandler ParameterChanged;
 
-        private static void OnParameterChanged()
+        private void OnParameterChanged()
         {
             var handler = ParameterChanged;
             if (handler != null) handler();
         }
 
-        public static void ResetParameters()
+        public void ResetParameters()
         {
             OnParameterChanged();
         }

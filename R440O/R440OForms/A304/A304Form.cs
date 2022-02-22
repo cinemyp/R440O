@@ -9,9 +9,8 @@
     /// <summary>
     /// Форма блока A304
     /// </summary>
-    public partial class  A304Form : Form, IRefreshableForm, ITestModule
+    public partial class  A304Form : Form, IRefreshableForm
     {
-        public bool IsExactModule { get; set; }
 
         /// <summary>
         /// Инициализирует новый экземпляр класса <see cref="A304Form"/>.
@@ -20,20 +19,18 @@
         {
             this.InitializeComponent();
             A304Parameters.getInstance().ParameterChanged += RefreshFormElements;
-            RefreshFormElements();
 
             if (ParametersConfig.IsTesting)
             {
-                A304Parameters.getInstance().TestModuleRef = this;
-                //A304Parameters.getInstance().Action += TestMain.Action;
+                A304Parameters.getInstance().Action += TestMain.Action;
             }
             switch (TestMain.getIntent())
             {
                 case ModulesEnum.A304_open:
                     TestMain.setIntent(ModulesEnum.A304_set_trunk);
-                    IsExactModule = true;
                     break;
             }
+            RefreshFormElements();
         }
 
         #region Инициализация состояний элементов управления

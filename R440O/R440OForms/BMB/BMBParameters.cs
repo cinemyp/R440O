@@ -38,8 +38,8 @@ namespace R440O.R440OForms.BMB
                     ОбнулитьНабор();
                     ПереданнаяКоманда = string.Empty;
                 }
-                BMA_M_1Parameters.ResetParameters();
-                BMA_M_2Parameters.ResetParameters();
+                BMA_M_1Parameters.getInstance().ResetParameters();
+                BMA_M_2Parameters.getInstance().ResetParameters();
                 ResetParameters();
             }
         }
@@ -117,8 +117,8 @@ namespace R440O.R440OForms.BMB
                 }
                 _кнопкаПередачаВызоваТч = value;
                 OnAction("КнопкаПередачаВызоваТч", (int)_кнопкаПередачаВызоваТч);
-                BMA_M_1Parameters.ResetParameters();
-                BMA_M_2Parameters.ResetParameters();
+                BMA_M_1Parameters.getInstance().ResetParameters();
+                BMA_M_2Parameters.getInstance().ResetParameters();
                 if (RefreshForm != null) RefreshForm();
             }
         }
@@ -149,8 +149,8 @@ namespace R440O.R440OForms.BMB
                 _кнопкаПередачаВызоваДк = value;
                 OnAction("КнопкаПередачаВызоваДк", (int)_кнопкаПередачаВызоваДк);
 
-                BMA_M_1Parameters.ResetParameters();
-                BMA_M_2Parameters.ResetParameters();
+                BMA_M_1Parameters.getInstance().ResetParameters();
+                BMA_M_2Parameters.getInstance().ResetParameters();
                 if (RefreshForm != null) RefreshForm();
             }
         }
@@ -174,8 +174,8 @@ namespace R440O.R440OForms.BMB
             {
                 ОбнулитьНабор();
                 _кнопкаСлСвязь = value;
-                BMA_M_1Parameters.ResetParameters();
-                BMA_M_2Parameters.ResetParameters();
+                BMA_M_1Parameters.getInstance().ResetParameters();
+                BMA_M_2Parameters.getInstance().ResetParameters();
                 if (RefreshForm != null) RefreshForm();
             }
         }
@@ -200,8 +200,8 @@ namespace R440O.R440OForms.BMB
                 _кнопкаПитание = value;
                 OnAction("КнопкаПитание", (int)_кнопкаПитание);
 
-                BMA_M_1Parameters.ResetParameters();
-                BMA_M_2Parameters.ResetParameters();
+                BMA_M_1Parameters.getInstance().ResetParameters();
+                BMA_M_2Parameters.getInstance().ResetParameters();
                 if (RefreshForm != null) RefreshForm();
             }
         }
@@ -264,8 +264,8 @@ namespace R440O.R440OForms.BMB
                 return _мерцаниеЛампочкиТч || КнопкаПитание == Кнопка.Горит && КнопкаПередачаВызоваТч == Кнопка.Горит
                        && (ПереключательРаботаКонтроль == 2 ||
                            (КнопкаСлСвязь == Кнопка.Горит && БМАПодключенВерно &&
-                            (BMA_M_1Parameters.КнопкаШлейфТЧ == 3 && ПереключательНаправление == 1
-                            || BMA_M_2Parameters.КнопкаШлейфТЧ == 3 && ПереключательНаправление == 2)));
+                            (BMA_M_1Parameters.getInstance().КнопкаШлейфТЧ == 3 && ПереключательНаправление == 1
+                            || BMA_M_2Parameters.getInstance().КнопкаШлейфТЧ == 3 && ПереключательНаправление == 2)));
             }
         }
 
@@ -485,7 +485,7 @@ namespace R440O.R440OForms.BMB
             {
                 _идетПередачаКоманды = false;
             }, 3000);
-            BMA_M_1Parameters.ResetParameters();
+            BMA_M_1Parameters.getInstance().ResetParameters();
         }
 
         #endregion
@@ -538,7 +538,7 @@ namespace R440O.R440OForms.BMB
         {
             get
             {
-                return BMA_M_1Parameters.Питание && ПереключательНаправление == 1;
+                return BMA_M_1Parameters.getInstance().Питание && ПереключательНаправление == 1;
             }
         }
 
@@ -548,7 +548,7 @@ namespace R440O.R440OForms.BMB
         /// <returns></returns>
         private bool БМА2ПодключенВерно
         {
-            get { return BMA_M_2Parameters.Питание && ПереключательНаправление == 2; }
+            get { return BMA_M_2Parameters.getInstance().Питание && ПереключательНаправление == 2; }
         }
 
         public Chanel ВходнойСигнал
@@ -556,9 +556,9 @@ namespace R440O.R440OForms.BMB
             get
             {
                 if (БМА1ПодключенВерно)
-                    return BMA_M_1Parameters.СигалНаБМБ;
+                    return BMA_M_1Parameters.getInstance().СигалНаБМБ;
                 if (БМА2ПодключенВерно)
-                    return BMA_M_2Parameters.СигалНаБМБ;
+                    return BMA_M_2Parameters.getInstance().СигалНаБМБ;
                 return null;
             }
         }

@@ -23,7 +23,7 @@
         {
             InitializeComponent();
             BMBParameters.getInstance().RefreshForm += RefreshFormElements;
-            N18_M.N18_MParameters.ParameterChanged += RefreshFormElements;
+            N18_M.N18_MParameters.getInstance().ParameterChanged += RefreshFormElements;
             RefreshFormElements();
             if (ParametersConfig.IsTesting)
             {

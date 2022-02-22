@@ -88,7 +88,7 @@ namespace R440O.R440OForms.N15
             get
             {
                 return (КнопкаМощностьН16 && !N16Parameters.КнопкаВкл && НеполноеВключение &&
-                        (N13_1Parameters.Включен || N13_2Parameters.Включен))
+                        (N13_1Parameters.getInstance().Включен || N13_2Parameters.getInstance().Включен))
                     ? _индикаторМощностьВыхода
                     : 0;
             }
@@ -243,7 +243,7 @@ namespace R440O.R440OForms.N15
             set
             {
                 _Н13_1 = value;
-                N13_1Parameters.ResetParameters();
+                N13_1Parameters.getInstance().ResetParameters();
             }
         }
 
@@ -256,7 +256,7 @@ namespace R440O.R440OForms.N15
             set
             {
                 _Н13_2 = value;
-                N13_2Parameters.ResetParameters();
+                N13_2Parameters.getInstance().ResetParameters();
             }
         }
 
@@ -321,7 +321,7 @@ namespace R440O.R440OForms.N15
             set
             {
                 _тумблерЦ300М3 = value;
-                C300M_3Parameters.ResetParameters();
+                C300M_3Parameters.getInstance().ResetParameters();
             }
         }
 
@@ -331,7 +331,7 @@ namespace R440O.R440OForms.N15
             set
             {
                 _тумблерЦ300М4 = value;
-                C300M_4Parameters.ResetParameters();
+                C300M_4Parameters.getInstance().ResetParameters();
             }
         }
 
@@ -386,14 +386,14 @@ namespace R440O.R440OForms.N15
             set
             {
                 _тумблерА20512 = value;
-                NKN_1Parameters.ДистанционноеВключение = ТумблерА205Base && value;
-                NKN_1Parameters.Питание220Включено = NKN_1Parameters.ДистанционноеВключение;
-                NKN_1Parameters.ResetParameters();
+                NKN_1Parameters.getInstance().ДистанционноеВключение = ТумблерА205Base && value;
+                NKN_1Parameters.getInstance().Питание220Включено = NKN_1Parameters.getInstance().ДистанционноеВключение;
+                NKN_1Parameters.getInstance().ResetParameters();
                 A205M_1Parameters.getInstance().ResetParameters();
 
-                NKN_2Parameters.ДистанционноеВключение = ТумблерА205Base && !value;
-                NKN_2Parameters.Питание220Включено = NKN_2Parameters.ДистанционноеВключение;
-                NKN_2Parameters.ResetParameters();
+                NKN_2Parameters.getInstance().ДистанционноеВключение = ТумблерА205Base && !value;
+                NKN_2Parameters.getInstance().Питание220Включено = NKN_2Parameters.getInstance().ДистанционноеВключение;
+                NKN_2Parameters.getInstance().ResetParameters();
                 A205M_2Parameters.ResetParameters();
             }
         }
@@ -433,7 +433,7 @@ namespace R440O.R440OForms.N15
             set
             {
                 _тумблерА403 = value;
-                //A403_1Parameters.ResetParameters();
+                //A403_1Parameters.getInstance().ResetParameters();
             }
         }
 
@@ -443,7 +443,7 @@ namespace R440O.R440OForms.N15
             set
             {
                 _тумблерК11 = value;
-                PU_K1_1Parameters.ResetParameters();
+                PU_K1_1Parameters.getInstance().ResetParameters();
             }
         }
 
@@ -664,19 +664,19 @@ namespace R440O.R440OForms.N15
         #region Лампочки верхняя часть
 
         public bool ЛампочкаЦ300МВкл1 { get { return C300M_1Parameters.getInstance().Включен; } }
-        public bool ЛампочкаЦ300МВкл2 { get { return C300M_2Parameters.Включен; } }
+        public bool ЛампочкаЦ300МВкл2 { get { return C300M_2Parameters.getInstance().Включен; } }
         public bool ЛампочкаЦ300МВкл3 { get { return Лампочка27В && ЛампочкаН15БП && ТумблерЦ300М3; } }
         public bool ЛампочкаЦ300МВкл4 { get { return Лампочка27В && ЛампочкаН15БП && ТумблерЦ300М4; } }
         public bool ЛампочкаЦ300МСигнал1 { get { return C300M_1Parameters.getInstance().ЛампочкаСигнал; } }
-        public bool ЛампочкаЦ300МСигнал2 { get { return C300M_2Parameters.ЛампочкаСигнал; } }
-        public bool ЛампочкаЦ300МСигнал3 { get { return C300M_3Parameters.ЛампочкаСигнал; } }
-        public bool ЛампочкаЦ300МСигнал4 { get { return C300M_4Parameters.ЛампочкаСигнал; } }
+        public bool ЛампочкаЦ300МСигнал2 { get { return C300M_2Parameters.getInstance().ЛампочкаСигнал; } }
+        public bool ЛампочкаЦ300МСигнал3 { get { return C300M_3Parameters.getInstance().ЛампочкаСигнал; } }
+        public bool ЛампочкаЦ300МСигнал4 { get { return C300M_4Parameters.getInstance().ЛампочкаСигнал; } }
         public bool ЛампочкаЦ300МНеиспр1 { get; set; }
         public bool ЛампочкаЦ300МНеиспр2 { get; set; }
         public bool ЛампочкаЦ300МНеиспр3 { get; set; }
         public bool ЛампочкаЦ300МНеиспр4 { get; set; }
-        public bool ЛампочкаППВВкл1 { get { return NKN_1Parameters.ПолноеВключение || (NKN_1Parameters.НеполноеВключение && NKN_1Parameters.Питание220Включено); } }
-        public bool ЛампочкаППВВкл2 { get { return NKN_2Parameters.ПолноеВключение || (NKN_2Parameters.НеполноеВключение && NKN_2Parameters.Питание220Включено); } }
+        public bool ЛампочкаППВВкл1 { get { return NKN_1Parameters.getInstance().ПолноеВключение || (NKN_1Parameters.getInstance().НеполноеВключение && NKN_1Parameters.getInstance().Питание220Включено); } }
+        public bool ЛампочкаППВВкл2 { get { return NKN_2Parameters.getInstance().ПолноеВключение || (NKN_2Parameters.getInstance().НеполноеВключение && NKN_2Parameters.getInstance().Питание220Включено); } }
         public bool ЛампочкаППВРабота1 { get { return A205M_1Parameters.getInstance().Работа; } }
         public bool ЛампочкаППВРабота2 { get { return A205M_2Parameters.Работа; } }
 
@@ -695,12 +695,12 @@ namespace R440O.R440OForms.N15
 
         public bool ЛампочкаУМ1Работа1
         {
-            get { return NKN_1Parameters.ПолноеВключение && NKN_1Parameters.ДистанционноеВключение; }
+            get { return NKN_1Parameters.getInstance().ПолноеВключение && NKN_1Parameters.getInstance().ДистанционноеВключение; }
         }
 
         public bool ЛампочкаУМ1Работа2
         {
-            get { return NKN_2Parameters.ПолноеВключение && NKN_2Parameters.ДистанционноеВключение; }
+            get { return NKN_2Parameters.getInstance().ПолноеВключение && NKN_2Parameters.getInstance().ДистанционноеВключение; }
         }
         #endregion
 
@@ -709,12 +709,12 @@ namespace R440O.R440OForms.N15
 
         public bool ЛампочкаН12С
         {
-            get { return Включен && N12SParameters.Включен; }
+            get { return Включен && N12SParameters.getInstance().Включен; }
         }
 
         public bool ЛампочкаМШУ
         {
-            get { return Включен && MSHUParameters.Включен; }
+            get { return Включен && MSHUParameters.getInstance().Включен; }
         }
 
         public bool ЛампочкаБМА_1
@@ -740,17 +740,17 @@ namespace R440O.R440OForms.N15
 
         public bool ЛампочкаАФСС
         {
-            get { return Включен && ЛампочкаН15БП && ТумблерАФСС && Kontur_P3Parameters.ТумблерСеть == EТумблерСеть.ВКЛ; }
+            get { return Включен && ЛампочкаН15БП && ТумблерАФСС && Kontur_P3Parameters.getInstance().ТумблерСеть == EТумблерСеть.ВКЛ; }
         }
 
         public bool ЛампочкаА1
         {
-            get { return A1Parameters.Включен; }
+            get { return A1Parameters.getInstance().Включен; }
         }
 
         public bool ЛампочкаА403Вкл
         {
-            get { return Включен && A403_1Parameters.Включен; }
+            get { return Включен && A403_1Parameters.getInstance().Включен; }
         }
 
         public bool ЛампочкаА403Неиспр
@@ -760,7 +760,7 @@ namespace R440O.R440OForms.N15
 
         public bool ЛампочкаП220272
         {
-            get { return Включен && P220_27G_2Parameters.ЛампочкаСеть; }
+            get { return Включен && P220_27G_2Parameters.getInstance().ЛампочкаСеть; }
         }
 
         public bool ЛампочкаП220273
@@ -785,37 +785,37 @@ namespace R440O.R440OForms.N15
 
         public bool ЛампочкаБ1_1
         {
-            get { return B1_1Parameters.Включен; }
+            get { return B1_1Parameters.getInstance().Включен; }
         }
 
         public bool ЛампочкаБ1_2
         {
-            get { return B1_2Parameters.Включен; }
+            get { return B1_2Parameters.getInstance().Включен; }
         }
 
         public bool ЛампочкаБ2_1
         {
-            get { return B2_1Parameters.Включен; }
+            get { return B2_1Parameters.getInstance().Включен; }
         }
 
         public bool ЛампочкаБ2_2
         {
-            get { return B2_2Parameters.Включен; }
+            get { return B2_2Parameters.getInstance().Включен; }
         }
 
         public bool ЛампочкаБ3_1
         {
-            get { return B3_1Parameters.Включен; }
+            get { return B3_1Parameters.getInstance().Включен; }
         }
 
         public bool ЛампочкаБ3_2
         {
-            get { return B3_2Parameters.Включен; }
+            get { return B3_2Parameters.getInstance().Включен; }
         }
 
         public bool ЛампочкаДАБ_5
         {
-            get { return Лампочка27В && ЛампочкаН15БП && ТумблерДАБ_5 && DAB_5Parameters.ТумблерПитание; }
+            get { return Лампочка27В && ЛампочкаН15БП && ТумблерДАБ_5 && DAB_5Parameters.getInstance().ТумблерПитание; }
         }
 
         public bool ЛампочкаР_Н
@@ -841,12 +841,12 @@ namespace R440O.R440OForms.N15
         {
             get { return N16Parameters.ЛампочкаН13_12; }
         }
-        public bool ЛампочкаН13_11Ступень { get { return N13_1Parameters.ЛампочкаАнодВключен; } }
-        public bool ЛампочкаН13_21Ступень { get { return N13_2Parameters.ЛампочкаАнодВключен; } }
-        public bool ЛампочкаН13_1ПолноеВкл { get { return N13_1Parameters.ЛампочкаАнодВключен; } }
-        public bool ЛампочкаН13_2ПолноеВкл { get { return N13_2Parameters.ЛампочкаАнодВключен; } }
-        public bool ЛампочкаН13_1Неисправность { get { return N13_1Parameters.Неисправен; } }
-        public bool ЛампочкаН13_2Неисправность { get { return N13_2Parameters.Неисправен; } }
+        public bool ЛампочкаН13_11Ступень { get { return N13_1Parameters.getInstance().ЛампочкаАнодВключен; } }
+        public bool ЛампочкаН13_21Ступень { get { return N13_2Parameters.getInstance().ЛампочкаАнодВключен; } }
+        public bool ЛампочкаН13_1ПолноеВкл { get { return N13_1Parameters.getInstance().ЛампочкаАнодВключен; } }
+        public bool ЛампочкаН13_2ПолноеВкл { get { return N13_2Parameters.getInstance().ЛампочкаАнодВключен; } }
+        public bool ЛампочкаН13_1Неисправность { get { return N13_1Parameters.getInstance().Неисправен; } }
+        public bool ЛампочкаН13_2Неисправность { get { return N13_2Parameters.getInstance().Неисправен; } }
         public bool Лампочка5мГц2 { get { return НеполноеВключение && N15LocalParameters.getInstance().локТумблер5Мгц; } }
         public bool Лампочка5мГц3 { get { return НеполноеВключение && !N15LocalParameters.getInstance().локТумблер5Мгц; } }
 
@@ -872,42 +872,42 @@ namespace R440O.R440OForms.N15
 
 
             BMBParameters.getInstance().ResetParameters();
-            BMA_M_1Parameters.DisposeAllTimers();
-            BMA_M_1Parameters.ResetLampsValue();
-            BMA_M_1Parameters.ResetParameters();
-            BMA_M_2Parameters.DisposeAllTimers();
-            BMA_M_2Parameters.ResetLampsValue();
-            BMA_M_2Parameters.ResetParameters();
+            BMA_M_1Parameters.getInstance().DisposeAllTimers();
+            BMA_M_1Parameters.getInstance().ResetLampsValue();
+            BMA_M_1Parameters.getInstance().ResetParameters();
+            BMA_M_2Parameters.getInstance().DisposeAllTimers();
+            BMA_M_2Parameters.getInstance().ResetLampsValue();
+            BMA_M_2Parameters.getInstance().ResetParameters();
 
             #endregion
 
             #region МШУ и АФСС
 
             A306Parameters.getInstance().ResetParameters();
-            Kontur_P3Parameters.ResetToDefaultsWhenTurnOnOff();
-            Kontur_P3Parameters.Refresh();
+            Kontur_P3Parameters.getInstance().ResetToDefaultsWhenTurnOnOff();
+            Kontur_P3Parameters.getInstance().Refresh();
 
             #endregion
 
             #region Дискрет и Генераторы
 
             ResetDiscret();
-            P220_27G_2Parameters.ResetParameters();
-            P220_27G_3Parameters.ResetParameters();
+            P220_27G_2Parameters.getInstance().ResetParameters();
+            P220_27G_3Parameters.getInstance().ResetParameters();
 
             #endregion
 
             #region ДАБ_5
-            DAB_5Parameters.SetDefaultParameters();
-            DAB_5Parameters.ResetParameters();
+            DAB_5Parameters.getInstance().SetDefaultParameters();
+            DAB_5Parameters.getInstance().ResetParameters();
             #endregion
 
-            N12SParameters.ResetParameters();
+            N12SParameters.getInstance().ResetParameters();
             A304Parameters.getInstance().ResetParameters();
-            A403_1Parameters.ResetParameters();
+            A403_1Parameters.getInstance().ResetParameters();
 
-            NKN_1Parameters.ResetParameters();
-            NKN_2Parameters.ResetParameters();
+            NKN_1Parameters.getInstance().ResetParameters();
+            NKN_2Parameters.getInstance().ResetParameters();
             A205M_1Parameters.getInstance().ResetParameters();
             A205M_2Parameters.ResetParameters();
 
@@ -920,9 +920,9 @@ namespace R440O.R440OForms.N15
         public void ResetC300M()
         {
             C300M_1Parameters.getInstance().ResetParameters();
-            C300M_2Parameters.ResetParameters();
-            C300M_3Parameters.ResetParameters();
-            C300M_4Parameters.ResetParameters();
+            C300M_2Parameters.getInstance().ResetParameters();
+            C300M_3Parameters.getInstance().ResetParameters();
+            C300M_4Parameters.getInstance().ResetParameters();
         }
 
         /// <summary>
@@ -938,13 +938,13 @@ namespace R440O.R440OForms.N15
         /// </summary>
         public void ResetDiscret()
         {
-            A1Parameters.ResetParameters();
-            B1_1Parameters.ResetParameters();
-            B1_2Parameters.ResetParameters();
-            B2_1Parameters.ResetParameters();
-            B2_2Parameters.ResetParameters();
-            B3_1Parameters.ResetParameters();
-            B3_2Parameters.ResetParameters();
+            A1Parameters.getInstance().ResetParameters();
+            B1_1Parameters.getInstance().ResetParameters();
+            B1_2Parameters.getInstance().ResetParameters();
+            B2_1Parameters.getInstance().ResetParameters();
+            B2_2Parameters.getInstance().ResetParameters();
+            B3_1Parameters.getInstance().ResetParameters();
+            B3_2Parameters.getInstance().ResetParameters();
         }
 
         public delegate void TestModuleHandler(ActionStation action);

@@ -6,7 +6,7 @@ namespace R440O.R440OForms.Kontur_P3.Параметры
     partial class Kontur_P3Parameters
     {
         #region Лампочки
-        public static bool ЛампочкаСеть
+        public bool ЛампочкаСеть
         {
             get
             {
@@ -16,8 +16,8 @@ namespace R440O.R440OForms.Kontur_P3.Параметры
         #endregion
 
         #region Тумблеры
-        private static EТумблерСеть _ТумблерСеть = EТумблерСеть.ОТКЛ;
-        public static EТумблерСеть ТумблерСеть
+        private EТумблерСеть _ТумблерСеть = EТумблерСеть.ОТКЛ;
+        public EТумблерСеть ТумблерСеть
         {
             get { return _ТумблерСеть; }
             set
@@ -31,7 +31,7 @@ namespace R440O.R440OForms.Kontur_P3.Параметры
         #endregion
 
         #region Индикатор Сеть
-        public static float ИндикаторСеть
+        public float ИндикаторСеть
         {
             get
             {
@@ -47,8 +47,8 @@ namespace R440O.R440OForms.Kontur_P3.Параметры
         /// <summary>
         /// Положение переключателя Приоритет
         /// </summary>
-        private static EПереключательКонтроль _ПереключательКонтроль = EПереключательКонтроль.ОТКЛ;
-        public static EПереключательКонтроль ПереключательКонтроль
+        private EПереключательКонтроль _ПереключательКонтроль = EПереключательКонтроль.ОТКЛ;
+        public EПереключательКонтроль ПереключательКонтроль
         {
             get { return _ПереключательКонтроль; }
             set

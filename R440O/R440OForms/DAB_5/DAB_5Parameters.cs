@@ -9,13 +9,27 @@
     /// </summary>
     class DAB_5Parameters
     {
-        public static bool Включен
+        private static DAB_5Parameters instance;
+        public static DAB_5Parameters getInstance()
+        {
+            if (instance == null)
+                instance = new DAB_5Parameters();
+            return instance;
+        }
+        public delegate void TestModuleHandler(JsonAdapter.ActionStation action);
+        public event TestModuleHandler Action;
+        private void OnAction(string name, int value)
+        {
+            var action = new JsonAdapter.ActionStation(name, value);
+            Action?.Invoke(action);
+        }
+        public bool Включен
         {
             get { return N15Parameters.getInstance().ЛампочкаДАБ_5; }
         }
 
-        private static bool _тумблерПитание;
-        public static bool ТумблерПитание
+        private bool _тумблерПитание;
+        public bool ТумблерПитание
         {
             get { return _тумблерПитание; }
             set
@@ -31,466 +45,466 @@
         }
 
         #region Лампочки ДАБ-5 УП
-        public static bool ЛампочкаПитание
+        public bool ЛампочкаПитание
         {
             get { return Включен; }
         }
 
-        public static bool ЛампочкаРежимМестн
+        public bool ЛампочкаРежимМестн
         {
             get { return Включен; }
         }
 
-        public static bool ЛампочкаОбход
+        public bool ЛампочкаОбход
         {
             get { return N15Parameters.getInstance().ТумблерДАБ_5 && N15Parameters.getInstance().Включен && ОбходВкл; }
         }
 
-        public static bool ЛампочкаРежимАвтом
+        public bool ЛампочкаРежимАвтом
         {
             get { return Включен && РежимАвтом; }
         }
 
-        public static bool ЛампочкаРежимРучн
+        public bool ЛампочкаРежимРучн
         {
             get { return Включен && РежимРучн; }
         }
 
-        public static bool ЛампочкаВыборПрмПрд1
+        public bool ЛампочкаВыборПрмПрд1
         {
             get { return Включен && КомплектПрмПрд1; }
         }
 
-        public static bool ЛампочкаВыборПрмПрд2
+        public bool ЛампочкаВыборПрмПрд2
         {
             get { return Включен && КомплектПрмПрд2; }
         }
 
-        public static bool ЛампочкаВыборБП1
+        public bool ЛампочкаВыборБП1
         {
             get { return Включен && КомплектБП1; }
         }
 
-        public static bool ЛампочкаВыборБП2
+        public bool ЛампочкаВыборБП2
         {
             get { return Включен && КомплектБП2; }
         }
 
-        public static bool ЛампочкаРежимРабота1К
+        public bool ЛампочкаРежимРабота1К
         {
             get { return Включен && РежимРаботы1К == 1; }
         }
 
-        public static bool ЛампочкаРежимШлейф1К
+        public bool ЛампочкаРежимШлейф1К
         {
             get { return Включен && РежимРаботы1К == 2; }
         }
 
-        public static bool ЛампочкаРежимПрмПрд1К
+        public bool ЛампочкаРежимПрмПрд1К
         {
             get { return Включен && РежимРаботы1К == 3; }
         }
 
-        public static bool ЛампочкаРежимПрм1К
+        public bool ЛампочкаРежимПрм1К
         {
             get { return Включен && РежимРаботы1К == 4; }
         }
 
-        public static bool ЛампочкаРежимРабота2К
+        public bool ЛампочкаРежимРабота2К
         {
             get { return Включен && РежимРаботы2К == 1; }
         }
 
-        public static bool ЛампочкаРежимШлейф2К
+        public bool ЛампочкаРежимШлейф2К
         {
             get { return Включен && РежимРаботы2К == 2; }
         }
 
-        public static bool ЛампочкаРежимПрмПрд2К
+        public bool ЛампочкаРежимПрмПрд2К
         {
             get { return Включен && РежимРаботы2К == 3; }
         }
 
-        public static bool ЛампочкаРежимПрм2К
+        public bool ЛампочкаРежимПрм2К
         {
             get { return Включен && РежимРаботы2К == 4; }
         }
         #endregion
 
         #region Лампочки Комплекты
-        private static bool _лампочка1КомплектПрдДаб51БиВых;
-        public static bool Лампочка1КомплектПрдДаб51БиВых
+        private bool _лампочка1КомплектПрдДаб51БиВых;
+        public bool Лампочка1КомплектПрдДаб51БиВых
         {
             get { return Включен && _лампочка1КомплектПрдДаб51БиВых; }
             set { _лампочка1КомплектПрдДаб51БиВых = value; }
         }
 
-        private static bool _лампочка1КомплектПрдДаб51БиВх;
-        public static bool Лампочка1КомплектПрдДаб51БиВх
+        private bool _лампочка1КомплектПрдДаб51БиВх;
+        public bool Лампочка1КомплектПрдДаб51БиВх
         {
             get { return Включен && _лампочка1КомплектПрдДаб51БиВх; }
             set { _лампочка1КомплектПрдДаб51БиВх = value; }
         }
 
-        private static bool _лампочка1КомплектПрдДаб51ВхСс;
-        public static bool Лампочка1КомплектПрдДаб51ВхСс
+        private bool _лампочка1КомплектПрдДаб51ВхСс;
+        public bool Лампочка1КомплектПрдДаб51ВхСс
         {
             get { return Включен && _лампочка1КомплектПрдДаб51ВхСс; }
             set { _лампочка1КомплектПрдДаб51ВхСс = value; }
         }
 
-        private static bool _лампочка1КомплектПрдДаб51ВхКк;
-        public static bool Лампочка1КомплектПрдДаб5_1ВхКк
+        private bool _лампочка1КомплектПрдДаб51ВхКк;
+        public bool Лампочка1КомплектПрдДаб5_1ВхКк
         {
             get { return Включен && _лампочка1КомплектПрдДаб51ВхКк; }
             set { _лампочка1КомплектПрдДаб51ВхКк = value; }
         }
 
-        private static bool _лампочка1КомплектПрдДаб51ВыхСс;
-        public static bool Лампочка1КомплектПрдДаб5_1ВыхСс
+        private bool _лампочка1КомплектПрдДаб51ВыхСс;
+        public bool Лампочка1КомплектПрдДаб5_1ВыхСс
         {
             get { return Включен && _лампочка1КомплектПрдДаб51ВыхСс; }
             set { _лампочка1КомплектПрдДаб51ВыхСс = value; }
         }
 
-        private static bool _лампочка1КомплектПрдДаб51ВыхКк;
-        public static bool Лампочка1КомплектПрдДаб5_1ВыхКк
+        private bool _лампочка1КомплектПрдДаб51ВыхКк;
+        public bool Лампочка1КомплектПрдДаб5_1ВыхКк
         {
             get { return Включен && _лампочка1КомплектПрдДаб51ВыхКк; }
             set { _лампочка1КомплектПрдДаб51ВыхКк = value; }
         }
 
-        private static bool _лампочка1КомплектПрдДаб51ВыхТч;
-        public static bool Лампочка1КомплектПрдДаб5_1ВыхТч
+        private bool _лампочка1КомплектПрдДаб51ВыхТч;
+        public bool Лампочка1КомплектПрдДаб5_1ВыхТч
         {
             get { return Включен && _лампочка1КомплектПрдДаб51ВыхТч; }
             set { _лампочка1КомплектПрдДаб51ВыхТч = value; }
         }
 
-        private static bool _лампочка1КомплектПрдДаб5ГВкл;
-        public static bool Лампочка1КомплектПрдДаб5ГВкл
+        private bool _лампочка1КомплектПрдДаб5ГВкл;
+        public bool Лампочка1КомплектПрдДаб5ГВкл
         {
             get { return Включен && _лампочка1КомплектПрдДаб5ГВкл; }
             set { _лампочка1КомплектПрдДаб5ГВкл = value; }
         }
 
-        private static bool _лампочка1КомплектПрдДаб5ГтСнх;
-        public static bool Лампочка1КомплектПрдДаб5ГТСнх
+        private bool _лампочка1КомплектПрдДаб5ГтСнх;
+        public bool Лампочка1КомплектПрдДаб5ГТСнх
         {
             get { return Включен && _лампочка1КомплектПрдДаб5ГтСнх; }
             set { _лампочка1КомплектПрдДаб5ГтСнх = value; }
         }
 
-        private static bool _лампочка1КомплектПрдДаб5ГТакт;
-        public static bool Лампочка1КомплектПрдДаб5ГТакт
+        private bool _лампочка1КомплектПрдДаб5ГТакт;
+        public bool Лампочка1КомплектПрдДаб5ГТакт
         {
             get { return Включен && _лампочка1КомплектПрдДаб5ГТакт; }
             set { _лампочка1КомплектПрдДаб5ГТакт = value; }
         }
 
-        private static bool _лампочка1КомплектПрмДаб51БиВых;
-        public static bool Лампочка1КомплектПрмДаб51БиВых
+        private bool _лампочка1КомплектПрмДаб51БиВых;
+        public bool Лампочка1КомплектПрмДаб51БиВых
         {
             get { return Включен && _лампочка1КомплектПрмДаб51БиВых; }
             set { _лампочка1КомплектПрмДаб51БиВых = value; }
         }
 
-        private static bool _лампочка1КомплектПрмДаб51БиВх;
-        public static bool Лампочка1КомплектПрмДаб51БиВх
+        private bool _лампочка1КомплектПрмДаб51БиВх;
+        public bool Лампочка1КомплектПрмДаб51БиВх
         {
             get { return Включен && _лампочка1КомплектПрмДаб51БиВх; }
             set { _лампочка1КомплектПрмДаб51БиВх = value; }
         }
 
-        private static bool _лампочка1КомплектПрмДаб51ВхСс;
-        public static bool Лампочка1КомплектПрмДаб51ВхСс
+        private bool _лампочка1КомплектПрмДаб51ВхСс;
+        public bool Лампочка1КомплектПрмДаб51ВхСс
         {
             get { return Включен && _лампочка1КомплектПрмДаб51ВхСс; }
             set { _лампочка1КомплектПрмДаб51ВхСс = value; }
         }
 
-        private static bool _лампочка1КомплектПрмДаб51ВхКк;
-        public static bool Лампочка1КомплектПрмДаб5_1ВхКк
+        private bool _лампочка1КомплектПрмДаб51ВхКк;
+        public bool Лампочка1КомплектПрмДаб5_1ВхКк
         {
             get { return Включен && _лампочка1КомплектПрмДаб51ВхКк; }
             set { _лампочка1КомплектПрмДаб51ВхКк = value; }
         }
 
-        private static bool _лампочка1КомплектПрмДаб51ВыхСс;
-        public static bool Лампочка1КомплектПрмДаб5_1ВыхСс
+        private bool _лампочка1КомплектПрмДаб51ВыхСс;
+        public bool Лампочка1КомплектПрмДаб5_1ВыхСс
         {
             get { return Включен && _лампочка1КомплектПрмДаб51ВыхСс; }
             set { _лампочка1КомплектПрмДаб51ВыхСс = value; }
         }
 
-        private static bool _лампочка1КомплектПрмДаб51ВыхКк;
-        public static bool Лампочка1КомплектПрмДаб5_1ВыхКк
+        private bool _лампочка1КомплектПрмДаб51ВыхКк;
+        public bool Лампочка1КомплектПрмДаб5_1ВыхКк
         {
             get { return Включен && _лампочка1КомплектПрмДаб51ВыхКк; }
             set { _лампочка1КомплектПрмДаб51ВыхКк = value; }
         }
 
-        private static bool _лампочка1КомплектПрмДаб51ВыхТч;
-        public static bool Лампочка1КомплектПрмДаб5_1ВыхТч
+        private bool _лампочка1КомплектПрмДаб51ВыхТч;
+        public bool Лампочка1КомплектПрмДаб5_1ВыхТч
         {
             get { return Включен && _лампочка1КомплектПрмДаб51ВыхТч; }
             set { _лампочка1КомплектПрмДаб51ВыхТч = value; }
         }
 
-        private static bool _лампочка1КомплектПрмДаб5ГВкл;
-        public static bool Лампочка1КомплектПрмДаб5ГВкл
+        private bool _лампочка1КомплектПрмДаб5ГВкл;
+        public bool Лампочка1КомплектПрмДаб5ГВкл
         {
             get { return Включен && _лампочка1КомплектПрмДаб5ГВкл; }
             set { _лампочка1КомплектПрмДаб5ГВкл = value; }
         }
 
-        private static IDisposable timer_Лампочка1КомплектПрмДаб5ГТСнх = null;
-        private static bool _лампочка1КомплектПрмДаб5ГтСнх;
-        public static bool Лампочка1КомплектПрмДаб5ГТСнх
+        private IDisposable timer_Лампочка1КомплектПрмДаб5ГТСнх = null;
+        private bool _лампочка1КомплектПрмДаб5ГтСнх;
+        public bool Лампочка1КомплектПрмДаб5ГТСнх
         {
             get { return Включен && _лампочка1КомплектПрмДаб5ГтСнх; }
             set { _лампочка1КомплектПрмДаб5ГтСнх = value; }
         }
 
-        private static IDisposable timer_Лампочка1КомплектПрмДаб5ГЦСнх = null;
-        private static bool _лампочка1КомплектПрмДаб5ГцСнх;
-        public static bool Лампочка1КомплектПрмДаб5ГЦСнх
+        private IDisposable timer_Лампочка1КомплектПрмДаб5ГЦСнх = null;
+        private bool _лампочка1КомплектПрмДаб5ГцСнх;
+        public bool Лампочка1КомплектПрмДаб5ГЦСнх
         {
             get { return Включен && _лампочка1КомплектПрмДаб5ГцСнх; }
             set { _лампочка1КомплектПрмДаб5ГцСнх = value; }
         }
 
-        private static bool _лампочка1КомплектПрмДаб5ГТакт;
-        public static bool Лампочка1КомплектПрмДаб5ГТакт
+        private bool _лампочка1КомплектПрмДаб5ГТакт;
+        public bool Лампочка1КомплектПрмДаб5ГТакт
         {
             get { return Включен && _лампочка1КомплектПрмДаб5ГТакт; }
             set { _лампочка1КомплектПрмДаб5ГТакт = value; }
         }
 
-        private static IDisposable timer_Лампочка1КомплектПрмДаб5ГИмТлф = null;
-        private static bool _лампочка1КомплектПрмДаб5ГИмТлф;
-        public static bool Лампочка1КомплектПрмДаб5ГИмТлф
+        private IDisposable timer_Лампочка1КомплектПрмДаб5ГИмТлф = null;
+        private bool _лампочка1КомплектПрмДаб5ГИмТлф;
+        public bool Лампочка1КомплектПрмДаб5ГИмТлф
         {
             get { return Включен && _лампочка1КомплектПрмДаб5ГИмТлф; }
             set { _лампочка1КомплектПрмДаб5ГИмТлф = value; }
         }
 
-        private static IDisposable timer_Лампочка1КомплектПрмДаб5ГИмСс = null;
-        private static bool _лампочка1КомплектПрмДаб5ГИмСс;
-        public static bool Лампочка1КомплектПрмДаб5ГИмСс
+        private IDisposable timer_Лампочка1КомплектПрмДаб5ГИмСс = null;
+        private bool _лампочка1КомплектПрмДаб5ГИмСс;
+        public bool Лампочка1КомплектПрмДаб5ГИмСс
         {
             get { return Включен && _лампочка1КомплектПрмДаб5ГИмСс; }
             set { _лампочка1КомплектПрмДаб5ГИмСс = value; }
         }
 
-        private static IDisposable timer_Лампочка1КомплектПрмДаб5ГИмКк;
-        private static bool _лампочка1КомплектПрмДаб5ГИмКк;
-        public static bool Лампочка1КомплектПрмДаб5ГИмКк
+        private IDisposable timer_Лампочка1КомплектПрмДаб5ГИмКк;
+        private bool _лампочка1КомплектПрмДаб5ГИмКк;
+        public bool Лампочка1КомплектПрмДаб5ГИмКк
         {
             get { return Включен && _лампочка1КомплектПрмДаб5ГИмКк; }
             set { _лампочка1КомплектПрмДаб5ГИмКк = value; }
         }
 
-        private static bool _Лампочка2КомплектПрдДаб51БиВых;
-        public static bool Лампочка2КомплектПрдДаб51БиВых
+        private bool _Лампочка2КомплектПрдДаб51БиВых;
+        public bool Лампочка2КомплектПрдДаб51БиВых
         {
             get { return Включен && _Лампочка2КомплектПрдДаб51БиВых; }
         }
 
-        private static bool _Лампочка2КомплектПрдДаб51БиВх;
-        public static bool Лампочка2КомплектПрдДаб51БиВх
+        private bool _Лампочка2КомплектПрдДаб51БиВх;
+        public bool Лампочка2КомплектПрдДаб51БиВх
         {
             get { return Включен && _Лампочка2КомплектПрдДаб51БиВх; }
         }
 
-        private static bool _Лампочка2КомплектПрдДаб51ВхСс;
-        public static bool Лампочка2КомплектПрдДаб51ВхСс
+        private bool _Лампочка2КомплектПрдДаб51ВхСс;
+        public bool Лампочка2КомплектПрдДаб51ВхСс
         {
             get { return Включен && _Лампочка2КомплектПрдДаб51ВхСс; }
         }
 
-        private static bool _Лампочка2КомплектПрдДаб5_1ВхКк;
-        public static bool Лампочка2КомплектПрдДаб5_1ВхКк
+        private bool _Лампочка2КомплектПрдДаб5_1ВхКк;
+        public bool Лампочка2КомплектПрдДаб5_1ВхКк
         {
             get { return Включен && _Лампочка2КомплектПрдДаб5_1ВхКк; }
         }
 
-        private static bool _Лампочка2КомплектПрдДаб5_1ВыхСс;
-        public static bool Лампочка2КомплектПрдДаб5_1ВыхСс
+        private bool _Лампочка2КомплектПрдДаб5_1ВыхСс;
+        public bool Лампочка2КомплектПрдДаб5_1ВыхСс
         {
             get { return Включен && _Лампочка2КомплектПрдДаб5_1ВыхСс; }
         }
 
-        private static bool _Лампочка2КомплектПрдДаб5_1ВыхКк;
-        public static bool Лампочка2КомплектПрдДаб5_1ВыхКк
+        private bool _Лампочка2КомплектПрдДаб5_1ВыхКк;
+        public bool Лампочка2КомплектПрдДаб5_1ВыхКк
         {
             get { return Включен && _Лампочка2КомплектПрдДаб5_1ВыхКк; }
         }
 
-        private static bool _Лампочка2КомплектПрдДаб5_1ВыхТч;
-        public static bool Лампочка2КомплектПрдДаб5_1ВыхТч
+        private bool _Лампочка2КомплектПрдДаб5_1ВыхТч;
+        public bool Лампочка2КомплектПрдДаб5_1ВыхТч
         {
             get { return Включен && _Лампочка2КомплектПрдДаб5_1ВыхТч; }
         }
 
-        private static bool _Лампочка2КомплектПрдДаб5ГВкл;
-        public static bool Лампочка2КомплектПрдДаб5ГВкл
+        private bool _Лампочка2КомплектПрдДаб5ГВкл;
+        public bool Лампочка2КомплектПрдДаб5ГВкл
         {
             get { return Включен && _Лампочка2КомплектПрдДаб5ГВкл; }
         }
 
-        private static bool _Лампочка2КомплектПрдДаб5ГТСнх;
-        public static bool Лампочка2КомплектПрдДаб5ГТСнх
+        private bool _Лампочка2КомплектПрдДаб5ГТСнх;
+        public bool Лампочка2КомплектПрдДаб5ГТСнх
         {
             get { return Включен && _Лампочка2КомплектПрдДаб5ГТСнх; }
         }
 
-        private static bool _Лампочка2КомплектПрдДаб5ГТакт;
-        public static bool Лампочка2КомплектПрдДаб5ГТакт
+        private bool _Лампочка2КомплектПрдДаб5ГТакт;
+        public bool Лампочка2КомплектПрдДаб5ГТакт
         {
             get { return Включен && _Лампочка2КомплектПрдДаб5ГТакт; }
         }
 
-        private static bool _Лампочка2КомплектПрмДаб51БиВых;
-        public static bool Лампочка2КомплектПрмДаб51БиВых
+        private bool _Лампочка2КомплектПрмДаб51БиВых;
+        public bool Лампочка2КомплектПрмДаб51БиВых
         {
             get { return Включен && _Лампочка2КомплектПрмДаб51БиВых; }
         }
 
-        private static bool _Лампочка2КомплектПрмДаб51БиВх;
-        public static bool Лампочка2КомплектПрмДаб51БиВх
+        private bool _Лампочка2КомплектПрмДаб51БиВх;
+        public bool Лампочка2КомплектПрмДаб51БиВх
         {
             get { return Включен && _Лампочка2КомплектПрмДаб51БиВх; }
         }
 
-        private static bool _Лампочка2КомплектПрмДаб51ВхСс;
-        public static bool Лампочка2КомплектПрмДаб51ВхСс
+        private bool _Лампочка2КомплектПрмДаб51ВхСс;
+        public bool Лампочка2КомплектПрмДаб51ВхСс
         {
             get { return Включен && _Лампочка2КомплектПрмДаб51ВхСс; }
         }
 
-        private static bool _Лампочка2КомплектПрмДаб5_1ВхКк;
-        public static bool Лампочка2КомплектПрмДаб5_1ВхКк
+        private bool _Лампочка2КомплектПрмДаб5_1ВхКк;
+        public bool Лампочка2КомплектПрмДаб5_1ВхКк
         {
             get { return Включен && _Лампочка2КомплектПрмДаб5_1ВхКк; }
         }
 
-        private static bool _Лампочка2КомплектПрмДаб5_1ВыхСс;
-        public static bool Лампочка2КомплектПрмДаб5_1ВыхСс
+        private bool _Лампочка2КомплектПрмДаб5_1ВыхСс;
+        public bool Лампочка2КомплектПрмДаб5_1ВыхСс
         {
             get { return Включен && _Лампочка2КомплектПрмДаб5_1ВыхСс; }
         }
 
-        private static bool _Лампочка2КомплектПрмДаб5_1ВыхКк;
-        public static bool Лампочка2КомплектПрмДаб5_1ВыхКк
+        private bool _Лампочка2КомплектПрмДаб5_1ВыхКк;
+        public bool Лампочка2КомплектПрмДаб5_1ВыхКк
         {
             get { return Включен && _Лампочка2КомплектПрмДаб5_1ВыхКк; }
         }
 
-        private static bool _Лампочка2КомплектПрмДаб5_1ВыхТч;
-        public static bool Лампочка2КомплектПрмДаб5_1ВыхТч
+        private bool _Лампочка2КомплектПрмДаб5_1ВыхТч;
+        public bool Лампочка2КомплектПрмДаб5_1ВыхТч
         {
             get { return Включен && _Лампочка2КомплектПрмДаб5_1ВыхТч; }
         }
 
-        private static bool _Лампочка2КомплектПрмДаб5ГВкл;
-        public static bool Лампочка2КомплектПрмДаб5ГВкл
+        private bool _Лампочка2КомплектПрмДаб5ГВкл;
+        public bool Лампочка2КомплектПрмДаб5ГВкл
         {
             get { return Включен && _Лампочка2КомплектПрмДаб5ГВкл; }
         }
 
-        private static IDisposable timer_Лампочка2КомплектПрмДаб5ГТСнх = null;
-        private static bool _Лампочка2КомплектПрмДаб5ГТСнх;
-        public static bool Лампочка2КомплектПрмДаб5ГТСнх
+        private IDisposable timer_Лампочка2КомплектПрмДаб5ГТСнх = null;
+        private bool _Лампочка2КомплектПрмДаб5ГТСнх;
+        public bool Лампочка2КомплектПрмДаб5ГТСнх
         {
             get { return Включен && _Лампочка2КомплектПрмДаб5ГТСнх; }
         }
 
-        private static IDisposable timer_Лампочка2КомплектПрмДаб5ГЦСнх = null;
-        private static bool _Лампочка2КомплектПрмДаб5ГЦСнх;
-        public static bool Лампочка2КомплектПрмДаб5ГЦСнх
+        private IDisposable timer_Лампочка2КомплектПрмДаб5ГЦСнх = null;
+        private bool _Лампочка2КомплектПрмДаб5ГЦСнх;
+        public bool Лампочка2КомплектПрмДаб5ГЦСнх
         {
             get { return Включен && _Лампочка2КомплектПрмДаб5ГЦСнх; }
         }
 
-        private static bool _Лампочка2КомплектПрмДаб5ГТакт;
-        public static bool Лампочка2КомплектПрмДаб5ГТакт
+        private bool _Лампочка2КомплектПрмДаб5ГТакт;
+        public bool Лампочка2КомплектПрмДаб5ГТакт
         {
             get { return Включен && _Лампочка2КомплектПрмДаб5ГТакт; }
         }
 
-        private static IDisposable timer_Лампочка2КомплектПрмДаб5ГИмТлф = null;
-        private static bool _Лампочка2КомплектПрмДаб5ГИмТлф;
-        public static bool Лампочка2КомплектПрмДаб5ГИмТлф
+        private IDisposable timer_Лампочка2КомплектПрмДаб5ГИмТлф = null;
+        private bool _Лампочка2КомплектПрмДаб5ГИмТлф;
+        public bool Лампочка2КомплектПрмДаб5ГИмТлф
         {
             get { return Включен && _Лампочка2КомплектПрмДаб5ГИмТлф; }
         }
 
-        private static IDisposable timer_Лампочка2КомплектПрмДаб5ГИмСс = null;
-        private static bool _Лампочка2КомплектПрмДаб5ГИмСс;
-        public static bool Лампочка2КомплектПрмДаб5ГИмСс
+        private IDisposable timer_Лампочка2КомплектПрмДаб5ГИмСс = null;
+        private bool _Лампочка2КомплектПрмДаб5ГИмСс;
+        public bool Лампочка2КомплектПрмДаб5ГИмСс
         {
             get { return Включен && _Лампочка2КомплектПрмДаб5ГИмСс; }
         }
 
-        private static IDisposable timer_Лампочка2КомплектПрмДаб5ГИмКк = null;
-        private static bool _Лампочка2КомплектПрмДаб5ГИмКк;
-        public static bool Лампочка2КомплектПрмДаб5ГИмКк
+        private IDisposable timer_Лампочка2КомплектПрмДаб5ГИмКк = null;
+        private bool _Лампочка2КомплектПрмДаб5ГИмКк;
+        public bool Лампочка2КомплектПрмДаб5ГИмКк
         {
             get { return Включен && _Лампочка2КомплектПрмДаб5ГИмКк; }
         }
 
-        private static bool _Лампочка2КомплектИмВкл;
-        public static bool Лампочка2КомплектИмВкл
+        private bool _Лампочка2КомплектИмВкл;
+        public bool Лампочка2КомплектИмВкл
         {
             get { return Включен && (ЛампочкаРежимПрмПрд1К || ЛампочкаРежимПрмПрд2К || ЛампочкаРежимПрм1К || ЛампочкаРежимПрм2К); }
         }
 
-        private static bool _Лампочка2КомплектИмТСнх;
-        public static bool Лампочка2КомплектИмТСнх
+        private bool _Лампочка2КомплектИмТСнх;
+        public bool Лампочка2КомплектИмТСнх
         {
             get { return Включен && _Лампочка2КомплектИмТСнх; }
         }
 
-        private static bool _Лампочка2КомплектИмТакт;
-        public static bool Лампочка2КомплектИмТакт
+        private bool _Лампочка2КомплектИмТакт;
+        public bool Лампочка2КомплектИмТакт
         {
             get { return Включен && _Лампочка2КомплектИмТакт; }
         }
         #endregion
 
-        private static bool _режимРучн;
-        private static bool _режимАвтом;
-        private static bool _кнопкаОбходВкл;
-        private static bool _кнопкаОбходВыкл;
-        private static bool _кнопкаРежимРучн;
-        private static bool _кнопкаРежимАвтом;
-        private static bool _кнопкаВыборПрмПрд1;
-        private static bool _кнопкаВыборПрмПрд2;
-        private static bool _комплектПрмПрд1;
-        private static bool _комплектПрмПрд2;
-        private static bool _обходВкл;
-        private static bool _кнопкаВыборБП1;
-        private static bool _кнопкаВыборБП2;
-        private static bool _комплектБП1;
-        private static bool _комплектБП2;
-        private static bool _кнопкаРежимВыкл1К;
-        private static bool _кнопкаРежимРабота1К;
-        private static bool _кнопкаРежимШлейф1К;
-        private static bool _кнопкаРежимПроверкаПрмПрд1К;
-        private static bool _кнопкаРежимПроверкаПрм1К;
-        private static bool _кнопкаРежимВыкл2К;
-        private static bool _кнопкаРежимРабота2К;
-        private static bool _кнопкаРежимШлейф2К;
-        private static bool _кнопкаРежимПроверкаПрмПрд2К;
-        private static bool _кнопкаРежимПроверкаПрм2К;
-        private static int _режимРаботы1К;
-        private static int _режимРаботы2К;
+        private bool _режимРучн;
+        private bool _режимАвтом;
+        private bool _кнопкаОбходВкл;
+        private bool _кнопкаОбходВыкл;
+        private bool _кнопкаРежимРучн;
+        private bool _кнопкаРежимАвтом;
+        private bool _кнопкаВыборПрмПрд1;
+        private bool _кнопкаВыборПрмПрд2;
+        private bool _комплектПрмПрд1;
+        private bool _комплектПрмПрд2;
+        private bool _обходВкл;
+        private bool _кнопкаВыборБП1;
+        private bool _кнопкаВыборБП2;
+        private bool _комплектБП1;
+        private bool _комплектБП2;
+        private bool _кнопкаРежимВыкл1К;
+        private bool _кнопкаРежимРабота1К;
+        private bool _кнопкаРежимШлейф1К;
+        private bool _кнопкаРежимПроверкаПрмПрд1К;
+        private bool _кнопкаРежимПроверкаПрм1К;
+        private bool _кнопкаРежимВыкл2К;
+        private bool _кнопкаРежимРабота2К;
+        private bool _кнопкаРежимШлейф2К;
+        private bool _кнопкаРежимПроверкаПрмПрд2К;
+        private bool _кнопкаРежимПроверкаПрм2К;
+        private int _режимРаботы1К;
+        private int _режимРаботы2К;
 
 
         #region Режимы и комплекты
 
-        public static bool ОбходВкл
+        public bool ОбходВкл
         {
             get { return _обходВкл; }
             set
@@ -507,7 +521,7 @@
             }
         }
 
-        public static bool РежимРучн
+        public bool РежимРучн
         {
             get { return _режимРучн; }
             set
@@ -518,7 +532,7 @@
             }
         }
 
-        public static bool РежимАвтом
+        public bool РежимАвтом
         {
             get { return _режимАвтом; }
             set
@@ -529,7 +543,7 @@
             }
         }
 
-        public static bool КомплектПрмПрд1
+        public bool КомплектПрмПрд1
         {
             get { return _комплектПрмПрд1; }
             set
@@ -540,7 +554,7 @@
             }
         }
 
-        public static bool КомплектПрмПрд2
+        public bool КомплектПрмПрд2
         {
             get { return _комплектПрмПрд2; }
             set
@@ -551,7 +565,7 @@
             }
         }
 
-        public static bool КомплектБП1
+        public bool КомплектБП1
         {
             get { return _комплектБП1; }
             set
@@ -562,7 +576,7 @@
             }
         }
 
-        public static bool КомплектБП2
+        public bool КомплектБП2
         {
             get { return _комплектБП2; }
             set
@@ -576,7 +590,7 @@
         /// <summary>
         /// 0 - выкл, 1 - работа, 2 - шлейф, 3 - проверка ПрмПрд, 4 - проверка Прм
         /// </summary>
-        public static int РежимРаботы1К
+        public int РежимРаботы1К
         {
             get { return _режимРаботы1К; }
             set
@@ -586,122 +600,122 @@
                 switch (_режимРаботы1К)
                 {
                     case 0:
-                    {
-                        ВыключитьЛампочкиВкл1Комплекта();
-                        СброситьВсеТаймерыИСвязанныеСНимиЛампочки1Комплекта();
-                        break;
-                    }
+                        {
+                            ВыключитьЛампочкиВкл1Комплекта();
+                            СброситьВсеТаймерыИСвязанныеСНимиЛампочки1Комплекта();
+                            break;
+                        }
                     case 1:
-                    {
-                        ВключитьЛампочкиВкл1Комплекта();
-                        break;
-                    }
+                        {
+                            ВключитьЛампочкиВкл1Комплекта();
+                            break;
+                        }
                     case 2:
-                    {
-                        ВключитьЛампочкиВкл1Комплекта();
-                        break;
-                    }
+                        {
+                            ВключитьЛампочкиВкл1Комплекта();
+                            break;
+                        }
                     case 3:
-                    {
-                        ВключитьЛампочкиВкл1Комплекта();
-
-                        timer_Лампочка1КомплектПрмДаб5ГИмКк?.Dispose();
-                        Лампочка1КомплектПрмДаб5ГИмКк = true;
-                        timer_Лампочка1КомплектПрмДаб5ГИмКк = EasyTimer.SetTimeout(() =>
                         {
-                            Лампочка1КомплектПрмДаб5ГИмКк = false;
-                            OnParameterChanged();
-                            timer_Лампочка1КомплектПрмДаб5ГИмКк.Dispose();
-                        }, 2000);
+                            ВключитьЛампочкиВкл1Комплекта();
 
-                        timer_Лампочка1КомплектПрмДаб5ГИмСс?.Dispose();
-                        Лампочка1КомплектПрмДаб5ГИмСс = true;
-                        timer_Лампочка1КомплектПрмДаб5ГИмСс = EasyTimer.SetTimeout(() =>
-                        {
-                            Лампочка1КомплектПрмДаб5ГИмСс = false;
-                            OnParameterChanged();
-                            timer_Лампочка1КомплектПрмДаб5ГИмСс.Dispose();
-                        }, 2000);
+                            timer_Лампочка1КомплектПрмДаб5ГИмКк?.Dispose();
+                            Лампочка1КомплектПрмДаб5ГИмКк = true;
+                            timer_Лампочка1КомплектПрмДаб5ГИмКк = EasyTimer.SetTimeout(() =>
+                            {
+                                Лампочка1КомплектПрмДаб5ГИмКк = false;
+                                OnParameterChanged();
+                                timer_Лампочка1КомплектПрмДаб5ГИмКк.Dispose();
+                            }, 2000);
 
-                        timer_Лампочка1КомплектПрмДаб5ГИмТлф?.Dispose();
-                        Лампочка1КомплектПрмДаб5ГИмТлф = true;
-                        timer_Лампочка1КомплектПрмДаб5ГИмТлф = EasyTimer.SetTimeout(() =>
-                        {
-                            Лампочка1КомплектПрмДаб5ГИмТлф = false;
-                            OnParameterChanged();
-                            timer_Лампочка1КомплектПрмДаб5ГИмТлф.Dispose();
-                        }, 4000);
+                            timer_Лампочка1КомплектПрмДаб5ГИмСс?.Dispose();
+                            Лампочка1КомплектПрмДаб5ГИмСс = true;
+                            timer_Лампочка1КомплектПрмДаб5ГИмСс = EasyTimer.SetTimeout(() =>
+                            {
+                                Лампочка1КомплектПрмДаб5ГИмСс = false;
+                                OnParameterChanged();
+                                timer_Лампочка1КомплектПрмДаб5ГИмСс.Dispose();
+                            }, 2000);
 
-                        timer_Лампочка1КомплектПрмДаб5ГЦСнх?.Dispose();
-                        timer_Лампочка1КомплектПрмДаб5ГЦСнх = EasyTimer.SetTimeout(() =>
-                        {
-                            Лампочка1КомплектПрмДаб5ГЦСнх = true;
-                            OnParameterChanged();
+                            timer_Лампочка1КомплектПрмДаб5ГИмТлф?.Dispose();
+                            Лампочка1КомплектПрмДаб5ГИмТлф = true;
+                            timer_Лампочка1КомплектПрмДаб5ГИмТлф = EasyTimer.SetTimeout(() =>
+                            {
+                                Лампочка1КомплектПрмДаб5ГИмТлф = false;
+                                OnParameterChanged();
+                                timer_Лампочка1КомплектПрмДаб5ГИмТлф.Dispose();
+                            }, 4000);
+
+                            timer_Лампочка1КомплектПрмДаб5ГЦСнх?.Dispose();
                             timer_Лампочка1КомплектПрмДаб5ГЦСнх = EasyTimer.SetTimeout(() =>
                             {
-                                Лампочка1КомплектПрмДаб5ГЦСнх = false;
+                                Лампочка1КомплектПрмДаб5ГЦСнх = true;
                                 OnParameterChanged();
-                                timer_Лампочка1КомплектПрмДаб5ГЦСнх.Dispose();
+                                timer_Лампочка1КомплектПрмДаб5ГЦСнх = EasyTimer.SetTimeout(() =>
+                                {
+                                    Лампочка1КомплектПрмДаб5ГЦСнх = false;
+                                    OnParameterChanged();
+                                    timer_Лампочка1КомплектПрмДаб5ГЦСнх.Dispose();
+                                }, 2000);
                             }, 2000);
-                        }, 2000);
 
-                        timer_Лампочка1КомплектПрмДаб5ГТСнх?.Dispose();
-                        Лампочка1КомплектПрмДаб5ГТСнх = true;
-                        timer_Лампочка1КомплектПрмДаб5ГТСнх = EasyTimer.SetTimeout(() =>
-                        {
-                            Лампочка1КомплектПрмДаб5ГТСнх = false;
-                            OnParameterChanged();
-                            timer_Лампочка1КомплектПрмДаб5ГТСнх.Dispose();
-                        }, 1000);
+                            timer_Лампочка1КомплектПрмДаб5ГТСнх?.Dispose();
+                            Лампочка1КомплектПрмДаб5ГТСнх = true;
+                            timer_Лампочка1КомплектПрмДаб5ГТСнх = EasyTimer.SetTimeout(() =>
+                            {
+                                Лампочка1КомплектПрмДаб5ГТСнх = false;
+                                OnParameterChanged();
+                                timer_Лампочка1КомплектПрмДаб5ГТСнх.Dispose();
+                            }, 1000);
 
-                        break;
-                    }
+                            break;
+                        }
                     case 4:
-                    {
-                        ВключитьЛампочкиВкл1Комплекта();
-
-                        timer_Лампочка1КомплектПрмДаб5ГИмКк?.Dispose();
-                        _лампочка1КомплектПрмДаб5ГИмКк = true;
-                        timer_Лампочка1КомплектПрмДаб5ГИмКк = EasyTimer.SetTimeout(() =>
                         {
-                            _лампочка1КомплектПрмДаб5ГИмКк = false;
-                            OnParameterChanged();
-                            timer_Лампочка1КомплектПрмДаб5ГИмКк.Dispose();
-                        }, 2000);
+                            ВключитьЛампочкиВкл1Комплекта();
 
-                        timer_Лампочка1КомплектПрмДаб5ГИмСс?.Dispose();
-                        _лампочка1КомплектПрмДаб5ГИмСс = true;
-                        timer_Лампочка1КомплектПрмДаб5ГИмСс = EasyTimer.SetTimeout(() =>
-                        {
-                            _лампочка1КомплектПрмДаб5ГИмСс = false;
-                            OnParameterChanged();
-                            timer_Лампочка1КомплектПрмДаб5ГИмСс.Dispose();
-                        }, 2000);
+                            timer_Лампочка1КомплектПрмДаб5ГИмКк?.Dispose();
+                            _лампочка1КомплектПрмДаб5ГИмКк = true;
+                            timer_Лампочка1КомплектПрмДаб5ГИмКк = EasyTimer.SetTimeout(() =>
+                            {
+                                _лампочка1КомплектПрмДаб5ГИмКк = false;
+                                OnParameterChanged();
+                                timer_Лампочка1КомплектПрмДаб5ГИмКк.Dispose();
+                            }, 2000);
 
-                        timer_Лампочка1КомплектПрмДаб5ГИмТлф?.Dispose();
-                        _лампочка1КомплектПрмДаб5ГИмТлф = true;
-                        timer_Лампочка1КомплектПрмДаб5ГИмТлф = EasyTimer.SetTimeout(() =>
-                        {
-                            _лампочка1КомплектПрмДаб5ГИмТлф = false;
-                            OnParameterChanged();
-                            timer_Лампочка1КомплектПрмДаб5ГИмТлф.Dispose();
-                        }, 4000);
+                            timer_Лампочка1КомплектПрмДаб5ГИмСс?.Dispose();
+                            _лампочка1КомплектПрмДаб5ГИмСс = true;
+                            timer_Лампочка1КомплектПрмДаб5ГИмСс = EasyTimer.SetTimeout(() =>
+                            {
+                                _лампочка1КомплектПрмДаб5ГИмСс = false;
+                                OnParameterChanged();
+                                timer_Лампочка1КомплектПрмДаб5ГИмСс.Dispose();
+                            }, 2000);
 
-                        timer_Лампочка1КомплектПрмДаб5ГЦСнх?.Dispose();
-                        timer_Лампочка1КомплектПрмДаб5ГЦСнх = EasyTimer.SetTimeout(() =>
-                        {
-                            _лампочка1КомплектПрмДаб5ГцСнх = true;
-                            OnParameterChanged();
+                            timer_Лампочка1КомплектПрмДаб5ГИмТлф?.Dispose();
+                            _лампочка1КомплектПрмДаб5ГИмТлф = true;
+                            timer_Лампочка1КомплектПрмДаб5ГИмТлф = EasyTimer.SetTimeout(() =>
+                            {
+                                _лампочка1КомплектПрмДаб5ГИмТлф = false;
+                                OnParameterChanged();
+                                timer_Лампочка1КомплектПрмДаб5ГИмТлф.Dispose();
+                            }, 4000);
+
+                            timer_Лампочка1КомплектПрмДаб5ГЦСнх?.Dispose();
                             timer_Лампочка1КомплектПрмДаб5ГЦСнх = EasyTimer.SetTimeout(() =>
                             {
-                                _лампочка1КомплектПрмДаб5ГцСнх = false;
+                                _лампочка1КомплектПрмДаб5ГцСнх = true;
                                 OnParameterChanged();
-                                timer_Лампочка1КомплектПрмДаб5ГЦСнх.Dispose();
+                                timer_Лампочка1КомплектПрмДаб5ГЦСнх = EasyTimer.SetTimeout(() =>
+                                {
+                                    _лампочка1КомплектПрмДаб5ГцСнх = false;
+                                    OnParameterChanged();
+                                    timer_Лампочка1КомплектПрмДаб5ГЦСнх.Dispose();
+                                }, 2000);
                             }, 2000);
-                        }, 2000);
 
-                        break;
-                    }
+                            break;
+                        }
                 }
 
                 OnParameterChanged();
@@ -712,7 +726,7 @@
         /// <summary>
         /// 0 - выкл, 1 - работа, 2 - шлейф, 3 - проверка ПрмПрд, 4 - проверка Прм
         /// </summary>
-        public static int РежимРаботы2К
+        public int РежимРаботы2К
         {
             get { return _режимРаботы2К; }
             set
@@ -858,7 +872,7 @@
 
         #region Кнопки
 
-        public static bool КнопкаОбходВкл
+        public bool КнопкаОбходВкл
         {
             get { return _кнопкаОбходВкл; }
             set
@@ -869,7 +883,7 @@
             }
         }
 
-        public static bool КнопкаОбходВыкл
+        public bool КнопкаОбходВыкл
         {
             get { return _кнопкаОбходВыкл; }
             set
@@ -880,7 +894,7 @@
             }
         }
 
-        public static bool КнопкаРежимРучн
+        public bool КнопкаРежимРучн
         {
             get { return _кнопкаРежимРучн; }
             set
@@ -891,7 +905,7 @@
             }
         }
 
-        public static bool КнопкаРежимАвтом
+        public bool КнопкаРежимАвтом
         {
             get { return _кнопкаРежимАвтом; }
             set
@@ -902,7 +916,7 @@
             }
         }
 
-        public static bool КнопкаВыборПрмПрд1
+        public bool КнопкаВыборПрмПрд1
         {
             get { return _кнопкаВыборПрмПрд1; }
             set
@@ -916,7 +930,7 @@
             }
         }
 
-        public static bool КнопкаВыборПрмПрд2
+        public bool КнопкаВыборПрмПрд2
         {
             get { return _кнопкаВыборПрмПрд2; }
             set
@@ -930,7 +944,7 @@
             }
         }
 
-        public static bool КнопкаВыборБП1
+        public bool КнопкаВыборБП1
         {
             get { return _кнопкаВыборБП1; }
             set
@@ -941,7 +955,7 @@
             }
         }
 
-        public static bool КнопкаВыборБП2
+        public bool КнопкаВыборБП2
         {
             get { return _кнопкаВыборБП2; }
             set
@@ -952,7 +966,7 @@
             }
         }
 
-        public static bool КнопкаРежимВыкл1К
+        public bool КнопкаРежимВыкл1К
         {
             get { return _кнопкаРежимВыкл1К; }
             set
@@ -963,7 +977,7 @@
             }
         }
 
-        public static bool КнопкаРежимРабота1К
+        public bool КнопкаРежимРабота1К
         {
             get { return _кнопкаРежимРабота1К; }
             set
@@ -974,7 +988,7 @@
             }
         }
 
-        public static bool КнопкаРежимШлейф1К
+        public bool КнопкаРежимШлейф1К
         {
             get { return _кнопкаРежимШлейф1К; }
             set
@@ -985,7 +999,7 @@
             }
         }
 
-        public static bool КнопкаРежимПроверкаПрмПрд1К
+        public bool КнопкаРежимПроверкаПрмПрд1К
         {
             get { return _кнопкаРежимПроверкаПрмПрд1К; }
             set
@@ -996,7 +1010,7 @@
             }
         }
 
-        public static bool КнопкаРежимПроверкаПрм1К
+        public bool КнопкаРежимПроверкаПрм1К
         {
             get { return _кнопкаРежимПроверкаПрм1К; }
             set
@@ -1007,7 +1021,7 @@
             }
         }
 
-        public static bool КнопкаРежимВыкл2К
+        public bool КнопкаРежимВыкл2К
         {
             get { return _кнопкаРежимВыкл2К; }
             set
@@ -1018,7 +1032,7 @@
             }
         }
 
-        public static bool КнопкаРежимРабота2К
+        public bool КнопкаРежимРабота2К
         {
             get { return _кнопкаРежимРабота2К; }
             set
@@ -1029,7 +1043,7 @@
             }
         }
 
-        public static bool КнопкаРежимШлейф2К
+        public bool КнопкаРежимШлейф2К
         {
             get { return _кнопкаРежимШлейф2К; }
             set
@@ -1040,7 +1054,7 @@
             }
         }
 
-        public static bool КнопкаРежимПроверкаПрмПрд2К
+        public bool КнопкаРежимПроверкаПрмПрд2К
         {
             get { return _кнопкаРежимПроверкаПрмПрд2К; }
             set
@@ -1051,7 +1065,7 @@
             }
         }
 
-        public static bool КнопкаРежимПроверкаПрм2К
+        public bool КнопкаРежимПроверкаПрм2К
         {
             get { return _кнопкаРежимПроверкаПрм2К; }
             set
@@ -1067,7 +1081,7 @@
 
         #region Другие функции
 
-        //private static void SetTimeoutForLamp(ref IDisposable timerLamp, string lampName, int timeout)
+        //private  void SetTimeoutForLamp(ref IDisposable timerLamp, string lampName, int timeout)
         //{
         //    timerLamp?.Dispose();
         //    var lampPropInfo = typeof (DAB_5Parameters).GetProperty(lampName);
@@ -1082,33 +1096,33 @@
         //    , timeout);
         //}
 
-        private static void ВключитьЛампочкиВкл1Комплекта()
+        private void ВключитьЛампочкиВкл1Комплекта()
         {
             _лампочка1КомплектПрдДаб5ГВкл = true;
             _лампочка1КомплектПрмДаб5ГВкл = true;
         }
 
-        private static void ВключитьЛампочкиВкл2Комплекта()
+        private void ВключитьЛампочкиВкл2Комплекта()
         {
             _Лампочка2КомплектПрдДаб5ГВкл = true;
             _Лампочка2КомплектПрмДаб5ГВкл = true;
         }
 
 
-        private static void ВыключитьЛампочкиВкл1Комплекта()
+        private void ВыключитьЛампочкиВкл1Комплекта()
         {
             _лампочка1КомплектПрдДаб5ГВкл = false;
             _лампочка1КомплектПрмДаб5ГВкл = false;
         }
 
-        private static void ВыключитьЛампочкиВкл2Комплекта()
+        private void ВыключитьЛампочкиВкл2Комплекта()
         {
             _Лампочка2КомплектПрдДаб5ГВкл = false;
             _Лампочка2КомплектПрмДаб5ГВкл = false;
         }
 
 
-        private static void СброситьВсеТаймерыИСвязанныеСНимиЛампочки1Комплекта()
+        private void СброситьВсеТаймерыИСвязанныеСНимиЛампочки1Комплекта()
         {
             //if (_timerЛампочка1КомплектПрмДаб5ГИмКк != null)
             //    _timerЛампочка1КомплектПрмДаб5ГИмКк.Dispose();
@@ -1131,7 +1145,7 @@
             _лампочка1КомплектПрмДаб5ГтСнх = false;
         }
 
-        private static void СброситьВсеТаймерыИСвязанныеСНимиЛампочки2Комплекта()
+        private void СброситьВсеТаймерыИСвязанныеСНимиЛампочки2Комплекта()
         {
             if (timer_Лампочка2КомплектПрмДаб5ГИмКк != null)
                 timer_Лампочка2КомплектПрмДаб5ГИмКк.Dispose();
@@ -1155,7 +1169,7 @@
         }
         #endregion
 
-        private static void TurnOff()
+        private void TurnOff()
         {
             ВыключитьЛампочкиВкл1Комплекта();
             ВыключитьЛампочкиВкл2Комплекта();
@@ -1163,7 +1177,7 @@
             СброситьВсеТаймерыИСвязанныеСНимиЛампочки2Комплекта();
         }
 
-        public static void SetDefaultParameters()
+        public void SetDefaultParameters()
         {
             РежимРучн = true;
             КомплектПрмПрд1 = true;
@@ -1173,14 +1187,14 @@
         }
 
         public delegate void ParameterChangedHandler();
-        public static event ParameterChangedHandler ParameterChanged;
+        public event ParameterChangedHandler ParameterChanged;
 
-        private static void OnParameterChanged()
+        private void OnParameterChanged()
         {
             ParameterChanged?.Invoke();
         }
 
-        public static void ResetParameters()
+        public void ResetParameters()
         {
             OnParameterChanged();
         }

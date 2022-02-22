@@ -8,9 +8,24 @@
 
     using System.Collections.Generic;
 
-    public static class MSHUParameters
+    public class MSHUParameters
     {
-        public static bool Включен
+        private static MSHUParameters instance;
+        public static MSHUParameters getInstance()
+        {
+            if (instance == null)
+                instance = new MSHUParameters();
+            return instance;
+        }
+        public delegate void TestModuleHandler(JsonAdapter.ActionStation action);
+        public event TestModuleHandler Action;
+        private void OnAction(string name, int value)
+        {
+            var action = new JsonAdapter.ActionStation(name, value);
+            Action?.Invoke(action);
+        }
+
+        public bool Включен
         {
             get { return N15Parameters.getInstance().ТумблерМШУ; }
         }
@@ -20,7 +35,7 @@
         /// Значение выходного сигнала, как после блока А304, т.к. его включение зависит от включения МШУ.
         /// Начало приемного тракта
         /// </summary>
-        public static BroadcastSignal ВыходнойСигнал
+        public BroadcastSignal ВыходнойСигнал
         {
             get
             {

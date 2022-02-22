@@ -14,9 +14,23 @@ namespace R440O.R440OForms.N15Inside
 
     public class N15InsideParameters
     {
-        public static ITestModule TestModuleRef { get; set; }
+        private static N15InsideParameters instance;
+        public static N15InsideParameters getInstance()
+        {
+            if (instance == null)
+                instance = new N15InsideParameters();
+            return instance;
+        }
+        public delegate void TestModuleHandler(JsonAdapter.ActionStation action);
+        public event TestModuleHandler Action;
+        private void OnAction(string name, int value)
+        {
+            var action = new JsonAdapter.ActionStation(name, value);
+            Action?.Invoke(action);
+        }
+
         #region Работа блока
-        public static bool Включен
+        public  bool Включен
         {
             get
             {
@@ -28,31 +42,31 @@ namespace R440O.R440OForms.N15Inside
         /// Выходной сигнал передающего тракта, проходит если выбрана необходимая скорость. Задаёт тип модуляции сигнала.
         /// ПУЛ на Н15 должен быть включен.
         /// </summary>
-        public static Signal ВыходПередающегоТракта
+        public  Signal ВыходПередающегоТракта
         {
             get
             {
                 if (!Включен) return null;
 
-                if (N15Parameters.getInstance().ТумблерТлфТлгПрд && !PU_K1_1Parameters.КулонК1Подключен)
+                if (N15Parameters.getInstance().ТумблерТлфТлгПрд && !PU_K1_1Parameters.getInstance().КулонК1Подключен)
                 {    
-                    if (N18_MParameters.ПереключательПРД == 2 && A1Parameters.ВыходнойСигнал != null &&
-                    Signal.IsEquivalentSpeed(СкоростьПередачи, A1Parameters.ВыходнойСигнал.GroupSpeed))
+                    if (N18_MParameters.getInstance().ПереключательПРД == 2 && A1Parameters.getInstance().ВыходнойСигнал != null &&
+                    Signal.IsEquivalentSpeed(СкоростьПередачи, A1Parameters.getInstance().ВыходнойСигнал.GroupSpeed))
                     {
-                        var signal = A1Parameters.ВыходнойСигнал;
+                        var signal = A1Parameters.getInstance().ВыходнойСигнал;
                         signal.Modulation = МодуляцияПередачи;
                         signal.GroupSpeed = СкоростьПередачи;
                         return signal;
                     }
-                    if (N18_MParameters.ПереключательПРД == 3 &&
-                        N18_MParameters.ПереключательПрдБма12 == 7 && BMA_M_1Parameters.СигналСБМБ != null)
+                    if (N18_MParameters.getInstance().ПереключательПРД == 3 &&
+                        N18_MParameters.getInstance().ПереключательПрдБма12 == 7 && BMA_M_1Parameters.getInstance().СигналСБМБ != null)
                     {
                         var signal = new Signal { GroupSpeed = СкоростьПередачи, Modulation = МодуляцияПередачи };
                         signal.Elements = new List<SignalElement>()
                         {
                             new SignalElement(new[] { -1, 1.2 } )
                         };
-                        signal.Elements[0].SetInformationInChanelByNumber(1, BMA_M_1Parameters.СигналСБМБ);
+                        signal.Elements[0].SetInformationInChanelByNumber(1, BMA_M_1Parameters.getInstance().СигналСБМБ);
                         return signal;
                     }
                     return new Signal { GroupSpeed = СкоростьПередачи, Modulation = МодуляцияПередачи };
@@ -66,7 +80,7 @@ namespace R440O.R440OForms.N15Inside
         /// Выходной сигнал передающего тракта, проходит если выбраны необходимая скорость и модуляция. 
         /// ПУЛ на Н15 должен быть включен.
         /// </summary>
-        public static Signal ВыходПриемногоТракта
+        public  Signal ВыходПриемногоТракта
         {
             get
             {
@@ -82,12 +96,12 @@ namespace R440O.R440OForms.N15Inside
         #endregion
 
         #region Тумблеры
-        private static Модуляция _тумблерПУЛ480ПРМ_1 = Модуляция.ЧТ;
-        private static Модуляция _тумблерПУЛ480ПРМ_2 = Модуляция.ЧТ;
-        private static Модуляция _тумблерПУЛ48ПРД_1 = Модуляция.ОФТ;
-        private static Модуляция _тумблерПУЛ48ПРД_2 = Модуляция.ОФТ;
+        private  Модуляция _тумблерПУЛ480ПРМ_1 = Модуляция.ЧТ;
+        private  Модуляция _тумблерПУЛ480ПРМ_2 = Модуляция.ЧТ;
+        private  Модуляция _тумблерПУЛ48ПРД_1 = Модуляция.ОФТ;
+        private  Модуляция _тумблерПУЛ48ПРД_2 = Модуляция.ОФТ;
 
-        public static Модуляция МодуляцияПриема
+        public  Модуляция МодуляцияПриема
         {
             get
             {
@@ -95,28 +109,28 @@ namespace R440O.R440OForms.N15Inside
             }
         }
 
-        public static Модуляция ТумблерПУЛ480ПРМ_1
+        public  Модуляция ТумблерПУЛ480ПРМ_1
         {
             get { return _тумблерПУЛ480ПРМ_1; }
             set
             {
                 _тумблерПУЛ480ПРМ_1 = value;
-                OnParameterChanged();
+                getInstance().OnParameterChanged();
                 N15Parameters.getInstance().ResetDiscret();
             }
         }
 
-        public static Модуляция ТумблерПУЛ480ПРМ_2
+        public  Модуляция ТумблерПУЛ480ПРМ_2
         {
             get { return _тумблерПУЛ480ПРМ_2; }
             set
             {
                 _тумблерПУЛ480ПРМ_2 = value;
-                OnParameterChanged();
+                getInstance().OnParameterChanged();
             }
         }
 
-        public static Модуляция МодуляцияПередачи
+        public  Модуляция МодуляцияПередачи
         {
             get
             {
@@ -124,31 +138,31 @@ namespace R440O.R440OForms.N15Inside
             }
         }
 
-        public static Модуляция ТумблерПУЛ48ПРД_1
+        public  Модуляция ТумблерПУЛ48ПРД_1
         {
             get { return _тумблерПУЛ48ПРД_1; }
             set
             {
                 _тумблерПУЛ48ПРД_1 = value;
-                OnParameterChanged();
+                getInstance().OnParameterChanged();
                 N15Parameters.getInstance().ResetDiscret();
             }
         }
 
-        public static Модуляция ТумблерПУЛ48ПРД_2
+        public  Модуляция ТумблерПУЛ48ПРД_2
         {
             get { return _тумблерПУЛ48ПРД_2; }
             set
             {
                 _тумблерПУЛ48ПРД_2 = value;
-                OnParameterChanged();
+                getInstance().OnParameterChanged();
             }
         }
         #endregion
 
         #region Переключатели
 
-        private static double СкоростьПриема
+        private  double СкоростьПриема
         {
             get
             {
@@ -177,7 +191,7 @@ namespace R440O.R440OForms.N15Inside
             }
         }
 
-        private static int _переключательПУЛ480ПРМ_1 = 1;
+        private  int _переключательПУЛ480ПРМ_1 = 1;
 
         /// <summary>
         /// 1 - 1.2,
@@ -190,7 +204,7 @@ namespace R440O.R440OForms.N15Inside
         /// 8 - 240,
         /// 9 - 480
         /// </summary>
-        public static int ПереключательПУЛ480ПРМ_1
+        public  int ПереключательПУЛ480ПРМ_1
         {
             get { return _переключательПУЛ480ПРМ_1; }
 
@@ -199,13 +213,13 @@ namespace R440O.R440OForms.N15Inside
                 if (value > 0 && value < 10)
                 {
                     _переключательПУЛ480ПРМ_1 = value;
-                    OnParameterChanged();
+                    getInstance().OnParameterChanged();
                     N15Parameters.getInstance().ResetDiscret();
                 }
             }
         }
 
-        private static int _переключательПУЛ480ПРМ_2 = 1;
+        private  int _переключательПУЛ480ПРМ_2 = 1;
 
         /// <summary>
         /// 1 - 1.2,
@@ -218,7 +232,7 @@ namespace R440O.R440OForms.N15Inside
         /// 8 - 240,
         /// 9 - 480
         /// </summary>
-        public static int ПереключательПУЛ480ПРМ_2
+        public  int ПереключательПУЛ480ПРМ_2
         {
             get
             {
@@ -230,13 +244,13 @@ namespace R440O.R440OForms.N15Inside
                 if (value > 0 && value < 10)
                 {
                     _переключательПУЛ480ПРМ_2 = value;
-                    OnParameterChanged();
+                    getInstance().OnParameterChanged();
                     N15Parameters.getInstance().ResetDiscret();
                 }
             }
         }
 
-        private static double СкоростьПередачи
+        private  double СкоростьПередачи
         {
             get
             {
@@ -258,7 +272,7 @@ namespace R440O.R440OForms.N15Inside
             }
         }
 
-        private static int _переключательПУЛ48ПРД_1 = 1;
+        private  int _переключательПУЛ48ПРД_1 = 1;
 
         /// <summary>
         /// 1 - 1.2,
@@ -267,7 +281,7 @@ namespace R440O.R440OForms.N15Inside
         /// 4 - 5.2,
         /// 5 - 48
         /// </summary>
-        public static int ПереключательПУЛ48ПРД_1
+        public  int ПереключательПУЛ48ПРД_1
         {
             get { return _переключательПУЛ48ПРД_1; }
 
@@ -276,13 +290,13 @@ namespace R440O.R440OForms.N15Inside
                 if (value > 0 && value < 6)
                 {
                     _переключательПУЛ48ПРД_1 = value;
-                    OnParameterChanged();
+                    getInstance().OnParameterChanged();
                     N15Parameters.getInstance().ResetDiscret();
                 }
             }
         }
 
-        private static int _переключательПУЛ48ПРД_2 = 1;
+        private  int _переключательПУЛ48ПРД_2 = 1;
 
         /// <summary>
         /// 1 - 1.2,
@@ -291,7 +305,7 @@ namespace R440O.R440OForms.N15Inside
         /// 4 - 5.2,
         /// 5 - 48
         /// </summary>
-        public static int ПереключательПУЛ48ПРД_2
+        public  int ПереключательПУЛ48ПРД_2
         {
             get { return _переключательПУЛ48ПРД_2; }
 
@@ -300,27 +314,18 @@ namespace R440O.R440OForms.N15Inside
                 if (value > 0 && value < 6)
                 {
                     _переключательПУЛ48ПРД_2 = value;
-                    OnParameterChanged();
+                    getInstance().OnParameterChanged();
                     N15Parameters.getInstance().ResetDiscret();
                 }
             }
         }
         #endregion
-
-        public delegate void TestModuleHandler(ITestModule module);
-        public static event TestModuleHandler Action;
-        public delegate void ParameterChangedHandler();
-        public static event ParameterChangedHandler ParameterChanged;
-
-        private static void OnParameterChanged()
+        private void OnParameterChanged()
         {
             ParameterChanged?.Invoke();
-            A205M_1Parameters.getInstance().ResetParameters();
-            OnAction();
         }
-        private static void OnAction()
-        {
-            Action?.Invoke(TestModuleRef);
-        }
+        public delegate void ParameterChangedHandler();
+        public  event ParameterChangedHandler ParameterChanged;
+
     }
 }

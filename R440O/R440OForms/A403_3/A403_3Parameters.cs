@@ -4,11 +4,26 @@ namespace R440O.R440OForms.A403_3
 {
     class A403_3Parameters
     {
-        private static bool _тумблерКомплект;
-
-        public static bool Включен
+        private static A403_3Parameters instance;
+        public static A403_3Parameters getInstance()
         {
-            get { return A403_1Parameters.Включен; }
+            if (instance == null)
+                instance = new A403_3Parameters();
+            return instance;
+        }
+        public delegate void TestModuleHandler(JsonAdapter.ActionStation action);
+        public event TestModuleHandler Action;
+        private void OnAction(string name, int value)
+        {
+            var action = new JsonAdapter.ActionStation(name, value);
+            Action?.Invoke(action);
+        }
+
+        private bool _тумблерКомплект;
+
+        public bool Включен
+        {
+            get { return A403_1Parameters.getInstance().Включен; }
         }
 
         ////Тумблеры
@@ -16,31 +31,31 @@ namespace R440O.R440OForms.A403_3
         /// Определяет номер комплекта, выбранный на блоке.
         /// true - 1 комплект; false - 2 комплект
         /// </summary>
-        public static bool ТублерКомплект
+        public bool ТублерКомплект
         {
             get { return _тумблерКомплект; }
             set
             {
                 if (Включен)
-                    A403_1Parameters.Комплект = !A403_1Parameters.Комплект;
+                    A403_1Parameters.getInstance().Комплект = !A403_1Parameters.getInstance().Комплект;
                 _тумблерКомплект = value;
 
                 OnParameterChanged();
-                A403_1Parameters.ResetParameters();
+                A403_1Parameters.getInstance().ResetParameters();
             }
         }
 
         public delegate void ParameterChangedHandler();
 
-        public static event ParameterChangedHandler ParameterChanged;
+        public event ParameterChangedHandler ParameterChanged;
 
-        private static void OnParameterChanged()
+        private void OnParameterChanged()
         {
             var handler = ParameterChanged;
             if (handler != null) handler();
         }
 
-        public static void ResetParameters()
+        public void ResetParameters()
         {
             OnParameterChanged();
         }

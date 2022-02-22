@@ -29,8 +29,8 @@ namespace R440O.R440OForms.A205M_1
         {
             get
             {
-                return NKN_1Parameters.ПолноеВключение;
-                // && K05M_01Parameters.СтрелкаУровеньВЗакрашенномСекторе;
+                return NKN_1Parameters.getInstance().ПолноеВключение;
+                // && K05M_01Parameters.getInstance().СтрелкаУровеньВЗакрашенномСекторе;
             }
         }
 
@@ -38,8 +38,8 @@ namespace R440O.R440OForms.A205M_1
         {
             get
             {
-                return Включен && ((N18_MParameters.ПереключательВходК121 == 1) ||
-                       ((N18_MParameters.ПереключательВходК121 != 1) && PU_K1_1Parameters.ПереключателиВыставленыВерно /*PU_K1_2Parameters.ПереключателиВыставленыВерно*/));
+                return Включен && ((N18_MParameters.getInstance().ПереключательВходК121 == 1) ||
+                       ((N18_MParameters.getInstance().ПереключательВходК121 != 1) && PU_K1_1Parameters.getInstance().ПереключателиВыставленыВерно /*PU_K1_2Parameters.ПереключателиВыставленыВерно*/));
             }
         }
 
@@ -47,7 +47,7 @@ namespace R440O.R440OForms.A205M_1
 
         public bool КулонК2Подключен
         {
-            //get { return PU_K1_2Parameters.Включен && N18_M_H28Parameters.АктивныйКабель == 2; }
+            //get { return PU_K1_2Parameters.Включен && N18_M_H28Parameters.getInstance().АктивныйКабель == 2; }
             get { return false; }
         }
 
@@ -65,19 +65,19 @@ namespace R440O.R440OForms.A205M_1
                                  ПереключательВолнаX10 * 10 +
                                  ПереключательВолнаX1;
 
-                if (Включен && wave >= 1500 && wave <= 51499 && N15InsideParameters.ВыходПередающегоТракта != null)
+                if (Включен && wave >= 1500 && wave <= 51499 && N15InsideParameters.getInstance().ВыходПередающегоТракта != null)
                 {
-                    var signal = N15InsideParameters.ВыходПередающегоТракта;
+                    var signal = N15InsideParameters.getInstance().ВыходПередающегоТракта;
                     signal.Level = 20;
                     signal.Wave = wave;
                     signal.Frequency = 5710000 + 10 * wave;
-                    //if (Работа && (N18_MParameters.ПереключательВходК121 != 1) && PU_K1_1Parameters.Включен)
-                    if (PU_K1_1Parameters.КулонК1Подключен)
+                    //if (Работа && (N18_MParameters.getInstance().ПереключательВходК121 != 1) && PU_K1_1Parameters.getInstance().Включен)
+                    if (PU_K1_1Parameters.getInstance().КулонК1Подключен)
                     {
-                        signal.KulonSignal = K05M_01Parameters.Сигнал;
+                        signal.KulonSignal = K05M_01Parameters.getInstance().Сигнал;
                         // сомтительно
-                        signal.Frequency += K05M_01Parameters.Сигнал.Frequency - K04M_01Parameters.НачальнаяЧастотаПРД;
-                        signal.Level = K05M_01Parameters.Сигнал.Level;
+                        signal.Frequency += K05M_01Parameters.getInstance().Сигнал.Frequency - K04M_01Parameters.getInstance().НачальнаяЧастотаПРД;
+                        signal.Level = K05M_01Parameters.getInstance().Сигнал.Level;
                     }
                     switch (ПереключательВидРаботы)
                     {
@@ -277,16 +277,16 @@ namespace R440O.R440OForms.A205M_1
                         case 7:
                             return 30;
                         case 1:
-                            return NKN_1Parameters.ПолноеВключение ? 20 : 0;
+                            return NKN_1Parameters.getInstance().ПолноеВключение ? 20 : 0;
                         case 2:
-                            return NKN_1Parameters.ПолноеВключение ? 26 : 0;
+                            return NKN_1Parameters.getInstance().ПолноеВключение ? 26 : 0;
                         case 3:
                             return Включен ? 20 : 0;
                         case 5:
                         case 6:
                         case 8:
                         case 9:
-                            return NKN_1Parameters.ПолноеВключение ? 24 : 0;
+                            return NKN_1Parameters.getInstance().ПолноеВключение ? 24 : 0;
                         case 10:
                             return Включен ? 24 : 0;
                     }

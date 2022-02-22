@@ -8,10 +8,25 @@ namespace R440O.R440OForms.B2_2
     using N15;
 using ShareTypes.SignalTypes;
 
-    static class B2_2Parameters
+    class B2_2Parameters
     {
+        private static B2_2Parameters instance;
+        public static B2_2Parameters getInstance()
+        {
+            if (instance == null)
+                instance = new B2_2Parameters();
+            return instance;
+        }
+        public delegate void TestModuleHandler(JsonAdapter.ActionStation action);
+        public event TestModuleHandler Action;
+        private void OnAction(string name, int value)
+        {
+            var action = new JsonAdapter.ActionStation(name, value);
+            Action?.Invoke(action);
+        }
+
         #region Работа блока
-        public static bool Включен
+        public bool Включен
         {
             get
             {
@@ -20,23 +35,23 @@ using ShareTypes.SignalTypes;
             }
         }
 
-        public static Signal ВходнойСигнал
+        public Signal ВходнойСигнал
         {
             get
             {
-                if (Включен && B3_2Parameters.ВыходнойСигнал1 != null && N18_MParameters.ПереключательВходБ22 == 1)
-                    return B3_2Parameters.ВыходнойСигнал1;
-                if (Включен && B3_1Parameters.ВыходнойСигнал2 != null && N18_MParameters.ПереключательВходБ22 == 2)
-                    return B3_1Parameters.ВыходнойСигнал1;
+                if (Включен && B3_2Parameters.getInstance().ВыходнойСигнал1 != null && N18_MParameters.getInstance().ПереключательВходБ22 == 1)
+                    return B3_2Parameters.getInstance().ВыходнойСигнал1;
+                if (Включен && B3_1Parameters.getInstance().ВыходнойСигнал2 != null && N18_MParameters.getInstance().ПереключательВходБ22 == 2)
+                    return B3_1Parameters.getInstance().ВыходнойСигнал1;
                 if (Включен &&
-                    N15InsideParameters.ВыходПриемногоТракта != null &&
-                    N18_MParameters.ПереключательПРМ2 == 2)
-                    return N15InsideParameters.ВыходПриемногоТракта;
+                    N15InsideParameters.getInstance().ВыходПриемногоТракта != null &&
+                    N18_MParameters.getInstance().ПереключательПРМ2 == 2)
+                    return N15InsideParameters.getInstance().ВыходПриемногоТракта;
                 return null;
             }
         }
 
-        public static Signal ВыходнойСигнал1
+        public Signal ВыходнойСигнал1
         {
             get
             {
@@ -47,7 +62,7 @@ using ShareTypes.SignalTypes;
             }
         }
 
-        public static Signal ВыходнойСигнал2
+        public Signal ВыходнойСигнал2
         {
             get
             {
@@ -62,12 +77,12 @@ using ShareTypes.SignalTypes;
 
         #region Лампочки
 
-        public static bool ЛампочкаБОЧ { get; set; }
+        public bool ЛампочкаБОЧ { get; set; }
 
-        public static bool ЛампочкаПУЛ_1 { get { return Включен && ВходнойСигнал == null; } }
-        public static bool ЛампочкаПУЛ_2 { get { return Включен && !ЛампочкаПУЛ_1; } }
+        public bool ЛампочкаПУЛ_1 { get { return Включен && ВходнойСигнал == null; } }
+        public bool ЛампочкаПУЛ_2 { get { return Включен && !ЛампочкаПУЛ_1; } }
 
-        public static bool ЛампочкаПрРПрС_1
+        public bool ЛампочкаПрРПрС_1
         {
             get
             {
@@ -75,38 +90,38 @@ using ShareTypes.SignalTypes;
             }
         }
 
-        public static bool ЛампочкаПрРПрС_2
+        public bool ЛампочкаПрРПрС_2
         {
             get
             {
                 if (Включен && ВходнойСигнал != null)
                     return (ВходнойСигнал.Synchronization &&
-                            (B3_2Parameters.КолодкаОКпр1Син && N18_MParameters.ПереключательВходБ22 == 1) ||
-                            (B3_1Parameters.КолодкаОКпр2Син && N18_MParameters.ПереключательВходБ22 == 2)) ||
+                            (B3_2Parameters.getInstance().КолодкаОКпр1Син && N18_MParameters.getInstance().ПереключательВходБ22 == 1) ||
+                            (B3_1Parameters.getInstance().КолодкаОКпр2Син && N18_MParameters.getInstance().ПереключательВходБ22 == 2)) ||
                            (!ВходнойСигнал.Synchronization &&
-                            (B3_2Parameters.КолодкаОКпр1Ас && N18_MParameters.ПереключательВходБ22 == 1) ||
-                            (B3_1Parameters.КолодкаОКпр2Ас && N18_MParameters.ПереключательВходБ22 == 2));
+                            (B3_2Parameters.getInstance().КолодкаОКпр1Ас && N18_MParameters.getInstance().ПереключательВходБ22 == 1) ||
+                            (B3_1Parameters.getInstance().КолодкаОКпр2Ас && N18_MParameters.getInstance().ПереключательВходБ22 == 2));
                 return false;
             }
         }
 
-        public static bool ЛампочкаПрРПрС_Авар
+        public bool ЛампочкаПрРПрС_Авар
         {
             get { return Включен && ЛампочкаПрРПрС_1 || (ЛампочкаПрРПрС_2 && КнопкаБК1 == 0 && КнопкаБК2 == 0); }
         }
 
-        public static bool ЛампочкаТЛГпр { get; set; }
-        public static bool ЛампочкаТКСпр2 { get; set; }
-        public static bool ЛампочкаДФАПЧ21
+        public bool ЛампочкаТЛГпр { get; set; }
+        public bool ЛампочкаТКСпр2 { get; set; }
+        public bool ЛампочкаДФАПЧ21
         {
             get { return Включен && (ЛампочкаПрРПрС_Авар || ЛампочкаПрРПрС_1); }
         }
-        public static bool ЛампочкаПрТС1_1
+        public bool ЛампочкаПрТС1_1
         {
             get { return Включен && (ЛампочкаПрРПрС_Авар || ЛампочкаПрРПрС_1); }
         }
 
-        public static bool ЛампочкаПрТС1_2
+        public bool ЛампочкаПрТС1_2
         {
             get
             {
@@ -116,16 +131,16 @@ using ShareTypes.SignalTypes;
             }
         }
 
-        public static bool ЛампочкаДФАПЧ22
+        public bool ЛампочкаДФАПЧ22
         {
             get { return Включен && (ЛампочкаПрРПрС_Авар || ЛампочкаПрРПрС_1); }
         }
-        public static bool ЛампочкаПрТС2_1
+        public bool ЛампочкаПрТС2_1
         {
             get { return Включен && (ЛампочкаПрРПрС_Авар || ЛампочкаПрРПрС_1); }
         }
 
-        public static bool ЛампочкаПрТС2_2
+        public bool ЛампочкаПрТС2_2
         {
             get
             {
@@ -134,20 +149,20 @@ using ShareTypes.SignalTypes;
             }
         }
 
-        public static bool ЛампочкаВУП_1
+        public bool ЛампочкаВУП_1
         {
             get { return Включен; }
         }
-        public static bool ЛампочкаВУП_Неиспр { get; set; }
+        public bool ЛампочкаВУП_Неиспр { get; set; }
         #endregion
 
         #region Кнопки
 
-        private static int _кнопкаБК1;
-        private static int _кнопкаБК2;
-        private static bool _тумблерМуДу;
+        private int _кнопкаБК1;
+        private int _кнопкаБК2;
+        private bool _тумблерМуДу;
 
-        public static int КнопкаБК1
+        public int КнопкаБК1
         {
             get { return _кнопкаБК1; }
             set
@@ -158,7 +173,7 @@ using ShareTypes.SignalTypes;
             }
         }
 
-        public static int КнопкаБК2
+        public int КнопкаБК2
         {
             get { return _кнопкаБК2; }
             set
@@ -172,7 +187,7 @@ using ShareTypes.SignalTypes;
         /// <summary>
         /// Возможные состояния: Му - true, Ду - false
         /// </summary>
-        public static bool ТумблерМуДу
+        public bool ТумблерМуДу
         {
             get { return _тумблерМуДу; }
             set
@@ -185,12 +200,12 @@ using ShareTypes.SignalTypes;
 
         #region Колодки
 
-        private static bool _колодкаТлГпр1;
-        private static bool _колодкаТлГпр2;
-        private static bool _колодкаТкСпр21;
-        private static bool _колодкаТкСпр22;
+        private bool _колодкаТлГпр1;
+        private bool _колодкаТлГпр2;
+        private bool _колодкаТкСпр21;
+        private bool _колодкаТкСпр22;
 
-        public static bool КолодкаТЛГпр1
+        public bool КолодкаТЛГпр1
         {
             get { return _колодкаТлГпр1; }
             set
@@ -201,7 +216,7 @@ using ShareTypes.SignalTypes;
             }
         }
 
-        public static bool КолодкаТЛГпр2
+        public bool КолодкаТЛГпр2
         {
             get { return _колодкаТлГпр2; }
             set
@@ -212,7 +227,7 @@ using ShareTypes.SignalTypes;
             }
         }
 
-        public static bool КолодкаТКСпр21
+        public bool КолодкаТКСпр21
         {
             get { return _колодкаТкСпр21; }
             set
@@ -223,7 +238,7 @@ using ShareTypes.SignalTypes;
             }
         }
 
-        public static bool КолодкаТКСпр22
+        public bool КолодкаТКСпр22
         {
             get { return _колодкаТкСпр22; }
             set
@@ -237,15 +252,15 @@ using ShareTypes.SignalTypes;
         #endregion
 
         public delegate void ParameterChangedHandler();
-        public static event ParameterChangedHandler ParameterChanged;
+        public event ParameterChangedHandler ParameterChanged;
 
-        private static void OnParameterChanged()
+        private void OnParameterChanged()
         {
             var handler = ParameterChanged;
             if (handler != null) handler();
         }
 
-        public static void ResetParameters()
+        public void ResetParameters()
         {
             OnParameterChanged();
         }

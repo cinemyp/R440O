@@ -21,7 +21,7 @@ namespace R440O.R440OForms.K02M_02Inside
         public K02M_02InsideForm()
         {
             this.InitializeComponent();
-            K02M_02InsideТумблерБ5.BackgroundImage = K02M_02InsideParameters.K02M_02InsideТумблерБ5
+            K02M_02InsideТумблерБ5.BackgroundImage = K02M_02InsideParameters.getInstance().K02M_02InsideТумблерБ5
                 ? ControlElementImages.tumblerType7Left
                 : ControlElementImages.tumblerType7Right;
         }
@@ -38,8 +38,8 @@ namespace R440O.R440OForms.K02M_02Inside
 
         private void K02M_02InsideТумблерБ5_Click(object sender, System.EventArgs e)
         {
-            K02M_02InsideParameters.K02M_02InsideТумблерБ5 = !K02M_02InsideParameters.K02M_02InsideТумблерБ5;
-           K02M_02InsideТумблерБ5.BackgroundImage = K02M_02InsideParameters.K02M_02InsideТумблерБ5
+            K02M_02InsideParameters.getInstance().K02M_02InsideТумблерБ5 = !K02M_02InsideParameters.getInstance().K02M_02InsideТумблерБ5;
+           K02M_02InsideТумблерБ5.BackgroundImage = K02M_02InsideParameters.getInstance().K02M_02InsideТумблерБ5
                 ? ControlElementImages.tumblerType7Left
                 : ControlElementImages.tumblerType7Right;
          

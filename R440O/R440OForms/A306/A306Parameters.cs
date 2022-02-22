@@ -27,7 +27,7 @@ namespace R440O.R440OForms.A306
         {
             get
             {
-                return N15Parameters.getInstance().Включен && MSHUParameters.Включен && (ТумблерДистанцМестн
+                return N15Parameters.getInstance().Включен && MSHUParameters.getInstance().Включен && (ТумблерДистанцМестн
                                                                            || !ТумблерДистанцМестн && ТумблерПитание);
             }
         }
@@ -70,7 +70,7 @@ namespace R440O.R440OForms.A306
         private List<Signal> GetRightSet(int output)
         {
             var outputSignals = new List<Signal>();
-            foreach (var сигнал in MSHUParameters.ВыходнойСигнал.Signals)
+            foreach (var сигнал in MSHUParameters.getInstance().ВыходнойСигнал.Signals)
                 if (IsRightSet(output, сигнал))
                     outputSignals.Add(сигнал);
             return outputSignals;

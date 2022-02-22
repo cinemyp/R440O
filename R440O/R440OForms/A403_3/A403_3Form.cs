@@ -22,7 +22,7 @@ namespace R440O.R440OForms.A403_3
         public A403_3Form()
         {
             InitializeComponent();
-            A403_3Parameters.ParameterChanged += RefreshFormElements;
+            A403_3Parameters.getInstance().ParameterChanged += RefreshFormElements;
             RefreshFormElements();
         }
 
@@ -31,19 +31,19 @@ namespace R440O.R440OForms.A403_3
         /// </summary>
         public void RefreshFormElements()
         {
-            ТублерКомплект.BackgroundImage = A403_3Parameters.ТублерКомплект
+            ТублерКомплект.BackgroundImage = A403_3Parameters.getInstance().ТублерКомплект
                 ? ControlElementImages.tumblerType4Left
                 : ControlElementImages.tumblerType4Right;
         }
 
         private void ТублерКомплект_Click(object sender, System.EventArgs e)
         {
-            A403_3Parameters.ТублерКомплект = !A403_3Parameters.ТублерКомплект;
+            A403_3Parameters.getInstance().ТублерКомплект = !A403_3Parameters.getInstance().ТублерКомплект;
         }
 
         private void A403_3Form_FormClosed(object sender, FormClosedEventArgs e)
         {
-            A403_3Parameters.ParameterChanged -= RefreshFormElements;
+            A403_3Parameters.getInstance().ParameterChanged -= RefreshFormElements;
         }
     }
 }

@@ -5,14 +5,14 @@ namespace R440O.R440OForms.Kontur_P3.Параметры
     partial class Kontur_P3Parameters
     {
         #region Лампочки
-        public static bool ЛампочкаКП6Передача = false;
-        public static bool ЛампочкаКП6Сбой = false;
-        public static bool ЛампочкаКП6Режим3 = false;
+        public bool ЛампочкаКП6Передача = false;
+        public bool ЛампочкаКП6Сбой = false;
+        public bool ЛампочкаКП6Режим3 = false;
         #endregion
 
         #region Тумблеры
-        private static EТумблерДокументирование _ТумблерДокументирование = EТумблерДокументирование.ОТКЛ;
-        public static EТумблерДокументирование ТумблерДокументирование
+        private EТумблерДокументирование _ТумблерДокументирование = EТумблерДокументирование.ОТКЛ;
+        public EТумблерДокументирование ТумблерДокументирование
         {
             get { return _ТумблерДокументирование; }
             set
@@ -22,8 +22,8 @@ namespace R440O.R440OForms.Kontur_P3.Параметры
             }
         }
 
-        private static EТумблерАсинхрСинхр _ТумблерАсинхрСинхр = EТумблерАсинхрСинхр.СИНХР;
-        public static EТумблерАсинхрСинхр ТумблерАсинхрСинхр
+        private EТумблерАсинхрСинхр _ТумблерАсинхрСинхр = EТумблерАсинхрСинхр.СИНХР;
+        public EТумблерАсинхрСинхр ТумблерАсинхрСинхр
         {
             get { return _ТумблерАсинхрСинхр; }
             set
@@ -33,8 +33,8 @@ namespace R440O.R440OForms.Kontur_P3.Параметры
             }
         }
 
-        private static EТумблерРежим _ТумблерРежим = EТумблерРежим.РЕЖИМ_1;
-        public static EТумблерРежим ТумблерРежим
+        private EТумблерРежим _ТумблерРежим = EТумблерРежим.РЕЖИМ_1;
+        public EТумблерРежим ТумблерРежим
         {
             get { return _ТумблерРежим; }
             set

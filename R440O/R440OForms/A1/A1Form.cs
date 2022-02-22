@@ -9,7 +9,7 @@
         public A1Form()
         {
             this.InitializeComponent();
-            A1Parameters.ParameterChanged += RefreshFormElements;
+            A1Parameters.getInstance().ParameterChanged += RefreshFormElements;
             RefreshFormElements();
         }
 
@@ -20,7 +20,7 @@
         /// </summary>
         private void КнопкаСкоростьАБ_1ТЛФ_К_Click(object sender, System.EventArgs e)
         {
-            A1Parameters.КнопкаСкоростьАб_1ТЛФК = !A1Parameters.КнопкаСкоростьАб_1ТЛФК;
+            A1Parameters.getInstance().КнопкаСкоростьАб_1ТЛФК = !A1Parameters.getInstance().КнопкаСкоростьАб_1ТЛФК;
         }
 
         /// <summary>
@@ -28,7 +28,7 @@
         /// </summary>
         private void КнопкаСкоростьГР_Click(object sender, System.EventArgs e)
         {
-            A1Parameters.КнопкаСкоростьГр = !A1Parameters.КнопкаСкоростьГр;
+            A1Parameters.getInstance().КнопкаСкоростьГр = !A1Parameters.getInstance().КнопкаСкоростьГр;
         }
 
         /// <summary>
@@ -36,7 +36,7 @@
         /// </summary>
         private void ТумблерМуДу_Click(object sender, System.EventArgs e)
         {
-            A1Parameters.ТумблерМуДу = !A1Parameters.ТумблерМуДу;
+            A1Parameters.getInstance().ТумблерМуДу = !A1Parameters.getInstance().ТумблерМуДу;
         }
 
         #endregion
@@ -45,15 +45,15 @@
 
         public void RefreshFormElements()
         {
-            this.ТумблерМуДу.BackgroundImage = A1Parameters.ТумблерМуДу
+            this.ТумблерМуДу.BackgroundImage = A1Parameters.getInstance().ТумблерМуДу
                 ? ControlElementImages.tumblerType4Up
                 : ControlElementImages.tumblerType4Down;
 
-            this.КнопкаСкоростьГР.BackgroundImage = A1Parameters.КнопкаСкоростьГр
+            this.КнопкаСкоростьГР.BackgroundImage = A1Parameters.getInstance().КнопкаСкоростьГр
                 ? null
                 : ControlElementImages.buttonRectType1;
 
-            this.КнопкаСкоростьАБ_1ТЛФ_К.BackgroundImage = A1Parameters.КнопкаСкоростьАб_1ТЛФК
+            this.КнопкаСкоростьАБ_1ТЛФ_К.BackgroundImage = A1Parameters.getInstance().КнопкаСкоростьАб_1ТЛФК
                 ? null
                 : ControlElementImages.buttonRectType1;
 

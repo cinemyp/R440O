@@ -22,32 +22,32 @@ namespace R440O.R440OForms.N13_1
         {
             InitializeComponent();
 
-            N13_1Parameters.ParameterChanged += RefreshFormElements;
+            N13_1Parameters.getInstance().ParameterChanged += RefreshFormElements;
             RefreshFormElements();
         }
 
         public void RefreshFormElements()
         {
-            ЛампочкаАнодВключен.BackgroundImage = N13_1Parameters.ЛампочкаАнодВключен
+            ЛампочкаАнодВключен.BackgroundImage = N13_1Parameters.getInstance().ЛампочкаАнодВключен
                 ? ControlElementImages.lampType5OnRed
                 : null;
 
-            ЛампочкаПерегрузкаИстКоллектора.BackgroundImage = N13_1Parameters.ЛампочкаПерегрузкаИстКоллектора
+            ЛампочкаПерегрузкаИстКоллектора.BackgroundImage = N13_1Parameters.getInstance().ЛампочкаПерегрузкаИстКоллектора
                 ? ControlElementImages.lampType5OnRed
                 : null;
 
-            var angle = N13_1Parameters.ИндикаторТокЗамедлСистемы * 8F - 60;
+            var angle = N13_1Parameters.getInstance().ИндикаторТокЗамедлСистемы * 8F - 60;
             ИндикаторТокЗамедлСистемы.BackgroundImage =
                 TransformImageHelper.RotateImageByAngle(ControlElementImages.arrow2, angle);
 
-            angle = N13_1Parameters.ИндикаторТокКоллектора * 0.43F - 60;
+            angle = N13_1Parameters.getInstance().ИндикаторТокКоллектора * 0.43F - 60;
             ИндикаторТокКоллектора.BackgroundImage =
                 TransformImageHelper.RotateImageByAngle(ControlElementImages.arrow2, angle);
         }
 
         private void N13_1Form_FormClosed(object sender, FormClosedEventArgs e)
         {
-            N13_1Parameters.ParameterChanged -= RefreshFormElements;
+            N13_1Parameters.getInstance().ParameterChanged -= RefreshFormElements;
         }
     }
 }

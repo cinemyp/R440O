@@ -869,8 +869,8 @@ namespace R440O.R440OForms.C300M_1
                 _значениеПоиска = -50;
             }
             УправлениеПоиском();
-            C300PM_1Parameters.ResetParameters();
-            K01M_01Parameters.ResetParameters();
+            C300PM_1Parameters.getInstance().ResetParameters();
+            K01M_01Parameters.getInstance().ResetParameters();
             OnParameterChanged();
         }
 

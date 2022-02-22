@@ -10,22 +10,36 @@ namespace R440O.R440OForms.N13_2
 {
     class N13_2Parameters
     {
+        private static N13_2Parameters instance;
+        public static N13_2Parameters getInstance()
+        {
+            if (instance == null)
+                instance = new N13_2Parameters();
+            return instance;
+        }
+        public delegate void TestModuleHandler(JsonAdapter.ActionStation action);
+        public event TestModuleHandler Action;
+        private void OnAction(string name, int value)
+        {
+            var action = new JsonAdapter.ActionStation(name, value);
+            Action?.Invoke(action);
+        }
         #region Лампочки
 
-        public static bool Включен
+        public bool Включен
         {
             get { return N15Parameters.getInstance().Н13_2 && N502BParameters.getInstance().ТумблерН13_2; }
         }
 
-        public static bool Неисправен
+        public bool Неисправен
         {
             get { return N15Parameters.getInstance().Н13_2 && !N502BParameters.getInstance().ТумблерН13_2; }
         }
-        public static bool ЛампочкаПерегрузкаИстКоллектора
+        public bool ЛампочкаПерегрузкаИстКоллектора
         {
             get { return Неисправен; }
         }
-        public static bool ЛампочкаАнодВключен
+        public bool ЛампочкаАнодВключен
         {
             get { return Включен; }
         }
@@ -35,41 +49,41 @@ namespace R440O.R440OForms.N13_2
 
         #region Индикаторы
 
-        public static float ИндикаторТокЗамедлСистемы
+        public float ИндикаторТокЗамедлСистемы
         {
             get { return ЛампочкаАнодВключен ? 2.5F : 0; }
         }
-        public static int ИндикаторТокКоллектора
+        public int ИндикаторТокКоллектора
         {
             get { return ЛампочкаАнодВключен ? 170 : 0; }
         }
         #endregion
 
         public delegate void ParameterChangedHandler();
-        public static event ParameterChangedHandler ParameterChanged;
+        public event ParameterChangedHandler ParameterChanged;
 
-        public static void ResetParameters()
+        public void ResetParameters()
         {
             OnParameterChanged();
         }
 
-        private static void OnParameterChanged()
+        private void OnParameterChanged()
         {
             var handler = ParameterChanged;
             if (handler != null) handler();
         }
 
-        private static Signal ВходнойСигнал
+        private Signal ВходнойСигнал
         {
             get
             {
                 Signal inputSignal = null;
-                if (NKN_1Parameters.ДистанционноеВключение && A205M_1Parameters.getInstance().ВыходнойСигнал != null)
+                if (NKN_1Parameters.getInstance().ДистанционноеВключение && A205M_1Parameters.getInstance().ВыходнойСигнал != null)
                 {
                     inputSignal = A205M_1Parameters.getInstance().ВыходнойСигнал;
                 }
 
-                if (NKN_2Parameters.ДистанционноеВключение && A205M_2Parameters.ВыходнойСигнал != null)
+                if (NKN_2Parameters.getInstance().ДистанционноеВключение && A205M_2Parameters.ВыходнойСигнал != null)
                 {
                     inputSignal = A205M_2Parameters.ВыходнойСигнал;
                 }
@@ -77,7 +91,7 @@ namespace R440O.R440OForms.N13_2
             }
         }
 
-        public static Signal ВыходнойСигнал
+        public Signal ВыходнойСигнал
         {
             get
             {

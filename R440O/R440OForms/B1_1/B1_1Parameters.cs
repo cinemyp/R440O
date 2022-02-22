@@ -10,15 +10,30 @@ namespace R440O.R440OForms.B1_1
     using N15;
     using B2_1;
 
-    public static class B1_1Parameters
+    public class B1_1Parameters
     {
+        private static B1_1Parameters instance;
+        public static B1_1Parameters getInstance()
+        {
+            if (instance == null)
+                instance = new B1_1Parameters();
+            return instance;
+        }
+        public delegate void TestModuleHandler(JsonAdapter.ActionStation action);
+        public event TestModuleHandler Action;
+        private void OnAction(string name, int value)
+        {
+            var action = new JsonAdapter.ActionStation(name, value);
+            Action?.Invoke(action);
+        }
+
         #region Работа блока
 
-        public static bool Включен
+        public bool Включен
         {
             get
             {
-                return (P220_27G_2Parameters.Включен || P220_27G_3Parameters.Включен) &&
+                return (P220_27G_2Parameters.getInstance().Включен || P220_27G_3Parameters.getInstance().Включен) &&
                        (ТумблерМуДу || !ТумблерМуДу && N15Parameters.getInstance().ТумблерБ1_1);
             }
         }
@@ -26,17 +41,17 @@ namespace R440O.R440OForms.B1_1
         /// <summary>
         /// Сигнал от блока Б2 или от ПУЛ ПРМ.
         /// </summary>
-        public static Signal ВходнойСигнал
+        public Signal ВходнойСигнал
         {
             get
             {
                 if (Включен &&
-                    N15InsideParameters.ВыходПриемногоТракта != null &&
-                    N18_MParameters.ПереключательПРМ1 == 4)
-                    return N15InsideParameters.ВыходПриемногоТракта;
+                    N15InsideParameters.getInstance().ВыходПриемногоТракта != null &&
+                    N18_MParameters.getInstance().ПереключательПРМ1 == 4)
+                    return N15InsideParameters.getInstance().ВыходПриемногоТракта;
 
-                if (Включен && B2_1Parameters.ВыходнойСигнал1 != null && B2_1Parameters.ВыходнойСигнал1.SelectedGroupElements.Count != 0)
-                    return B2_1Parameters.ВыходнойСигнал1;
+                if (Включен && B2_1Parameters.getInstance().ВыходнойСигнал1 != null && B2_1Parameters.getInstance().ВыходнойСигнал1.SelectedGroupElements.Count != 0)
+                    return B2_1Parameters.getInstance().ВыходнойСигнал1;
                 return null;
             }
         }
@@ -44,7 +59,7 @@ namespace R440O.R440OForms.B1_1
         /// <summary>
         /// Соответствует ли входящий сигнал нажатым кнопкам.
         /// </summary>
-        public static bool ВходящийСигналПравильный
+        public bool ВходящийСигналПравильный
         {
             get
             {
@@ -59,7 +74,7 @@ namespace R440O.R440OForms.B1_1
             }
         }
 
-        public static Signal ВыходнойСигнал
+        public Signal ВыходнойСигнал
         {
             get
             {
@@ -71,7 +86,7 @@ namespace R440O.R440OForms.B1_1
         /// <summary>
         /// Сигнал с одним элементом, скорости каналов которого соответствуют текущим выбранным настройкам.
         /// </summary>
-        private static Signal НеобходимыйСигнал
+        private Signal НеобходимыйСигнал
         {
             get
             {
@@ -112,32 +127,32 @@ namespace R440O.R440OForms.B1_1
 
         #endregion
 
-        private static bool _тумблерМуДу;
-        private static bool _кнопкаСкоростьГР;
-        private static bool _кнопкаСкоростьАб1Тлфк;
-        private static bool _колодкаТлГпр11;
-        private static bool _колодкаТлГпр12;
-        private static bool _колодкаТлГпр21;
-        private static bool _колодкаТлГпр22;
-        private static bool _колодкаТлГпр31;
-        private static bool _колодкаТлГпр32;
+        private bool _тумблерМуДу;
+        private bool _кнопкаСкоростьГР;
+        private bool _кнопкаСкоростьАб1Тлфк;
+        private bool _колодкаТлГпр11;
+        private bool _колодкаТлГпр12;
+        private bool _колодкаТлГпр21;
+        private bool _колодкаТлГпр22;
+        private bool _колодкаТлГпр31;
+        private bool _колодкаТлГпр32;
 
         #region Лампочки
 
         #region Левые
-        public static bool ЛампочкаБОЧ { get; set; }
+        public bool ЛампочкаБОЧ { get; set; }
 
-        public static bool ЛампочкаПУЛ_1
+        public bool ЛампочкаПУЛ_1
         {
             get { return Включен && ВходнойСигнал == null; }
         }
 
-        public static bool ЛампочкаПУЛ_2
+        public bool ЛампочкаПУЛ_2
         {
             get { return Включен && ВходнойСигнал != null; ; }
         }
 
-        public static bool ЛампочкаПРСС { get; set; }
+        public bool ЛампочкаПРСС { get; set; }
         #endregion
 
         #region Каналы
@@ -145,7 +160,7 @@ namespace R440O.R440OForms.B1_1
         /// <summary>
         /// Лампочка Авария горит: не соответствуют скорости.
         /// </summary>
-        public static bool ЛампочкаТКБтк1_1
+        public bool ЛампочкаТКБтк1_1
         {
             get
             {
@@ -159,7 +174,7 @@ namespace R440O.R440OForms.B1_1
         /// <summary>
         /// Лампочка Сигнал горит: сигнал в наличии (имеет опр. скорость) и нет информации в канале.
         /// </summary>
-        public static bool ЛампочкаТКБтк1_2
+        public bool ЛампочкаТКБтк1_2
         {
             get
             {
@@ -169,7 +184,7 @@ namespace R440O.R440OForms.B1_1
                 return false;
             }
         }
-        public static bool ЛампочкаТКБтк2_1
+        public bool ЛампочкаТКБтк2_1
         {
             get
             {
@@ -181,7 +196,7 @@ namespace R440O.R440OForms.B1_1
             }
         }
 
-        public static bool ЛампочкаТКБтк2_2
+        public bool ЛампочкаТКБтк2_2
         {
             get
             {
@@ -192,7 +207,7 @@ namespace R440O.R440OForms.B1_1
             }
         }
 
-        public static bool ЛампочкаТКБтк3_1
+        public bool ЛампочкаТКБтк3_1
         {
             get
             {
@@ -203,7 +218,7 @@ namespace R440O.R440OForms.B1_1
                 return false;
             }
         }
-        public static bool ЛампочкаТКБтк3_2
+        public bool ЛампочкаТКБтк3_2
         {
             get
             {
@@ -213,7 +228,7 @@ namespace R440O.R440OForms.B1_1
                 return false;
             }
         }
-        public static bool ЛампочкаТКБАвар { get; set; }
+        public bool ЛампочкаТКБАвар { get; set; }
         #endregion
 
         #region Эластичная память
@@ -221,7 +236,7 @@ namespace R440O.R440OForms.B1_1
         /// <summary>
         /// Лампочка Авария эластичной памяти горит, если не совпадают скорости, либо канал отсутствует(скорости нет).
         /// </summary>
-        public static bool ЛампочкаДФАПЧ1
+        public bool ЛампочкаДФАПЧ1
         {
             get
             {
@@ -231,7 +246,7 @@ namespace R440O.R440OForms.B1_1
             }
         }
 
-        public static bool ЛампочкаДФАПЧ2
+        public bool ЛампочкаДФАПЧ2
         {
             get
             {
@@ -241,7 +256,7 @@ namespace R440O.R440OForms.B1_1
             }
         }
 
-        public static bool ЛампочкаДФАПЧ3
+        public bool ЛампочкаДФАПЧ3
         {
             get
             {
@@ -252,17 +267,17 @@ namespace R440O.R440OForms.B1_1
         }
         #endregion
 
-        public static bool ЛампочкаТЛГпр1 { get; set; }
-        public static bool ЛампочкаТЛГпр2 { get; set; }
-        public static bool ЛампочкаТЛГпр3 { get; set; }
-        public static bool ЛампочкаВУП_1 { get { return Включен; } }
-        public static bool ЛампочкаВУПНеиспр { get; set; }
+        public bool ЛампочкаТЛГпр1 { get; set; }
+        public bool ЛампочкаТЛГпр2 { get; set; }
+        public bool ЛампочкаТЛГпр3 { get; set; }
+        public bool ЛампочкаВУП_1 { get { return Включен; } }
+        public bool ЛампочкаВУПНеиспр { get; set; }
 
         #endregion
 
         #region Колодки
 
-        public static bool КолодкаТлГпр11
+        public bool КолодкаТлГпр11
         {
             get { return _колодкаТлГпр11; }
             set
@@ -273,7 +288,7 @@ namespace R440O.R440OForms.B1_1
             }
         }
 
-        public static bool КолодкаТлГпр12
+        public bool КолодкаТлГпр12
         {
             get { return _колодкаТлГпр12; }
             set
@@ -284,7 +299,7 @@ namespace R440O.R440OForms.B1_1
             }
         }
 
-        public static bool КолодкаТлГпр21
+        public bool КолодкаТлГпр21
         {
             get { return _колодкаТлГпр21; }
             set
@@ -295,7 +310,7 @@ namespace R440O.R440OForms.B1_1
             }
         }
 
-        public static bool КолодкаТлГпр22
+        public bool КолодкаТлГпр22
         {
             get { return _колодкаТлГпр22; }
             set
@@ -306,7 +321,7 @@ namespace R440O.R440OForms.B1_1
             }
         }
 
-        public static bool КолодкаТлГпр31
+        public bool КолодкаТлГпр31
         {
             get { return _колодкаТлГпр31; }
             set
@@ -317,7 +332,7 @@ namespace R440O.R440OForms.B1_1
             }
         }
 
-        public static bool КолодкаТлГпр32
+        public bool КолодкаТлГпр32
         {
             get { return _колодкаТлГпр32; }
             set
@@ -334,35 +349,35 @@ namespace R440O.R440OForms.B1_1
         /// <summary>
         /// Возможные состояния: Му - true, Ду - false
         /// </summary>
-        public static bool ТумблерМуДу
+        public bool ТумблерМуДу
         {
             get { return _тумблерМуДу; }
             set
             {
                 _тумблерМуДу = value;
-                N18_MParameters.ResetParameters();
+                N18_MParameters.getInstance().ResetParameters();
                 OnParameterChanged();
             }
         }
 
-        public static bool КнопкаСкоростьГР
+        public bool КнопкаСкоростьГР
         {
             get { return _кнопкаСкоростьГР; }
             set
             {
                 _кнопкаСкоростьГР = value;
-                N18_MParameters.ResetParameters();
+                N18_MParameters.getInstance().ResetParameters();
                 OnParameterChanged();
             }
         }
 
-        public static bool КнопкаСкоростьАб1ТлфК
+        public bool КнопкаСкоростьАб1ТлфК
         {
             get { return _кнопкаСкоростьАб1Тлфк; }
             set
             {
                 _кнопкаСкоростьАб1Тлфк = value;
-                N18_MParameters.ResetParameters();
+                N18_MParameters.getInstance().ResetParameters();
                 OnParameterChanged();
             }
         }
@@ -370,15 +385,15 @@ namespace R440O.R440OForms.B1_1
         #endregion
 
         public delegate void ParameterChangedHandler();
-        public static event ParameterChangedHandler ParameterChanged;
+        public event ParameterChangedHandler ParameterChanged;
 
-        private static void OnParameterChanged()
+        private void OnParameterChanged()
         {
             var handler = ParameterChanged;
             if (handler != null) handler();
         }
 
-        public static void ResetParameters()
+        public void ResetParameters()
         {
             OnParameterChanged();
         }

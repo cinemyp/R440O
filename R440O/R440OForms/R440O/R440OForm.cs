@@ -88,7 +88,8 @@ namespace R440O.R440OForms.R440O
                 const string r440OFormsString = "R440O.R440OForms.";
                 var typeName = r440OFormsString + blockName + "." + formName;
                 // ReSharper disable once AssignNullToNotNullAttribute by trycatch
-                var thisForm = Activator.CreateInstance(Type.GetType(typeName));
+                var type = Type.GetType(typeName);
+                var thisForm = Activator.CreateInstance(type);
                 var newForm = (Form)thisForm;
                 var controls = newForm.Controls[0].Controls;
                 List<Button> list = new List<Button>();

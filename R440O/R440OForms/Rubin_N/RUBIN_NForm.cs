@@ -25,7 +25,7 @@ namespace R440O.R440OForms.Rubin_N
         public Rubin_NForm()
         {
             InitializeComponent();
-            Rubin_NParameters.ParameterChanged += RefreshFormElements;
+            Rubin_NParameters.getInstance().ParameterChanged += RefreshFormElements;
             RefreshFormElements();
         }
 
@@ -40,7 +40,7 @@ namespace R440O.R440OForms.Rubin_N
 
         private void InitializeButtonsPosition()
         {
-            if (Rubin_NParameters.КнопкаВкл)
+            if (Rubin_NParameters.getInstance().КнопкаВкл)
             {
                 КнопкаВкл.BackgroundImage = null;
                 КнопкаВкл.Text = string.Empty;
@@ -51,7 +51,7 @@ namespace R440O.R440OForms.Rubin_N
                 КнопкаВкл.Text = "ВКЛ";
             }
 
-            if (Rubin_NParameters.КнопкаОткл)
+            if (Rubin_NParameters.getInstance().КнопкаОткл)
             {
                 КнопкаОткл.BackgroundImage = null;
                 КнопкаОткл.Text = string.Empty;
@@ -65,66 +65,66 @@ namespace R440O.R440OForms.Rubin_N
 
         private void InitializeTogglesPosition()
         {
-            var angle = Rubin_NParameters.ПереключательГрупСкор * 33 - 80;
+            var angle = Rubin_NParameters.getInstance().ПереключательГрупСкор * 33 - 80;
             ПереключательГрупСкор.BackgroundImage =
                 TransformImageHelper.RotateImageByAngle(ControlElementImages.toggleType2, angle);
 
-            angle = Rubin_NParameters.ПереключательКонтроль * 35 - 85;
+            angle = Rubin_NParameters.getInstance().ПереключательКонтроль * 35 - 85;
             ПереключательКонтроль.BackgroundImage =
                 TransformImageHelper.RotateImageByAngle(ControlElementImages.toggleType2, angle);
 
-            angle = Rubin_NParameters.ПереключательN5063_2кБод * 35 - 85;
+            angle = Rubin_NParameters.getInstance().ПереключательN5063_2кБод * 35 - 85;
             ПереключательN5063_2кБод.BackgroundImage =
                 TransformImageHelper.RotateImageByAngle(ControlElementImages.toggleType2, angle);
 
-            angle = Rubin_NParameters.ПереключательN5063_6812кБод * 17 - 170;
+            angle = Rubin_NParameters.getInstance().ПереключательN5063_6812кБод * 17 - 170;
             ПереключательN5063_6812кБод.BackgroundImage =
                 TransformImageHelper.RotateImageByAngle(ControlElementImages.toggleType2, angle);
 
-            angle = Rubin_NParameters.ПереключательN5063_48кБод * 35 - 185;
+            angle = Rubin_NParameters.getInstance().ПереключательN5063_48кБод * 35 - 185;
             ПереключательN5063_48кБод.BackgroundImage =
                 TransformImageHelper.RotateImageByAngle(ControlElementImages.toggleType2, angle);
 
-            angle = Rubin_NParameters.ПереключательN4963_2кБод * 35 - 85;
+            angle = Rubin_NParameters.getInstance().ПереключательN4963_2кБод * 35 - 85;
             ПереключательN4963_2кБод.BackgroundImage =
                 TransformImageHelper.RotateImageByAngle(ControlElementImages.toggleType2, angle);
 
-            angle = Rubin_NParameters.ПереключательN4963_6812кБод * 17 - 170;
+            angle = Rubin_NParameters.getInstance().ПереключательN4963_6812кБод * 17 - 170;
             ПереключательN4963_6812кБод.BackgroundImage =
                 TransformImageHelper.RotateImageByAngle(ControlElementImages.toggleType2, angle);
 
-            angle = Rubin_NParameters.ПереключательN4963_48кБод * 35 - 185;
+            angle = Rubin_NParameters.getInstance().ПереключательN4963_48кБод * 35 - 185;
             ПереключательN4963_48кБод.BackgroundImage =
                 TransformImageHelper.RotateImageByAngle(ControlElementImages.toggleType2, angle);
 
-            angle = Rubin_NParameters.ПереключательN4923_2кБод * 35 - 85;
+            angle = Rubin_NParameters.getInstance().ПереключательN4923_2кБод * 35 - 85;
             ПереключательN4923_2кБод.BackgroundImage =
                 TransformImageHelper.RotateImageByAngle(ControlElementImages.toggleType2, angle);
 
-            angle = Rubin_NParameters.ПереключательN4923_6812кБод * 17 - 170;
+            angle = Rubin_NParameters.getInstance().ПереключательN4923_6812кБод * 17 - 170;
             ПереключательN4923_6812кБод.BackgroundImage =
                 TransformImageHelper.RotateImageByAngle(ControlElementImages.toggleType2, angle);
 
-            angle = Rubin_NParameters.ПереключательN4923_48кБод * 35 - 185;
+            angle = Rubin_NParameters.getInstance().ПереключательN4923_48кБод * 35 - 185;
             ПереключательN4923_48кБод.BackgroundImage =
                 TransformImageHelper.RotateImageByAngle(ControlElementImages.toggleType2, angle);
         }
 
         private void InitializeTumblersPosition()
         {
-            ТумблерПолярность.BackgroundImage = Rubin_NParameters.ТумблерПолярность
+            ТумблерПолярность.BackgroundImage = Rubin_NParameters.getInstance().ТумблерПолярность
               ? ControlElementImages.tumblerType4Left
               : ControlElementImages.tumblerType4Right;
 
-            ТумблерБлок5063.BackgroundImage = Rubin_NParameters.ТумблерРнБас1
+            ТумблерБлок5063.BackgroundImage = Rubin_NParameters.getInstance().ТумблерРнБас1
               ? ControlElementImages.tumblerType4Left
               : ControlElementImages.tumblerType4Right;
 
-            ТумблерБлок4923.BackgroundImage = Rubin_NParameters.ТумблерРнБас2
+            ТумблерБлок4923.BackgroundImage = Rubin_NParameters.getInstance().ТумблерРнБас2
               ? ControlElementImages.tumblerType4Left
               : ControlElementImages.tumblerType4Right;
 
-            ТумблерБлок4963.BackgroundImage = Rubin_NParameters.ТумблерРнБас3
+            ТумблерБлок4963.BackgroundImage = Rubin_NParameters.getInstance().ТумблерРнБас3
               ? ControlElementImages.tumblerType4Left
               : ControlElementImages.tumblerType4Right;
         }
@@ -135,12 +135,12 @@ namespace R440O.R440OForms.Rubin_N
         {
             if (e.Button == MouseButtons.Left)
             {
-                Rubin_NParameters.ПереключательГрупСкор += 1;
+                Rubin_NParameters.getInstance().ПереключательГрупСкор += 1;
             }
 
             if (e.Button == MouseButtons.Right)
             {
-                Rubin_NParameters.ПереключательГрупСкор -= 1;
+                Rubin_NParameters.getInstance().ПереключательГрупСкор -= 1;
             }
         }
 
@@ -148,12 +148,12 @@ namespace R440O.R440OForms.Rubin_N
         {
             if (e.Button == MouseButtons.Left)
             {
-                Rubin_NParameters.ПереключательКонтроль += 1;
+                Rubin_NParameters.getInstance().ПереключательКонтроль += 1;
             }
 
             if (e.Button == MouseButtons.Right)
             {
-                Rubin_NParameters.ПереключательКонтроль -= 1;
+                Rubin_NParameters.getInstance().ПереключательКонтроль -= 1;
             }
         }
 
@@ -161,12 +161,12 @@ namespace R440O.R440OForms.Rubin_N
         {
             if (e.Button == MouseButtons.Left)
             {
-                Rubin_NParameters.ПереключательN5063_2кБод += 1;
+                Rubin_NParameters.getInstance().ПереключательN5063_2кБод += 1;
             }
 
             if (e.Button == MouseButtons.Right)
             {
-                Rubin_NParameters.ПереключательN5063_2кБод -= 1;
+                Rubin_NParameters.getInstance().ПереключательN5063_2кБод -= 1;
             }
         }
 
@@ -174,12 +174,12 @@ namespace R440O.R440OForms.Rubin_N
         {
             if (e.Button == MouseButtons.Left)
             {
-                Rubin_NParameters.ПереключательN5063_6812кБод += 1;
+                Rubin_NParameters.getInstance().ПереключательN5063_6812кБод += 1;
             }
 
             if (e.Button == MouseButtons.Right)
             {
-                Rubin_NParameters.ПереключательN5063_6812кБод -= 1;
+                Rubin_NParameters.getInstance().ПереключательN5063_6812кБод -= 1;
             }
         }
 
@@ -187,12 +187,12 @@ namespace R440O.R440OForms.Rubin_N
         {
             if (e.Button == MouseButtons.Left)
             {
-                Rubin_NParameters.ПереключательN5063_48кБод += 1;
+                Rubin_NParameters.getInstance().ПереключательN5063_48кБод += 1;
             }
 
             if (e.Button == MouseButtons.Right)
             {
-                Rubin_NParameters.ПереключательN5063_48кБод -= 1;
+                Rubin_NParameters.getInstance().ПереключательN5063_48кБод -= 1;
             }
         }
 
@@ -200,12 +200,12 @@ namespace R440O.R440OForms.Rubin_N
         {
             if (e.Button == MouseButtons.Left)
             {
-                Rubin_NParameters.ПереключательN4923_2кБод += 1;
+                Rubin_NParameters.getInstance().ПереключательN4923_2кБод += 1;
             }
 
             if (e.Button == MouseButtons.Right)
             {
-                Rubin_NParameters.ПереключательN4923_2кБод -= 1;
+                Rubin_NParameters.getInstance().ПереключательN4923_2кБод -= 1;
             }
         }
 
@@ -213,12 +213,12 @@ namespace R440O.R440OForms.Rubin_N
         {
             if (e.Button == MouseButtons.Left)
             {
-                Rubin_NParameters.ПереключательN4923_6812кБод += 1;
+                Rubin_NParameters.getInstance().ПереключательN4923_6812кБод += 1;
             }
 
             if (e.Button == MouseButtons.Right)
             {
-                Rubin_NParameters.ПереключательN4923_6812кБод -= 1;
+                Rubin_NParameters.getInstance().ПереключательN4923_6812кБод -= 1;
             }
         }
 
@@ -226,12 +226,12 @@ namespace R440O.R440OForms.Rubin_N
         {
             if (e.Button == MouseButtons.Left)
             {
-                Rubin_NParameters.ПереключательN4923_48кБод += 1;
+                Rubin_NParameters.getInstance().ПереключательN4923_48кБод += 1;
             }
 
             if (e.Button == MouseButtons.Right)
             {
-                Rubin_NParameters.ПереключательN4923_48кБод -= 1;
+                Rubin_NParameters.getInstance().ПереключательN4923_48кБод -= 1;
             }
         }
 
@@ -239,12 +239,12 @@ namespace R440O.R440OForms.Rubin_N
         {
             if (e.Button == MouseButtons.Left)
             {
-                Rubin_NParameters.ПереключательN4963_2кБод += 1;
+                Rubin_NParameters.getInstance().ПереключательN4963_2кБод += 1;
             }
 
             if (e.Button == MouseButtons.Right)
             {
-                Rubin_NParameters.ПереключательN4963_2кБод -= 1;
+                Rubin_NParameters.getInstance().ПереключательN4963_2кБод -= 1;
             }
         }
 
@@ -252,12 +252,12 @@ namespace R440O.R440OForms.Rubin_N
         {
             if (e.Button == MouseButtons.Left)
             {
-                Rubin_NParameters.ПереключательN4963_6812кБод += 1;
+                Rubin_NParameters.getInstance().ПереключательN4963_6812кБод += 1;
             }
 
             if (e.Button == MouseButtons.Right)
             {
-                Rubin_NParameters.ПереключательN4963_6812кБод -= 1;
+                Rubin_NParameters.getInstance().ПереключательN4963_6812кБод -= 1;
             }
         }
 
@@ -265,12 +265,12 @@ namespace R440O.R440OForms.Rubin_N
         {
             if (e.Button == MouseButtons.Left)
             {
-                Rubin_NParameters.ПереключательN4963_48кБод += 1;
+                Rubin_NParameters.getInstance().ПереключательN4963_48кБод += 1;
             }
 
             if (e.Button == MouseButtons.Right)
             {
-                Rubin_NParameters.ПереключательN4963_48кБод -= 1;
+                Rubin_NParameters.getInstance().ПереключательN4963_48кБод -= 1;
             }
         }
         #endregion
@@ -328,7 +328,7 @@ namespace R440O.R440OForms.Rubin_N
 
         private void Rubin_NКнопкаВкл_Click(object sender, System.EventArgs e)
         {
-            if (Rubin_NParameters.КнопкаВкл)
+            if (Rubin_NParameters.getInstance().КнопкаВкл)
             {
                 КнопкаВкл.BackgroundImage = ControlElementImages.buttonSquareYellow;
                 КнопкаВкл.Text = "ВКЛ";
@@ -338,12 +338,12 @@ namespace R440O.R440OForms.Rubin_N
                 КнопкаВкл.BackgroundImage = null;
                 КнопкаВкл.Text = string.Empty;
             }
-            Rubin_NParameters.КнопкаВкл = !Rubin_NParameters.КнопкаВкл;
+            Rubin_NParameters.getInstance().КнопкаВкл = !Rubin_NParameters.getInstance().КнопкаВкл;
         }
 
         private void Rubin_NКнопкаОткл_Click(object sender, System.EventArgs e)
         {
-            if (Rubin_NParameters.КнопкаОткл)
+            if (Rubin_NParameters.getInstance().КнопкаОткл)
             {
                 КнопкаОткл.BackgroundImage = ControlElementImages.buttonSquareYellow;
                 КнопкаОткл.Text = "ОТКЛ";
@@ -353,7 +353,7 @@ namespace R440O.R440OForms.Rubin_N
                 КнопкаОткл.BackgroundImage = null;
                 КнопкаОткл.Text = string.Empty;
             }
-            Rubin_NParameters.КнопкаОткл = !Rubin_NParameters.КнопкаОткл;
+            Rubin_NParameters.getInstance().КнопкаОткл = !Rubin_NParameters.getInstance().КнопкаОткл;
         }
 
         #endregion
@@ -361,22 +361,22 @@ namespace R440O.R440OForms.Rubin_N
         #region Тумблеры
         private void Rubin_NТумблерПолярность_Click(object sender, System.EventArgs e)
         {
-            Rubin_NParameters.ТумблерПолярность = !Rubin_NParameters.ТумблерПолярность;
+            Rubin_NParameters.getInstance().ТумблерПолярность = !Rubin_NParameters.getInstance().ТумблерПолярность;
         }
 
         private void Rubin_NТумблерБлок5063_Click(object sender, System.EventArgs e)
         {
-            Rubin_NParameters.ТумблерРнБас1 = !Rubin_NParameters.ТумблерРнБас1;
+            Rubin_NParameters.getInstance().ТумблерРнБас1 = !Rubin_NParameters.getInstance().ТумблерРнБас1;
         }
 
         private void Rubin_NТумблерБлок4923_Click(object sender, System.EventArgs e)
         {
-            Rubin_NParameters.ТумблерРнБас2 = !Rubin_NParameters.ТумблерРнБас2;
+            Rubin_NParameters.getInstance().ТумблерРнБас2 = !Rubin_NParameters.getInstance().ТумблерРнБас2;
         }
 
         private void Rubin_NТумблерБлок4963_Click(object sender, System.EventArgs e)
         {
-            Rubin_NParameters.ТумблерРнБас3 = !Rubin_NParameters.ТумблерРнБас3;
+            Rubin_NParameters.getInstance().ТумблерРнБас3 = !Rubin_NParameters.getInstance().ТумблерРнБас3;
         }
         #endregion
     }

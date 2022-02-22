@@ -68,44 +68,44 @@ namespace R440O.Test.MainTest
 
         private void SetDiscret2()
         {
-            A1Parameters.КнопкаСкоростьАб_1ТЛФК = true;
-            B1_1Parameters.КнопкаСкоростьАб1ТлфК = true;
+            A1Parameters.getInstance().КнопкаСкоростьАб_1ТЛФК = true;
+            B1_1Parameters.getInstance().КнопкаСкоростьАб1ТлфК = true;
         }
 
         private void SetDiscret3()
         {
-            A1Parameters.КнопкаСкоростьГр = true;
-            B1_1Parameters.КнопкаСкоростьГР = true;
+            A1Parameters.getInstance().КнопкаСкоростьГр = true;
+            B1_1Parameters.getInstance().КнопкаСкоростьГР = true;
 
             // Переключение на скорость 2.4
-            N15InsideParameters.ПереключательПУЛ48ПРД_1 = 2;
-            N15InsideParameters.ПереключательПУЛ48ПРД_2 = 2;
-            N15InsideParameters.ПереключательПУЛ480ПРМ_1 = 2;
-            N15InsideParameters.ПереключательПУЛ480ПРМ_2 = 2;
+            N15InsideParameters.getInstance().ПереключательПУЛ48ПРД_1 = 2;
+            N15InsideParameters.getInstance().ПереключательПУЛ48ПРД_2 = 2;
+            N15InsideParameters.getInstance().ПереключательПУЛ480ПРМ_1 = 2;
+            N15InsideParameters.getInstance().ПереключательПУЛ480ПРМ_2 = 2;
             C300M_1Parameters.getInstance().КнопкиВидРаботы[4] = true;         
         }
 
         private void ResetStation()
         {
-            A1Parameters.КнопкаСкоростьАб_1ТЛФК = false;
-            B1_1Parameters.КнопкаСкоростьАб1ТлфК = false;
-            A1Parameters.КнопкаСкоростьГр = false;
-            B1_1Parameters.КнопкаСкоростьГР = false;
-            N15InsideParameters.ПереключательПУЛ48ПРД_1 = 3;
-            N15InsideParameters.ПереключательПУЛ48ПРД_2 = 3;
-            N15InsideParameters.ПереключательПУЛ480ПРМ_1 = 3;
-            N15InsideParameters.ПереключательПУЛ480ПРМ_2 = 3;
+            A1Parameters.getInstance().КнопкаСкоростьАб_1ТЛФК = false;
+            B1_1Parameters.getInstance().КнопкаСкоростьАб1ТлфК = false;
+            A1Parameters.getInstance().КнопкаСкоростьГр = false;
+            B1_1Parameters.getInstance().КнопкаСкоростьГР = false;
+            N15InsideParameters.getInstance().ПереключательПУЛ48ПРД_1 = 3;
+            N15InsideParameters.getInstance().ПереключательПУЛ48ПРД_2 = 3;
+            N15InsideParameters.getInstance().ПереключательПУЛ480ПРМ_1 = 3;
+            N15InsideParameters.getInstance().ПереключательПУЛ480ПРМ_2 = 3;
             C300M_1Parameters.getInstance().КнопкиВидРаботы[5] = true;
-            BMA_M_1Parameters.ПереключательРежимы = 2;
-            N18_M_H28Parameters.АктивныйКабель = 0;
+            BMA_M_1Parameters.getInstance().ПереключательРежимы = 2;
+            N18_M_H28Parameters.getInstance().АктивныйКабель = 0;
 
-            N18_MParameters.Соединения[(int)ГнездаН18.КоммутацияПрм_Канал1_Б11] = 0;
-            N18_MParameters.Соединения[(int)ГнездаН18.КоммутацияПрм_Канал2_Б11] = 0;
-            N18_MParameters.Соединения[(int)ГнездаН18.КоммутацияПрм_Канал3_Б11] = 0;
-            N18_MParameters.Соединения[(int)ГнездаН18.КоммутацияПрм_Канал1_БМА2] = 0;
-            N18_MParameters.Соединения[(int)ГнездаН18.КоммутацияПрм_Канал1_БМА1] = 0;
-            N18_MParameters.Соединения[(int)ГнездаН18.КоммутацияПрм_Канал1_К12] = 0;
-            N18_MParameters.Соединения[(int)ГнездаН18.Контроль_Прм_Тлф1] = 0;
+            N18_MParameters.getInstance().Соединения[(int)ГнездаН18.КоммутацияПрм_Канал1_Б11] = 0;
+            N18_MParameters.getInstance().Соединения[(int)ГнездаН18.КоммутацияПрм_Канал2_Б11] = 0;
+            N18_MParameters.getInstance().Соединения[(int)ГнездаН18.КоммутацияПрм_Канал3_Б11] = 0;
+            N18_MParameters.getInstance().Соединения[(int)ГнездаН18.КоммутацияПрм_Канал1_БМА2] = 0;
+            N18_MParameters.getInstance().Соединения[(int)ГнездаН18.КоммутацияПрм_Канал1_БМА1] = 0;
+            N18_MParameters.getInstance().Соединения[(int)ГнездаН18.КоммутацияПрм_Канал1_К12] = 0;
+            N18_MParameters.getInstance().Соединения[(int)ГнездаН18.Контроль_Прм_Тлф1] = 0;
         }
 
         private void N15StrartStation()
@@ -135,16 +135,16 @@ namespace R440O.Test.MainTest
         public void DiscreteTest1()
         {
             // Соеденияем 1вый канал Б1 с БМА1
-            N18_MParameters.Соединения[(int)ГнездаН18.КоммутацияПрм_Канал1_Б11]
+            N18_MParameters.getInstance().Соединения[(int)ГнездаН18.КоммутацияПрм_Канал1_Б11]
                 = (int)ГнездаН18.КоммутацияПрм_Канал1_БМА1;
-            N18_MParameters.Соединения[(int)ГнездаН18.КоммутацияПрм_Канал1_БМА1]
+            N18_MParameters.getInstance().Соединения[(int)ГнездаН18.КоммутацияПрм_Канал1_БМА1]
                 = (int)ГнездаН18.КоммутацияПрм_Канал1_Б11;
 
             // Сигнал с 1вого канала подается на БМА 1
-            N18_MParameters.ПереключательПрдБма12 = 4;
+            N18_MParameters.getInstance().ПереключательПрдБма12 = 4;
 
             // Сигнал с А1 подается на А205
-            N18_MParameters.ПереключательПРД = 2;
+            N18_MParameters.getInstance().ПереключательПРД = 2;
 
             BMBParameters.getInstance().КнопкаПередачаВызоваДк = СостоянияЭлементов.БМБ.Кнопка.Нажата;
 
@@ -160,16 +160,16 @@ namespace R440O.Test.MainTest
         public void DiscreteTest2()
         {
             // Соеденияем 1вый канал Б1 с БМА1
-            N18_MParameters.Соединения[(int)ГнездаН18.КоммутацияПрм_Канал2_Б11]
+            N18_MParameters.getInstance().Соединения[(int)ГнездаН18.КоммутацияПрм_Канал2_Б11]
                 = (int)ГнездаН18.КоммутацияПрм_Канал1_БМА1;
-            N18_MParameters.Соединения[(int)ГнездаН18.КоммутацияПрм_Канал1_БМА1]
+            N18_MParameters.getInstance().Соединения[(int)ГнездаН18.КоммутацияПрм_Канал1_БМА1]
                 = (int)ГнездаН18.КоммутацияПрм_Канал2_Б11;
 
             // Сигнал с 1вого канала подается на БМА 1
-            N18_MParameters.ПереключательПрдБма12 = 5;
+            N18_MParameters.getInstance().ПереключательПрдБма12 = 5;
 
             // Сигнал с А1 подается на А205
-            N18_MParameters.ПереключательПРД = 2;
+            N18_MParameters.getInstance().ПереключательПРД = 2;
 
             BMBParameters.getInstance().КнопкаПередачаВызоваДк = СостоянияЭлементов.БМБ.Кнопка.Нажата;
 
@@ -185,16 +185,16 @@ namespace R440O.Test.MainTest
         public void DiscreteTest3()
         {
             // Соеденияем 3вый канал Б1 с БМА1
-            N18_MParameters.Соединения[(int)ГнездаН18.КоммутацияПрм_Канал3_Б11]
+            N18_MParameters.getInstance().Соединения[(int)ГнездаН18.КоммутацияПрм_Канал3_Б11]
                 = (int)ГнездаН18.КоммутацияПрм_Канал1_БМА1;
-            N18_MParameters.Соединения[(int)ГнездаН18.КоммутацияПрм_Канал1_БМА1]
+            N18_MParameters.getInstance().Соединения[(int)ГнездаН18.КоммутацияПрм_Канал1_БМА1]
                 = (int)ГнездаН18.КоммутацияПрм_Канал3_Б11;
 
             // Сигнал с 3вого канала подается на БМА 1
-            N18_MParameters.ПереключательПрдБма12 = 6;
+            N18_MParameters.getInstance().ПереключательПрдБма12 = 6;
 
             // Сигнал с А1 подается на А205
-            N18_MParameters.ПереключательПРД = 2;
+            N18_MParameters.getInstance().ПереключательПРД = 2;
 
             BMBParameters.getInstance().КнопкаПередачаВызоваДк = СостоянияЭлементов.БМБ.Кнопка.Нажата;
 
@@ -211,19 +211,19 @@ namespace R440O.Test.MainTest
         {
             SetDiscret2();
 
-            BMA_M_1Parameters.ПереключательРежимы = 1;
+            BMA_M_1Parameters.getInstance().ПереключательРежимы = 1;
 
             // Соеденияем 1вый канал Б1 с БМА1
-            N18_MParameters.Соединения[(int)ГнездаН18.КоммутацияПрм_Канал1_Б11]
+            N18_MParameters.getInstance().Соединения[(int)ГнездаН18.КоммутацияПрм_Канал1_Б11]
                 = (int)ГнездаН18.КоммутацияПрм_Канал1_БМА1;
-            N18_MParameters.Соединения[(int)ГнездаН18.КоммутацияПрм_Канал1_БМА1]
+            N18_MParameters.getInstance().Соединения[(int)ГнездаН18.КоммутацияПрм_Канал1_БМА1]
                 = (int)ГнездаН18.КоммутацияПрм_Канал1_Б11;
 
             // Сигнал с 1вого канала подается на БМА 1
-            N18_MParameters.ПереключательПрдБма12 = 4;
+            N18_MParameters.getInstance().ПереключательПрдБма12 = 4;
 
             // Сигнал с А1 подается на А205
-            N18_MParameters.ПереключательПРД = 2;
+            N18_MParameters.getInstance().ПереключательПРД = 2;
 
             BMBParameters.getInstance().КнопкаПередачаВызоваДк = СостоянияЭлементов.БМБ.Кнопка.Нажата;
 
@@ -241,16 +241,16 @@ namespace R440O.Test.MainTest
             SetDiscret2();
 
             // Соеденияем 1вый канал Б1 с БМА1
-            N18_MParameters.Соединения[(int)ГнездаН18.КоммутацияПрм_Канал2_Б11]
+            N18_MParameters.getInstance().Соединения[(int)ГнездаН18.КоммутацияПрм_Канал2_Б11]
                 = (int)ГнездаН18.КоммутацияПрм_Канал1_БМА1;
-            N18_MParameters.Соединения[(int)ГнездаН18.КоммутацияПрм_Канал1_БМА1]
+            N18_MParameters.getInstance().Соединения[(int)ГнездаН18.КоммутацияПрм_Канал1_БМА1]
                 = (int)ГнездаН18.КоммутацияПрм_Канал2_Б11;
 
             // Сигнал с 1вого канала подается на БМА 1
-            N18_MParameters.ПереключательПрдБма12 = 5;
+            N18_MParameters.getInstance().ПереключательПрдБма12 = 5;
 
             // Сигнал с А1 подается на А205
-            N18_MParameters.ПереключательПРД = 2;
+            N18_MParameters.getInstance().ПереключательПРД = 2;
 
             BMBParameters.getInstance().КнопкаПередачаВызоваДк = СостоянияЭлементов.БМБ.Кнопка.Нажата;
 
@@ -268,16 +268,16 @@ namespace R440O.Test.MainTest
             SetDiscret3();
 
             // Соеденияем 1вый канал Б1 с БМА1
-            N18_MParameters.Соединения[(int)ГнездаН18.КоммутацияПрм_Канал2_Б11]
+            N18_MParameters.getInstance().Соединения[(int)ГнездаН18.КоммутацияПрм_Канал2_Б11]
                 = (int)ГнездаН18.КоммутацияПрм_Канал1_БМА1;
-            N18_MParameters.Соединения[(int)ГнездаН18.КоммутацияПрм_Канал1_БМА1]
+            N18_MParameters.getInstance().Соединения[(int)ГнездаН18.КоммутацияПрм_Канал1_БМА1]
                 = (int)ГнездаН18.КоммутацияПрм_Канал2_Б11;
 
             // Сигнал с 1вого канала подается на БМА 1
-            N18_MParameters.ПереключательПрдБма12 = 5;
+            N18_MParameters.getInstance().ПереключательПрдБма12 = 5;
 
             // Сигнал с А1 подается на А205
-            N18_MParameters.ПереключательПРД = 2;
+            N18_MParameters.getInstance().ПереключательПРД = 2;
 
             BMBParameters.getInstance().КнопкаПередачаВызоваДк = СостоянияЭлементов.БМБ.Кнопка.Нажата;
 
@@ -293,19 +293,19 @@ namespace R440O.Test.MainTest
         public void KulonTest()
         {
             // Соеденияем Кулог с БМА1
-            N18_MParameters.Соединения[(int)ГнездаН18.КоммутацияПрм_Канал1_К12]
+            N18_MParameters.getInstance().Соединения[(int)ГнездаН18.КоммутацияПрм_Канал1_К12]
                 = (int)ГнездаН18.КоммутацияПрм_Канал1_БМА1;
-            N18_MParameters.Соединения[(int)ГнездаН18.КоммутацияПрм_Канал1_БМА1]
+            N18_MParameters.getInstance().Соединения[(int)ГнездаН18.КоммутацияПрм_Канал1_БМА1]
                 = (int)ГнездаН18.КоммутацияПрм_Канал1_К12;
-            N18_MParameters.ПереключательПрдБма12 = 9;
-            N18_MParameters.ПереключательВходК121 = 2;
+            N18_MParameters.getInstance().ПереключательПрдБма12 = 9;
+            N18_MParameters.getInstance().ПереключательВходК121 = 2;
             
             // Настраиваем Кулон
-            N18_M_H28Parameters.АктивныйКабель = 1;
-            K05M_01Parameters.ПереключательПередачаКонтроль = 0;
+            N18_M_H28Parameters.getInstance().АктивныйКабель = 1;
+            K05M_01Parameters.getInstance().ПереключательПередачаКонтроль = 0;
 
             // Престроим частоту приема, чтобы следующий тик таймера нашел сигнал
-            K04M_01Parameters.ПереключательПрмКгц100 = 5;
+            K04M_01Parameters.getInstance().ПереключательПрмКгц100 = 5;
 
             BMBParameters.getInstance().КнопкаПередачаВызоваДк = СостоянияЭлементов.БМБ.Кнопка.Нажата;
             
@@ -318,12 +318,12 @@ namespace R440O.Test.MainTest
         public void BrasletTest()
         {
             // Подлючаем Браслет
-            N18_MParameters.Соединения[(int)ГнездаН18.Контроль_Прм_Тлф1]
+            N18_MParameters.getInstance().Соединения[(int)ГнездаН18.Контроль_Прм_Тлф1]
                 = (int)ГнездаН18.КоммутацияПрм_Канал1_БМА1;
-            N18_MParameters.Соединения[(int)ГнездаН18.КоммутацияПрм_Канал1_БМА1]
+            N18_MParameters.getInstance().Соединения[(int)ГнездаН18.КоммутацияПрм_Канал1_БМА1]
                 = (int)ГнездаН18.Контроль_Прм_Тлф1;
-            N18_MParameters.ПереключательПРД = 3;
-            N18_MParameters.ПереключательПрдБма12 = 7;
+            N18_MParameters.getInstance().ПереключательПРД = 3;
+            N18_MParameters.getInstance().ПереключательПрдБма12 = 7;
 
             BMBParameters.getInstance().КнопкаПередачаВызоваДк = СостоянияЭлементов.БМБ.Кнопка.Нажата;
 

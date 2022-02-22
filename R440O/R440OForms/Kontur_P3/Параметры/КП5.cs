@@ -8,12 +8,12 @@ namespace R440O.R440OForms.Kontur_P3.Параметры
 {
     partial class Kontur_P3Parameters
     {
-        public static bool ЗвуковаяСигнализация { get; set; }
+        public bool ЗвуковаяСигнализация { get; set; }
 
         #region Лампочки
-        public static bool ЛампочкаКП5Прием = false;
+        public bool ЛампочкаКП5Прием = false;
 
-        public static bool ЛампочкаСбойПодписи
+        public bool ЛампочкаСбойПодписи
         {
             get
             {
@@ -21,7 +21,7 @@ namespace R440O.R440OForms.Kontur_P3.Параметры
             }
         }
 
-        public static bool ЛампочкаНеиспр
+        public bool ЛампочкаНеиспр
         {
             get
             {
@@ -29,11 +29,11 @@ namespace R440O.R440OForms.Kontur_P3.Параметры
             }
         }
 
-        private static bool _КП4Контроль;
-        public static bool КП4Контроль { get { return _КП4Контроль; } set { _КП4Контроль = value; Refresh(); } }
-        private static bool _КП1Контроль;
-        public static bool КП1Контроль { get { return _КП1Контроль; } set { _КП1Контроль = value; Refresh(); } }
-        public static bool ЛампочкаКонтроль
+        private bool _КП4Контроль;
+        public bool КП4Контроль { get { return _КП4Контроль; } set { _КП4Контроль = value; Refresh(); } }
+        private bool _КП1Контроль;
+        public bool КП1Контроль { get { return _КП1Контроль; } set { _КП1Контроль = value; Refresh(); } }
+        public bool ЛампочкаКонтроль
         {
             get
             {
@@ -44,17 +44,17 @@ namespace R440O.R440OForms.Kontur_P3.Параметры
             }
         }
 
-        private static bool _ЛампочкаПередача;
-        public static bool ЛампочкаПередача
+        private bool _ЛампочкаПередача;
+        public bool ЛампочкаПередача
         {
             get { return ЛампочкаСеть && (_ЛампочкаПередача || ЛампочкаКП3Канал10 || ЛампочкаКП3Канал11 || ЛампочкаКП3Канал12); }
         }
-        public static bool ЛампочкаОтбой = false;
+        public bool ЛампочкаОтбой = false;
 
-        public static bool ЛампочкаИнформПринята { get; set; }
+        public bool ЛампочкаИнформПринята { get; set; }
 
-        private static bool ИнформацияПринята = false;
-        public static bool ЛампочкаПрием
+        private bool ИнформацияПринята = false;
+        public bool ЛампочкаПрием
         {
             get
             {
@@ -64,8 +64,8 @@ namespace R440O.R440OForms.Kontur_P3.Параметры
         #endregion
 
         #region Тумблеры
-        private static EТумблерМткПУ _ТумблерМткПУ = EТумблерМткПУ.ПУ;
-        public static EТумблерМткПУ ТумблерМткПУ
+        private EТумблерМткПУ _ТумблерМткПУ = EТумблерМткПУ.ПУ;
+        public EТумблерМткПУ ТумблерМткПУ
         {
             get { return _ТумблерМткПУ; }
             set
@@ -81,8 +81,8 @@ namespace R440O.R440OForms.Kontur_P3.Параметры
         #endregion
 
         #region Кнопки
-        private static bool _КнопкаАдресУСС;
-        public static bool КнопкаАдресУСС
+        private bool _КнопкаАдресУСС;
+        public bool КнопкаАдресУСС
         {
             get { return _КнопкаАдресУСС; }
             set
@@ -92,8 +92,8 @@ namespace R440O.R440OForms.Kontur_P3.Параметры
             }
         }
 
-        private static bool _КнопкаАдресК;
-        public static bool КнопкаАдресК
+        private bool _КнопкаАдресК;
+        public bool КнопкаАдресК
         {
             get { return _КнопкаАдресК; }
             set
@@ -103,8 +103,8 @@ namespace R440O.R440OForms.Kontur_P3.Параметры
             }
         }
 
-        private static bool _КнопкаПодпись1;
-        public static bool КнопкаПодпись1
+        private bool _КнопкаПодпись1;
+        public bool КнопкаПодпись1
         {
             get { return _КнопкаПодпись1; }
             set
@@ -114,8 +114,8 @@ namespace R440O.R440OForms.Kontur_P3.Параметры
             }
         }
 
-        private static bool _КнопкаПодпись2;
-        public static bool КнопкаПодпись2
+        private bool _КнопкаПодпись2;
+        public bool КнопкаПодпись2
         {
             get { return _КнопкаПодпись2; }
             set
@@ -125,8 +125,8 @@ namespace R440O.R440OForms.Kontur_P3.Параметры
             }
         }
 
-        private static bool _КнопкаПодпись3;
-        public static bool КнопкаПодпись3
+        private bool _КнопкаПодпись3;
+        public bool КнопкаПодпись3
         {
             get { return _КнопкаПодпись3; }
             set
@@ -135,13 +135,13 @@ namespace R440O.R440OForms.Kontur_P3.Параметры
                 Refresh();
             }
         }
-        private static IDisposable timer_Мигание = null;
-        private static IDisposable timer_МиганиеКП1 = null;
-        private static IDisposable timer_ЛампочкаПередача = null;
-        private static bool Мигание;
-        private static EПереключательПриоритет НомерКанала;
-        private static bool ЗначениеКнопкиКП4Контроль;
-        public static bool КнопкаВызов
+        private IDisposable timer_Мигание = null;
+        private IDisposable timer_МиганиеКП1 = null;
+        private IDisposable timer_ЛампочкаПередача = null;
+        private bool Мигание;
+        private EПереключательПриоритет НомерКанала;
+        private bool ЗначениеКнопкиКП4Контроль;
+        public bool КнопкаВызов
         {
             set
             {
@@ -181,49 +181,49 @@ namespace R440O.R440OForms.Kontur_P3.Параметры
                         }
                         else
                             if (КнопкаКП1Контроль)
+                        {
+                            if (timer_Мигание != null)
                             {
-                                if (timer_Мигание != null)
-                                {
-                                    timer_Мигание.Dispose();
-                                    timer_Мигание = null;
-                                }
-                                if (timer_МиганиеКП1 != null)
-                                {
-                                    timer_МиганиеКП1.Dispose();
-                                    timer_МиганиеКП1 = null;
-                                }
-                                timer_МиганиеКП1 = EasyTimer.SetInterval(() =>
-                                {
-                                    ЛампочкаКП1Канал11 = !ЛампочкаКП1Канал11;
-                                    Refresh();
-                                }, 300);
-                                ИнформацияПринята = true;
-                                ЗначениеКнопкиКП1Контроль = (КнопкаКП1Контроль) ? true : false;
-                                ЗначениеКнопкиКП4Контроль = false;
-                                КнопкаНаборКК = false;
-                                _ЗанятоКП4 = false;
-                                ЗанятоКП4 = false;
+                                timer_Мигание.Dispose();
+                                timer_Мигание = null;
                             }
-                            else
+                            if (timer_МиганиеКП1 != null)
                             {
-                                ЗначениеКнопкиКП4Контроль = false;
-                                ЗначениеКнопкиКП1Контроль = false;
-                                ИнформацияПринята = false;
-                                if (timer_Мигание != null)
-                                {
-                                    timer_Мигание.Dispose();
-                                    timer_Мигание = null;
-                                }
-                                if (timer_МиганиеКП1 != null)
-                                {
-                                    timer_МиганиеКП1.Dispose();
-                                    timer_МиганиеКП1 = null;
-                                }
-                                if (timer_ЛампочкаПередача != null)
-                                    timer_ЛампочкаПередача.Dispose();
-                                _ЗанятоКП4 = false;
-                                ЗанятоКП4 = false;
+                                timer_МиганиеКП1.Dispose();
+                                timer_МиганиеКП1 = null;
                             }
+                            timer_МиганиеКП1 = EasyTimer.SetInterval(() =>
+                            {
+                                ЛампочкаКП1Канал11 = !ЛампочкаКП1Канал11;
+                                Refresh();
+                            }, 300);
+                            ИнформацияПринята = true;
+                            ЗначениеКнопкиКП1Контроль = (КнопкаКП1Контроль) ? true : false;
+                            ЗначениеКнопкиКП4Контроль = false;
+                            КнопкаНаборКК = false;
+                            _ЗанятоКП4 = false;
+                            ЗанятоКП4 = false;
+                        }
+                        else
+                        {
+                            ЗначениеКнопкиКП4Контроль = false;
+                            ЗначениеКнопкиКП1Контроль = false;
+                            ИнформацияПринята = false;
+                            if (timer_Мигание != null)
+                            {
+                                timer_Мигание.Dispose();
+                                timer_Мигание = null;
+                            }
+                            if (timer_МиганиеКП1 != null)
+                            {
+                                timer_МиганиеКП1.Dispose();
+                                timer_МиганиеКП1 = null;
+                            }
+                            if (timer_ЛампочкаПередача != null)
+                                timer_ЛампочкаПередача.Dispose();
+                            _ЗанятоКП4 = false;
+                            ЗанятоКП4 = false;
+                        }
                     }
                     else
                     {
@@ -256,8 +256,8 @@ namespace R440O.R440OForms.Kontur_P3.Параметры
             }
         }
 
-        public static bool КнопкаОтбой { get; set; }
-        public static bool КнопкаИнформ
+        public bool КнопкаОтбой { get; set; }
+        public bool КнопкаИнформ
         {
             set
             {
@@ -341,49 +341,49 @@ namespace R440O.R440OForms.Kontur_P3.Параметры
                         }
                         else
                             if (КнопкаКП1Контроль)
+                        {
+                            if (timer_Мигание != null)
                             {
-                                if (timer_Мигание != null)
-                                {
-                                    timer_Мигание.Dispose();
-                                    timer_Мигание = null;
-                                }
-                                if (timer_МиганиеКП1 != null)
-                                {
-                                    timer_МиганиеКП1.Dispose();
-                                    timer_МиганиеКП1 = null;
-                                }
-                                timer_МиганиеКП1 = EasyTimer.SetInterval(() =>
-                                {
-                                    ЛампочкаКП1Канал11 = !ЛампочкаКП1Канал11;
-                                    Refresh();
-                                }, 300);
-                                ИнформацияПринята = true;
-                                ЗначениеКнопкиКП1Контроль = (КнопкаКП1Контроль) ? true : false;
-                                ЗначениеКнопкиКП4Контроль = false;
-                                КнопкаНаборКК = false;
-                                _ЗанятоКП4 = false;
-                                ЗанятоКП4 = false;
+                                timer_Мигание.Dispose();
+                                timer_Мигание = null;
                             }
-                            else
+                            if (timer_МиганиеКП1 != null)
                             {
-                                ЗначениеКнопкиКП4Контроль = false;
-                                ЗначениеКнопкиКП1Контроль = false;
-                                ИнформацияПринята = false;
-                                if (timer_Мигание != null)
-                                {
-                                    timer_Мигание.Dispose();
-                                    timer_Мигание = null;
-                                }
-                                if (timer_МиганиеКП1 != null)
-                                {
-                                    timer_МиганиеКП1.Dispose();
-                                    timer_МиганиеКП1 = null;
-                                }
-                                if (timer_ЛампочкаПередача != null)
-                                    timer_ЛампочкаПередача.Dispose();
-                                _ЗанятоКП4 = false;
-                                ЗанятоКП4 = false;
+                                timer_МиганиеКП1.Dispose();
+                                timer_МиганиеКП1 = null;
                             }
+                            timer_МиганиеКП1 = EasyTimer.SetInterval(() =>
+                            {
+                                ЛампочкаКП1Канал11 = !ЛампочкаКП1Канал11;
+                                Refresh();
+                            }, 300);
+                            ИнформацияПринята = true;
+                            ЗначениеКнопкиКП1Контроль = (КнопкаКП1Контроль) ? true : false;
+                            ЗначениеКнопкиКП4Контроль = false;
+                            КнопкаНаборКК = false;
+                            _ЗанятоКП4 = false;
+                            ЗанятоКП4 = false;
+                        }
+                        else
+                        {
+                            ЗначениеКнопкиКП4Контроль = false;
+                            ЗначениеКнопкиКП1Контроль = false;
+                            ИнформацияПринята = false;
+                            if (timer_Мигание != null)
+                            {
+                                timer_Мигание.Dispose();
+                                timer_Мигание = null;
+                            }
+                            if (timer_МиганиеКП1 != null)
+                            {
+                                timer_МиганиеКП1.Dispose();
+                                timer_МиганиеКП1 = null;
+                            }
+                            if (timer_ЛампочкаПередача != null)
+                                timer_ЛампочкаПередача.Dispose();
+                            _ЗанятоКП4 = false;
+                            ЗанятоКП4 = false;
+                        }
                     }
                     else
                     {
@@ -415,8 +415,8 @@ namespace R440O.R440OForms.Kontur_P3.Параметры
             }
         }
 
-        private static bool _КнопкаНаборКК;
-        public static bool КнопкаНаборКК
+        private bool _КнопкаНаборКК;
+        public bool КнопкаНаборКК
         {
             get { return _КнопкаНаборКК; }
             set
@@ -428,58 +428,58 @@ namespace R440O.R440OForms.Kontur_P3.Параметры
             }
         }
 
-        private static bool ЗанятоИГорит;
-        private static bool _ЗанятоКП4;
-        private static bool ЗанятоКП4;
-        private static bool _КнопкаКонтрольЗанятости;
-        public static bool КнопкаКонтрольЗанятости
+        private bool ЗанятоИГорит;
+        private bool _ЗанятоКП4;
+        private bool ЗанятоКП4;
+        private bool _КнопкаКонтрольЗанятости;
+        public bool КнопкаКонтрольЗанятости
         {
             get { return _КнопкаКонтрольЗанятости; }
             set
             {
-                _КнопкаКонтрольЗанятости = value;                
+                _КнопкаКонтрольЗанятости = value;
                 if (!_КнопкаКонтрольЗанятости && _ЗанятоКП4)
-                {                   
-                        timer_Мигание = EasyTimer.SetInterval(() =>
-                        {
-                            ЗанятоКП4 = !ЗанятоКП4;
-                            ЗанятоИГорит = ЗанятоКП4;
-                            Refresh();
-                        }, 300);                        
+                {
+                    timer_Мигание = EasyTimer.SetInterval(() =>
+                    {
+                        ЗанятоКП4 = !ЗанятоКП4;
+                        ЗанятоИГорит = ЗанятоКП4;
+                        Refresh();
+                    }, 300);
                 }
                 else
                     if (_КнопкаКонтрольЗанятости && _ЗанятоКП4)
+                {
+                    if (timer_Мигание != null)
                     {
-                        if (timer_Мигание != null)
-                        {
-                            timer_Мигание.Dispose();
-                            timer_Мигание = null;
-                        }
+                        timer_Мигание.Dispose();
+                        timer_Мигание = null;
                     }
+                }
                 ЗанятоКП4 = !_КнопкаКонтрольЗанятости && _ЗанятоКП4;
                 Refresh();
             }
         }
-        public static bool КнопкаИнформКОН { get; set; }
-        public static bool КнопкаИнформС { get; set; }
+        public bool КнопкаИнформКОН { get; set; }
+        public bool КнопкаИнформС { get; set; }
         #endregion
 
         #region Значения групп, адресов, информации
-        private static string ЗначениеАдресК = "000";
-        private static string ЗначениеПодпись1 = "000";
-        private static string ЗначениеПодпись2 = "000";
-        private static string ЗначениеПодпись3 = "000";
+        private string ЗначениеАдресК = "000";
+        private string ЗначениеПодпись1 = "000";
+        private string ЗначениеПодпись2 = "000";
+        private string ЗначениеПодпись3 = "000";
 
-        private static int ИндексГруппы = -1;
-        private static string ЗначениеИндексГруппы = "0";
-        private static string[] ЗначениеГруппа = { "000", "000", "000", "000", "000", "000", "000", "000", "^00" };
+        private int ИндексГруппы = -1;
+        private string ЗначениеИндексГруппы = "0";
+        private string[] ЗначениеГруппа = { "000", "000", "000", "000", "000", "000", "000", "000", "^00" };
 
-        private static string ЗначениеИнформация = "";
+        private string ЗначениеИнформация = "";
         #endregion
 
         #region Табло
-        private static string _ТаблоАдрес1 = "";
-        public static string ТаблоАдрес1
+        private string _ТаблоАдрес1 = "";
+        public string ТаблоАдрес1
         {
             get
             {
@@ -487,8 +487,8 @@ namespace R440O.R440OForms.Kontur_P3.Параметры
             }
         }
 
-        private static string _ТаблоАдрес2 = "";
-        public static string ТаблоАдрес2
+        private string _ТаблоАдрес2 = "";
+        public string ТаблоАдрес2
         {
             get
             {
@@ -496,8 +496,8 @@ namespace R440O.R440OForms.Kontur_P3.Параметры
             }
         }
 
-        private static string _ТаблоГруппа = "";
-        public static string ТаблоГруппа
+        private string _ТаблоГруппа = "";
+        public string ТаблоГруппа
         {
             get
             {
@@ -505,8 +505,8 @@ namespace R440O.R440OForms.Kontur_P3.Параметры
             }
         }
 
-        private static string _ТаблоИнформация = "";
-        public static string ТаблоИнформация
+        private string _ТаблоИнформация = "";
+        public string ТаблоИнформация
         {
             get
             {
@@ -515,7 +515,7 @@ namespace R440O.R440OForms.Kontur_P3.Параметры
         }
         #endregion
 
-        public static void НажатаКнопка(int number)
+        public void НажатаКнопка(int number)
         {
             if (ЛампочкаСеть)
             {
@@ -555,7 +555,7 @@ namespace R440O.R440OForms.Kontur_P3.Параметры
             Refresh();
         }
 
-        public static void НажатаКнопкаКонец()
+        public void НажатаКнопкаКонец()
         {
             if (ЛампочкаСеть)
             {
@@ -569,7 +569,7 @@ namespace R440O.R440OForms.Kontur_P3.Параметры
             }
         }
 
-        public static void ПоменятьГруппу()
+        public void ПоменятьГруппу()
         {
             if (ЛампочкаСеть)
             {
@@ -582,7 +582,7 @@ namespace R440O.R440OForms.Kontur_P3.Параметры
                             ИндексГруппы = 0;
                         else
                             if (ИндексГруппы > 8)
-                                ИндексГруппы = 0;
+                            ИндексГруппы = 0;
                     }
                     ЗначениеИндексГруппы = Convert.ToString(ИндексГруппы + 1);
                     ЗначениеИнформация = ЗначениеГруппа[ИндексГруппы];
@@ -592,12 +592,12 @@ namespace R440O.R440OForms.Kontur_P3.Параметры
         }
 
 
-        private static void ДобавитьЧислоВПоследнийРегистр(int number, ref string str)
+        private void ДобавитьЧислоВПоследнийРегистр(int number, ref string str)
         {
             str = Convert.ToString(str[1]) + Convert.ToString(str[2]) + Convert.ToString(number);
         }
 
-        public static void СбросОбщий()
+        public void СбросОбщий()
         {
             ЗначениеИндексГруппы = "0";
             ИндексГруппы = -1;

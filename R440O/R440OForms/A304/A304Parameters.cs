@@ -16,8 +16,13 @@ namespace R440O.R440OForms.A304
                 instance = new A304Parameters();
             return instance;
         }
-        public ITestModule TestModuleRef { get; set; }
-
+        public delegate void TestModuleHandler(JsonAdapter.ActionStation action);
+        public event TestModuleHandler Action;
+        private void OnAction(string name, int value)
+        {
+            var action = new JsonAdapter.ActionStation(name, value);
+            Action?.Invoke(action);
+        }
         public bool Включен
         {
             get { return N15Parameters.getInstance().НеполноеВключение; }
@@ -62,7 +67,7 @@ namespace R440O.R440OForms.A304
             {
                 return Включен &&
                     ((!ТумблерУправление1 && Кнопка1К && N15Parameters.getInstance().Включен) ||
-                     (ТумблерУправление1 && MSHUParameters.Включен && N15Parameters.getInstance().ТумблерА30412));
+                     (ТумблерУправление1 && MSHUParameters.getInstance().Включен && N15Parameters.getInstance().ТумблерА30412));
             }
         }
 
@@ -75,7 +80,7 @@ namespace R440O.R440OForms.A304
             {
                 return Включен &&
                     ((!ТумблерУправление2 && Кнопка2К && N15Parameters.getInstance().Включен) ||
-                     (ТумблерУправление2 && MSHUParameters.Включен && !N15Parameters.getInstance().ТумблерА30412));
+                     (ТумблерУправление2 && MSHUParameters.getInstance().Включен && !N15Parameters.getInstance().ТумблерА30412));
             }
         }
         #endregion
@@ -95,7 +100,7 @@ namespace R440O.R440OForms.A304
             set
             {
                 _тумблерУправление1 = value;
-                Кнопка1К = (MSHUParameters.Включен && Включен && !value && N15Parameters.getInstance().ТумблерА30412);
+                Кнопка1К = (MSHUParameters.getInstance().Включен && Включен && !value && N15Parameters.getInstance().ТумблерА30412);
                 N15Parameters.getInstance().ResetParametersAlternative();
             }
         }
@@ -114,7 +119,7 @@ namespace R440O.R440OForms.A304
             set
             {
                 _тумблерУправление2 = value;
-                Кнопка2К = (MSHUParameters.Включен && Включен && !value && !N15Parameters.getInstance().ТумблерА30412);
+                Кнопка2К = (MSHUParameters.getInstance().Включен && Включен && !value && !N15Parameters.getInstance().ТумблерА30412);
                 N15Parameters.getInstance().ResetParametersAlternative();
             }
         }
@@ -236,7 +241,7 @@ namespace R440O.R440OForms.A304
         {
             get
             {
-                if (MSHUParameters.Включен && (Лампочка1К && ТумблерКомплект || Лампочка2К && !ТумблерКомплект))
+                if (MSHUParameters.getInstance().Включен && (Лампочка1К && ТумблерКомплект || Лампочка2К && !ТумблерКомплект))
                     switch (ПереключательКонтроль)
                     {
                         case 0:
@@ -297,21 +302,13 @@ namespace R440O.R440OForms.A304
             _переключательКонтроль = 0;
 
         }
-
-        public delegate void TestModuleHandler(ITestModule module);
-        public event TestModuleHandler Action;
+        
         public delegate void ParameterChangedHandler();
         public event ParameterChangedHandler ParameterChanged;
 
         private void OnParameterChanged()
         {
             ParameterChanged?.Invoke();
-            OnAction();
-        }
-
-        private void OnAction()
-        {
-            Action?.Invoke(TestModuleRef);
         }
     }
 }

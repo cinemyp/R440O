@@ -106,7 +106,7 @@ namespace R440O.R440OForms.A205M_1
         private void КнопкаОтсчет_MouseDown(object sender, MouseEventArgs e)
         {
             КнопкаОтсчет.BackgroundImage = null;
-            if (NKN_1Parameters.ЛампочкаФаза1)
+            if (NKN_1Parameters.getInstance().ЛампочкаФаза1)
                 Дисплей.Text = A205M_1Parameters.getInstance().ПереключательВолнаX10000 + "  " +
                                A205M_1Parameters.getInstance().ПереключательВолнаX1000 + "  " +
                                A205M_1Parameters.getInstance().ПереключательВолнаX100 + "  " +

@@ -120,7 +120,7 @@ namespace R440O
         {
             //// Поключение АФСС
             N15LocalParameters.getInstance().локТумблерАФСС = true;
-            Kontur_P3Parameters.ТумблерСеть = EТумблерСеть.ВКЛ;
+            Kontur_P3Parameters.getInstance().ТумблерСеть = EТумблерСеть.ВКЛ;
 
             //// Подключение ДАБ-5
             N15LocalParameters.getInstance().локТумблерАФСС = true;
@@ -129,9 +129,9 @@ namespace R440O
             N15LocalParameters.getInstance().локТумблерБМА_1 = true;
 
             // Настройка БМА 1
-            BMA_M_1Parameters.ПереключательРежимы = 2;
-            BMA_M_1Parameters.Питание = true;
-            BMA_M_1Parameters.КнопкаПитаниеВкл = 2;
+            BMA_M_1Parameters.getInstance().ПереключательРежимы = 2;
+            BMA_M_1Parameters.getInstance().Питание = true;
+            BMA_M_1Parameters.getInstance().КнопкаПитаниеВкл = 2;
 
             // Настройка БМБ
             BMBParameters.getInstance().КнопкаПитание = СостоянияЭлементов.БМБ.Кнопка.Горит;
@@ -143,15 +143,15 @@ namespace R440O
         public static void НастройкаДискрета()
         {
             // Н18
-            N18_MParameters.ПереключательПРД = 2;
-            N18_MParameters.ПереключательПРМ1 = 4;
+            N18_MParameters.getInstance().ПереключательПРД = 2;
+            N18_MParameters.getInstance().ПереключательПРМ1 = 4;
 
             // Генераторы
             N15Parameters.getInstance().Тумблер5Мгц = 0;
-            P220_27G_2Parameters.ТумблерСеть = true;
-            P220_27G_2Parameters.ТумблерУправление = true;
-            P220_27G_3Parameters.ТумблерСеть = true;
-            P220_27G_3Parameters.ТумблерУправление = true;
+            P220_27G_2Parameters.getInstance().ТумблерСеть = true;
+            P220_27G_2Parameters.getInstance().ТумблерУправление = true;
+            P220_27G_3Parameters.getInstance().ТумблерСеть = true;
+            P220_27G_3Parameters.getInstance().ТумблерУправление = true;
 
             N15LocalParameters.getInstance().локТумблерА1 = true;
 
@@ -169,15 +169,15 @@ namespace R440O
             //ПУЛы
             N15Parameters.getInstance().ТумблерТлфТлгПрд = true;
             N15Parameters.getInstance().ТумблерТлфТлгПрм = true;
-            N15InsideParameters.ПереключательПУЛ48ПРД_1 = 3;
-            N15InsideParameters.ТумблерПУЛ48ПРД_1 = Модуляция.ОФТ;
-            N15InsideParameters.ПереключательПУЛ48ПРД_2 = 3;
-            N15InsideParameters.ТумблерПУЛ48ПРД_2 = Модуляция.ОФТ;
+            N15InsideParameters.getInstance().ПереключательПУЛ48ПРД_1 = 3;
+            N15InsideParameters.getInstance().ТумблерПУЛ48ПРД_1 = Модуляция.ОФТ;
+            N15InsideParameters.getInstance().ПереключательПУЛ48ПРД_2 = 3;
+            N15InsideParameters.getInstance().ТумблерПУЛ48ПРД_2 = Модуляция.ОФТ;
 
-            N15InsideParameters.ПереключательПУЛ480ПРМ_1 = 3;
-            N15InsideParameters.ТумблерПУЛ480ПРМ_1 = Модуляция.ОФТ;
-            N15InsideParameters.ПереключательПУЛ480ПРМ_2 = 3;
-            N15InsideParameters.ТумблерПУЛ480ПРМ_2 = Модуляция.ОФТ;
+            N15InsideParameters.getInstance().ПереключательПУЛ480ПРМ_1 = 3;
+            N15InsideParameters.getInstance().ТумблерПУЛ480ПРМ_1 = Модуляция.ОФТ;
+            N15InsideParameters.getInstance().ПереключательПУЛ480ПРМ_2 = 3;
+            N15InsideParameters.getInstance().ТумблерПУЛ480ПРМ_2 = Модуляция.ОФТ;
         }
 
         public static void НастройкаПриемниковС300М()
@@ -192,40 +192,40 @@ namespace R440O
             C300M_1Parameters.getInstance().ТумблерУправление = true;
 
             //С300М_2
-            C300M_2Parameters.КнопкиВидРаботы[5] = true;
-            C300M_2Parameters.КнопкиКонтрольРежима[3] = true;
-            C300M_2Parameters.ПереключательВолна1 = 8;
-            C300M_2Parameters.ПереключательВолна10 = 0;
-            C300M_2Parameters.ПереключательВолна100 = 5;
-            C300M_2Parameters.ПереключательВолна1000 = 0;
-            C300M_2Parameters.ТумблерУправление = true;
+            C300M_2Parameters.getInstance().КнопкиВидРаботы[5] = true;
+            C300M_2Parameters.getInstance().КнопкиКонтрольРежима[3] = true;
+            C300M_2Parameters.getInstance().ПереключательВолна1 = 8;
+            C300M_2Parameters.getInstance().ПереключательВолна10 = 0;
+            C300M_2Parameters.getInstance().ПереключательВолна100 = 5;
+            C300M_2Parameters.getInstance().ПереключательВолна1000 = 0;
+            C300M_2Parameters.getInstance().ТумблерУправление = true;
 
 
             //С300М_3
-            C300M_3Parameters.КнопкиВидРаботы[5] = true;                                
-            C300M_3Parameters.КнопкиКонтрольРежима[3] = true;
-            C300M_3Parameters.ПереключательВолна1 = 8;
-            C300M_3Parameters.ПереключательВолна10 = 0;
-            C300M_3Parameters.ПереключательВолна100 = 5;
-            C300M_3Parameters.ПереключательВолна1000 = 0;
-            C300M_3Parameters.ТумблерУправление = true;
+            C300M_3Parameters.getInstance().КнопкиВидРаботы[5] = true;                                
+            C300M_3Parameters.getInstance().КнопкиКонтрольРежима[3] = true;
+            C300M_3Parameters.getInstance().ПереключательВолна1 = 8;
+            C300M_3Parameters.getInstance().ПереключательВолна10 = 0;
+            C300M_3Parameters.getInstance().ПереключательВолна100 = 5;
+            C300M_3Parameters.getInstance().ПереключательВолна1000 = 0;
+            C300M_3Parameters.getInstance().ТумблерУправление = true;
 
             //С300М_4         
-            C300M_4Parameters.КнопкиВидРаботы[5] = true;
-            C300M_4Parameters.КнопкиКонтрольРежима[3] = true;
-            C300M_4Parameters.ПереключательВолна1 = 8;
-            C300M_4Parameters.ПереключательВолна10 = 0;
-            C300M_4Parameters.ПереключательВолна100 = 5;
-            C300M_4Parameters.ПереключательВолна1000 = 0;
-            C300M_4Parameters.ТумблерУправление = true;
+            C300M_4Parameters.getInstance().КнопкиВидРаботы[5] = true;
+            C300M_4Parameters.getInstance().КнопкиКонтрольРежима[3] = true;
+            C300M_4Parameters.getInstance().ПереключательВолна1 = 8;
+            C300M_4Parameters.getInstance().ПереключательВолна10 = 0;
+            C300M_4Parameters.getInstance().ПереключательВолна100 = 5;
+            C300M_4Parameters.getInstance().ПереключательВолна1000 = 0;
+            C300M_4Parameters.getInstance().ТумблерУправление = true;
         }
 
         public static void НастройкаКулона()
         {
 
-            PU_K1_1Parameters.ТумблерПитание = 2;
-            K04M_01Parameters.ПереключательПрмМгц = 5;
-            N18_M_AngleSwitchParameters._гнездоПРМ1 = 1;
+            PU_K1_1Parameters.getInstance().ТумблерПитание = 2;
+            K04M_01Parameters.getInstance().ПереключательПрмМгц = 5;
+            N18_M_AngleSwitchParameters.getInstance()._гнездоПРМ1 = 1;
         }
 
         
