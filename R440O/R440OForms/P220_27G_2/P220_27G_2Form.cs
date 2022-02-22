@@ -1,7 +1,9 @@
 ﻿namespace R440O.R440OForms.P220_27G_2
 {
+    using System;
     using System.Windows.Forms;
     using BaseClasses;
+    using global::R440O.TestModule;
 
     /// <summary>
     /// Форма блока П220-27Г-2
@@ -49,6 +51,14 @@
 
         private void P220_27G_2Form_FormClosed(object sender, FormClosedEventArgs e)
         {
+            if (ParametersConfig.IsTesting)
+            {
+                var blockParams = P220_27G_2Parameters.getInstance();
+                bool def = blockParams.ТумблерСеть &&
+                    blockParams.ТумблерУправление;
+
+                TestMain.Action(new JsonAdapter.ActionStation() { Name = "П220/27-Г", Value = Convert.ToInt32(def) });
+            }
             P220_27G_2Parameters.getInstance().ParameterChanged -= RefreshFormElements;
         }
 
