@@ -50,8 +50,7 @@ namespace R440O.TestModule
             {
                 NextStep(action);
             }
-            else if (previousAction != null && (action.Name == expectedAction.Name || 
-                previousAction.Equals(action) || 
+            else if (previousAction != null && (previousAction.Equals(action) || 
                 action.Name == previousAction.Name))
             {
                 //пользователь работает с тем параметром, который нужен, 

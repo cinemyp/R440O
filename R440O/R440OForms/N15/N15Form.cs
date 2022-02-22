@@ -550,7 +550,10 @@ namespace R440O.R440OForms.N15
 
             if (ParametersConfig.IsTesting)
             {
-                
+                var blockParams = N15Parameters.getInstance();
+                bool def = blockParams.isFullDeactive();
+
+                TestMain.Action(new JsonAdapter.ActionStation() { Name = "Н15АБ", Value = Convert.ToInt32(def) });
             }
 
             if (LearnMain.getIntent() == ModulesEnum.N15Power)
