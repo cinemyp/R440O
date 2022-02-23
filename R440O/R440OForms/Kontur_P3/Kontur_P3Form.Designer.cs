@@ -1447,6 +1447,7 @@
             this.Name = "Kontur_P3Form";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Контур-П";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Kontur_P3Form_FormClosed);
             this.Kontur_P3Panel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.ИндикаторСеть)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ЛампочкаПР2_ЗА)).EndInit();

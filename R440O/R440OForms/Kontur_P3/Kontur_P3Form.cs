@@ -11,6 +11,8 @@ namespace R440O.R440OForms.Kontur_P3
     using ThirdParty;
     using СостоянияЭлементов.Контур_П;
     using Параметры;
+    using global::R440O.TestModule;
+    using System;
 
     /// <summary>
     /// Форма блока Контур-П3
@@ -817,12 +819,23 @@ namespace R440O.R440OForms.Kontur_P3
             }
 
         }
+
+
+
+
+
         #endregion
 
-        
+        private void Kontur_P3Form_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            if (ParametersConfig.IsTesting)
+            {
+                var blockParams = Kontur_P3Parameters.getInstance();
+                bool def = blockParams.ТумблерСеть == EТумблерСеть.ВКЛ &&
+                    blockParams.ПереключательКонтроль == EПереключательКонтроль.СЕТЬ;
 
-       
-
-        
+                TestMain.Action(new JsonAdapter.ActionStation() { Name = "КОНТУР-П2", Value = Convert.ToInt32(def) });
+            }
+        }
     }
 }
