@@ -4,6 +4,7 @@
     using System.Linq;
     using System.Windows.Forms;
     using BaseClasses;
+    using global::R440O.TestModule;
 
     /// <summary>
     /// Форма блока Б3-1
@@ -168,6 +169,17 @@
             this.ТумблерМуДу.BackgroundImage = B3_1Parameters.getInstance().ТумблерМуДу
                 ? ControlElementImages.tumblerType4Up
                 : ControlElementImages.tumblerType4Down;
+        }
+
+        private void B3_1Form_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            if (ParametersConfig.IsTesting)
+            {
+                var blockParams = B3_1Parameters.getInstance();
+                bool def = !blockParams.ТумблерМуДу;
+
+                TestMain.Action(new JsonAdapter.ActionStation() { Name = "Б3_1", Value = Convert.ToInt32(def) });
+            }
         }
     }
 }

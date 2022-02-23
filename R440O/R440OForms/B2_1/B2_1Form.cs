@@ -4,6 +4,7 @@
     using System.Linq;
     using System.Windows.Forms;
     using BaseClasses;
+    using global::R440O.TestModule;
 
     /// <summary>
     /// Форма блока Б2-1
@@ -124,5 +125,16 @@
             КолодкаТКСпр2_2.Visible = !B2_1Parameters.getInstance().КолодкаТКСпр21;
         }
         #endregion
+
+        private void B2_1Form_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            if (ParametersConfig.IsTesting)
+            {
+                var blockParams = B2_1Parameters.getInstance();
+                bool def = !blockParams.ТумблерМуДу;
+
+                TestMain.Action(new JsonAdapter.ActionStation() { Name = "Б2_1", Value = Convert.ToInt32(def) });
+            }
+        }
     }
 }

@@ -2,8 +2,10 @@
 
 namespace R440O.R440OForms.B1_2
 {
+    using System;
     using System.Windows.Forms;
     using BaseClasses;
+    using global::R440O.TestModule;
 
     /// <summary>
     /// Форма блока Б1-2
@@ -126,6 +128,17 @@ namespace R440O.R440OForms.B1_2
             КолодкаТЛГпр2_2.Visible = !B1_2Parameters.getInstance().КолодкаТлГпр22;
             КолодкаТЛГпр3_1.Visible = !B1_2Parameters.getInstance().КолодкаТлГпр31;
             КолодкаТЛГпр3_2.Visible = !B1_2Parameters.getInstance().КолодкаТлГпр32;
+        }
+
+        private void B1_2Form_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            if (ParametersConfig.IsTesting)
+            {
+                var blockParams = B1_2Parameters.getInstance();
+                bool def = !blockParams.ТумблерМуДу;
+
+                TestMain.Action(new JsonAdapter.ActionStation() { Name = "Б1_2", Value = Convert.ToInt32(def) });
+            }
         }
     }
 }

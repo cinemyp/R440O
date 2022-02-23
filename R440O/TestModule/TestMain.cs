@@ -127,9 +127,12 @@ namespace R440O.TestModule
             standardActions.Add(new ActionStation("А306", 1, false));
             standardActions.Add(new ActionStation("Ц300М-1", 1, false));
             standardActions.Add(new ActionStation("А1", 1, false));
-            standardActions.Add(new ActionStation("Б1", 1, false));
-            standardActions.Add(new ActionStation("Б2", 1, false));
-            standardActions.Add(new ActionStation("Б3", 1, false));
+            standardActions.Add(new ActionStation("Б1_1", 1, false));
+            standardActions.Add(new ActionStation("Б1_2", 1, false));
+            standardActions.Add(new ActionStation("Б2_1", 1, false));
+            standardActions.Add(new ActionStation("Б2_2", 1, false));
+            standardActions.Add(new ActionStation("Б3_1", 1, false));
+            standardActions.Add(new ActionStation("Б3_2", 1, false));
             standardActions.Add(new ActionStation("ДАБ5", 1, false));
             standardActions.Add(new ActionStation("РУБИН-Н", 1, false));
             standardActions.Add(new ActionStation("КОНТУР-П2", 1, false));

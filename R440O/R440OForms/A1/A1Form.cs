@@ -1,8 +1,10 @@
 ﻿namespace R440O.R440OForms.A1
 {
+    using System;
     using System.Linq;
     using System.Windows.Forms;
     using BaseClasses;
+    using global::R440O.TestModule;
 
     public partial class A1Form : Form, IRefreshableForm
     {
@@ -82,5 +84,16 @@
         }
 
         #endregion
+
+        private void A1Form_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            if (ParametersConfig.IsTesting)
+            {
+                var blockParams = A1Parameters.getInstance();
+                bool def = !blockParams.ТумблерМуДу;
+
+                TestMain.Action(new JsonAdapter.ActionStation() { Name = "А1", Value = Convert.ToInt32(def) });
+            }
+        }
     }
 }
