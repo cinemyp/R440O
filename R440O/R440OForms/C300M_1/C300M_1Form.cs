@@ -383,7 +383,16 @@ namespace R440O.R440OForms.C300M_1
         {
             if (ParametersConfig.IsTesting)
             {
-                //C300M_1Parameters.getInstance().Action -= TestMain.Action;
+                var blockParams = C300M_1Parameters.getInstance();
+                bool def = blockParams.ТумблерУправление &&
+                    !blockParams.ТумблерБлокировка &&
+                    !blockParams.ТумблерПределы &&
+                    blockParams.ТумблерВидВключения &&
+                    blockParams.ТумблерАнализСимметрии &&
+                    blockParams.ТумблерАСЧ &&
+                    blockParams.ТумблерРегулировкаУровня;
+
+                TestMain.Action(new JsonAdapter.ActionStation() { Name = "Ц300М-1", Value = Convert.ToInt32(def) });
             }
             switch (TestMain.getIntent())
             {
