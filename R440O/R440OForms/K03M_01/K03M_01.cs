@@ -11,7 +11,9 @@ using R440O.ThirdParty;
 
 namespace R440O.R440OForms.K03M_01
 {
+    using System;
     using System.Windows.Forms;
+    using global::R440O.TestModule;
     using K03M_01Inside;
 
     /// <summary>
@@ -19,6 +21,7 @@ namespace R440O.R440OForms.K03M_01
     /// </summary>
     public partial class K03M_01Form : Form
     {
+        private bool firstCheck = false;
         /// <summary>
         /// Инициализирует новый экземпляр класса <see cref="K03M_01Form"/>
         /// </summary>
@@ -48,7 +51,7 @@ namespace R440O.R440OForms.K03M_01
                     if (item.Name.Contains("Переключатель") 
                         && !item.Name.Contains("ПереключательНапряжение"))
                     {
-                        item.BackgroundImage = (bool)property.GetValue(null)
+                        item.BackgroundImage = (bool)property.GetValue(K03M_01Parameters.getInstance())
                             ? ControlElementImages.tumblerType3Up
                             : ControlElementImages.tumblerType3Down;
                     }
@@ -69,7 +72,7 @@ namespace R440O.R440OForms.K03M_01
                 {
                     if (item.Name.Contains("Лампочка"))
                     {
-                        item.BackgroundImage = (bool)property.GetValue(null)
+                        item.BackgroundImage = (bool)property.GetValue(K03M_01Parameters.getInstance())
                             ? ControlElementImages.lampType9OnGreen
                             : null;
                     }
@@ -112,7 +115,7 @@ namespace R440O.R440OForms.K03M_01
             var fieldList = typeof(K03M_01Parameters).GetProperties();
             foreach (var property in fieldList.Where(property => item != null && item.Name == property.Name))
             {
-                property.SetValue(null, !(bool)property.GetValue(null));            
+                property.SetValue(K03M_01Parameters.getInstance(), !(bool)property.GetValue(K03M_01Parameters.getInstance()));            
             }
         } 
         #endregion
@@ -173,6 +176,36 @@ namespace R440O.R440OForms.K03M_01
         private void КнопкаПГ_Click(object sender, System.EventArgs e)
         {
             K03M_01Parameters.getInstance().ИзменитьВременнуюПозициюПоиска(1);
+        }
+
+        private void K03M_01Form_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            if (ParametersConfig.IsTesting)
+            {
+                var blockParams = K03M_01Parameters.getInstance();
+
+                if (firstCheck)
+                {
+                    bool def = blockParams.ПереключательЗонаПоиска == 2;
+
+                    TestMain.Action(new JsonAdapter.ActionStation() { Name = "К03М_01--1", Value = Convert.ToInt32(def) });
+                    firstCheck = true;
+                }
+                else
+                {
+                    bool def = blockParams.Переключатель0 && 
+                        blockParams.Переключатель4 &&
+                        !blockParams.Переключатель1 &&
+                        !blockParams.Переключатель2 &&
+                        !blockParams.Переключатель8 &&
+                        !blockParams.Переключатель16 &&
+                        !blockParams.Переключатель32 &&
+                        blockParams.ПереключательНепрОднокр &&
+                        blockParams.ПереключательАвтРучн;
+
+                    TestMain.Action(new JsonAdapter.ActionStation() { Name = "К03М_01--2", Value = Convert.ToInt32(def) });
+                }
+            }
         }
     }
 }

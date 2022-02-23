@@ -516,6 +516,7 @@
             this.Name = "K03M_01Form";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "K03M-1";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.K03M_01Form_FormClosed);
             this.Panel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.Лампочка32)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Лампочка16)).EndInit();

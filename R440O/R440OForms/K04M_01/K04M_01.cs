@@ -35,7 +35,7 @@ namespace R440O.R440OForms.K04M_01
                 {
                     if (item.Name.Contains("Переключатель"))
                     {
-                        var angle = (int)field.GetValue(null) * 26 - 120;
+                        var angle = (int)field.GetValue(K04M_01Parameters.getInstance()) * 26 - 120;
                         item.BackgroundImage =
                             TransformImageHelper.RotateImageByAngle(ControlElementImages.toggleType2, angle);
                     }
@@ -51,15 +51,15 @@ namespace R440O.R440OForms.K04M_01
                 var property = typeof(K04M_01Parameters).GetProperty(item.Name);
                 if (e.Button == MouseButtons.Left)
                 {
-                    property.SetValue(null, (int)property.GetValue(null) + 1);
+                    property.SetValue(K04M_01Parameters.getInstance(), (int)property.GetValue(K04M_01Parameters.getInstance()) + 1);
                 }
 
                 if (e.Button == MouseButtons.Right)
                 {
-                    property.SetValue(null, (int)property.GetValue(null) - 1);
+                    property.SetValue(K04M_01Parameters.getInstance(), (int)property.GetValue(K04M_01Parameters.getInstance()) - 1);
                 }
 
-                var angle = (int)property.GetValue(null) * 26 - 120;
+                var angle = (int)property.GetValue(K04M_01Parameters.getInstance()) * 26 - 120;
                 item.BackgroundImage =
                     TransformImageHelper.RotateImageByAngle(ControlElementImages.toggleType2, angle);
             }

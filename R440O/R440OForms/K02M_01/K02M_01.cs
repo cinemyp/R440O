@@ -66,13 +66,13 @@ namespace R440O.R440OForms.K02M_01
                 {
                     if (item.Name == "ЛампочкаПоискСигналов")
                     {
-                        item.BackgroundImage = (bool)property.GetValue(null)
+                        item.BackgroundImage = (bool)property.GetValue(K02M_01Parameters.getInstance())
                             ? ControlElementImages.lampType1OnRed
                             : null;
                     }
                     else if (item.Name.Contains("Лампочка"))
                     {
-                        item.BackgroundImage = (bool)property.GetValue(null)
+                        item.BackgroundImage = (bool)property.GetValue(K02M_01Parameters.getInstance())
                             ? ControlElementImages.lampType9OnGreen
                             : null;
                     }

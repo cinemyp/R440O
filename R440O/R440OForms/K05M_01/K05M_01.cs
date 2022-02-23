@@ -5,7 +5,9 @@ using R440O.ThirdParty;
 
 namespace R440O.R440OForms.K05M_01
 {
+    using System;
     using System.Windows.Forms;
+    using global::R440O.TestModule;
     using K05M_01Inside;
 
     /// <summary>
@@ -45,7 +47,7 @@ namespace R440O.R440OForms.K05M_01
                     if (item.Name.Contains("ПереключательРодРаботы") ||
                         item.Name.Contains("ПереключательОслабление"))
                     {
-                        var angle = (int) property.GetValue(null)*30 - 30;
+                        var angle = (int) property.GetValue(K05M_01Parameters.getInstance()) *30 - 30;
                         item.BackgroundImage =
                             TransformImageHelper.RotateImageByAngle(ControlElementImages.toggleType2, angle);
                     }
@@ -53,7 +55,7 @@ namespace R440O.R440OForms.K05M_01
                     {
                         if(item.Name.Contains("СтрелкаУровень"))
                         {
-                            var angle = (int) property.GetValue(null)*10*6f/36f;
+                            var angle = (int) property.GetValue(K05M_01Parameters.getInstance()) *10*6f/36f;
                             item.BackgroundImage =
                                 TransformImageHelper.RotateImageByAngle(ControlElementImages.arrow2, angle);
                         }
@@ -65,7 +67,7 @@ namespace R440O.R440OForms.K05M_01
                         }
                         else
                         {
-                            var angle = (int) property.GetValue(null)*30 - 45;
+                            var angle = (int) property.GetValue(K05M_01Parameters.getInstance()) *30 - 45;
                             item.BackgroundImage =
                                 TransformImageHelper.RotateImageByAngle(ControlElementImages.toggleType2, angle);
                         }
@@ -81,12 +83,12 @@ namespace R440O.R440OForms.K05M_01
             var property = typeof(K05M_01Parameters).GetProperty(item.Name);
             if (e.Button == MouseButtons.Left)
             {
-                property.SetValue(null, (int)property.GetValue(null) + 1);
+                property.SetValue(K05M_01Parameters.getInstance(), (int)property.GetValue(K05M_01Parameters.getInstance()) + 1);
             }
 
             if (e.Button == MouseButtons.Right)
             {
-                property.SetValue(null, (int)property.GetValue(null) - 1);
+                property.SetValue(K05M_01Parameters.getInstance(), (int)property.GetValue(K05M_01Parameters.getInstance()) - 1);
             }
         }
 
@@ -111,6 +113,16 @@ namespace R440O.R440OForms.K05M_01
             K05M_01Parameters.getInstance().РегуляторУровень = angle / 10;
         }
 
-       
+        private void K05M_01Form_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            if (ParametersConfig.IsTesting)
+            {
+                var blockParams = K05M_01Parameters.getInstance();
+                bool def = blockParams.ПереключательОслабление == 1 &&
+                    blockParams.ПереключательПередачаКонтроль == 0;
+
+                TestMain.Action(new JsonAdapter.ActionStation() { Name = "К05М_01", Value = Convert.ToInt32(def) });
+            }
+        }
     }
 }

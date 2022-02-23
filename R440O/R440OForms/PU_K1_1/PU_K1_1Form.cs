@@ -1,6 +1,8 @@
 ﻿namespace R440O.R440OForms.PU_K1_1
 {
+    using System;
     using System.Windows.Forms;
+    using global::R440O.TestModule;
     using Parameters;
     using ThirdParty;
 
@@ -143,6 +145,15 @@
             PU_K1_1Parameters.getInstance().ТумблерВентВкл = !PU_K1_1Parameters.getInstance().ТумблерВентВкл;
         }
 
+        private void PU_K1_1Form_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            if (ParametersConfig.IsTesting)
+            {
+                var blockParams = PU_K1_1Parameters.getInstance();
+                bool def = blockParams.ТумблерПитание == 0;
 
+                TestMain.Action(new JsonAdapter.ActionStation() { Name = "PU_K1_1", Value = Convert.ToInt32(def) });
+            }
+        }
     }
 }
