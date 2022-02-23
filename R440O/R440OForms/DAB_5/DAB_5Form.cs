@@ -6,6 +6,7 @@ using R440O.BaseClasses;
 namespace R440O.R440OForms.DAB_5
 {
     using System.Windows.Forms;
+    using global::R440O.TestModule;
     using Parameters;
     using СостоянияЭлементов.ДАБ5;
     /// <summary>
@@ -269,6 +270,17 @@ namespace R440O.R440OForms.DAB_5
         private void КнопкаОбходВыкл_MouseUp(object sender, MouseEventArgs e)
         {
             DAB_5Parameters.getInstance().КнопкаОбходВыкл = false;
+        }
+
+        private void DAB_5Form_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            if (ParametersConfig.IsTesting)
+            {
+                var blockParams = DAB_5Parameters.getInstance();
+                bool def = !blockParams.ТумблерПитание;
+
+                TestMain.Action(new JsonAdapter.ActionStation() { Name = "РУБИН-Н", Value = Convert.ToInt32(def) });
+            }
         }
     }
 }

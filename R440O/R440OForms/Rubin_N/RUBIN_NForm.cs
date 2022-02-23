@@ -9,6 +9,8 @@ using R440O.Parameters;
 using R440O.ThirdParty;
 using R440O.BaseClasses;
 using System.Windows.Forms;
+using R440O.TestModule;
+using System;
 
 namespace R440O.R440OForms.Rubin_N
 {
@@ -379,5 +381,16 @@ namespace R440O.R440OForms.Rubin_N
             Rubin_NParameters.getInstance().ТумблерРнБас3 = !Rubin_NParameters.getInstance().ТумблерРнБас3;
         }
         #endregion
+
+        private void Rubin_NForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            if (ParametersConfig.IsTesting)
+            {
+                var blockParams = Rubin_NParameters.getInstance();
+                bool def = blockParams.ПереключательКонтроль == 1;
+
+                TestMain.Action(new JsonAdapter.ActionStation() { Name = "Б2_1", Value = Convert.ToInt32(def) });
+            }
+        }
     }
 }
