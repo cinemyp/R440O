@@ -126,7 +126,6 @@ namespace R440O.R440OForms.N15
             {
                 _кнопкаСтанцияВкл = value;
                 OnParameterChanged();
-                OnAction("КнопкаСтанцияВкл", Convert.ToInt32(_кнопкаСтанцияВкл));
             }
         }
 
@@ -139,7 +138,6 @@ namespace R440O.R440OForms.N15
             set
             {
                 _кнопкаСтанцияВыкл = value;
-                OnAction("КнопкаСтанцияВыкл", Convert.ToInt32(_кнопкаСтанцияВыкл));
                 if (value)
                 {
                     ResetParameters();
@@ -550,7 +548,6 @@ namespace R440O.R440OForms.N15
                 _тумблерА503Б = value;
                 ResetParameters();
                 OnParameterChanged();
-                OnAction("ТумблерА503Б", Convert.ToInt32(_тумблерА503Б));
 
             }
         }

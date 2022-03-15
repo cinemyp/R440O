@@ -1,4 +1,5 @@
-﻿using System;
+﻿using R440O.LearnModule;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,6 +12,7 @@ namespace R440O.JsonAdapter
         public int Value { get; set; }
         public string Name { get; set; }
         public bool IsUserAction { get; set; }
+        public ModulesEnum Module { get; set; }
 
         public ActionStation() { }
 
@@ -24,6 +26,13 @@ namespace R440O.JsonAdapter
         {
             Value = value;
             Name = name;
+            IsUserAction = isUserAction;
+        }
+
+        public ActionStation(ModulesEnum module, int value, bool isUserAction = true)
+        {
+            Value = value;
+            Module = module;
             IsUserAction = isUserAction;
         }
 

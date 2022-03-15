@@ -31,8 +31,8 @@ namespace R440O.R440OForms.A306
             }
             switch (TestMain.getIntent())
             {
-                case ModulesEnum.A306_open:
-                    TestMain.setIntent(ModulesEnum.A306_set);
+                case LearnModule.ModulesEnum.A306_open:
+                    TestMain.setIntent(LearnModule.ModulesEnum.A306_set);
                     IsExactModule = true;
                     break;
             }
@@ -337,19 +337,19 @@ namespace R440O.R440OForms.A306
                 bool def = blockParams.ТумблерДистанцМестн &&
                     blockParams.ТумблерПитание;
 
-                TestMain.Action(new JsonAdapter.ActionStation() { Name = "А306", Value = Convert.ToInt32(def) });
+                TestMain.Action(new JsonAdapter.ActionStation() { Module = LearnModule.ModulesEnum.Check_A306, Value = Convert.ToInt32(def) });
             }
 
             switch (TestMain.getIntent())
             {
-                case ModulesEnum.A306_set:
+                case LearnModule.ModulesEnum.A306_set:
                     if(A306Parameters.getInstance().Выходы[1] == 0)
                     {
-                        TestMain.setIntent(ModulesEnum.H15Inside_open);
+                        TestMain.setIntent(LearnModule.ModulesEnum.H15Inside_open);
                     }
                     else
                     {
-                        TestMain.setIntent(ModulesEnum.A306_open);
+                        TestMain.setIntent(LearnModule.ModulesEnum.A306_open);
                     }
                     break;
             }

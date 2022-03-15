@@ -152,7 +152,7 @@
                 var blockParams = PU_K1_1Parameters.getInstance();
                 bool def = blockParams.ТумблерПитание == 0;
 
-                TestMain.Action(new JsonAdapter.ActionStation() { Name = "PU_K1_1", Value = Convert.ToInt32(def) });
+                TestMain.Action(new JsonAdapter.ActionStation() { Module = LearnModule.ModulesEnum.Check_PU_K1_1, Value = Convert.ToInt32(def) });
             }
         }
     }

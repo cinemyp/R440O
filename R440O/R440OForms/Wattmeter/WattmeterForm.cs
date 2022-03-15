@@ -112,7 +112,7 @@ namespace R440O.R440OForms.Wattmeter
                 var blockParams = WattmeterParameters.getInstance();
                 bool def = !blockParams.ТумблерСеть;
 
-                TestMain.Action(new JsonAdapter.ActionStation() { Name = "Я2М-66", Value = Convert.ToInt32(def) });
+                TestMain.Action(new JsonAdapter.ActionStation() { Module = LearnModule.ModulesEnum.Check_Wattmeter, Value = Convert.ToInt32(def) });
             }
         }
 

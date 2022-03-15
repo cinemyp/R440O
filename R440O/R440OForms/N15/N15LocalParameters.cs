@@ -59,7 +59,6 @@ namespace R440O.R440OForms.N15
         {
             get { return _локТумблерЦ300М1; }
             set { _локТумблерЦ300М1 = value;OnParameterChanged();
-                OnAction("локТумблерЦ300М1", Convert.ToInt32(_локТумблерЦ300М1));
 
             }
         }
@@ -68,7 +67,6 @@ namespace R440O.R440OForms.N15
         {
             get { return _локТумблерЦ300М2; }
             set { _локТумблерЦ300М2 = value;OnParameterChanged();
-                OnAction("локТумблерЦ300М2", Convert.ToInt32(_локТумблерЦ300М2));
 
             }
         }
@@ -77,7 +75,6 @@ namespace R440O.R440OForms.N15
         {
             get { return _локТумблерЦ300М3; }
             set { _локТумблерЦ300М3 = value;OnParameterChanged();
-                OnAction("локТумблерЦ300М3", Convert.ToInt32(_локТумблерЦ300М3));
 
             }
         }
@@ -86,7 +83,6 @@ namespace R440O.R440OForms.N15
         {
             get { return _локТумблерЦ300М4; }
             set { _локТумблерЦ300М4 = value;OnParameterChanged();
-                OnAction("локТумблерЦ300М4", Convert.ToInt32(_локТумблерЦ300М4));
 
             }
         }
@@ -95,7 +91,6 @@ namespace R440O.R440OForms.N15
         {
             get { return _локТумблерН12С; }
             set { _локТумблерН12С = value;OnParameterChanged();
-                OnAction("локТумблерН12С", Convert.ToInt32(_локТумблерН12С));
 
             }
         }
@@ -104,7 +99,6 @@ namespace R440O.R440OForms.N15
         {
             get { return _локТумблерМшу; }
             set { _локТумблерМшу = value;OnParameterChanged();
-                OnAction("локТумблерМШУ", Convert.ToInt32(_локТумблерМшу));
 
             }
         }
@@ -113,7 +107,6 @@ namespace R440O.R440OForms.N15
         {
             get { return _локТумблерБМА1; }
             set { _локТумблерБМА1 = value;OnParameterChanged();
-                OnAction("локТумблерБМА_1", Convert.ToInt32(_локТумблерБМА1));
             }
         }
 
@@ -121,7 +114,6 @@ namespace R440O.R440OForms.N15
         {
             get { return _локТумблерБМА2; }
             set { _локТумблерБМА2 = value;OnParameterChanged();
-                OnAction("локТумблерБМА_2", Convert.ToInt32(_локТумблерБМА2));
 
             }
         }
@@ -130,7 +122,6 @@ namespace R440O.R440OForms.N15
         {
             get { return _локТумблерА205Base; }
             set { _локТумблерА205Base = value;OnParameterChanged();
-                OnAction("локТумблерА205Base", Convert.ToInt32(_локТумблерА205Base));
 
             }
         }
@@ -139,7 +130,6 @@ namespace R440O.R440OForms.N15
         {
             get { return _локТумблерА20512; }
             set { _локТумблерА20512 = value;OnParameterChanged();
-                OnAction("локТумблерА20512", Convert.ToInt32(_локТумблерА20512));
 
             }
         }
@@ -148,7 +138,6 @@ namespace R440O.R440OForms.N15
         {
             get { return _локТумблерАФСС; }
             set { _локТумблерАФСС = value;OnParameterChanged();
-                OnAction("локТумблерАФСС", Convert.ToInt32(_локТумблерАФСС));
 
             }
         }
@@ -157,7 +146,6 @@ namespace R440O.R440OForms.N15
         {
             get { return _локТумблерА1; }
             set { _локТумблерА1 = value;OnParameterChanged();
-                OnAction("локТумблерА1", Convert.ToInt32(_локТумблерА1));
             }
         }
 
@@ -165,7 +153,6 @@ namespace R440O.R440OForms.N15
         {
             get { return _локТумблерА403; }
             set { _локТумблерА403 = value;OnParameterChanged();
-                OnAction("локТумблерА403", Convert.ToInt32(_локТумблерА403));
             }
         }
 
@@ -173,7 +160,6 @@ namespace R440O.R440OForms.N15
         {
             get { return _локТумблерК1_1; }
             set { _локТумблерК1_1 = value;OnParameterChanged();
-                OnAction("локТумблерК1_1", Convert.ToInt32(_локТумблерК1_1));
 
             }
         }
@@ -182,7 +168,6 @@ namespace R440O.R440OForms.N15
         {
             get { return _локТумблерК1_2; }
             set { _локТумблерК1_2 = value;OnParameterChanged();
-                OnAction("локТумблерК1_2", Convert.ToInt32(_локТумблерК1_2));
 
             }
         }
@@ -191,7 +176,6 @@ namespace R440O.R440OForms.N15
         {
             get { return _локТумблерБ1_1; }
             set { _локТумблерБ1_1 = value;OnParameterChanged();
-                OnAction("локТумблерБ1_1", Convert.ToInt32(_локТумблерБ1_1));
 
             }
         }
@@ -200,7 +184,6 @@ namespace R440O.R440OForms.N15
         {
             get { return _локТумблерБ1_2; }
             set { _локТумблерБ1_2 = value;OnParameterChanged();
-                OnAction("локТумблерБ1_2", Convert.ToInt32(_локТумблерБ1_2));
 
             }
         }
@@ -209,7 +192,6 @@ namespace R440O.R440OForms.N15
         {
             get { return _локТумблерБ2_1; }
             set { _локТумблерБ2_1 = value;OnParameterChanged();
-                OnAction("локТумблерБ2_1", Convert.ToInt32(_локТумблерБ2_1));
 
             }
         }
@@ -218,7 +200,6 @@ namespace R440O.R440OForms.N15
         {
             get { return _локТумблерБ2_2; }
             set { _локТумблерБ2_2 = value;OnParameterChanged();
-                OnAction("локТумблерБ2_2", Convert.ToInt32(_локТумблерБ2_2));
 
             }
         }
@@ -227,7 +208,6 @@ namespace R440O.R440OForms.N15
         {
             get { return _локТумблерБ3_1; }
             set { _локТумблерБ3_1 = value;OnParameterChanged();
-                OnAction("локТумблерБ3_1", Convert.ToInt32(_локТумблерБ3_1));
 
             }
         }
@@ -236,7 +216,6 @@ namespace R440O.R440OForms.N15
         {
             get { return _локТумблерБ3_2; }
             set { _локТумблерБ3_2 = value;OnParameterChanged();
-                OnAction("локТумблерБ3_2", Convert.ToInt32(_локТумблерБ3_2));
 
             }
         }
@@ -245,7 +224,6 @@ namespace R440O.R440OForms.N15
         {
             get { return _локТумблерДАБ_5; }
             set { _локТумблерДАБ_5 = value;OnParameterChanged();
-                OnAction("локТумблерДАБ_5", Convert.ToInt32(_локТумблерДАБ_5));
 
             }
         }
@@ -254,7 +232,6 @@ namespace R440O.R440OForms.N15
         {
             get { return _локТумблерР_Н; }
             set { _локТумблерР_Н = value;OnParameterChanged();
-                OnAction("локТумблерР_Н", Convert.ToInt32(_локТумблерР_Н));
 
             }
         }
@@ -301,7 +278,6 @@ namespace R440O.R440OForms.N15
                 if (value)
                 {
                     N15Parameters.getInstance().КнопкаН13 = 1;
-                    OnAction("локКнопкаН13_1", Convert.ToInt32(_локКнопкаН13_1));
                 }
                 OnParameterChanged();
             }
@@ -316,7 +292,6 @@ namespace R440O.R440OForms.N15
                 if (value)
                 {
                     N15Parameters.getInstance().КнопкаН13 = 2;
-                    OnAction("локКнопкаН13_2", Convert.ToInt32(_локКнопкаН13_2));
                 }
                 OnParameterChanged();
 
@@ -332,7 +307,6 @@ namespace R440O.R440OForms.N15
                 if (value)
                 {
                     N15Parameters.getInstance().КнопкаН13 = 3;
-                    OnAction("локКнопкаН13_12", Convert.ToInt32(_локКнопкаН13_12));
                 }
                 OnParameterChanged();
 

@@ -279,7 +279,7 @@ namespace R440O.R440OForms.DAB_5
                 var blockParams = DAB_5Parameters.getInstance();
                 bool def = blockParams.ТумблерПитание;
 
-                TestMain.Action(new JsonAdapter.ActionStation() { Name = "ДАБ5", Value = Convert.ToInt32(def) });
+                TestMain.Action(new JsonAdapter.ActionStation() { Module = LearnModule.ModulesEnum.Check_DAB5, Value = Convert.ToInt32(def) });
             }
         }
     }

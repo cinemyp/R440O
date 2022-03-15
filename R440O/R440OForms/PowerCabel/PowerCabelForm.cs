@@ -29,16 +29,16 @@
 
             this.RefreshFormElements();
 
-            if (LearnMain.getIntent() == ModulesEnum.openPowerCabeltoPower)
+            if (LearnMain.getIntent() == LearnModule.ModulesEnum.openPowerCabeltoPower)
             {
-                LearnMain.setIntent(ModulesEnum.PowerCabelConnect);
+                LearnMain.setIntent(LearnModule.ModulesEnum.PowerCabelConnect);
                 LearnMain.form = this;
                 LearnMain.Action();
             }
 
-            if (TestMain.getIntent() == ModulesEnum.openPowerCabeltoPower)
+            if (TestMain.getIntent() == LearnModule.ModulesEnum.openPowerCabeltoPower)
             {
-                TestMain.setIntent(ModulesEnum.PowerCabelConnect);
+                TestMain.setIntent(LearnModule.ModulesEnum.PowerCabelConnect);
                 IsExactModule = true;
             }
         }
@@ -80,13 +80,13 @@
         {
             if (!PowerCabelParameters.getInstance().КабельСеть)
             {
-                LearnMain.setIntent(ModulesEnum.openPowerCabeltoPower);
-                TestMain.setIntent(ModulesEnum.openPowerCabeltoPower);
+                LearnMain.setIntent(LearnModule.ModulesEnum.openPowerCabeltoPower);
+                TestMain.setIntent(LearnModule.ModulesEnum.openPowerCabeltoPower);
             }
             else
             {
-                LearnMain.setIntent(ModulesEnum.openN502BtoCheck);
-                TestMain.setIntent(ModulesEnum.openN502BtoCheck);
+                LearnMain.setIntent(LearnModule.ModulesEnum.openN502BtoCheck);
+                TestMain.setIntent(LearnModule.ModulesEnum.openN502BtoCheck);
             }
 
             PowerCabelParameters.getInstance().ParameterChanged -= RefreshFormElements;
@@ -95,6 +95,10 @@
             if (ParametersConfig.IsTesting)
             {
                 PowerCabelParameters.getInstance().Action -= TestMain.Action;
+                var blockParams = PowerCabelParameters.getInstance();
+                
+                TestMain.Action(new JsonAdapter.ActionStation() { Module = LearnModule.ModulesEnum.PowerCabelConnect, Value = blockParams.Напряжение });
+
             }
         }
     }

@@ -184,7 +184,6 @@ namespace R440O.Parameters
         {
             get { return _C1_67ТумблерСеть; }
             set { _C1_67ТумблерСеть = value;
-                OnAction("C1_67ТумблерСеть", Convert.ToInt32(_C1_67ТумблерСеть));
             }
         }
         public bool C1_67Тумблер2kHz = false;

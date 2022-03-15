@@ -315,7 +315,7 @@ namespace R440O.R440OForms.A403_1
                 //Комплект произвольный
                 //Неисправность АПН - не работает???
 
-                TestMain.Action(new JsonAdapter.ActionStation() { Name = "А403-1", Value = Convert.ToInt32(def) });
+                TestMain.Action(new JsonAdapter.ActionStation() { Module = LearnModule.ModulesEnum.Check_A403, Value = Convert.ToInt32(def) });
             }
             A403_1Parameters.getInstance().ParameterChanged -= RefreshFormElements;
             A403_1Parameters.getInstance().DisplayChanged -= RefreshDisplay;

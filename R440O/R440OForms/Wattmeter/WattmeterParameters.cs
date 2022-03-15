@@ -29,7 +29,6 @@ namespace R440O.R440OForms.Wattmeter
             {
                 _тумблерСеть = value;
                 OnParameterChanged();
-                OnAction("ТумблерСеть", Convert.ToInt32(_тумблерСеть));
             }
         }
 

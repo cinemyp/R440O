@@ -45,25 +45,25 @@ namespace R440O.R440OForms.N15
             LearnMain.form = this;
             switch (LearnMain.getIntent())
             {
-                case ModulesEnum.openN15:
-                    LearnMain.setIntent(ModulesEnum.N15Power);
+                case LearnModule.ModulesEnum.openN15:
+                    LearnMain.setIntent(LearnModule.ModulesEnum.N15Power);
                     break;
-                case ModulesEnum.H15Inside_open:
-                    LearnMain.setIntent(ModulesEnum.H15Inside_open_from_H15);
+                case LearnModule.ModulesEnum.H15Inside_open:
+                    LearnMain.setIntent(LearnModule.ModulesEnum.H15Inside_open_from_H15);
                     break;
             }
             switch (TestMain.getIntent())
             {
-                case ModulesEnum.openN15:
-                    TestMain.setIntent(ModulesEnum.N15Power);
+                case LearnModule.ModulesEnum.openN15:
+                    TestMain.setIntent(LearnModule.ModulesEnum.N15Power);
                     IsExactModule = true;
                     break;
-                case ModulesEnum.openN15SmallLoop:
-                    TestMain.setIntent(ModulesEnum.N15SmallLoop);
+                case LearnModule.ModulesEnum.openN15SmallLoop:
+                    TestMain.setIntent(LearnModule.ModulesEnum.N15SmallLoop);
                     IsExactModule = true;
                     break;
-                case ModulesEnum.H15Inside_open:
-                    TestMain.setIntent(ModulesEnum.H15Inside_open_from_H15);
+                case LearnModule.ModulesEnum.H15Inside_open:
+                    TestMain.setIntent(LearnModule.ModulesEnum.H15Inside_open_from_H15);
                     IsExactModule = true;
                     break;
             }
@@ -551,12 +551,45 @@ namespace R440O.R440OForms.N15
             if (ParametersConfig.IsTesting)
             {
                 var blockParams = N15Parameters.getInstance();
-                bool def = blockParams.isFullDeactive();
 
-                TestMain.Action(new JsonAdapter.ActionStation() { Name = "Н15АБ", Value = Convert.ToInt32(def) });
+                if(TestMain.IsCheck)
+                {
+                    bool def = blockParams.isFullDeactive();
+                    
+                    TestMain.Action(new JsonAdapter.ActionStation() { Module = LearnModule.ModulesEnum.Check_N15, Value = Convert.ToInt32(def) });
+                } else
+                {
+                    var localParams = N15LocalParameters.getInstance();
+
+                    bool def = localParams.локКнопкаН13_1 &&
+                        localParams.локТумблерЦ300М1 &&
+                        localParams.локТумблерЦ300М2 &&
+                        localParams.локТумблерЦ300М3 &&
+                        localParams.локТумблерЦ300М4 &&
+                        localParams.локТумблерН12С &&
+                        localParams.локТумблерБМА_1 &&
+                        localParams.локТумблерБМА_2 &&
+                        localParams.локТумблерАФСС &&
+                        localParams.локТумблерА1 &&
+                        localParams.локТумблерА403 &&
+                        localParams.локТумблерК1_1 &&
+                        localParams.локТумблерК1_2 &&
+                        localParams.локТумблерБ1_1 &&
+                        localParams.локТумблерБ2_1 &&
+                        localParams.локТумблерБ3_1 &&
+                        localParams.локТумблерБ1_2 &&
+                        localParams.локТумблерБ2_2 &&
+                        localParams.локТумблерБ3_2 &&
+                        localParams.локТумблерДАБ_5 &&
+                        localParams.локТумблерР_Н &&
+                        localParams.локТумблерМШУ;
+
+                    TestMain.Action(new JsonAdapter.ActionStation() { Module = LearnModule.ModulesEnum.N15Power, Value = Convert.ToInt32(def) });
+                }
+                
             }
 
-            if (LearnMain.getIntent() == ModulesEnum.N15Power)
+            if (LearnMain.getIntent() == LearnModule.ModulesEnum.N15Power)
             {
                 if (LearnMain.globalIntent == GlobalIntentEnum.OneChannel)
                 {
@@ -564,11 +597,11 @@ namespace R440O.R440OForms.N15
                         N15Parameters.getInstance().ТумблерАФСС && !N15Parameters.getInstance().ТумблерАнтЭкв && N15Parameters.getInstance().ТумблерА403 && N15Parameters.getInstance().ЛампочкаБМА_1 &&
                         N15Parameters.getInstance().ЛампочкаБМА_2 && N15Parameters.getInstance().ЛампочкаМШУ && N15Parameters.getInstance().ТумблерТлфТлгПрд && N15Parameters.getInstance().ТумблерТлфТлгПрм)
                     {
-                        LearnMain.setIntent(ModulesEnum.A205_m1_Open);
+                        LearnMain.setIntent(LearnModule.ModulesEnum.A205_m1_Open);
                     }
                     else
                     {
-                        LearnMain.setIntent(ModulesEnum.openN15);
+                        LearnMain.setIntent(LearnModule.ModulesEnum.openN15);
                     }
                 }
             }

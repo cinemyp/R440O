@@ -92,7 +92,7 @@
                 var blockParams = A1Parameters.getInstance();
                 bool def = !blockParams.ТумблерМуДу;
 
-                TestMain.Action(new JsonAdapter.ActionStation() { Name = "А1", Value = Convert.ToInt32(def) });
+                TestMain.Action(new JsonAdapter.ActionStation() { Module = LearnModule.ModulesEnum.Check_A1, Value = Convert.ToInt32(def) });
             }
         }
     }

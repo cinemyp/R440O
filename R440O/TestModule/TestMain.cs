@@ -28,6 +28,9 @@ namespace R440O.TestModule
         private static List<ActionStation> checkedActions = new List<ActionStation>();
         private static int step = 0;
         private static bool isCheck = false;
+        public static bool IsCheck { get { return isCheck; } }
+
+        private static bool checking = false;
 
         private static string checkEndName = "ПроверкаЗакончена";
 
@@ -52,7 +55,7 @@ namespace R440O.TestModule
                 NextStep(action);
             }
             else if (previousAction != null && (previousAction.Equals(action) || 
-                action.Name == previousAction.Name))
+                action.Module == previousAction.Module))
             {
                 //пользователь работает с тем параметром, который нужен, 
                 //поэтому оставляем и ничего не делаем
@@ -120,103 +123,57 @@ namespace R440O.TestModule
         private static void CreateStandard()
         {
             standardActions = new List<ActionStation>();
+            if(checking)
+            {
+                //Проверка
+                standardActions.Add(new ActionStation(ModulesEnum.Check_N502B, 1, false)); //Готово
+                standardActions.Add(new ActionStation(ModulesEnum.Check_N15, 1, false));
+                standardActions.Add(new ActionStation(ModulesEnum.Check_P220, 1, false));
+                standardActions.Add(new ActionStation(ModulesEnum.Check_N12S, 1, false));
+                standardActions.Add(new ActionStation(ModulesEnum.Check_A403, 1, false));
+                standardActions.Add(new ActionStation(ModulesEnum.Check_A205, 1, false));
+                standardActions.Add(new ActionStation(ModulesEnum.Check_N13_1, 1, false));
+                standardActions.Add(new ActionStation(ModulesEnum.Check_N13_2, 1, false));
+                standardActions.Add(new ActionStation(ModulesEnum.Check_N16, 1, false));
+                standardActions.Add(new ActionStation(ModulesEnum.Check_A304, 1, false));
+                standardActions.Add(new ActionStation(ModulesEnum.Check_A306, 1, false));
+                standardActions.Add(new ActionStation(ModulesEnum.Check_C300M, 1, false));
 
-            //Проверка
-            standardActions.Add(new ActionStation("Н502Б", 1, false)); //Готово
-            standardActions.Add(new ActionStation("Н15АБ", 1, false));
-            standardActions.Add(new ActionStation("П220/27-Г", 1, false));
-            standardActions.Add(new ActionStation("Н12С", 1, false));
-            standardActions.Add(new ActionStation("А403-1", 1, false));
-            standardActions.Add(new ActionStation("А205М-1", 1, false));
-            standardActions.Add(new ActionStation("Н13-1", 1, false));
-            standardActions.Add(new ActionStation("Н13-2", 1, false));
-            standardActions.Add(new ActionStation("Н16", 1, false));
-            standardActions.Add(new ActionStation("А304", 1, false));
-            standardActions.Add(new ActionStation("А306", 1, false));
-            standardActions.Add(new ActionStation("Ц300М-1", 1, false));
+                standardActions.Add(new ActionStation(ModulesEnum.Check_A1, 1, false));
+                standardActions.Add(new ActionStation(ModulesEnum.Check_B1_1, 1, false));
+                standardActions.Add(new ActionStation(ModulesEnum.Check_B1_2, 1, false));
+                standardActions.Add(new ActionStation(ModulesEnum.Check_B2_1, 1, false));
+                standardActions.Add(new ActionStation(ModulesEnum.Check_B2_2, 1, false));
+                standardActions.Add(new ActionStation(ModulesEnum.Check_B3_1, 1, false));
+                standardActions.Add(new ActionStation(ModulesEnum.Check_B3_2, 1, false));
 
-            standardActions.Add(new ActionStation("А1", 1, false));
-            standardActions.Add(new ActionStation("Б1_1", 1, false));
-            standardActions.Add(new ActionStation("Б1_2", 1, false));
-            standardActions.Add(new ActionStation("Б2_1", 1, false));
-            standardActions.Add(new ActionStation("Б2_2", 1, false));
-            standardActions.Add(new ActionStation("Б3_1", 1, false));
-            standardActions.Add(new ActionStation("Б3_2", 1, false));
+                standardActions.Add(new ActionStation(ModulesEnum.Check_DAB5, 1, false));
+                standardActions.Add(new ActionStation(ModulesEnum.Check_RUBIN, 1, false));
+                standardActions.Add(new ActionStation(ModulesEnum.Check_KONTUR, 1, false));
 
-            standardActions.Add(new ActionStation("ДАБ5", 1, false));
-            standardActions.Add(new ActionStation("РУБИН-Н", 1, false));
-            standardActions.Add(new ActionStation("КОНТУР-П2", 1, false));
+                standardActions.Add(new ActionStation(ModulesEnum.Check_PU_K1_1, 1, false));
+                standardActions.Add(new ActionStation(ModulesEnum.Check_K03M_01_1, 1, false));
+                standardActions.Add(new ActionStation(ModulesEnum.Check_K05M_01, 1, false));
+                standardActions.Add(new ActionStation(ModulesEnum.Check_K03M_01_2, 1, false));
 
-            standardActions.Add(new ActionStation("PU_K1_1", 1, false));
-            standardActions.Add(new ActionStation("К03М_01--1", 1, false));
-            standardActions.Add(new ActionStation("К05М_01", 1, false));
-            standardActions.Add(new ActionStation("К03М_01--2", 1, false));
+                standardActions.Add(new ActionStation(ModulesEnum.Check_BMB, 1, false));
+                standardActions.Add(new ActionStation(ModulesEnum.Check_BMA, 1, false));
+                standardActions.Add(new ActionStation(ModulesEnum.Check_C1_67, 1, false));
+                standardActions.Add(new ActionStation(ModulesEnum.Check_Wattmeter, 1, false));
 
-            standardActions.Add(new ActionStation("БМБ", 1, false));
-            standardActions.Add(new ActionStation("БМА", 1, false));
-            standardActions.Add(new ActionStation("С1-67", 1, false));
-            standardActions.Add(new ActionStation("Я2М-66", 1, false));
-
-            standardActions.Add(new ActionStation(checkEndName, 1, false));
+                standardActions.Add(new ActionStation(checkEndName, 1, false));
+            }
+            
 
 
             //Включение
-            standardActions.Add(new ActionStation("КабельСеть", 1));
             //Проверка напряжения
-            //standardActions.Add(new ActionStation("ПереключательФазировка", 2));
-            //standardActions.Add(new ActionStation("ПереключательСеть", 1));
-            //standardActions.Add(new ActionStation("ПереключательСеть", 0));
-            //standardActions.Add(new ActionStation("ПереключательФазировка", 1));
             //Подключение кабеля на стабилизаторе
-            standardActions.Add(new ActionStation("КабельВход", R440OForms.PowerCabel.PowerCabelParameters.getInstance().Напряжение));
-            //standardActions.Add(new ActionStation("ПереключательФазировка", N502BParameters.getInstance().Фазировка));
-            //standardActions.Add(new ActionStation("ПереключательСеть", 1));
-            standardActions.Add(new ActionStation("Нагрузка", 1));
+            standardActions.Add(new ActionStation(ModulesEnum.PowerCabelConnect, R440OForms.PowerCabel.PowerCabelParameters.getInstance().Напряжение));
+            standardActions.Add(new ActionStation(ModulesEnum.N502Power, 1));
 
             //Н15
-            standardActions.Add(new ActionStation("локТумблерМШУ", 1));
-            standardActions.Add(new ActionStation("КнопкаСтанцияВкл", 1));
-            standardActions.Add(new ActionStation("локКнопкаН13_1", 1));
-            standardActions.Add(new ActionStation("КнопкаСтанцияВкл", 1));
-
-            standardActions.Add(new ActionStation("локТумблерЦ300М1", 1));
-            standardActions.Add(new ActionStation("КнопкаСтанцияВкл", 1));
-            standardActions.Add(new ActionStation("локТумблерЦ300М2", 1));
-            standardActions.Add(new ActionStation("КнопкаСтанцияВкл", 1));
-            standardActions.Add(new ActionStation("локТумблерЦ300М3", 1));
-            standardActions.Add(new ActionStation("КнопкаСтанцияВкл", 1));
-            standardActions.Add(new ActionStation("локТумблерЦ300М4", 1));
-            standardActions.Add(new ActionStation("КнопкаСтанцияВкл", 1));
-            
-            standardActions.Add(new ActionStation("локТумблерН12С", 1));
-            standardActions.Add(new ActionStation("КнопкаСтанцияВкл", 1));
-            standardActions.Add(new ActionStation("локТумблерБМА_1", 1));
-            standardActions.Add(new ActionStation("КнопкаСтанцияВкл", 1));
-            standardActions.Add(new ActionStation("локТумблерБМА_2", 1));
-            standardActions.Add(new ActionStation("КнопкаСтанцияВкл", 1));
-            
-            standardActions.Add(new ActionStation("локТумблерАФСС", 1));
-            standardActions.Add(new ActionStation("локТумблерА1", 1));
-            standardActions.Add(new ActionStation("локТумблерА403", 1));
-            standardActions.Add(new ActionStation("КнопкаСтанцияВкл", 1));
-
-            standardActions.Add(new ActionStation("локТумблерК1_1", 1));
-            standardActions.Add(new ActionStation("локТумблерК1_2", 1));
-            standardActions.Add(new ActionStation("КнопкаСтанцияВкл", 1));
-
-            standardActions.Add(new ActionStation("локТумблерБ1_1", 1));
-            standardActions.Add(new ActionStation("локТумблерБ2_1", 1));
-            standardActions.Add(new ActionStation("локТумблерБ3_1", 1));
-            standardActions.Add(new ActionStation("КнопкаСтанцияВкл", 1));
-
-            standardActions.Add(new ActionStation("локТумблерБ1_2", 1));
-            standardActions.Add(new ActionStation("локТумблерБ2_2", 1));
-            standardActions.Add(new ActionStation("локТумблерБ3_2", 1));
-            standardActions.Add(new ActionStation("КнопкаСтанцияВкл", 1));
-
-            standardActions.Add(new ActionStation("локТумблерДАБ_5", 1));
-            standardActions.Add(new ActionStation("локТумблерР_Н", 1));
-            standardActions.Add(new ActionStation("КнопкаСтанцияВкл", 1));
+            standardActions.Add(new ActionStation(ModulesEnum.N15Power, 1));
 
             //БМБ
             standardActions.Add(new ActionStation("КнопкаПитание", 1));
@@ -231,7 +188,6 @@ namespace R440O.TestModule
         {
             CreateStandard();
             LoadStandard();
-            isCheck = true;
             ParametersConfig.IsTesting = true;
             testResult = new TestResult();
             stopwatch = new Stopwatch();

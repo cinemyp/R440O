@@ -19,7 +19,11 @@
             {
                 N502BParameters.getInstance().Action += TestMain.Action;
             }
+            var controls = this.Controls;
+            foreach(var c in controls)
+            {
 
+            }
             N502BParameters.getInstance().СтанцияСгорела += ВыводСообщенияСтанцияСгорела;
             N502BParameters.getInstance().НекорректноеДействие += ВыводСообщенияНекорректноеДействие;
             RefreshFormElements();
@@ -43,21 +47,20 @@
                     break;
             }
             
-            switch (TestMain.getIntent())
-            {
-                case ModulesEnum.openN502BtoCheck:
-                    TestMain.setIntent(ModulesEnum.N502Check);
-                    break;
-                case ModulesEnum.openN502BtoPower:
-                    if (VoltageStabilizer.VoltageStabilizerParameters.getInstance().КабельВход > 0)
-                    {
-                        TestMain.setIntent(ModulesEnum.N502Power);
-                    }
-                    break;
-                default:
-                    break;
-                    
-            }
+            //switch (TestMain.getIntent())
+            //{
+            //    case ModulesEnum.openN502BtoCheck:
+            //        TestMain.setIntent(ModulesEnum.N502Check);
+            //        break;
+            //    case ModulesEnum.openN502BtoPower:
+            //        if (VoltageStabilizer.VoltageStabilizerParameters.getInstance().КабельВход > 0)
+            //        {
+            //            TestMain.setIntent(ModulesEnum.N502Power);
+            //        }
+            //        break;
+            //    default:
+            //        break;
+            //}
         }
 
         private void ВыводСообщенияСтанцияСгорела()
@@ -384,11 +387,14 @@
             N502BParameters.getInstance().НекорректноеДействие -= ВыводСообщенияНекорректноеДействие;
 
             if (ParametersConfig.IsTesting)
-            {
+            {   
                 N502BParameters.getInstance().Action -= TestMain.Action;
 
                 var blockParams = N502BParameters.getInstance();
-                bool def = !blockParams.ПереключательСеть &&
+
+                if(TestMain.IsCheck)
+                {
+                    bool def = !blockParams.ПереключательСеть &&
                     blockParams.ПереключательФазировка == 1 &&
                     blockParams.ПереключательТокНагрузкиИЗаряда == 1 &&
                     blockParams.ПереключательНапряжение == 4 &&
@@ -400,7 +406,24 @@
                     !blockParams.ТумблерН13_2 &&
                     !blockParams.ТумблерН15;
 
-                TestMain.Action(new JsonAdapter.ActionStation() { Name = "Н502Б", Value = Convert.ToInt32(def) });
+                    TestMain.Action(new JsonAdapter.ActionStation() { Module = LearnModule.ModulesEnum.Check_N502B, Value = Convert.ToInt32(def) });
+                }
+                else if(blockParams.ПереключательСеть)
+                {
+                    bool def = blockParams.ПереключательСеть &&
+                    blockParams.ПереключательФазировка == blockParams.Фазировка &&
+                    blockParams.ПереключательТокНагрузкиИЗаряда == 1 &&
+                    blockParams.ПереключательНапряжение != 4 &&
+                    blockParams.ПереключательКонтрольНапряжения == 1 &&
+                    blockParams.ЭлектрообуродованиеВключено &&
+                    blockParams.ВыпрямительВключен &&
+                    blockParams.ТумблерН13_1 &&
+                    blockParams.ТумблерН13_2 &&
+                    blockParams.ТумблерН15;
+
+                    TestMain.Action(new JsonAdapter.ActionStation() { Module = LearnModule.ModulesEnum.N502Power, Value = Convert.ToInt32(def) });
+                }
+                
             }
 
             switch (LearnMain.getIntent())
@@ -418,23 +441,23 @@
                         LearnMain.setIntent(ModulesEnum.openN15);
                     break;
             }
-            switch (TestMain.getIntent())
-            {
-                case ModulesEnum.N502Check:
-                    TestMain.setIntent(ModulesEnum.openVoltageStabilizer);
-                    break;
-                case ModulesEnum.N502Power:
-                    if ((N502BParameters.getInstance().ЛампочкаСфазировано) &&
-                        (N502BParameters.getInstance().Н15Включен) &&
-                        (N502BParameters.getInstance().ТумблерЭлектрооборудование) &&
-                        (N502BParameters.getInstance().ТумблерН13_1) &&
-                        (N502BParameters.getInstance().ТумблерН13_2) &&
-                        (N502BParameters.getInstance().ТумблерВыпрямитель27В))
-                    {
-                        TestMain.setIntent(ModulesEnum.openN15);
-                    }
-                    break;
-            }
+            //switch (TestMain.getIntent())
+            //{
+            //    case ModulesEnum.N502Check:
+            //        TestMain.setIntent(ModulesEnum.openVoltageStabilizer);
+            //        break;
+            //    case ModulesEnum.N502Power:
+            //        if ((N502BParameters.getInstance().ЛампочкаСфазировано) &&
+            //            (N502BParameters.getInstance().Н15Включен) &&
+            //            (N502BParameters.getInstance().ТумблерЭлектрооборудование) &&
+            //            (N502BParameters.getInstance().ТумблерН13_1) &&
+            //            (N502BParameters.getInstance().ТумблерН13_2) &&
+            //            (N502BParameters.getInstance().ТумблерВыпрямитель27В))
+            //        {
+            //            TestMain.setIntent(ModulesEnum.openN15);
+            //        }
+            //        break;
+            //}
             //if (LearnMain.globalIntent == GlobalIntentEnum.nill)
             //    LearnMain.setIntent(ModulesEnum.chooseLearnType);
 

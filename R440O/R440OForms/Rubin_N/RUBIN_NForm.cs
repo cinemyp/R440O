@@ -389,7 +389,7 @@ namespace R440O.R440OForms.Rubin_N
                 var blockParams = Rubin_NParameters.getInstance();
                 bool def = blockParams.ПереключательКонтроль == 1;
 
-                TestMain.Action(new JsonAdapter.ActionStation() { Name = "РУБИН-Н", Value = Convert.ToInt32(def) });
+                TestMain.Action(new JsonAdapter.ActionStation() { Module = LearnModule.ModulesEnum.Check_RUBIN, Value = Convert.ToInt32(def) });
             }
         }
     }

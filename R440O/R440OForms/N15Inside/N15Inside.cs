@@ -31,19 +31,19 @@
             LearnMain.form = this;
             switch (LearnMain.getIntent())
             {
-                case ModulesEnum.H15Inside_open_from_H15:
+                case LearnModule.ModulesEnum.H15Inside_open_from_H15:
                     if (LearnMain.globalIntent == GlobalIntentEnum.OneChannel)
                     {
-                        LearnMain.setIntent(ModulesEnum.H15Inside_power);
+                        LearnMain.setIntent(LearnModule.ModulesEnum.H15Inside_power);
                     }
                     break;
             }
             switch (TestMain.getIntent())
             {
-                case ModulesEnum.H15Inside_open_from_H15:
+                case LearnModule.ModulesEnum.H15Inside_open_from_H15:
                     //if (TestMain.globalIntent == GlobalIntentEnum.OneChannel)
                     //{
-                        TestMain.setIntent(ModulesEnum.H15Inside_power);
+                        TestMain.setIntent(LearnModule.ModulesEnum.H15Inside_power);
                     IsExactModule = true;
                     //}
                     break;
@@ -64,7 +64,7 @@
             }
             switch (TestMain.getIntent())
             {
-                case ModulesEnum.H15Inside_power:
+                case LearnModule.ModulesEnum.H15Inside_power:
                     if (N15InsideParameters.getInstance().ПереключательПУЛ480ПРМ_1 == 3 &&
                         N15InsideParameters.getInstance().ПереключательПУЛ480ПРМ_2 == 3 &&
                         N15InsideParameters.getInstance().ПереключательПУЛ48ПРД_1 == 3 &&
@@ -74,7 +74,7 @@
                         N15InsideParameters.getInstance().ТумблерПУЛ48ПРД_1 == Модуляция.ОФТ &&
                         N15InsideParameters.getInstance().ТумблерПУЛ48ПРД_2 == Модуляция.ОФТ)
                     {
-                        TestMain.setIntent(ModulesEnum.N15_power_C300m1);
+                        TestMain.setIntent(LearnModule.ModulesEnum.N15_power_C300m1);
                         //TODO: доделать переход на н15
                     }
                     break;

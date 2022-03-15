@@ -27,15 +27,15 @@
                 VoltageStabilizerParameters.getInstance().Action += TestMain.Action;
             }
 
-            if (LearnMain.getIntent()==ModulesEnum.openVoltageStabilizer)
+            if (LearnMain.getIntent()==LearnModule.ModulesEnum.openVoltageStabilizer)
             {
                 LearnMain.form = this;
-                LearnMain.setIntent(ModulesEnum.VoltageStabilizerSetUp);
+                LearnMain.setIntent(LearnModule.ModulesEnum.VoltageStabilizerSetUp);
             }
-            if (TestMain.getIntent() == ModulesEnum.openVoltageStabilizer)
+            if (TestMain.getIntent() == LearnModule.ModulesEnum.openVoltageStabilizer)
             {
                 IsExactModule = true;
-                TestMain.setIntent(ModulesEnum.VoltageStabilizerSetUp);
+                TestMain.setIntent(LearnModule.ModulesEnum.VoltageStabilizerSetUp);
             }
         }
 
@@ -141,18 +141,18 @@
                 //VoltageStabilizerParameters.getInstance().Action -= TestMain.Action;
             }
 
-            if ((LearnMain.getIntent() == ModulesEnum.VoltageStabilizerSetUp)
+            if ((LearnMain.getIntent() == LearnModule.ModulesEnum.VoltageStabilizerSetUp)
                 && (VoltageStabilizerParameters.getInstance().КабельВход>0))
             { 
-                LearnMain.setIntent(ModulesEnum.openN502BtoPower);
-            } else LearnMain.setIntent(ModulesEnum.openVoltageStabilizer);
+                LearnMain.setIntent(LearnModule.ModulesEnum.openN502BtoPower);
+            } else LearnMain.setIntent(LearnModule.ModulesEnum.openVoltageStabilizer);
 
-            if ((TestMain.getIntent() == ModulesEnum.VoltageStabilizerSetUp)
+            if ((TestMain.getIntent() == LearnModule.ModulesEnum.VoltageStabilizerSetUp)
                 && (VoltageStabilizerParameters.getInstance().КабельВход > 0))
             {
-                TestMain.setIntent(ModulesEnum.openN502BtoPower);
+                TestMain.setIntent(LearnModule.ModulesEnum.openN502BtoPower);
             }
-            else TestMain.setIntent(ModulesEnum.openVoltageStabilizer);
+            else TestMain.setIntent(LearnModule.ModulesEnum.openVoltageStabilizer);
         }
     }
 }

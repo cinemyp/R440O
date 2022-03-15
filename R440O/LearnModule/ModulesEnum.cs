@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace R440O.LearnModule
 {
-    enum ModulesEnum
+    public enum ModulesEnum
     {
         nill,
         openPowerCabeltoPower = 1,
@@ -51,6 +51,36 @@ namespace R440O.LearnModule
         Ц300М_3,
         Ц300М_4,
         ДАБ5,
-        A_205
+        A_205,
+        Check_N502B,
+        Check_N15,
+        Check_P220,
+        Check_N12S,
+        Check_A403,
+        Check_A205,
+        Check_N13_1,
+        Check_N13_2,
+        Check_N16,
+        Check_A304,
+        Check_A306,
+        Check_C300M,
+        Check_A1,
+        Check_B1_1,
+        Check_B1_2,
+        Check_B2_1,
+        Check_B2_2,
+        Check_B3_1,
+        Check_B3_2,
+        Check_DAB5,
+        Check_RUBIN,
+        Check_KONTUR,
+        Check_PU_K1_1,
+        Check_K03M_01_1,
+        Check_K05M_01,
+        Check_K03M_01_2,
+        Check_BMB,
+        Check_BMA,
+        Check_C1_67,
+        Check_Wattmeter
     }
 }

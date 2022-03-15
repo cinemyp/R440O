@@ -105,7 +105,6 @@ namespace R440O.R440OForms.VoltageStabilizer
                 else _кабельВход = value;
 
                 OnParameterChanged();
-                OnAction("КабельВход", _кабельВход);
                 N502BParameters.getInstance().ResetParameters();
             }
         }

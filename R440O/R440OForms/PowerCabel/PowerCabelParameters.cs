@@ -50,7 +50,6 @@ namespace R440O.R440OForms.PowerCabel
                 else СтанцияСгорела();
                 
                 OnParameterChanged();
-                OnAction("КабельСеть", Convert.ToInt32(_кабельСеть));
 
                 N502BParameters.getInstance().ResetParameters();
             }

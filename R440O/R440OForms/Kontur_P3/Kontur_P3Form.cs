@@ -834,7 +834,7 @@ namespace R440O.R440OForms.Kontur_P3
                 bool def = blockParams.ТумблерСеть == EТумблерСеть.ВКЛ &&
                     blockParams.ПереключательКонтроль == EПереключательКонтроль.СЕТЬ;
 
-                TestMain.Action(new JsonAdapter.ActionStation() { Name = "КОНТУР-П2", Value = Convert.ToInt32(def) });
+                TestMain.Action(new JsonAdapter.ActionStation() { Module = LearnModule.ModulesEnum.Check_KONTUR, Value = Convert.ToInt32(def) });
             }
         }
     }

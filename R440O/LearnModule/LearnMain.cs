@@ -13,7 +13,7 @@ namespace R440O.LearnModule
     static class LearnMain
     {
         public static bool isMainWindow = true;
-        static ModulesEnum module = ModulesEnum.nill;
+        static ModulesEnum module = LearnModule.ModulesEnum.nill;
         //static IntentionEnum intent = IntentionEnum.open;
         //для выбора режима прохождения обучения
         public static GlobalIntentEnum globalIntent { get; set; } = GlobalIntentEnum.OneChannel;
@@ -90,19 +90,19 @@ namespace R440O.LearnModule
             switch (module)
             {
             #region Описания шагов при обучения
-                case ModulesEnum.openN502BtoCheck:
+                case LearnModule.ModulesEnum.openN502BtoCheck:
                     helpText = "Выберите блок питания (N502B)";              
                     controls.Add(mainForm.R440OButtonN502B);
                     isHighlighting = true;
                     break;
 
-                case ModulesEnum.openN502BtoPower:
+                case LearnModule.ModulesEnum.openN502BtoPower:
                     helpText = "Выберите блок питания (N502B)";
                     controls.Add(mainForm.R440OButtonN502B);
                     isHighlighting = true;
                     break;
                   
-                case ModulesEnum.N502Check:
+                case LearnModule.ModulesEnum.N502Check:
                     helpText = "1) Включите напряжение (тумблер слева) " + Environment.NewLine +
                                 "2) Переключите фазировку на 1-2-3 или 2-1-3 " + Environment.NewLine +
                                 "3) Посмотрите, сколько напряжения показывает на вольтметре" + Environment.NewLine +
@@ -114,7 +114,7 @@ namespace R440O.LearnModule
                     isHighlighting = true;
                     break;
 
-                case ModulesEnum.N502Power:
+                case LearnModule.ModulesEnum.N502Power:
                     helpText = "1) Включите напряжение (тумблер слева) " + Environment.NewLine +
                                 "2) Переключите фазировку на 1-2-3 или 2-1-3 " + Environment.NewLine +
                                 "3) Включите нагрузки (кнопка вверху)" + Environment.NewLine +
@@ -131,7 +131,7 @@ namespace R440O.LearnModule
                     isHighlighting = true;
                     break;
 
-                case ModulesEnum.VoltageStabilizerSetUp:
+                case LearnModule.ModulesEnum.VoltageStabilizerSetUp:
 
                     helpText = "Подключите канал напряжения, которое было показано на вольтметре";
                     controls.Add(((VoltageStabilizerForm)form).КабельВход1);
@@ -141,33 +141,33 @@ namespace R440O.LearnModule
 
 
 
-                case ModulesEnum.openPowerCabeltoPower:
+                case LearnModule.ModulesEnum.openPowerCabeltoPower:
                     helpText = "Выберите блок кабеля";
                     controls.Add(mainForm.R440OButtonPowerCabel);
                     isHighlighting = true;
                     break;
 
       
-                case ModulesEnum.PowerCabelConnect:
+                case LearnModule.ModulesEnum.PowerCabelConnect:
                     helpText = "Включите кабель питания (по центру)";
                     break;
 
 
-                case ModulesEnum.openVoltageStabilizer:
+                case LearnModule.ModulesEnum.openVoltageStabilizer:
                     helpText = "Выберите блок стабилизатора напряжения";
                     controls.Add(mainForm.R440OButtonVoltageStabilizer);
                     isHighlighting = true;
                     break;
 
-                case ModulesEnum.openN15:
-                case ModulesEnum.H15Inside_open:
+                case LearnModule.ModulesEnum.openN15:
+                case LearnModule.ModulesEnum.H15Inside_open:
                     helpText = "Выберите блок Н15";
                     controls.Add(mainForm.R440OButtonN15);
                     isHighlighting = true;
                     break;
 
 
-                case ModulesEnum.H15Inside_open_from_H15:
+                case LearnModule.ModulesEnum.H15Inside_open_from_H15:
                     helpText = "Снимите крышку с блока";
                     N15Form N15 = ((N15Form)form);
                     controls.Add(N15.OpenInsideButtonLeft);
@@ -175,7 +175,7 @@ namespace R440O.LearnModule
                     isHighlighting = true;
                     break;
 
-                case ModulesEnum.N15Power:
+                case LearnModule.ModulesEnum.N15Power:
                     helpText = "1) Включите тумблеры 1,2,3,4 (ц300м) МШУ,БМА1,БМА2,А205,А503б в том же порядке, после включения каждого нажимайте кнопку СТАНЦИЯ ВКЛ: " + Environment.NewLine +
                         "2) Поставить переключатель антенна-эквивалент в позицию эквивалент. Нажать СТАНЦИЯ ВКЛ" + Environment.NewLine +
                         "3) Включить А403,АФСС" + Environment.NewLine +
@@ -199,7 +199,7 @@ namespace R440O.LearnModule
                     isHighlighting = true;
                     break;
 
-                case ModulesEnum.H15Inside_power:
+                case LearnModule.ModulesEnum.H15Inside_power:
                     helpText = "Выставить на пулах 480 и 48:" + Environment.NewLine +
                         "1) Переключатели ОФТ1-ЧТ1 поставить в положение ОФТ1" + Environment.NewLine +
                         "2) Выставить скорость на регуляторах скорость 4.8";
@@ -215,19 +215,19 @@ namespace R440O.LearnModule
                     isHighlighting = true;
                     break;
 
-                case ModulesEnum.chooseLearnType:
+                case LearnModule.ModulesEnum.chooseLearnType:
                     isDialog = true;
                     Form formDialog = new LearnTypeSelector();
                     formDialog.ShowDialog();
                     break;
 
-                case ModulesEnum.A205_m1_Open:
+                case LearnModule.ModulesEnum.A205_m1_Open:
                     helpText = "Выберите блок A205-м1";
                     controls.Add(mainForm.R440OButtonA205M_1);
                     isHighlighting = true;
                     break;
 
-                case ModulesEnum.A205_m1_Power:
+                case LearnModule.ModulesEnum.A205_m1_Power:
                     //int wave = new Random().Next(1500, 51499);
                     int wave = 41529; 
                     helpText = "Выставите волну (" + wave + " номер передающей волны)" + Environment.NewLine +
@@ -245,7 +245,7 @@ namespace R440O.LearnModule
                     isHighlighting = true;
                     break;
 
-                case ModulesEnum.C300_m1_Open:
+                case LearnModule.ModulesEnum.C300_m1_Open:
                     helpText = "Выберите блок Ц300-м1";
                     controls.Add(mainForm.R440OButtonC300M_1);
                     isHighlighting = true;

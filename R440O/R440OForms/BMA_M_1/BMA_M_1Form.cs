@@ -423,7 +423,7 @@ namespace R440O.R440OForms.BMA_M_1
                     blockParams.КнопкаШлейфТЧ == 0 && 
                     blockParams.КнопкаШлейфДК == 0;
 
-                TestMain.Action(new JsonAdapter.ActionStation() { Name = "БМА", Value = Convert.ToInt32(def) });
+                TestMain.Action(new JsonAdapter.ActionStation() { Module = LearnModule.ModulesEnum.Check_BMA, Value = Convert.ToInt32(def) });
             }
         }
     }

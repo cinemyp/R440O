@@ -36,8 +36,8 @@ namespace R440O.R440OForms.C300M_1
             }
             switch (TestMain.getIntent())
             {
-                case ModulesEnum.C300_m1_Open:
-                    TestMain.setIntent(ModulesEnum.C300_m1_Power);
+                case LearnModule.ModulesEnum.C300_m1_Open:
+                    TestMain.setIntent(LearnModule.ModulesEnum.C300_m1_Power);
                     IsExactModule = true;
                     break;
             }
@@ -391,12 +391,12 @@ namespace R440O.R440OForms.C300M_1
                     blockParams.ТумблерАСЧ &&
                     blockParams.ТумблерРегулировкаУровня;
 
-                TestMain.Action(new JsonAdapter.ActionStation() { Name = "Ц300М-1", Value = Convert.ToInt32(def) });
+                TestMain.Action(new JsonAdapter.ActionStation() { Module = LearnModule.ModulesEnum.Check_C300M, Value = Convert.ToInt32(def) });
             }
             switch (TestMain.getIntent())
             {
-                //case ModulesEnum.C300_m1_Power:
-                //    TestMain.setIntent(ModulesEnum.C300_m1_Power);
+                //case LearnModule.ModulesEnum.C300_m1_Power:
+                //    TestMain.setIntent(LearnModule.ModulesEnum.C300_m1_Power);
                 //    break;
             }
         }

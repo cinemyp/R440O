@@ -256,7 +256,7 @@
                     blockParams.КнопкаСлСвязь == Кнопка.Отжата &&
                     blockParams.КнопкаЗвСигнал == Кнопка.Отжата;
 
-                TestMain.Action(new JsonAdapter.ActionStation() { Name = "БМБ", Value = Convert.ToInt32(def) });
+                TestMain.Action(new JsonAdapter.ActionStation() { Module = LearnModule.ModulesEnum.Check_BMB, Value = Convert.ToInt32(def) });
             }
         }
     }

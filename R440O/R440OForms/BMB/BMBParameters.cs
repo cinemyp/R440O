@@ -116,7 +116,6 @@ namespace R440O.R440OForms.BMB
                     передачаЦифр = false;
                 }
                 _кнопкаПередачаВызоваТч = value;
-                OnAction("КнопкаПередачаВызоваТч", (int)_кнопкаПередачаВызоваТч);
                 BMA_M_1Parameters.getInstance().ResetParameters();
                 BMA_M_2Parameters.getInstance().ResetParameters();
                 if (RefreshForm != null) RefreshForm();
@@ -147,7 +146,6 @@ namespace R440O.R440OForms.BMB
                     передачаЦифр = false;
                 }
                 _кнопкаПередачаВызоваДк = value;
-                OnAction("КнопкаПередачаВызоваДк", (int)_кнопкаПередачаВызоваДк);
 
                 BMA_M_1Parameters.getInstance().ResetParameters();
                 BMA_M_2Parameters.getInstance().ResetParameters();
@@ -198,7 +196,6 @@ namespace R440O.R440OForms.BMB
                 ОбнулитьНабор();
                 ПереданнаяКоманда = string.Empty;
                 _кнопкаПитание = value;
-                OnAction("КнопкаПитание", (int)_кнопкаПитание);
 
                 BMA_M_1Parameters.getInstance().ResetParameters();
                 BMA_M_2Parameters.getInstance().ResetParameters();
