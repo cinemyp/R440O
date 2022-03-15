@@ -98,16 +98,16 @@
                         item.Name.Contains("ЛампочкаПрТС1_2") ||
                         item.Name.Contains("ЛампочкаПрТС2_2") ||
                         item.Name.Contains("ЛампочкаВУП_1"))
-                        item.BackgroundImage = (bool) prop.GetValue(null)
+                        item.BackgroundImage = (bool) prop.GetValue(B2_1Parameters.getInstance())
                             ? ControlElementImages.lampType3OnRed
                             : null;
                     else if (item.Name.Contains("ЛампочкаТЛГпр") ||
                              item.Name.Contains("ЛампочкаТКСпр2"))
-                        item.BackgroundImage = (bool) prop.GetValue(null)
+                        item.BackgroundImage = (bool) prop.GetValue(B2_1Parameters.getInstance())
                             ? ControlElementImages.lampType4OnRed
                             : null;
                     else
-                        item.BackgroundImage = (bool) prop.GetValue(null)
+                        item.BackgroundImage = (bool) prop.GetValue(B2_1Parameters.getInstance())
                             ? ControlElementImages.lampType2OnRed
                             : null;
                     break;

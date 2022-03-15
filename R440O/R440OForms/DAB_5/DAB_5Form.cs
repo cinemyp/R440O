@@ -35,7 +35,7 @@ namespace R440O.R440OForms.DAB_5
                     {
                         if (controlElement.Name == property.Name)
                         {
-                            controlElement.BackgroundImage = Convert.ToBoolean(property.GetValue(null))
+                            controlElement.BackgroundImage = Convert.ToBoolean(property.GetValue(DAB_5Parameters.getInstance()))
                             ? ControlElementImages.lampType5OnRed
                             : null;
                         }
@@ -277,9 +277,9 @@ namespace R440O.R440OForms.DAB_5
             if (ParametersConfig.IsTesting)
             {
                 var blockParams = DAB_5Parameters.getInstance();
-                bool def = !blockParams.ТумблерПитание;
+                bool def = blockParams.ТумблерПитание;
 
-                TestMain.Action(new JsonAdapter.ActionStation() { Name = "РУБИН-Н", Value = Convert.ToInt32(def) });
+                TestMain.Action(new JsonAdapter.ActionStation() { Name = "ДАБ5", Value = Convert.ToInt32(def) });
             }
         }
     }

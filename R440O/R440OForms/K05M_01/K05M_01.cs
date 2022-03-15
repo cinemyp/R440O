@@ -118,7 +118,7 @@ namespace R440O.R440OForms.K05M_01
             if (ParametersConfig.IsTesting)
             {
                 var blockParams = K05M_01Parameters.getInstance();
-                bool def = blockParams.ПереключательОслабление == 1 &&
+                bool def = blockParams.ПереключательОслабление == 0 &&
                     blockParams.ПереключательПередачаКонтроль == 0;
 
                 TestMain.Action(new JsonAdapter.ActionStation() { Name = "К05М_01", Value = Convert.ToInt32(def) });

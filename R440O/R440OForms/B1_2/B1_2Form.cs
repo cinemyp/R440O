@@ -88,15 +88,15 @@ namespace R440O.R440OForms.B1_2
                         item.Name.Contains("ЛампочкаТКБтк2_2") ||
                         item.Name.Contains("ЛампочкаТКБтк3_2") ||
                         item.Name.Contains("ЛампочкаВУП_1"))
-                        item.BackgroundImage = (bool)prop.GetValue(null)
+                        item.BackgroundImage = (bool)prop.GetValue(B1_2Parameters.getInstance())
                             ? ControlElementImages.lampType3OnRed
                             : null;
                     else if (item.Name.Contains("ЛампочкаТЛГпр"))
-                        item.BackgroundImage = (bool)prop.GetValue(null)
+                        item.BackgroundImage = (bool)prop.GetValue(B1_2Parameters.getInstance())
                             ? ControlElementImages.lampType4OnRed
                             : null;
                     else
-                        item.BackgroundImage = (bool)prop.GetValue(null)
+                        item.BackgroundImage = (bool)prop.GetValue(B1_2Parameters.getInstance())
                             ? ControlElementImages.lampType2OnRed
                             : null;
                     break;

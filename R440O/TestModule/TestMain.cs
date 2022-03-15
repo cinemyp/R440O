@@ -126,6 +126,7 @@ namespace R440O.TestModule
             standardActions.Add(new ActionStation("А304", 1, false));
             standardActions.Add(new ActionStation("А306", 1, false));
             standardActions.Add(new ActionStation("Ц300М-1", 1, false));
+
             standardActions.Add(new ActionStation("А1", 1, false));
             standardActions.Add(new ActionStation("Б1_1", 1, false));
             standardActions.Add(new ActionStation("Б1_2", 1, false));
@@ -133,23 +134,26 @@ namespace R440O.TestModule
             standardActions.Add(new ActionStation("Б2_2", 1, false));
             standardActions.Add(new ActionStation("Б3_1", 1, false));
             standardActions.Add(new ActionStation("Б3_2", 1, false));
+
             standardActions.Add(new ActionStation("ДАБ5", 1, false));
             standardActions.Add(new ActionStation("РУБИН-Н", 1, false));
             standardActions.Add(new ActionStation("КОНТУР-П2", 1, false));
+
             standardActions.Add(new ActionStation("PU_K1_1", 1, false));
             standardActions.Add(new ActionStation("К03М_01--1", 1, false));
             standardActions.Add(new ActionStation("К05М_01", 1, false));
             standardActions.Add(new ActionStation("К03М_01--2", 1, false));
-            standardActions.Add(new ActionStation("PU_K1_1", 1, false));
+
             standardActions.Add(new ActionStation("БМБ", 1, false));
             standardActions.Add(new ActionStation("БМА", 1, false));
             standardActions.Add(new ActionStation("С1-67", 1, false));
             standardActions.Add(new ActionStation("Я2М-66", 1, false));
-            standardActions.Add(new ActionStation("ПроверкаЗакончена", 1, false));
+
+            standardActions.Add(new ActionStation(checkEndName, 1, false));
 
 
             //Включение
-            standardActions.Add(new ActionStation("КабельСеть", 1, true));
+            standardActions.Add(new ActionStation("КабельСеть", 1));
             //Проверка напряжения
             //standardActions.Add(new ActionStation("ПереключательФазировка", 2));
             //standardActions.Add(new ActionStation("ПереключательСеть", 1));

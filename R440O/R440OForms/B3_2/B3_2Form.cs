@@ -29,8 +29,8 @@
             var numberOfComplect = button.Name[10];
 
             var property = typeof(B3_2Parameters).GetProperty("КолодкаУКК" + numberOfComplect);
-            var value = (int)property.GetValue(null);
-            property.SetValue(null, numberOfButton == value ? 0 : numberOfButton);
+            var value = (int)property.GetValue(B3_2Parameters.getInstance());
+            property.SetValue(B3_2Parameters.getInstance(), numberOfButton == value ? 0 : numberOfButton);
         }
         #endregion
 
@@ -41,8 +41,8 @@
             var numberOfButton = (int)Char.GetNumericValue(button.Name[12]);
 
             var property = typeof(B3_2Parameters).GetProperty("КолодкаКРПР");
-            var value = (int)property.GetValue(null);
-            property.SetValue(null, numberOfButton == value ? 0 : numberOfButton);
+            var value = (int)property.GetValue(B3_2Parameters.getInstance());
+            property.SetValue(B3_2Parameters.getInstance(), numberOfButton == value ? 0 : numberOfButton);
         }
         #endregion
 
@@ -132,15 +132,15 @@
                         item.Name.Contains("ЛампочкаПФТК1_2") ||
                         item.Name.Contains("ЛампочкаПФТК2_2") ||
                         item.Name.Contains("ЛампочкаВУП1"))
-                        item.BackgroundImage = (bool)prop.GetValue(null)
+                        item.BackgroundImage = (bool)prop.GetValue(B3_2Parameters.getInstance())
                             ? ControlElementImages.lampType3OnRed
                             : null;
                     else if (item.Name.Contains("ЛампочкаТЛГпр"))
-                        item.BackgroundImage = (bool)prop.GetValue(null)
+                        item.BackgroundImage = (bool)prop.GetValue(B3_2Parameters.getInstance())
                             ? ControlElementImages.lampType4OnRed
                             : null;
                     else
-                        item.BackgroundImage = (bool)prop.GetValue(null)
+                        item.BackgroundImage = (bool)prop.GetValue(B3_2Parameters.getInstance())
                             ? ControlElementImages.lampType2OnRed
                             : null;
                     break;

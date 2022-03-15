@@ -71,11 +71,11 @@
                         item.Name.Contains("ЛампочкаПУЛ2_2") ||
                         item.Name.Contains("ЛампочкаПУЛ3_2") ||
                         item.Name.Contains("ЛампочкаПитание"))
-                        item.BackgroundImage = (bool)prop.GetValue(null)
+                        item.BackgroundImage = (bool)prop.GetValue(A1Parameters.getInstance())
                             ? ControlElementImages.lampType3OnRed
                             : null;
                     else
-                        item.BackgroundImage = (bool)prop.GetValue(null)
+                        item.BackgroundImage = (bool)prop.GetValue(A1Parameters.getInstance())
                             ? ControlElementImages.lampType2OnRed
                             : null;
                     break;

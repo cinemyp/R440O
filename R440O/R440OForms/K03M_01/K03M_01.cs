@@ -21,7 +21,6 @@ namespace R440O.R440OForms.K03M_01
     /// </summary>
     public partial class K03M_01Form : Form
     {
-        private bool firstCheck = false;
         /// <summary>
         /// Инициализирует новый экземпляр класса <see cref="K03M_01Form"/>
         /// </summary>
@@ -184,12 +183,12 @@ namespace R440O.R440OForms.K03M_01
             {
                 var blockParams = K03M_01Parameters.getInstance();
 
-                if (firstCheck)
+                if (blockParams.firstCheck)
                 {
                     bool def = blockParams.ПереключательЗонаПоиска == 2;
 
                     TestMain.Action(new JsonAdapter.ActionStation() { Name = "К03М_01--1", Value = Convert.ToInt32(def) });
-                    firstCheck = true;
+                    blockParams.firstCheck = false;
                 }
                 else
                 {
