@@ -2,20 +2,34 @@
 {
     using N15;
 
-    public static class P220_27G_2Parameters
+    public class P220_27G_2Parameters
     {
-        public static bool Включен
+        private static P220_27G_2Parameters instance;
+        public static P220_27G_2Parameters getInstance()
         {
-            get { return N15Parameters.Включен && ТумблерСеть; }
+            if (instance == null)
+                instance = new P220_27G_2Parameters();
+            return instance;
+        }
+        public delegate void TestModuleHandler(JsonAdapter.ActionStation action);
+        public event TestModuleHandler Action;
+        private void OnAction(string name, int value)
+        {
+            var action = new JsonAdapter.ActionStation(name, value);
+            Action?.Invoke(action);
+        }
+        public bool Включен
+        {
+            get { return N15Parameters.getInstance().Включен && ТумблерСеть; }
         }
         ////Лампочки
-        public static bool ЛампочкаНеиспр { get; set; }
-        public static bool ЛампочкаПерегр { get; set; }
+        public bool ЛампочкаНеиспр { get; set; }
+        public bool ЛампочкаПерегр { get; set; }
 
         /// <summary>
         /// Лампочка сеть горит в случае включения блока Н15 и ТумблераСеть
         /// </summary>
-        public static bool ЛампочкаСеть
+        public bool ЛампочкаСеть
         {
             get { return Включен; }
         }
@@ -23,21 +37,21 @@
         /// <summary>
         /// Лампочка 27В горит в случае местного включения блоков, или включения хотя бы одного блока дискрета.
         /// </summary>
-        public static bool Лампочка27В
+        public bool Лампочка27В
         {
             get
             {
                 return Включен && (!ТумблерУправление ||
-                                   (N15Parameters.ТумблерА1 || N15Parameters.ТумблерБ1_1 || N15Parameters.ТумблерБ1_2 ||
-                                    N15Parameters.ТумблерБ2_1 || N15Parameters.ТумблерБ2_2 || N15Parameters.ТумблерБ3_1 ||
-                                    N15Parameters.ТумблерБ3_2));
+                                   (N15Parameters.getInstance().ТумблерА1 || N15Parameters.getInstance().ТумблерБ1_1 || N15Parameters.getInstance().ТумблерБ1_2 ||
+                                    N15Parameters.getInstance().ТумблерБ2_1 || N15Parameters.getInstance().ТумблерБ2_2 || N15Parameters.getInstance().ТумблерБ3_1 ||
+                                    N15Parameters.getInstance().ТумблерБ3_2));
             }
         }
 
         /// <summary>
         /// Определяет тип управления, выбранный на блоке. true - Дистанционное управление, false - Местное
         /// </summary>
-        public static bool ТумблерУправление
+        public bool ТумблерУправление
         {
             get { return _тумблерУправление; }
             set
@@ -50,30 +64,30 @@
         /// <summary>
         /// true - вкл, false - выкл
         /// </summary>
-        public static bool ТумблерСеть
+        public bool ТумблерСеть
         {
             get { return _тумблерСеть; }
             set
             {
                 _тумблерСеть = value;
                 OnParameterChanged();
-                N15Parameters.ResetParametersAlternative();
-                N15Parameters.ResetDiscret();
+                N15Parameters.getInstance().ResetParametersAlternative();
+                N15Parameters.getInstance().ResetDiscret();
             }
         }
 
-        private static bool _тумблерУправление;
-        private static bool _тумблерСеть;
+        private bool _тумблерУправление;
+        private bool _тумблерСеть;
 
         public delegate void ParameterChangedHandler();
-        public static event ParameterChangedHandler ParameterChanged;
+        public event ParameterChangedHandler ParameterChanged;
 
-        public static void ResetParameters()
+        public void ResetParameters()
         {
             OnParameterChanged();
         }
 
-        private static void OnParameterChanged()
+        private void OnParameterChanged()
         {
             var handler = ParameterChanged;
             if (handler != null) handler();

@@ -3,39 +3,47 @@
 namespace R440O.R440OForms.VoltageStabilizer
 {
     using global::R440O.BaseClasses;
+    using global::R440O.JsonAdapter;
     using global::R440O.R440OForms.N502B;
 
-    public static class VoltageStabilizerParameters
+    public class VoltageStabilizerParameters
     {
+        private static VoltageStabilizerParameters instance;
+        public static VoltageStabilizerParameters getInstance()
+        {
+            if (instance == null)
+                instance = new VoltageStabilizerParameters();
+            return instance;
+        }
         public static ITestModule TestModuleRef { get; set; }
         #region Лампочки
 
-        public static bool ЛампочкаСеть
+        public bool ЛампочкаСеть
         {
             get
             {
-                return N502BParameters.ПереключательСеть &&
-                           N502BParameters.ЛампочкаСеть
+                return N502BParameters.getInstance().ПереключательСеть &&
+                           N502BParameters.getInstance().ЛампочкаСеть
                              && КабельПодключенПравильно;
             }
         }
-        public static bool ЛампочкаАвария
+        public bool ЛампочкаАвария
         {
             get
             {
-                return N502BParameters.ПереключательСеть &&
-                           N502BParameters.ЛампочкаСеть
+                return N502BParameters.getInstance().ПереключательСеть &&
+                           N502BParameters.getInstance().ЛампочкаСеть
                              && !КабельПодключенПравильно;
             }
         }
         #endregion
 
         #region Контроль Напряжения
-        private static int _переключательКонтрольНапр = 1;
+        private int _переключательКонтрольНапр = 1;
         /// <summary>
         /// Положение переключателя Контроль напряжения
         /// </summary>
-        public static int ПереключательКонтрольНапр
+        public int ПереключательКонтрольНапр
         {
             get { return _переключательКонтрольНапр; }
 
@@ -46,7 +54,7 @@ namespace R440O.R440OForms.VoltageStabilizer
             }
         }
 
-        public static int ИндикаторНапряжение
+        public int ИндикаторНапряжение
         {
             get
             {
@@ -82,53 +90,54 @@ namespace R440O.R440OForms.VoltageStabilizer
         /// <summary>
         /// Возможные состояния: 220, 380, 0
         /// </summary>
-        private static int _кабельВход;
+        private int _кабельВход;
 
-        public static int КабельВход
+        public int КабельВход
         {
             get { return _кабельВход; }
 
             set
             {
-                if (N502BParameters.ЛампочкаСеть && N502BParameters.ПереключательСеть && ОператорСтанцииПораженТоком != null)
+                if (N502BParameters.getInstance().ЛампочкаСеть && N502BParameters.getInstance().ПереключательСеть && ОператорСтанцииПораженТоком != null)
                 {
                     ОператорСтанцииПораженТоком();
                 }
                 else _кабельВход = value;
 
                 OnParameterChanged();
-                N502BParameters.ResetParameters();
+                OnAction("КабельВход", _кабельВход);
+                N502BParameters.getInstance().ResetParameters();
             }
         }
 
         /// <summary>
         /// Условие определяющее, подключён ли кабель питания к нужному входу.
         /// </summary>
-        public static bool КабельПодключенПравильно
+        public bool КабельПодключенПравильно
         {
-            get { return _кабельВход == PowerCabelParameters.Напряжение; }
+            get { return _кабельВход == PowerCabelParameters.getInstance().Напряжение; }
         }
 
         #endregion
 
         #region Обновление переменных и формы
-        public delegate void TestModuleHandler(ITestModule module);
-        public static event TestModuleHandler Action;
+        public delegate void TestModuleHandler(ActionStation action);
+        public event TestModuleHandler Action;
         public delegate void ParameterChangedHandler();
-        public static event ParameterChangedHandler ParameterChanged;
+        public event ParameterChangedHandler ParameterChanged;
 
-        private static void OnParameterChanged()
+        private void OnParameterChanged()
         {
             ParameterChanged?.Invoke();
-            OnAction();
         }
 
-        private static void OnAction()
+        private void OnAction(string name, int value)
         {
-            Action?.Invoke(TestModuleRef);
+            var action = new ActionStation(name, value);
+            Action?.Invoke(action);
         }
 
-        public static void ResetParameters()
+        public void ResetParameters()
         {
             OnParameterChanged();
         }
@@ -136,11 +145,11 @@ namespace R440O.R440OForms.VoltageStabilizer
         /// <summary>
         /// Вызывается, если пользователь совершил неправильные действия по обесточиванию станции.
         /// </summary>
-        public static event ParameterChangedHandler ОператорСтанцииПораженТоком;
+        public event ParameterChangedHandler ОператорСтанцииПораженТоком;
 
         #endregion
 
-        public static void SetDefaultParameters()
+        public void SetDefaultParameters()
         {
             КабельВход = 0;
             ПереключательКонтрольНапр = 1;

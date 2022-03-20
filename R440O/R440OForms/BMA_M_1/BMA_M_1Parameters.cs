@@ -14,21 +14,35 @@ namespace R440O.R440OForms.BMA_M_1
 {
     public class BMA_M_1Parameters
     {
+        private static BMA_M_1Parameters instance;
+        public static BMA_M_1Parameters getInstance()
+        {
+            if (instance == null)
+                instance = new BMA_M_1Parameters();
+            return instance;
+        }
+        public delegate void TestModuleHandler(JsonAdapter.ActionStation action);
+        public event TestModuleHandler Action;
+        private void OnAction(string name, int value)
+        {
+            var action = new JsonAdapter.ActionStation(name, value);
+            Action?.Invoke(action);
+        }
         /// <summary>
         /// В принципе это не "включен", а состояние при котором он может быть включен нажатием кнопок, т.е. питание подается
         /// а "Питание" это как раз "включен"
         /// </summary>
 
-        public static bool ПитаниеН502
+        public bool ПитаниеН502
         {
-            get { return N502BParameters.ЭлектрообуродованиеВключено && N502BParameters.ВыпрямительВключен; }
+            get { return N502BParameters.getInstance().ЭлектрообуродованиеВключено && N502BParameters.getInstance().ВыпрямительВключен; }
         }
 
         #region Питание
 
-        private static bool _питание;
+        private bool _питание;
 
-        public static bool Питание
+        public bool Питание
         {
             get { return _питание && ПитаниеН502; }
             set
@@ -37,10 +51,10 @@ namespace R440O.R440OForms.BMA_M_1
                 _питание = value;
                 if (!last && _питание)
                 {
-                    BMBParameters.ОбнулитьНабор();
-                    BMBParameters.МерцаниеЛампочиНаправления(1);
+                    BMBParameters.getInstance().ОбнулитьНабор();
+                    BMBParameters.getInstance().МерцаниеЛампочиНаправления(1);
                 }
-                N15Parameters.ResetParametersAlternative();
+                N15Parameters.getInstance().ResetParametersAlternative();
                 OnParameterChanged();
             }
         }
@@ -53,7 +67,7 @@ namespace R440O.R440OForms.BMA_M_1
 
         #region ПереключательКонтроль
 
-        private static void ПрокеркаКомплекта()
+        private void ПрокеркаКомплекта()
         {
             _лампочкаКонтрольНорм = true;
             _лампочкаКонтрольНенорм = true;
@@ -66,13 +80,13 @@ namespace R440O.R440OForms.BMA_M_1
             }, 4000);
         }
 
-        private static IDisposable timer_ЛампочкаКонтрольНенорм = null;
-        private static int _переключательКонтроль = 1;
+        private IDisposable timer_ЛампочкаКонтрольНенорм = null;
+        private int _переключательКонтроль = 1;
 
         /// <summary>
         /// 1 - работа_1, 2 - тест, 3 - дк, 4 - тч, 5 - компл, 6 - работа_2
         /// </summary>
-        public static int ПереключательКонтроль
+        public int ПереключательКонтроль
         {
             get { return _переключательКонтроль; }
             set
@@ -94,12 +108,12 @@ namespace R440O.R440OForms.BMA_M_1
 
         #region ПереключательРекуррента
 
-        private static int _переключательРекуррента = 1;
+        private int _переключательРекуррента = 1;
 
         /// <summary>
         /// 1 - 15, 2 - 31, 3 - 511, 4 - 1023
         /// </summary>
-        public static int ПереключательРекуррента
+        public int ПереключательРекуррента
         {
             get { return _переключательРекуррента; }
             set
@@ -118,9 +132,9 @@ namespace R440O.R440OForms.BMA_M_1
         /// <summary>
         /// 1 - му авт, 2 - му ручн, 3 - до ручн, 4 - до авт
         /// </summary>
-        private static int _переключательРежимРаботы = 1;
+        private int _переключательРежимРаботы = 1;
 
-        public static int ПереключательРежимРаботы
+        public int ПереключательРежимРаботы
         {
             get { return _переключательРежимРаботы; }
             set
@@ -135,12 +149,12 @@ namespace R440O.R440OForms.BMA_M_1
 
         #region ПереключательКоррАЧХ
 
-        private static int _переключательКоррАчх = 1;
+        private int _переключательКоррАчх = 1;
 
         /// <summary>
         /// 1 - 6
         /// </summary>
-        public static int ПереключательКоррАЧХ
+        public int ПереключательКоррАЧХ
         {
             get { return _переключательКоррАчх; }
             set
@@ -155,12 +169,12 @@ namespace R440O.R440OForms.BMA_M_1
 
         #region ПереключательЧастотаВызова
 
-        private static int _переключательЧастотаВызова = 1;
+        private int _переключательЧастотаВызова = 1;
 
         /// <summary>
         /// 1 - 2d1, 2 - 1d8, 3 - 2d6, 4 - 3d2
         /// </summary>
-        public static int ПереключательЧастотаВызова
+        public int ПереключательЧастотаВызова
         {
             get { return _переключательЧастотаВызова; }
             set
@@ -175,12 +189,12 @@ namespace R440O.R440OForms.BMA_M_1
 
         #region ПереключательУровниСигналаПрдПрм
 
-        private static int _переключательУровниСигналаПрдПрм = 1;
+        private int _переключательУровниСигналаПрдПрм = 1;
 
         /// <summary>
         /// 1 - m13 m13, 2 - m23 m5d7, 3 - m10d5 m28, 4 - 28 m10d5
         /// </summary>
-        public static int ПереключательУровниСигналаПрдПрм
+        public int ПереключательУровниСигналаПрдПрм
         {
             get { return _переключательУровниСигналаПрдПрм; }
             set
@@ -195,19 +209,19 @@ namespace R440O.R440OForms.BMA_M_1
 
         #region ПереключательРежимы
 
-        private static int _переключательРежимы = 1;
+        private int _переключательРежимы = 1;
 
         /// <summary>
         /// 1 - дофт, 2 - офт, 3 - 2х1200б 4 - чт
         /// </summary>
-        public static int ПереключательРежимы
+        public int ПереключательРежимы
         {
             get { return _переключательРежимы; }
             set
             {
                 if (value >= 1 && value <= 4)
                     _переключательРежимы = value;
-                BMBParameters.ResetParameters();
+                BMBParameters.getInstance().ResetParameters();
                 OnParameterChanged();
             }
         }
@@ -216,12 +230,12 @@ namespace R440O.R440OForms.BMA_M_1
 
         #region ПереключательЗапретЗапроса
 
-        private static int _переключательЗапретЗапроса = 1;
+        private int _переключательЗапретЗапроса = 1;
 
         /// <summary>
         /// 1 - выкл, 2 - вкл
         /// </summary>
-        public static int ПереключательЗапретЗапроса
+        public int ПереключательЗапретЗапроса
         {
             get { return _переключательЗапретЗапроса; }
             set
@@ -236,12 +250,12 @@ namespace R440O.R440OForms.BMA_M_1
 
         #region ПереключательКоррКанала
 
-        private static int _ПереключательКоррКанала = 1;
+        private int _ПереключательКоррКанала = 1;
 
         /// <summary>
         /// 1 - выкл, 2 - вкл
         /// </summary>
-        public static int ПереключательКоррКанала
+        public int ПереключательКоррКанала
         {
             get { return _ПереключательКоррКанала; }
             set
@@ -258,15 +272,15 @@ namespace R440O.R440OForms.BMA_M_1
 
         #region Кнопки
 
-        private static int _кнопкаШлейфТЧ;
-        private static int _кнопкаШлейфДК;
-        private static int _кнопкаПитаниеВыкл;
-        private static int _кнопкаПитаниеВкл;
-        private static int _кнопкаПроверка;
+        private int _кнопкаШлейфТЧ;
+        private int _кнопкаШлейфДК;
+        private int _кнопкаПитаниеВыкл;
+        private int _кнопкаПитаниеВкл;
+        private int _кнопкаПроверка;
 
-        private static IDisposable timer_лампочкаАвтомКоманда1ON = null;
-        private static IDisposable timer_лампочкаАвтомКоманда1OFF = null;
-        private static void Проверка_Автокоманда1()
+        private IDisposable timer_лампочкаАвтомКоманда1ON = null;
+        private IDisposable timer_лампочкаАвтомКоманда1OFF = null;
+        private void Проверка_Автокоманда1()
         {
             _лампочкаАвтомКоманда1 = false;
             if (timer_лампочкаАвтомКоманда1ON != null)
@@ -288,7 +302,7 @@ namespace R440O.R440OForms.BMA_M_1
                         }, 5000);
         }
         // 0 - отжата, 1 - нажата
-        public static int КнопкаПроверка
+        public int КнопкаПроверка
         {
             get { return _кнопкаПроверка; }
             set
@@ -303,7 +317,7 @@ namespace R440O.R440OForms.BMA_M_1
         /// <summary>
         /// 0 - отжата не горит, 1 - нажата не горит, 2 - отжата горит, 3 - нажата горит
         /// </summary>
-        public static int КнопкаПитаниеВыкл
+        public int КнопкаПитаниеВыкл
         {
             get { return _кнопкаПитаниеВыкл; }
             set
@@ -331,7 +345,7 @@ namespace R440O.R440OForms.BMA_M_1
         /// <summary>
         /// 0 - отжата не горит, 1 - нажата не горит, 2 - отжата горит, 3 - нажата горит
         /// </summary>
-        public static int КнопкаПитаниеВкл
+        public int КнопкаПитаниеВкл
         {
             get { return _кнопкаПитаниеВкл; }
             set
@@ -359,7 +373,7 @@ namespace R440O.R440OForms.BMA_M_1
         /// <summary>
         /// 0 - отжата не горит, 1 - нажата не горит, 2 - отжата горит, 3 - нажата горит
         /// </summary>
-        public static int КнопкаШлейфДК
+        public int КнопкаШлейфДК
         {
             get
             {
@@ -380,14 +394,14 @@ namespace R440O.R440OForms.BMA_M_1
                     _кнопкаШлейфДК = 0;
                 }
                 OnParameterChanged();
-                BMBParameters.ResetParameters();
+                BMBParameters.getInstance().ResetParameters();
             }
         }
 
         /// <summary>
         /// 0 - отжата не горит, 1 - нажата не горит, 2 - отжата горит, 3 - нажата горит
         /// </summary>
-        public static int КнопкаШлейфТЧ
+        public int КнопкаШлейфТЧ
         {
             get
             {
@@ -407,7 +421,7 @@ namespace R440O.R440OForms.BMA_M_1
                     // _кнопкаШлейфТЧ = Включен ? 2 : 0;
                     _кнопкаШлейфТЧ = 0;
                 }
-                BMBParameters.ResetParameters();
+                BMBParameters.getInstance().ResetParameters();
                 OnParameterChanged();
             }
         }
@@ -416,7 +430,7 @@ namespace R440O.R440OForms.BMA_M_1
 
         #region Лампочки
 
-        public static bool ЛампочкаДК
+        public bool ЛампочкаДК
         {
             get
             {
@@ -425,7 +439,7 @@ namespace R440O.R440OForms.BMA_M_1
                     case 1:
                     case 6:
                         {
-                            return Питание && !(BMBParameters.ЛампочкаДк && BMBParameters.ПереключательРаботаКонтроль == 1
+                            return Питание && !(BMBParameters.getInstance().ЛампочкаДк && BMBParameters.getInstance().ПереключательРаботаКонтроль == 1
                                                 || КнопкаШлейфДК == 3);
                         }
                     case 4:
@@ -441,7 +455,7 @@ namespace R440O.R440OForms.BMA_M_1
             }
         }
 
-        public static bool ЛампочкаСинхрТЧ
+        public bool ЛампочкаСинхрТЧ
         {
             get
             {
@@ -454,16 +468,16 @@ namespace R440O.R440OForms.BMA_M_1
                         }
                     case 4:
                         {
-                            return Питание && (КнопкаШлейфДК == 3 || (!TLF_TCHParametrs.БМА1ПередачаКаналТЧ));
+                            return Питание && (КнопкаШлейфДК == 3 || (!TLF_TCHParametrs.getInstance().БМА1ПередачаКаналТЧ));
                         }
                 }
                 return false;
             }
         }
 
-        public static bool ЛампочкаСинхрДК = false;
+        public bool ЛампочкаСинхрДК = false;
 
-        public static bool ЛампочкаТЧБ
+        public bool ЛампочкаТЧБ
         {
             get
             {
@@ -472,8 +486,8 @@ namespace R440O.R440OForms.BMA_M_1
                     case 1:
                     case 6:
                         {
-                            return Питание && (BMBParameters.ЛампочкаТч &&
-                                               КнопкаШлейфТЧ == 3 && BMBParameters.ПереключательРаботаКонтроль == 1);
+                            return Питание && (BMBParameters.getInstance().ЛампочкаТч &&
+                                               КнопкаШлейфТЧ == 3 && BMBParameters.getInstance().ПереключательРаботаКонтроль == 1);
                         }
                     case 4:
                         {
@@ -488,7 +502,7 @@ namespace R440O.R440OForms.BMA_M_1
             }
         }
 
-        public static bool ЛампочкаФЗ
+        public bool ЛампочкаФЗ
         {
             get
             {
@@ -512,7 +526,7 @@ namespace R440O.R440OForms.BMA_M_1
             }
         }
 
-        public static bool ЛампочкаПрдТЧ
+        public bool ЛампочкаПрдТЧ
         {
             get
             {
@@ -524,9 +538,9 @@ namespace R440O.R440OForms.BMA_M_1
                             return Питание && КнопкаШлейфТЧ != 3;
                             /*return Питание
                                    && !(КнопкаШлейфТЧ == 3
-                                        && BMBParameters.ПереключательРаботаКонтроль == 1
-                                        && BMBParameters.КнопкаПередачаВызоваТч == СостоянияЭлементов.БМБ.Кнопка.Горит
-                                        && BMBParameters.КнопкаСлСвязь == СостоянияЭлементов.БМБ.Кнопка.Горит);*/
+                                        && BMBParameters.getInstance().ПереключательРаботаКонтроль == 1
+                                        && BMBParameters.getInstance().КнопкаПередачаВызоваТч == СостоянияЭлементов.БМБ.Кнопка.Горит
+                                        && BMBParameters.getInstance().КнопкаСлСвязь == СостоянияЭлементов.БМБ.Кнопка.Горит);*/
                         }
                     case 4:
                         {
@@ -541,7 +555,7 @@ namespace R440O.R440OForms.BMA_M_1
             }
         }
 
-        public static bool ЛампочкаПрмТЧ
+        public bool ЛампочкаПрмТЧ
         {
             get
             {
@@ -562,11 +576,11 @@ namespace R440O.R440OForms.BMA_M_1
                         }
                 }
                 return false;
-                //        && !TLF_TCHParametrs.БМА1ПриемКаналТЧ;
+                //        && !TLF_TCHParametrs.getInstance().БМА1ПриемКаналТЧ;
             }
         }
 
-        public static bool ЛампочкаПрдДК
+        public bool ЛампочкаПрдДК
         {
             get
             {
@@ -575,11 +589,11 @@ namespace R440O.R440OForms.BMA_M_1
                     case 1:
                     case 6:
                         {
-                            return Питание //N15Parameters.ЛампочкаБМА_1                            
+                            return Питание //N15Parameters.getInstance().ЛампочкаБМА_1                            
                                    && !(КнопкаШлейфДК == 3
-                                        && BMBParameters.ПереключательРаботаКонтроль == 1
-                                        && BMBParameters.КнопкаПередачаВызоваДк == СостоянияЭлементов.БМБ.Кнопка.Горит
-                                        && BMBParameters.КнопкаСлСвязь == СостоянияЭлементов.БМБ.Кнопка.Горит);
+                                        && BMBParameters.getInstance().ПереключательРаботаКонтроль == 1
+                                        && BMBParameters.getInstance().КнопкаПередачаВызоваДк == СостоянияЭлементов.БМБ.Кнопка.Горит
+                                        && BMBParameters.getInstance().КнопкаСлСвязь == СостоянияЭлементов.БМБ.Кнопка.Горит);
                         }
                     case 4:
                         {
@@ -594,7 +608,7 @@ namespace R440O.R440OForms.BMA_M_1
             }
         }
 
-        public static bool ЛампочкаПрмФР
+        public bool ЛампочкаПрмФР
         {
             get
             {
@@ -603,7 +617,7 @@ namespace R440O.R440OForms.BMA_M_1
                     case 1:
                     case 6:
                         {
-                            return Питание //N15Parameters.ЛампочкаБМА_1                            
+                            return Питание //N15Parameters.getInstance().ЛампочкаБМА_1                            
                                    && КнопкаШлейфТЧ == 3;
                         }
                     case 4:
@@ -619,7 +633,7 @@ namespace R440O.R440OForms.BMA_M_1
             }
         }
 
-        public static bool ЛампочкаПрмДК1
+        public bool ЛампочкаПрмДК1
         {
             get
             {
@@ -628,7 +642,7 @@ namespace R440O.R440OForms.BMA_M_1
                     case 1:
                     case 6:
                         {
-                            return Питание && !(BMBParameters.ЛампочкаДк && BMBParameters.ПереключательРаботаКонтроль == 1
+                            return Питание && !(BMBParameters.getInstance().ЛампочкаДк && BMBParameters.getInstance().ПереключательРаботаКонтроль == 1
                                                 || КнопкаШлейфДК == 3);
                         }
                     case 4:
@@ -644,27 +658,27 @@ namespace R440O.R440OForms.BMA_M_1
             }
         }
 
-        public static bool ЛампочкаПрмДК2 = false;
-        public static bool ЛампочкаПитание_5В = false;
-        public static bool ЛампочкаПитание_10В = false;
-        public static bool ЛампочкаПитание_12В = false;
-        public static bool ЛампочкаПитание_15В = false;
-        public static bool ЛампочкаПитание_15Вplus = false;
+        public bool ЛампочкаПрмДК2 = false;
+        public bool ЛампочкаПитание_5В = false;
+        public bool ЛампочкаПитание_10В = false;
+        public bool ЛампочкаПитание_12В = false;
+        public bool ЛампочкаПитание_15В = false;
+        public bool ЛампочкаПитание_15Вplus = false;
 
-        private static bool _лампочкаКонтрольНенорм = true;
-        public static bool ЛампочкаКонтрольНенорм
+        private bool _лампочкаКонтрольНенорм = true;
+        public bool ЛампочкаКонтрольНенорм
         {
             get
             {
-                return Питание //N15Parameters.ЛампочкаБМА_1
+                return Питание //N15Parameters.getInstance().ЛампочкаБМА_1
                     && (ПереключательКонтроль > 1 && ПереключательКонтроль < 6)
                     && _лампочкаКонтрольНенорм;
             }
             set { _лампочкаКонтрольНенорм = value; }
         }
 
-        private static bool _лампочкаКонтрольНорм = false;
-        public static bool ЛампочкаКонтрольНорм
+        private bool _лампочкаКонтрольНорм = false;
+        public bool ЛампочкаКонтрольНорм
         {
             get
             {
@@ -682,32 +696,32 @@ namespace R440O.R440OForms.BMA_M_1
             set { _лампочкаКонтрольНорм = value; }
         }
 
-        public static bool ЛампочкаКонтрольТест
+        public bool ЛампочкаКонтрольТест
         {
             get { return Питание && ПереключательКонтроль == 2; }
         }
 
-        public static bool ЛампочкаКонтрольДК
+        public bool ЛампочкаКонтрольДК
         {
             get { return Питание && ПереключательКонтроль == 3; }
         }
 
-        public static bool ЛампочкаКонтрольТЧ
+        public bool ЛампочкаКонтрольТЧ
         {
             get { return Питание && ПереключательКонтроль == 4; }
         }
 
-        public static bool ЛампочкаКонтрольКомпл
+        public bool ЛампочкаКонтрольКомпл
         {
             get { return Питание && ПереключательКонтроль == 5; }
         }
 
-        public static bool ЛампочкаРекуррента15
+        public bool ЛампочкаРекуррента15
         {
             get { return Питание && ПереключательРекуррента == 1; }
         }
 
-        public static bool ЛампочкаРекуррента31
+        public bool ЛампочкаРекуррента31
         {
             get
             {
@@ -716,7 +730,7 @@ namespace R440O.R440OForms.BMA_M_1
             }
         }
 
-        public static bool ЛампочкаРекуррента511
+        public bool ЛампочкаРекуррента511
         {
             get
             {
@@ -725,7 +739,7 @@ namespace R440O.R440OForms.BMA_M_1
             }
         }
 
-        public static bool ЛампочкаРекуррента1023
+        public bool ЛампочкаРекуррента1023
         {
             get
             {
@@ -733,8 +747,8 @@ namespace R440O.R440OForms.BMA_M_1
                        ПереключательРекуррента == 4;
             }
         }
-        public static bool _лампочкаАвтомКоманда1;
-        public static bool ЛампочкаАвтомКоманда1
+        public bool _лампочкаАвтомКоманда1;
+        public bool ЛампочкаАвтомКоманда1
         {
             get
             {
@@ -757,7 +771,7 @@ namespace R440O.R440OForms.BMA_M_1
                 return false;
             }
         }
-        public static bool ЛампочкаАвтомКоманда2
+        public bool ЛампочкаАвтомКоманда2
         {
             get
             {
@@ -781,33 +795,33 @@ namespace R440O.R440OForms.BMA_M_1
                 return false;
             }
         }
-        public static bool ЛампочкаИсправно
+        public bool ЛампочкаИсправно
         {
             get { return Питание; }
         }
 
-        public static bool ЛампочкаНеисправно = false;
-        public static bool ЛампочкаРРР = false;
-        public static bool ЛампочкаДист = false;
+        public bool ЛампочкаНеисправно = false;
+        public bool ЛампочкаРРР = false;
+        public bool ЛампочкаДист = false;
 
         #endregion
 
         #region Сигнал
 
-        private static bool _синхронизироваля = true;
-        private static IDisposable _interval = null;
+        private bool _синхронизироваля = true;
+        private IDisposable _interval = null;
 
         #region Сигнал С Б1 через Н18
 
-        public static Chanel СигналКанал1
+        public Chanel СигналКанал1
         {
             get
             {
                 // Получение сингала по каналу 1 с Б1 через Н18
-                if (N18_MParameters.Проверить_комутацию(ГнездаН18.КоммутацияПрм_Канал1_Б11, ГнездаН18.КоммутацияПрм_Канал1_БМА1) &&
-                     B1_1Parameters.ВыходнойСигнал != null)
+                if (N18_MParameters.getInstance().Проверить_комутацию(ГнездаН18.КоммутацияПрм_Канал1_Б11, ГнездаН18.КоммутацияПрм_Канал1_БМА1) &&
+                     B1_1Parameters.getInstance().ВыходнойСигнал != null)
                 {
-                    var сигнал = B1_1Parameters.ВыходнойСигнал.ChanelbyNumber(1);
+                    var сигнал = B1_1Parameters.getInstance().ВыходнойСигнал.ChanelbyNumber(1);
                     if (сигнал == null)
                         return null;
                     return сигнал.Information ? сигнал : null;
@@ -816,15 +830,15 @@ namespace R440O.R440OForms.BMA_M_1
             }
         }
 
-        public static Chanel СигналКанал2
+        public Chanel СигналКанал2
         {
             get
             {
                 // Получение сингала по каналу 2 с Б1 через Н18
-                if (N18_MParameters.Проверить_комутацию(ГнездаН18.КоммутацияПрм_Канал2_Б11, ГнездаН18.КоммутацияПрм_Канал1_БМА1)
-                    && B1_1Parameters.ВыходнойСигнал != null)
+                if (N18_MParameters.getInstance().Проверить_комутацию(ГнездаН18.КоммутацияПрм_Канал2_Б11, ГнездаН18.КоммутацияПрм_Канал1_БМА1)
+                    && B1_1Parameters.getInstance().ВыходнойСигнал != null)
                 {
-                    var сигнал = B1_1Parameters.ВыходнойСигнал.ChanelbyNumber(2);
+                    var сигнал = B1_1Parameters.getInstance().ВыходнойСигнал.ChanelbyNumber(2);
                     if (сигнал == null)
                         return null;
                     return сигнал.Information ? сигнал : null;
@@ -833,15 +847,15 @@ namespace R440O.R440OForms.BMA_M_1
             }
         }
 
-        public static Chanel СигналКанал3
+        public Chanel СигналКанал3
         {
             get
             {
                 // Получение сингала по каналу 3 с Б1 через Н18
-                if (N18_MParameters.Проверить_комутацию(ГнездаН18.КоммутацияПрм_Канал3_Б11, ГнездаН18.КоммутацияПрм_Канал1_БМА1)
-                    && B1_1Parameters.ВыходнойСигнал != null)
+                if (N18_MParameters.getInstance().Проверить_комутацию(ГнездаН18.КоммутацияПрм_Канал3_Б11, ГнездаН18.КоммутацияПрм_Канал1_БМА1)
+                    && B1_1Parameters.getInstance().ВыходнойСигнал != null)
                 {
-                    var сигнал = B1_1Parameters.ВыходнойСигнал.ChanelbyNumber(3);
+                    var сигнал = B1_1Parameters.getInstance().ВыходнойСигнал.ChanelbyNumber(3);
                     if (сигнал == null)
                         return null;
                     return сигнал.Information ? сигнал : null;
@@ -854,15 +868,15 @@ namespace R440O.R440OForms.BMA_M_1
 
         #region Сигнал с Кулона через Н18
 
-        public static Chanel СигналКулона
+        public Chanel СигналКулона
         {
             get
             {
                 // Получение сингала по каналу 1 с Б1 через Н18
-                if (N18_MParameters.Проверить_комутацию(ГнездаН18.КоммутацияПрм_Канал1_К12, ГнездаН18.КоммутацияПрм_Канал1_БМА1) &&
-                     K02M_01Parameters.Сигнал != null)
+                if (N18_MParameters.getInstance().Проверить_комутацию(ГнездаН18.КоммутацияПрм_Канал1_К12, ГнездаН18.КоммутацияПрм_Канал1_БМА1) &&
+                     K02M_01Parameters.getInstance().Сигнал != null)
                 {
-                    var сигнал = K02M_01Parameters.Сигнал.FirstChanel;
+                    var сигнал = K02M_01Parameters.getInstance().Сигнал.FirstChanel;
                     if (сигнал == null)
                         return null;
                     return сигнал.Information ? сигнал : null;
@@ -876,15 +890,15 @@ namespace R440O.R440OForms.BMA_M_1
 
         #region Сигнал с Ц300
 
-        public static Chanel СигналЦ3001
+        public Chanel СигналЦ3001
         {
             get
             {
                 // Получение сингала по каналу 1 с Б1 через Н18
-                if (N18_MParameters.Проверить_комутацию(ГнездаН18.Контроль_Прм_Тлф1, ГнездаН18.КоммутацияПрм_Канал1_БМА1) &&
-                    C300M_1Parameters.ПойманныйСигнал != null)
+                if (N18_MParameters.getInstance().Проверить_комутацию(ГнездаН18.Контроль_Прм_Тлф1, ГнездаН18.КоммутацияПрм_Канал1_БМА1) &&
+                    C300M_1Parameters.getInstance().ПойманныйСигнал != null)
                 {
-                    var сигнал = C300M_1Parameters.ПойманныйСигнал.ChanelbyNumber(1);
+                    var сигнал = C300M_1Parameters.getInstance().ПойманныйСигнал.ChanelbyNumber(1);
                     if (сигнал == null)
                         return null;
                     return сигнал.Information ? сигнал : null;
@@ -895,13 +909,13 @@ namespace R440O.R440OForms.BMA_M_1
 
         #endregion
 
-        public static Chanel СигалНаБМБ
+        public Chanel СигалНаБМБ
         {
             get
             {
                 if (КнопкаШлейфДК == 3)
                 {
-                    return BMBParameters.ВыходнойСигнал;
+                    return BMBParameters.getInstance().ВыходнойСигнал;
                 }
                 var сигнал = СигналКанал1 ?? СигналКанал2 ?? СигналКанал3 ?? СигналКулона ?? СигналЦ3001;
                 if (сигнал == null)
@@ -920,7 +934,7 @@ namespace R440O.R440OForms.BMA_M_1
                                 if (_interval != null)
                                     _interval.Dispose();
                                 _interval =
-                                  ThirdParty.EasyTimer.SetTimeout(() => { _синхронизироваля = !_синхронизироваля; BMBParameters.ResetParameters(); }, 2000);
+                                  ThirdParty.EasyTimer.SetTimeout(() => { _синхронизироваля = !_синхронизироваля; BMBParameters.getInstance().ResetParameters(); }, 2000);
                             }
                             else
                                 _синхронизироваля = сигнал.Speed == 1.2;
@@ -941,11 +955,11 @@ namespace R440O.R440OForms.BMA_M_1
             }
         }
 
-        public static Chanel СигналСБМБ
+        public Chanel СигналСБМБ
         {
             get
             {
-                return BMBParameters.ВыходнойСигнал;
+                return BMBParameters.getInstance().ВыходнойСигнал;
             }
         }
 
@@ -953,28 +967,28 @@ namespace R440O.R440OForms.BMA_M_1
 
         public delegate void ParameterChangedHandler();
 
-        public static event ParameterChangedHandler ParameterChanged;
+        public event ParameterChangedHandler ParameterChanged;
 
-        private static void OnParameterChanged()
+        private void OnParameterChanged()
         {
             var handler = ParameterChanged;
             if (handler != null) handler();
         }
 
-        public static void ResetParameters()
+        public void ResetParameters()
         {
             OnParameterChanged();
         }
 
-        public static void DisposeAllTimers()
+        public void DisposeAllTimers()
         {
             if (timer_ЛампочкаКонтрольНенорм != null)
                 timer_ЛампочкаКонтрольНенорм.Dispose();
         }
 
-        public static void ResetLampsValue()
+        public void ResetLampsValue()
         {
-            ЛампочкаКонтрольНенорм = N15Parameters.ЛампочкаБМА_1;
+            ЛампочкаКонтрольНенорм = N15Parameters.getInstance().ЛампочкаБМА_1;
             ЛампочкаКонтрольНорм = !ЛампочкаКонтрольНенорм;
         }
     }

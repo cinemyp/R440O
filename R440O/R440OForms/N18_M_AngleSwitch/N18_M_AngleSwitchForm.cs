@@ -9,7 +9,7 @@ namespace R440O.R440OForms.N18_M_AngleSwitch
         public N18_M_AngleSwitchForm()
         {
             InitializeComponent();
-            N18_M_AngleSwitchParameters.ParameterChanged += RefreshFormElements;
+            N18_M_AngleSwitchParameters.getInstance().ParameterChanged += RefreshFormElements;
             RefreshFormElements();
         }
 

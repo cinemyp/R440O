@@ -8,15 +8,15 @@ namespace R440O.R440OForms.Kontur_P3.Параметры
     {
         #region Лампочки
 
-        private static IDisposable timer_ЛампочкаКП2Прием = null;
-        private static bool _ЛампочкаКП2Прием;
-        public static bool ЛампочкаКП2Прием
+        private IDisposable timer_ЛампочкаКП2Прием = null;
+        private bool _ЛампочкаКП2Прием;
+        public bool ЛампочкаКП2Прием
         {
             get { return _ЛампочкаКП2Прием; }
-            set 
-            { 
+            set
+            {
                 _ЛампочкаКП2Прием = value;
-                timer_ЛампочкаКП2Прием = EasyTimer.SetTimeout(() => 
+                timer_ЛампочкаКП2Прием = EasyTimer.SetTimeout(() =>
                 {
                     _ЛампочкаКП2Прием = false;
                     if (ЛампочкаКП3Канал12)
@@ -37,8 +37,8 @@ namespace R440O.R440OForms.Kontur_P3.Параметры
         #endregion
 
         #region Тумблеры
-        private static EТумблерКонтроль _ТумблерКонтроль = EТумблерКонтроль.КОНТРОЛЬ_1;
-        public static EТумблерКонтроль ТумблерКонтроль
+        private EТумблерКонтроль _ТумблерКонтроль = EТумблерКонтроль.КОНТРОЛЬ_1;
+        public EТумблерКонтроль ТумблерКонтроль
         {
             get { return _ТумблерКонтроль; }
             set
@@ -50,7 +50,7 @@ namespace R440O.R440OForms.Kontur_P3.Параметры
         #endregion
 
         #region Кнопки
-        public static void НажатаКнопкаНачалоИнформации()
+        public void НажатаКнопкаНачалоИнформации()
         {
             if (ЛампочкаСеть)
             {
@@ -71,14 +71,14 @@ namespace R440O.R440OForms.Kontur_P3.Параметры
                     else
                         ТекущееЗначение2КП2 = "";
                     ТекущееЗначениеГрупыКП2 = "001";
-                    
+
                 }
                 Refresh();
             }
         }
 
-        static bool НеполнаяГруппа;
-        public static void НажатаКнопкаСдвиг1()
+        bool НеполнаяГруппа;
+        public void НажатаКнопкаСдвиг1()
         {
             if (ЗначениеГруппыКП2[0] != "")
             {
@@ -120,7 +120,7 @@ namespace R440O.R440OForms.Kontur_P3.Параметры
                             ИндексГруппыКП2 = 0;
                             НеполнаяГруппа = true;
                         }
-                        
+
                     }
                     else
                     {
@@ -129,7 +129,7 @@ namespace R440O.R440OForms.Kontur_P3.Параметры
                         ТекущееЗначениеГрупыКП2 = "000";
                         ИндексГруппыКП2 = 0;
                     }
-                    
+
                 }
             }
             Refresh();
@@ -137,11 +137,11 @@ namespace R440O.R440OForms.Kontur_P3.Параметры
         #endregion
 
         #region Значения
-        private static int ИндексГруппыКП2 = 0;
-        private static string[] ЗначениеГруппыКП2 = {"", "", "", "", "", "", "", "", ""};
-        public static string ТекущееЗначение1КП2;
-        public static string ТекущееЗначение2КП2;
-        public static string ТекущееЗначениеГрупыКП2 = "";
+        private int ИндексГруппыКП2 = 0;
+        private string[] ЗначениеГруппыКП2 = { "", "", "", "", "", "", "", "", "" };
+        public string ТекущееЗначение1КП2;
+        public string ТекущееЗначение2КП2;
+        public string ТекущееЗначениеГрупыКП2 = "";
         #endregion
     }
 }

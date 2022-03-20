@@ -457,6 +457,7 @@
             this.Name = "B1_1Form";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Б1-1";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.B1_1Form_FormClosed);
             this.Panel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.ЛампочкаТЛГпр3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ЛампочкаТЛГпр2)).EndInit();

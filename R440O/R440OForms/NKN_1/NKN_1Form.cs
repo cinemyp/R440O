@@ -16,7 +16,7 @@ namespace R440O.R440OForms.NKN_1
         public NKN_1Form()
         {
             this.InitializeComponent();
-            NKN_1Parameters.ParameterChanged += RefreshFormElements;
+            NKN_1Parameters.getInstance().ParameterChanged += RefreshFormElements;
             RefreshFormElements();
         }
 
@@ -25,16 +25,16 @@ namespace R440O.R440OForms.NKN_1
         /// </summary>
         public void RefreshFormElements()
         {
-            ЛампочкаМУ.BackgroundImage = NKN_1Parameters.ЛампочкаМУ
+            ЛампочкаМУ.BackgroundImage = NKN_1Parameters.getInstance().ЛампочкаМУ
                 ? ControlElementImages.lampType9OnGreen
                 : null;
-            ЛампочкаФаза1.BackgroundImage = NKN_1Parameters.ЛампочкаФаза1
+            ЛампочкаФаза1.BackgroundImage = NKN_1Parameters.getInstance().ЛампочкаФаза1
                 ? ControlElementImages.lampType9OnGreen
                 : null;
-            ЛампочкаФаза2.BackgroundImage = NKN_1Parameters.ЛампочкаФаза2
+            ЛампочкаФаза2.BackgroundImage = NKN_1Parameters.getInstance().ЛампочкаФаза2
                 ? ControlElementImages.lampType9OnGreen
                 : null;
-            ЛампочкаФаза3.BackgroundImage = NKN_1Parameters.ЛампочкаФаза3
+            ЛампочкаФаза3.BackgroundImage = NKN_1Parameters.getInstance().ЛампочкаФаза3
                 ? ControlElementImages.lampType9OnGreen
                 : null;
         }
@@ -48,7 +48,7 @@ namespace R440O.R440OForms.NKN_1
         private void Кнопка220Вкл_MouseUp(object sender, MouseEventArgs e)
         {
             Кнопка220Вкл.BackgroundImage = null;
-            NKN_1Parameters.Питание220Включено = true;
+            NKN_1Parameters.getInstance().Питание220Включено = true;
         }
 
         private void Кнопка220Откл_MouseDown(object sender, MouseEventArgs e)
@@ -59,13 +59,13 @@ namespace R440O.R440OForms.NKN_1
         private void Кнопка220Откл_MouseUp(object sender, MouseEventArgs e)
         {
             Кнопка220Откл.BackgroundImage = null;
-            NKN_1Parameters.Питание220Включено = false;
+            NKN_1Parameters.getInstance().Питание220Включено = false;
         }
         #endregion
 
         private void NKN_1Form_FormClosed(object sender, FormClosedEventArgs e)
         {
-            NKN_1Parameters.ParameterChanged -= RefreshFormElements;
+            NKN_1Parameters.getInstance().ParameterChanged -= RefreshFormElements;
         }
     }
 }

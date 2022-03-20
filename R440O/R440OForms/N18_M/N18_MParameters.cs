@@ -12,57 +12,71 @@ namespace R440O.R440OForms.N18_M
     using PU_K1_1;
     using K02M_01;
 
-    public static class N18_MParameters
+    public class N18_MParameters
     {
+        private static N18_MParameters instance;
+        public static N18_MParameters getInstance()
+        {
+            if (instance == null)
+                instance = new N18_MParameters();
+            return instance;
+        }
+        public delegate void TestModuleHandler(JsonAdapter.ActionStation action);
+        public event TestModuleHandler Action;
+        private void OnAction(string name, int value)
+        {
+            var action = new JsonAdapter.ActionStation(name, value);
+            Action?.Invoke(action);
+        }
         #region Лампочки
 
         //Лампочки
-        public static bool ЛампочкаК3ТЛГ1
+        public bool ЛампочкаК3ТЛГ1
         {
             get { return false; }
         }
 
-        public static bool ЛампочкаК3ТЛГ2
+        public bool ЛампочкаК3ТЛГ2
         {
             get { return false; }
         }
 
-        public static bool ЛампочкаК3ТЛГ3
+        public bool ЛампочкаК3ТЛГ3
         {
             get { return false; }
         }
 
-        public static bool ЛампочкаК3ТЛГ4
+        public bool ЛампочкаК3ТЛГ4
         {
             get { return false; }
         }
 
-        public static bool ЛампочкаСПСТест
+        public bool ЛампочкаСПСТест
         {
             get { return false; }
         }
 
-        public static bool ЛампочкаСПСИнформ
+        public bool ЛампочкаСПСИнформ
         {
             get { return false; }
         }
 
-        public static bool ЛампочкаПилотК1_1
+        public bool ЛампочкаПилотК1_1
         {
-            get { return  PU_K1_1Parameters.КулонК1Подключен && K02M_01Parameters.ЛампочкаПилот; }
+            get { return PU_K1_1Parameters.getInstance().КулонК1Подключен && K02M_01Parameters.getInstance().ЛампочкаПилот; }
         }
 
-        public static bool ЛампочкаПилотК1_2
+        public bool ЛампочкаПилотК1_2
         {
             get { return false; }
         }
 
-        public static bool ЛампочкаИнформК1_1
+        public bool ЛампочкаИнформК1_1
         {
-            get { return PU_K1_1Parameters.КулонК1Подключен && K02M_01Parameters.ЛампочкаИнформ; }
+            get { return PU_K1_1Parameters.getInstance().КулонК1Подключен && K02M_01Parameters.getInstance().ЛампочкаИнформ; }
         }
 
-        public static bool ЛампочкаИнформК1_2
+        public bool ЛампочкаИнформК1_2
         {
             get { return false; }
         }
@@ -73,23 +87,23 @@ namespace R440O.R440OForms.N18_M
 
         #region Двухпозиционные
 
-        private static int _переключательВходБ22 = 1;
-        private static int _переключательВыход1РН = 1;
-        private static int _переключательВыход2РН = 1;
-        private static int _переключатель48ПрмЩв = 1;
-        private static int _переключательПрмСс2 = 3;
-        private static int _переключательПрмСс1 = 3;
-        private static int _переключательПрдБма12 = 6;
-        private static int _переключательПРД = 3;
-        private static int _переключательВходК121 = 1;
-        private static int _переключательПРМ1 = 3;
+        private int _переключательВходБ22 = 1;
+        private int _переключательВыход1РН = 1;
+        private int _переключательВыход2РН = 1;
+        private int _переключатель48ПрмЩв = 1;
+        private int _переключательПрмСс2 = 3;
+        private int _переключательПрмСс1 = 3;
+        private int _переключательПрдБма12 = 6;
+        private int _переключательПРД = 3;
+        private int _переключательВходК121 = 1;
+        private int _переключательПРМ1 = 3;
 
 
         /// <summary>
         /// 1 - б3-2,
         /// 2 - б3-1,
         /// </summary>
-        public static int ПереключательВходБ22
+        public int ПереключательВходБ22
         {
             get { return _переключательВходБ22; }
             set
@@ -104,7 +118,7 @@ namespace R440O.R440OForms.N18_M
         /// 1 - б1-1,
         /// 2 - даб-5
         /// </summary>
-        public static int ПереключательВыход1РН
+        public int ПереключательВыход1РН
         {
             get { return _переключательВыход1РН; }
             set
@@ -119,7 +133,7 @@ namespace R440O.R440OForms.N18_M
         /// 1 - б1-2,
         /// 2 - даб-5
         /// </summary>
-        public static int ПереключательВыход2РН
+        public int ПереключательВыход2РН
         {
             get { return _переключательВыход2РН; }
             set
@@ -134,7 +148,7 @@ namespace R440O.R440OForms.N18_M
         /// 1 - б2,
         /// 2 - даб-5
         /// </summary>
-        public static int Переключатель48ПрмЩв
+        public int Переключатель48ПрмЩв
         {
             get { return _переключатель48ПрмЩв; }
             set
@@ -153,7 +167,7 @@ namespace R440O.R440OForms.N18_M
         /// 4 - б1-2,
         /// 5 - даб-5
         /// </summary>
-        public static int ПереключательПрмСс2
+        public int ПереключательПрмСс2
         {
             get { return _переключательПрмСс2; }
             set
@@ -171,7 +185,7 @@ namespace R440O.R440OForms.N18_M
         /// 4 - б1-1,
         /// 5 - даб-5
         /// </summary>
-        public static int ПереключательПрмСс1
+        public int ПереключательПрмСс1
         {
             get { return _переключательПрмСс1; }
             set
@@ -193,7 +207,7 @@ namespace R440O.R440OForms.N18_M
         /// 8 - мод2,
         /// 9 - к1-2-1
         /// </summary>
-        public static int ПереключательПрдБма12
+        public int ПереключательПрдБма12
         {
             get { return _переключательПрдБма12; }
             set
@@ -211,13 +225,13 @@ namespace R440O.R440OForms.N18_M
         /// 4 - тлг,
         /// 5 - сс
         /// </summary>
-        public static int ПереключательПРД
+        public int ПереключательПРД
         {
             get { return _переключательПРД; }
             set
             {
                 if (value > 0 && value < 6) _переключательПРД = value;
-                N15Parameters.ResetDiscret();
+                N15Parameters.getInstance().ResetDiscret();
                 OnParameterChanged();
             }
         }
@@ -229,16 +243,16 @@ namespace R440O.R440OForms.N18_M
         /// 3 - бма-2,
         /// 4 - щв
         /// </summary>
-        public static int ПереключательВходК121
+        public int ПереключательВходК121
         {
             get { return _переключательВходК121; }
             set
             {
                 if (value > 0 && value < 5) _переключательВходК121 = value;
                 OnParameterChanged();
-                A205M_1Parameters.ResetParameters();
+                A205M_1Parameters.getInstance().ResetParameters();
                 A205M_2Parameters.ResetParameters();
-                N15Parameters.ResetParameters();
+                N15Parameters.getInstance().ResetParameters();
             }
         }
 
@@ -250,7 +264,7 @@ namespace R440O.R440OForms.N18_M
         /// 4 - б1-1,
         /// 5 - р-н
         /// </summary>
-        public static int ПереключательПРМ1
+        public int ПереключательПРМ1
         {
             get { return _переключательПРМ1; }
             set
@@ -260,7 +274,7 @@ namespace R440O.R440OForms.N18_M
             }
         }
 
-        private static int _переключательПРМ2 = 3;
+        private int _переключательПРМ2 = 3;
 
         /// <summary>
         /// 1 - б3-2,
@@ -269,7 +283,7 @@ namespace R440O.R440OForms.N18_M
         /// 4 - б1-2,
         /// р-н
         /// </summary>
-        public static int ПереключательПРМ2
+        public int ПереключательПРМ2
         {
             get { return _переключательПРМ2; }
             set
@@ -283,12 +297,12 @@ namespace R440O.R440OForms.N18_M
 
         #region Тумблеры
 
-        private static bool _тумблерДАБ5 = false;
-        private static bool _тумблерКАУ_ПРМ = false;
-        private static bool _тумблерПРД_СС = false;
-        private static bool _тумблерТЛФ_ПРМ = false;
+        private bool _тумблерДАБ5 = false;
+        private bool _тумблерКАУ_ПРМ = false;
+        private bool _тумблерПРД_СС = false;
+        private bool _тумблерТЛФ_ПРМ = false;
 
-        public static bool ТумблерДАБ5
+        public bool ТумблерДАБ5
         {
             get { return _тумблерДАБ5; }
             set
@@ -298,7 +312,7 @@ namespace R440O.R440OForms.N18_M
             }
         }
 
-        public static bool ТумблерКАУ_ПРМ
+        public bool ТумблерКАУ_ПРМ
         {
             get { return _тумблерКАУ_ПРМ; }
             set
@@ -308,7 +322,7 @@ namespace R440O.R440OForms.N18_M
             }
         }
 
-        public static bool ТумблерПРД_СС
+        public bool ТумблерПРД_СС
         {
             get { return _тумблерПРД_СС; }
             set
@@ -318,7 +332,7 @@ namespace R440O.R440OForms.N18_M
             }
         }
 
-        public static bool ТумблерТЛФ_ПРМ
+        public bool ТумблерТЛФ_ПРМ
         {
             get { return _тумблерТЛФ_ПРМ; }
             set
@@ -332,16 +346,16 @@ namespace R440O.R440OForms.N18_M
 
         #region Гнезда
 
-        static private System.Random rand = new System.Random();
+        private System.Random rand = new System.Random();
 
         // Соедененые входы
-        public static int[] Соединения = new int[77];
+        public int[] Соединения = new int[77];
 
-        public static Color[] Цвет_соеденения = new Color[77];
+        public Color[] Цвет_соеденения = new Color[77];
 
-        public static int номер_первого_гнезда = -1;
+        public int номер_первого_гнезда = -1;
 
-        public static void Соеденить(int номер_гнезда)
+        public void Соеденить(int номер_гнезда)
         {
             if (номер_первого_гнезда == -1)
             {
@@ -376,7 +390,7 @@ namespace R440O.R440OForms.N18_M
 
         #region Может потом пригодится
 
-        //private static string _получить_название_гнезда(int n)
+        //private  string _получить_название_гнезда(int n)
         //{
         //    string название = string.Empty ;
         //    if (n < 1)
@@ -523,7 +537,7 @@ namespace R440O.R440OForms.N18_M
         //}
 
 
-        //public static bool Проверить_комутацию(string гнездо1, string гнездо2)
+        //public  bool Проверить_комутацию(string гнездо1, string гнездо2)
         //{
         //    string s1, s2;
         //    for (int i = 1; i < 76; i++)
@@ -539,12 +553,12 @@ namespace R440O.R440OForms.N18_M
 
         #endregion
 
-        public static bool Проверить_комутацию(int a, int b)
+        public bool Проверить_комутацию(int a, int b)
         {
             return Соединения[a] == b;
         }
 
-        public static bool Проверить_комутацию(ГнездаН18 a, ГнездаН18 b)
+        public bool Проверить_комутацию(ГнездаН18 a, ГнездаН18 b)
         {
             return Проверить_комутацию((int)a, (int)b);
         }
@@ -553,21 +567,21 @@ namespace R440O.R440OForms.N18_M
 
         public delegate void ParameterChangedHandler();
 
-        public static event ParameterChangedHandler ParameterChanged;
+        public event ParameterChangedHandler ParameterChanged;
 
         /// <summary>
         /// Вызов события, что значения параметров данной формы изменились.
         /// </summary>
-        private static void OnParameterChanged()
+        private void OnParameterChanged()
         {
-            N15Parameters.ResetDiscret();
-            //BMA_M_1Parameters.ResetParameters();
-            BMBParameters.ResetParameters();
+            N15Parameters.getInstance().ResetDiscret();
+            //BMA_M_1Parameters.getInstance().ResetParameters();
+            BMBParameters.getInstance().ResetParameters();
             var handler = ParameterChanged;
             if (handler != null) handler();
         }
 
-        public static void ResetParameters()
+        public void ResetParameters()
         {
             OnParameterChanged();
         }

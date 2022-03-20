@@ -19,13 +19,12 @@
         public PowerCabelForm()
         {
             InitializeComponent();
-            PowerCabelParameters.ParameterChanged += RefreshFormElements;
-            PowerCabelParameters.СтанцияСгорела += ВыводСообщенияСтанцияСгорела;
+            PowerCabelParameters.getInstance().ParameterChanged += RefreshFormElements;
+            PowerCabelParameters.getInstance().СтанцияСгорела += ВыводСообщенияСтанцияСгорела;
 
             if (ParametersConfig.IsTesting)
             {
-                PowerCabelParameters.TestModuleRef = this;
-                PowerCabelParameters.Action += TestMain.Action;
+                PowerCabelParameters.getInstance().Action += TestMain.Action;
             }
 
             this.RefreshFormElements();
@@ -52,14 +51,14 @@
         #region Кабель СЕТЬ
         private void КабельСеть_Click(object sender, EventArgs e)
         {
-            PowerCabelParameters.КабельСеть = !PowerCabelParameters.КабельСеть;
+            PowerCabelParameters.getInstance().КабельСеть = !PowerCabelParameters.getInstance().КабельСеть;
         }
         #endregion
 
         #region Тумблер ОСВЕЩЕНИЕ
         private void ТумблерОсвещение_Click(object sender, EventArgs e)
         {
-            PowerCabelParameters.ТумблерОсвещение = !PowerCabelParameters.ТумблерОсвещение;
+            PowerCabelParameters.getInstance().ТумблерОсвещение = !PowerCabelParameters.getInstance().ТумблерОсвещение;
         }
         #endregion
 
@@ -67,11 +66,11 @@
 
         public void RefreshFormElements()
         {
-            ТумблерОсвещение.BackgroundImage = (PowerCabelParameters.ТумблерОсвещение)
+            ТумблерОсвещение.BackgroundImage = (PowerCabelParameters.getInstance().ТумблерОсвещение)
                 ? ControlElementImages.tumblerType4Right
                 : ControlElementImages.tumblerType4Left;
 
-            КабельСеть.BackgroundImage = (PowerCabelParameters.КабельСеть)
+            КабельСеть.BackgroundImage = (PowerCabelParameters.getInstance().КабельСеть)
                 ? ControlElementImages.powerCabelEnter
                 : null;
         }
@@ -79,7 +78,7 @@
         
         private void PowerCabelForm_FormClosed(object sender, FormClosedEventArgs e)
         {
-            if (!PowerCabelParameters.КабельСеть)
+            if (!PowerCabelParameters.getInstance().КабельСеть)
             {
                 LearnMain.setIntent(ModulesEnum.openPowerCabeltoPower);
                 TestMain.setIntent(ModulesEnum.openPowerCabeltoPower);
@@ -90,12 +89,12 @@
                 TestMain.setIntent(ModulesEnum.openN502BtoCheck);
             }
 
-            PowerCabelParameters.ParameterChanged -= RefreshFormElements;
-            PowerCabelParameters.СтанцияСгорела -= ВыводСообщенияСтанцияСгорела;
+            PowerCabelParameters.getInstance().ParameterChanged -= RefreshFormElements;
+            PowerCabelParameters.getInstance().СтанцияСгорела -= ВыводСообщенияСтанцияСгорела;
 
             if (ParametersConfig.IsTesting)
             {
-                PowerCabelParameters.Action -= TestMain.Action;
+                PowerCabelParameters.getInstance().Action -= TestMain.Action;
             }
         }
     }

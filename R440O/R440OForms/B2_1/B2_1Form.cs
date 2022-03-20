@@ -4,6 +4,7 @@
     using System.Linq;
     using System.Windows.Forms;
     using BaseClasses;
+    using global::R440O.TestModule;
 
     /// <summary>
     /// Форма блока Б2-1
@@ -16,7 +17,7 @@
         public B2_1Form()
         {
             this.InitializeComponent();
-            B2_1Parameters.ParameterChanged += RefreshFormElements;
+            B2_1Parameters.getInstance().ParameterChanged += RefreshFormElements;
             RefreshFormElements();
         }
 
@@ -24,7 +25,7 @@
 
         private void ТумблерМуДу_Click(object sender, EventArgs e)
         {
-            B2_1Parameters.ТумблерМуДу = !B2_1Parameters.ТумблерМуДу;
+            B2_1Parameters.getInstance().ТумблерМуДу = !B2_1Parameters.getInstance().ТумблерМуДу;
         }
 
         /// <summary>
@@ -36,8 +37,8 @@
             var numberOfComplect = Convert.ToInt32(button.Name[8].ToString());
             var numberOfButton = Convert.ToInt32(button.Name[9].ToString());
 
-            if (numberOfComplect == 1) B2_1Parameters.КнопкаБК1 = numberOfButton;
-            else B2_1Parameters.КнопкаБК2 = numberOfButton;
+            if (numberOfComplect == 1) B2_1Parameters.getInstance().КнопкаБК1 = numberOfButton;
+            else B2_1Parameters.getInstance().КнопкаБК2 = numberOfButton;
 
         }
         #endregion Кнопки
@@ -45,23 +46,23 @@
         #region Колодки
         private void КолодкаТЛГпр_1_Click(object sender,  EventArgs e)
         {
-            B2_1Parameters.КолодкаТЛГпр1 = !B2_1Parameters.КолодкаТЛГпр1;                                     
+            B2_1Parameters.getInstance().КолодкаТЛГпр1 = !B2_1Parameters.getInstance().КолодкаТЛГпр1;                                     
         }                                                     
                                                               
         private void КолодкаТЛГпр_2_Click(object sender,  EventArgs e)
         {
-            B2_1Parameters.КолодкаТЛГпр2 = !B2_1Parameters.КолодкаТЛГпр2;                                                 
+            B2_1Parameters.getInstance().КолодкаТЛГпр2 = !B2_1Parameters.getInstance().КолодкаТЛГпр2;                                                 
         }                                                     
                                                               
                                                               
         private void КолодкаТКСпр2_1_Click(object sender, EventArgs e)
         {
-            B2_1Parameters.КолодкаТКСпр21 = !B2_1Parameters.КолодкаТКСпр21;
+            B2_1Parameters.getInstance().КолодкаТКСпр21 = !B2_1Parameters.getInstance().КолодкаТКСпр21;
         }                                                     
                                                               
         private void КолодкаТКСпр2_2_Click(object sender, EventArgs e)
         {
-            B2_1Parameters.КолодкаТКСпр22 = !B2_1Parameters.КолодкаТКСпр22;
+            B2_1Parameters.getInstance().КолодкаТКСпр22 = !B2_1Parameters.getInstance().КолодкаТКСпр22;
         }
         #endregion
 
@@ -69,7 +70,7 @@
         public void RefreshFormElements()
         {
 
-            this.ТумблерМуДу.BackgroundImage = B2_1Parameters.ТумблерМуДу
+            this.ТумблерМуДу.BackgroundImage = B2_1Parameters.getInstance().ТумблерМуДу
                 ? ControlElementImages.tumblerType4Up
                 : ControlElementImages.tumblerType4Down;
 
@@ -81,8 +82,8 @@
                     var button = item as Button;
                     var numberOfComplect = Convert.ToInt32(button.Name[8].ToString());
                     var numberOfButton = Convert.ToInt32(button.Name[9].ToString());
-                    if (numberOfComplect == 1 && B2_1Parameters.КнопкаБК1 == numberOfButton ||
-                        numberOfComplect == 2 && B2_1Parameters.КнопкаБК2 == numberOfButton)
+                    if (numberOfComplect == 1 && B2_1Parameters.getInstance().КнопкаБК1 == numberOfButton ||
+                        numberOfComplect == 2 && B2_1Parameters.getInstance().КнопкаБК2 == numberOfButton)
                     {
                         item.BackgroundImage = null;
                     }
@@ -97,32 +98,43 @@
                         item.Name.Contains("ЛампочкаПрТС1_2") ||
                         item.Name.Contains("ЛампочкаПрТС2_2") ||
                         item.Name.Contains("ЛампочкаВУП_1"))
-                        item.BackgroundImage = (bool) prop.GetValue(null)
+                        item.BackgroundImage = (bool) prop.GetValue(B2_1Parameters.getInstance())
                             ? ControlElementImages.lampType3OnRed
                             : null;
                     else if (item.Name.Contains("ЛампочкаТЛГпр") ||
                              item.Name.Contains("ЛампочкаТКСпр2"))
-                        item.BackgroundImage = (bool) prop.GetValue(null)
+                        item.BackgroundImage = (bool) prop.GetValue(B2_1Parameters.getInstance())
                             ? ControlElementImages.lampType4OnRed
                             : null;
                     else
-                        item.BackgroundImage = (bool) prop.GetValue(null)
+                        item.BackgroundImage = (bool) prop.GetValue(B2_1Parameters.getInstance())
                             ? ControlElementImages.lampType2OnRed
                             : null;
                     break;
                 }
             }
 
-            КолодкаТЛГпр_1.BackgroundImage = B2_1Parameters.КолодкаТЛГпр1 ? ControlElementImages.jumperType1 : null;
-            КолодкаТЛГпр_2.BackgroundImage = B2_1Parameters.КолодкаТЛГпр2 ? ControlElementImages.jumperType1 : null;
-            КолодкаТКСпр2_1.BackgroundImage = B2_1Parameters.КолодкаТКСпр21 ? ControlElementImages.jumperType1 : null;
-            КолодкаТКСпр2_2.BackgroundImage = B2_1Parameters.КолодкаТКСпр22 ? ControlElementImages.jumperType1 : null;
+            КолодкаТЛГпр_1.BackgroundImage = B2_1Parameters.getInstance().КолодкаТЛГпр1 ? ControlElementImages.jumperType1 : null;
+            КолодкаТЛГпр_2.BackgroundImage = B2_1Parameters.getInstance().КолодкаТЛГпр2 ? ControlElementImages.jumperType1 : null;
+            КолодкаТКСпр2_1.BackgroundImage = B2_1Parameters.getInstance().КолодкаТКСпр21 ? ControlElementImages.jumperType1 : null;
+            КолодкаТКСпр2_2.BackgroundImage = B2_1Parameters.getInstance().КолодкаТКСпр22 ? ControlElementImages.jumperType1 : null;
             
-            КолодкаТЛГпр_1.Visible = !B2_1Parameters.КолодкаТЛГпр2;
-            КолодкаТЛГпр_2.Visible = !B2_1Parameters.КолодкаТЛГпр1;
-            КолодкаТКСпр2_1.Visible = !B2_1Parameters.КолодкаТКСпр22;
-            КолодкаТКСпр2_2.Visible = !B2_1Parameters.КолодкаТКСпр21;
+            КолодкаТЛГпр_1.Visible = !B2_1Parameters.getInstance().КолодкаТЛГпр2;
+            КолодкаТЛГпр_2.Visible = !B2_1Parameters.getInstance().КолодкаТЛГпр1;
+            КолодкаТКСпр2_1.Visible = !B2_1Parameters.getInstance().КолодкаТКСпр22;
+            КолодкаТКСпр2_2.Visible = !B2_1Parameters.getInstance().КолодкаТКСпр21;
         }
         #endregion
+
+        private void B2_1Form_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            if (ParametersConfig.IsTesting)
+            {
+                var blockParams = B2_1Parameters.getInstance();
+                bool def = !blockParams.ТумблерМуДу;
+
+                TestMain.Action(new JsonAdapter.ActionStation() { Name = "Б2_1", Value = Convert.ToInt32(def) });
+            }
+        }
     }
 }

@@ -18,29 +18,29 @@ namespace R440O.R440OForms.N18_M
         public N18_MForm()
         {
             this.InitializeComponent();
-            N18_MParameters.ParameterChanged += RefreshFormElements;
+            N18_MParameters.getInstance().ParameterChanged += RefreshFormElements;
             RefreshFormElements();
         }
 
         #region Тумблеры
         private void ТумблерДАБ5_Click(object sender, System.EventArgs e)
         {
-            N18_MParameters.ТумблерДАБ5 = !N18_MParameters.ТумблерДАБ5;
+            N18_MParameters.getInstance().ТумблерДАБ5 = !N18_MParameters.getInstance().ТумблерДАБ5;
         }
 
         private void ТумблерКАУ_ПРМ_Click(object sender, System.EventArgs e)
         {
-            N18_MParameters.ТумблерКАУ_ПРМ = !N18_MParameters.ТумблерКАУ_ПРМ;
+            N18_MParameters.getInstance().ТумблерКАУ_ПРМ = !N18_MParameters.getInstance().ТумблерКАУ_ПРМ;
         }
 
         private void ТумблерПРД_СС_Click(object sender, System.EventArgs e)
         {
-            N18_MParameters.ТумблерПРД_СС = !N18_MParameters.ТумблерПРД_СС;
+            N18_MParameters.getInstance().ТумблерПРД_СС = !N18_MParameters.getInstance().ТумблерПРД_СС;
         }
 
         private void ТумблерТЛФ_ПРМ_Click(object sender, System.EventArgs e)
         {
-            N18_MParameters.ТумблерТЛФ_ПРМ = !N18_MParameters.ТумблерТЛФ_ПРМ;
+            N18_MParameters.getInstance().ТумблерТЛФ_ПРМ = !N18_MParameters.getInstance().ТумблерТЛФ_ПРМ;
         }
 
         #endregion
@@ -50,12 +50,12 @@ namespace R440O.R440OForms.N18_M
         {
             if (e.Button == MouseButtons.Left)
             {
-                N18_MParameters.ПереключательПРМ1 += 1;
+                N18_MParameters.getInstance().ПереключательПРМ1 += 1;
             }
 
             if (e.Button == MouseButtons.Right)
             {
-                N18_MParameters.ПереключательПРМ1 -= 1;
+                N18_MParameters.getInstance().ПереключательПРМ1 -= 1;
             }
         }
 
@@ -63,12 +63,12 @@ namespace R440O.R440OForms.N18_M
         {
             if (e.Button == MouseButtons.Left)
             {
-                N18_MParameters.ПереключательПРМ2 += 1;
+                N18_MParameters.getInstance().ПереключательПРМ2 += 1;
             }
 
             if (e.Button == MouseButtons.Right)
             {
-                N18_MParameters.ПереключательПРМ2 -= 1;
+                N18_MParameters.getInstance().ПереключательПРМ2 -= 1;
             }
         }
 
@@ -76,12 +76,12 @@ namespace R440O.R440OForms.N18_M
         {
             if (e.Button == MouseButtons.Left)
             {
-                N18_MParameters.ПереключательВходК121 += 1;
+                N18_MParameters.getInstance().ПереключательВходК121 += 1;
             }
 
             if (e.Button == MouseButtons.Right)
             {
-                N18_MParameters.ПереключательВходК121 -= 1;
+                N18_MParameters.getInstance().ПереключательВходК121 -= 1;
             }
         }
 
@@ -89,12 +89,12 @@ namespace R440O.R440OForms.N18_M
         {
             if (e.Button == MouseButtons.Left)
             {
-                N18_MParameters.ПереключательПРД += 1;
+                N18_MParameters.getInstance().ПереключательПРД += 1;
             }
 
             if (e.Button == MouseButtons.Right)
             {
-                N18_MParameters.ПереключательПРД -= 1;
+                N18_MParameters.getInstance().ПереключательПРД -= 1;
             }
         }
 
@@ -102,12 +102,12 @@ namespace R440O.R440OForms.N18_M
         {
             if (e.Button == MouseButtons.Left)
             {
-                N18_MParameters.ПереключательПрдБма12 += 1;
+                N18_MParameters.getInstance().ПереключательПрдБма12 += 1;
             }
 
             if (e.Button == MouseButtons.Right)
             {
-                N18_MParameters.ПереключательПрдБма12 -= 1;
+                N18_MParameters.getInstance().ПереключательПрдБма12 -= 1;
             }
         }
 
@@ -115,12 +115,12 @@ namespace R440O.R440OForms.N18_M
         {
             if (e.Button == MouseButtons.Left)
             {
-                N18_MParameters.ПереключательПрмСс1 += 1;
+                N18_MParameters.getInstance().ПереключательПрмСс1 += 1;
             }
 
             if (e.Button == MouseButtons.Right)
             {
-                N18_MParameters.ПереключательПрмСс1 -= 1;
+                N18_MParameters.getInstance().ПереключательПрмСс1 -= 1;
             }
         }
 
@@ -128,12 +128,12 @@ namespace R440O.R440OForms.N18_M
         {
             if (e.Button == MouseButtons.Left)
             {
-                N18_MParameters.ПереключательПрмСс2 += 1;
+                N18_MParameters.getInstance().ПереключательПрмСс2 += 1;
             }
 
             if (e.Button == MouseButtons.Right)
             {
-                N18_MParameters.ПереключательПрмСс2 -= 1;
+                N18_MParameters.getInstance().ПереключательПрмСс2 -= 1;
             }
         }
 
@@ -141,12 +141,12 @@ namespace R440O.R440OForms.N18_M
         {
             if (e.Button == MouseButtons.Left)
             {
-                N18_MParameters.Переключатель48ПрмЩв += 1;
+                N18_MParameters.getInstance().Переключатель48ПрмЩв += 1;
             }
 
             if (e.Button == MouseButtons.Right)
             {
-                N18_MParameters.Переключатель48ПрмЩв -= 1;
+                N18_MParameters.getInstance().Переключатель48ПрмЩв -= 1;
             }
         }
 
@@ -154,12 +154,12 @@ namespace R440O.R440OForms.N18_M
         {
             if (e.Button == MouseButtons.Left)
             {
-                N18_MParameters.ПереключательВыход2РН += 1;
+                N18_MParameters.getInstance().ПереключательВыход2РН += 1;
             }
 
             if (e.Button == MouseButtons.Right)
             {
-                N18_MParameters.ПереключательВыход2РН -= 1;
+                N18_MParameters.getInstance().ПереключательВыход2РН -= 1;
             }
         }
 
@@ -167,12 +167,12 @@ namespace R440O.R440OForms.N18_M
         {
             if (e.Button == MouseButtons.Left)
             {
-                N18_MParameters.ПереключательВыход1РН += 1;
+                N18_MParameters.getInstance().ПереключательВыход1РН += 1;
             }
 
             if (e.Button == MouseButtons.Right)
             {
-                N18_MParameters.ПереключательВыход1РН -= 1;
+                N18_MParameters.getInstance().ПереключательВыход1РН -= 1;
             }
         }
 
@@ -180,12 +180,12 @@ namespace R440O.R440OForms.N18_M
         {
             if (e.Button == MouseButtons.Left)
             {
-                N18_MParameters.ПереключательВходБ22 += 1;
+                N18_MParameters.getInstance().ПереключательВходБ22 += 1;
             }
 
             if (e.Button == MouseButtons.Right)
             {
-                N18_MParameters.ПереключательВходБ22 -= 1;
+                N18_MParameters.getInstance().ПереключательВходБ22 -= 1;
             }
         }
         #endregion
@@ -194,105 +194,105 @@ namespace R440O.R440OForms.N18_M
         {
 
             // Panel.Refresh();
-            ЛампочкаКЗТЛГ1.BackgroundImage = N18_MParameters.ЛампочкаК3ТЛГ1
+            ЛампочкаКЗТЛГ1.BackgroundImage = N18_MParameters.getInstance().ЛампочкаК3ТЛГ1
                 ? ControlElementImages.lampType6OnRed
                 : null;
 
-            ЛампочкаКЗТЛГ2.BackgroundImage = N18_MParameters.ЛампочкаК3ТЛГ2
+            ЛампочкаКЗТЛГ2.BackgroundImage = N18_MParameters.getInstance().ЛампочкаК3ТЛГ2
                 ? ControlElementImages.lampType6OnRed
                 : null;
 
-            ЛампочкаКЗТЛГ3.BackgroundImage = N18_MParameters.ЛампочкаК3ТЛГ3
+            ЛампочкаКЗТЛГ3.BackgroundImage = N18_MParameters.getInstance().ЛампочкаК3ТЛГ3
                 ? ControlElementImages.lampType6OnRed
                 : null;
 
-            ЛампочкаКЗТЛГ4.BackgroundImage = N18_MParameters.ЛампочкаК3ТЛГ4
+            ЛампочкаКЗТЛГ4.BackgroundImage = N18_MParameters.getInstance().ЛампочкаК3ТЛГ4
                 ? ControlElementImages.lampType6OnRed
                 : null;
 
-            ЛампочкаСПСТест.BackgroundImage = N18_MParameters.ЛампочкаСПСТест
+            ЛампочкаСПСТест.BackgroundImage = N18_MParameters.getInstance().ЛампочкаСПСТест
                 ? ControlElementImages.lampType8OnRed
                 : null;
 
-            ЛампочкаСПСИнформ.BackgroundImage = N18_MParameters.ЛампочкаСПСИнформ
+            ЛампочкаСПСИнформ.BackgroundImage = N18_MParameters.getInstance().ЛампочкаСПСИнформ
                 ? ControlElementImages.lampType8OnRed
                 : null;
 
-            ЛампочкаПилотК1_1.BackgroundImage = N18_MParameters.ЛампочкаПилотК1_1
+            ЛампочкаПилотК1_1.BackgroundImage = N18_MParameters.getInstance().ЛампочкаПилотК1_1
                 ? ControlElementImages.lampType8OnRed
                 : null;
 
-            ЛампочкаПилотК1_2.BackgroundImage = N18_MParameters.ЛампочкаПилотК1_2
+            ЛампочкаПилотК1_2.BackgroundImage = N18_MParameters.getInstance().ЛампочкаПилотК1_2
                 ? ControlElementImages.lampType8OnRed
                 : null;
 
-            ЛампочкаИнформК1_1.BackgroundImage = N18_MParameters.ЛампочкаИнформК1_1
+            ЛампочкаИнформК1_1.BackgroundImage = N18_MParameters.getInstance().ЛампочкаИнформК1_1
                 ? ControlElementImages.lampType8OnRed
                 : null;
 
-            ЛампочкаИнформК1_2.BackgroundImage = N18_MParameters.ЛампочкаИнформК1_2
+            ЛампочкаИнформК1_2.BackgroundImage = N18_MParameters.getInstance().ЛампочкаИнформК1_2
                 ? ControlElementImages.lampType8OnRed
                 : null;
 
-            ТумблерДАБ5.BackgroundImage = N18_MParameters.ТумблерДАБ5
+            ТумблерДАБ5.BackgroundImage = N18_MParameters.getInstance().ТумблерДАБ5
                 ? ControlElementImages.tumblerType5Right
                 : ControlElementImages.tumblerType5Left;
 
-            ТумблерКАУ_ПРМ.BackgroundImage = N18_MParameters.ТумблерКАУ_ПРМ
+            ТумблерКАУ_ПРМ.BackgroundImage = N18_MParameters.getInstance().ТумблерКАУ_ПРМ
                 ? ControlElementImages.tumblerType5Right
                 : ControlElementImages.tumblerType5Left;
 
-            ТумблерПРД_СС.BackgroundImage = N18_MParameters.ТумблерПРД_СС
+            ТумблерПРД_СС.BackgroundImage = N18_MParameters.getInstance().ТумблерПРД_СС
                 ? ControlElementImages.tumblerType5Right
                 : ControlElementImages.tumblerType5Left;
 
-            ТумблерТЛФ_ПРМ.BackgroundImage = N18_MParameters.ТумблерТЛФ_ПРМ
+            ТумблерТЛФ_ПРМ.BackgroundImage = N18_MParameters.getInstance().ТумблерТЛФ_ПРМ
                 ? ControlElementImages.tumblerType5Right
                 : ControlElementImages.tumblerType5Left;
 
-            var angle = N18_MParameters.ПереключательПРМ1 * 40 - 120;
+            var angle = N18_MParameters.getInstance().ПереключательПРМ1 * 40 - 120;
             ПереключательПРМ1.BackgroundImage =
                 TransformImageHelper.RotateImageByAngle(ControlElementImages.toggleType2, angle);
 
-            angle = N18_MParameters.ПереключательПРМ2 * 40 - 120;
+            angle = N18_MParameters.getInstance().ПереключательПРМ2 * 40 - 120;
             ПереключательПРМ2.BackgroundImage =
                 TransformImageHelper.RotateImageByAngle(ControlElementImages.toggleType2, angle);
 
-            angle = N18_MParameters.ПереключательВходК121 * 40 - 120;
+            angle = N18_MParameters.getInstance().ПереключательВходК121 * 40 - 120;
             ПереключательВходК1_2_1.BackgroundImage =
                 TransformImageHelper.RotateImageByAngle(ControlElementImages.toggleType2, angle);
 
-            angle = N18_MParameters.ПереключательПРД * 40 - 120;
+            angle = N18_MParameters.getInstance().ПереключательПРД * 40 - 120;
             ПереключательПРД.BackgroundImage =
                 TransformImageHelper.RotateImageByAngle(ControlElementImages.toggleType2, angle);
 
-            angle = N18_MParameters.ПереключательПрдБма12 * 28 - 180;
-            if (N18_MParameters.ПереключательПрдБма12 == 6) angle += 12;
-            else if (N18_MParameters.ПереключательПрдБма12 > 6) angle += 28;   ////Смещение
+            angle = N18_MParameters.getInstance().ПереключательПрдБма12 * 28 - 180;
+            if (N18_MParameters.getInstance().ПереключательПрдБма12 == 6) angle += 12;
+            else if (N18_MParameters.getInstance().ПереключательПрдБма12 > 6) angle += 28;   ////Смещение
             ПереключательПРДБМА12.BackgroundImage =
                 TransformImageHelper.RotateImageByAngle(ControlElementImages.toggleType2, angle);
 
-            angle = N18_MParameters.ПереключательПрмСс1 * 40 - 120;
+            angle = N18_MParameters.getInstance().ПереключательПрмСс1 * 40 - 120;
             ПереключательПРМСС1.BackgroundImage =
                 TransformImageHelper.RotateImageByAngle(ControlElementImages.toggleType2, angle);
 
-            angle = N18_MParameters.ПереключательПрмСс2 * 40 - 120;
+            angle = N18_MParameters.getInstance().ПереключательПрмСс2 * 40 - 120;
             ПереключательПРМСС2.BackgroundImage =
                 TransformImageHelper.RotateImageByAngle(ControlElementImages.toggleType2, angle);
 
-            angle = N18_MParameters.Переключатель48ПрмЩв * 50 - 75;
+            angle = N18_MParameters.getInstance().Переключатель48ПрмЩв * 50 - 75;
             Переключатель48ПРМЩВ.BackgroundImage =
                 TransformImageHelper.RotateImageByAngle(ControlElementImages.toggleType2, angle);
 
-            angle = N18_MParameters.ПереключательВыход2РН * 50 - 75;
+            angle = N18_MParameters.getInstance().ПереключательВыход2РН * 50 - 75;
             ПереключательВыход2РН.BackgroundImage =
                 TransformImageHelper.RotateImageByAngle(ControlElementImages.toggleType2, angle);
 
-            angle = N18_MParameters.ПереключательВыход1РН * 50 - 75;
+            angle = N18_MParameters.getInstance().ПереключательВыход1РН * 50 - 75;
             ПереключательВыход1РН.BackgroundImage =
                 TransformImageHelper.RotateImageByAngle(ControlElementImages.toggleType2, angle);
 
-            angle = N18_MParameters.ПереключательВходБ22 * 50 - 75;
+            angle = N18_MParameters.getInstance().ПереключательВходБ22 * 50 - 75;
             ПереключательВходБ22.BackgroundImage =
                 TransformImageHelper.RotateImageByAngle(ControlElementImages.toggleType2, angle);
 
@@ -303,7 +303,7 @@ namespace R440O.R440OForms.N18_M
 
         private void N18_MForm_FormClosed(object sender, FormClosedEventArgs e)
         {
-            N18_MParameters.ParameterChanged -= RefreshFormElements;
+            N18_MParameters.getInstance().ParameterChanged -= RefreshFormElements;
         }
 
         #region Отрисовка соединенй
@@ -384,7 +384,7 @@ namespace R440O.R440OForms.N18_M
             for (int i = 1; i < 76; i++)
             {
                 номер_гнезда1 = i;
-                номер_гнезда2 = N18_MParameters.Соединения[i];
+                номер_гнезда2 = N18_MParameters.getInstance().Соединения[i];
 
                 if (!Дублирующие[i] && номер_гнезда2 != 0)
                 {
@@ -403,13 +403,13 @@ namespace R440O.R440OForms.N18_M
                             соединенные_гнезда.Add(item);
                         }
                     }
-                    DrawLine(point1, point2, e, N18_MParameters.Цвет_соеденения[номер_гнезда1]);
+                    DrawLine(point1, point2, e, N18_MParameters.getInstance().Цвет_соеденения[номер_гнезда1]);
                     Дублирующие[номер_гнезда1] = true;
                     Дублирующие[номер_гнезда2] = true;
                 }
             }
 
-            var первый_выбраный_контрол = Panel.Controls.Find("Гнездо" + N18_MParameters.номер_первого_гнезда, false);
+            var первый_выбраный_контрол = Panel.Controls.Find("Гнездо" + N18_MParameters.getInstance().номер_первого_гнезда, false);
             if (первый_выбраный_контрол.Length != 0)
             {
                 первый_выбраный_контрол[0].BackgroundImage = ControlElementImages.N18_M_Gnezdo;
@@ -433,7 +433,7 @@ namespace R440O.R440OForms.N18_M
             int НомерГнезда = text.Length == 7 ?
                 (int)char.GetNumericValue(text[6]) :
                 10 * (int)char.GetNumericValue(text[6]) + (int)char.GetNumericValue(text[7]);
-            N18_MParameters.Соеденить(НомерГнезда);
+            N18_MParameters.getInstance().Соеденить(НомерГнезда);
         }
 
     }

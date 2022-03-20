@@ -1,4 +1,4 @@
-﻿                                                                 using R440O.ThirdParty;
+﻿using R440O.ThirdParty;
 using ShareTypes.SignalTypes;
 using R440O.R440OForms.N18_M;
 using System.Windows.Forms;
@@ -12,12 +12,20 @@ namespace R440O.R440OForms.BMB
     using Parameters;
     using СостоянияЭлементов.БМБ;
     using System;
+    using global::R440O.JsonAdapter;
 
-    public static class BMBParameters
+    public class BMBParameters
     {
+        private static BMBParameters instance;
+        public static BMBParameters getInstance()
+        {
+            if (instance == null)
+                instance = new BMBParameters();
+            return instance;
+        }
         #region ПереключательРаботаКонтроль
 
-        public static int ПереключательРаботаКонтроль
+        public int ПереключательРаботаКонтроль
         {
             get { return _переключательРаботаКонтроль; }
             set
@@ -30,13 +38,13 @@ namespace R440O.R440OForms.BMB
                     ОбнулитьНабор();
                     ПереданнаяКоманда = string.Empty;
                 }
-                BMA_M_1Parameters.ResetParameters();
-                BMA_M_2Parameters.ResetParameters();
+                BMA_M_1Parameters.getInstance().ResetParameters();
+                BMA_M_2Parameters.getInstance().ResetParameters();
                 ResetParameters();
             }
         }
 
-        private static int _переключательРаботаКонтроль = 1;
+        private int _переключательРаботаКонтроль = 1;
 
         #endregion
 
@@ -45,9 +53,9 @@ namespace R440O.R440OForms.BMB
         /// <summary>
         /// Положение переключателя подключение резерва
         /// </summary>
-        private static int _переключательПодключениеРезерва = 1;
+        private int _переключательПодключениеРезерва = 1;
 
-        public static int ПереключательПодключениеРезерва
+        public int ПереключательПодключениеРезерва
         {
             get { return _переключательПодключениеРезерва; }
             set
@@ -67,9 +75,9 @@ namespace R440O.R440OForms.BMB
         /// <summary>
         /// Положение переключателя направления
         /// </summary>
-        private static int _переключательНаправление = 1;
+        private int _переключательНаправление = 1;
 
-        public static int ПереключательНаправление
+        public int ПереключательНаправление
         {
             get { return _переключательНаправление; }
             set
@@ -90,7 +98,7 @@ namespace R440O.R440OForms.BMB
         /// Горит, если включено питание и сама кнопка нажата.
         /// При нажатии обнуляется команда набранная на блоке. Включается передача вызова по каналу ТЧ.
         /// </summary>
-        public static Кнопка КнопкаПередачаВызоваТч
+        public Кнопка КнопкаПередачаВызоваТч
         {
             get
             {
@@ -108,19 +116,20 @@ namespace R440O.R440OForms.BMB
                     передачаЦифр = false;
                 }
                 _кнопкаПередачаВызоваТч = value;
-                BMA_M_1Parameters.ResetParameters();
-                BMA_M_2Parameters.ResetParameters();
+                OnAction("КнопкаПередачаВызоваТч", (int)_кнопкаПередачаВызоваТч);
+                BMA_M_1Parameters.getInstance().ResetParameters();
+                BMA_M_2Parameters.getInstance().ResetParameters();
                 if (RefreshForm != null) RefreshForm();
             }
         }
 
-        private static Кнопка _кнопкаПередачаВызоваТч;
+        private Кнопка _кнопкаПередачаВызоваТч;
 
         /// <summary>
         /// Горит, если включено питание и сама кнопка нажата.
         /// При нажатии обнуляется команда набранная на блоке. Включается передача вызова по каналу ДК.
         /// </summary>
-        public static Кнопка КнопкаПередачаВызоваДк
+        public Кнопка КнопкаПередачаВызоваДк
         {
             get
             {
@@ -138,19 +147,21 @@ namespace R440O.R440OForms.BMB
                     передачаЦифр = false;
                 }
                 _кнопкаПередачаВызоваДк = value;
-                BMA_M_1Parameters.ResetParameters();
-                BMA_M_2Parameters.ResetParameters();
+                OnAction("КнопкаПередачаВызоваДк", (int)_кнопкаПередачаВызоваДк);
+
+                BMA_M_1Parameters.getInstance().ResetParameters();
+                BMA_M_2Parameters.getInstance().ResetParameters();
                 if (RefreshForm != null) RefreshForm();
             }
         }
 
-        private static Кнопка _кнопкаПередачаВызоваДк;
+        private Кнопка _кнопкаПередачаВызоваДк;
 
         /// <summary>
         /// Горит, если включено питание и сама кнопка нажата.
         /// При нажатии включается режим передачи служебной связи.
         /// </summary>
-        public static Кнопка КнопкаСлСвязь
+        public Кнопка КнопкаСлСвязь
         {
             get
             {
@@ -163,21 +174,21 @@ namespace R440O.R440OForms.BMB
             {
                 ОбнулитьНабор();
                 _кнопкаСлСвязь = value;
-                BMA_M_1Parameters.ResetParameters();
-                BMA_M_2Parameters.ResetParameters();
+                BMA_M_1Parameters.getInstance().ResetParameters();
+                BMA_M_2Parameters.getInstance().ResetParameters();
                 if (RefreshForm != null) RefreshForm();
             }
         }
 
-        private static Кнопка _кнопкаСлСвязь;
+        private Кнопка _кнопкаСлСвязь;
 
-        public static Кнопка КнопкаПитание
+        public Кнопка КнопкаПитание
         {
             get
             {
-                return N502BParameters.ТумблерВыпрямитель27В
-                       && N502BParameters.ТумблерЭлектрооборудование
-                       && N502BParameters.ЛампочкаСфазировано
+                return N502BParameters.getInstance().ТумблерВыпрямитель27В
+                       && N502BParameters.getInstance().ТумблерЭлектрооборудование
+                       && N502BParameters.getInstance().ЛампочкаСфазировано
                        && _кнопкаПитание == Кнопка.Нажата
                     ? Кнопка.Горит
                     : _кнопкаПитание;
@@ -187,19 +198,21 @@ namespace R440O.R440OForms.BMB
                 ОбнулитьНабор();
                 ПереданнаяКоманда = string.Empty;
                 _кнопкаПитание = value;
-                BMA_M_1Parameters.ResetParameters();
-                BMA_M_2Parameters.ResetParameters();
+                OnAction("КнопкаПитание", (int)_кнопкаПитание);
+
+                BMA_M_1Parameters.getInstance().ResetParameters();
+                BMA_M_2Parameters.getInstance().ResetParameters();
                 if (RefreshForm != null) RefreshForm();
             }
         }
 
-        private static Кнопка _кнопкаПитание;
+        private Кнопка _кнопкаПитание;
 
         /// <summary>
         /// Горит, если включено питание и сама кнопка нажата.
         /// При нажатии включается режим звуковой синализации.
         /// </summary>
-        public static Кнопка КнопкаЗвСигнал
+        public Кнопка КнопкаЗвСигнал
         {
             get
             {
@@ -215,7 +228,7 @@ namespace R440O.R440OForms.BMB
             }
         }
 
-        private static Кнопка _кнопкаЗвСигнал;
+        private Кнопка _кнопкаЗвСигнал;
 
         #endregion
 
@@ -226,8 +239,8 @@ namespace R440O.R440OForms.BMB
         /// В режиме работа лампочка горит, если правильно настроен блок БМА.
         /// Переменная мерцание лампочки нужна для того, чтобы лампочка моргнула при включении БМА.
         /// </summary>
-        private static bool _мерцаниеЛампочкиДк;
-        public static bool ЛампочкаДк
+        private bool _мерцаниеЛампочкиДк;
+        public bool ЛампочкаДк
         {
             get
             {
@@ -243,23 +256,23 @@ namespace R440O.R440OForms.BMB
         /// В режиме работа лампочка горит, если правильно настроен блок БМА.
         /// Переменная мерцание лампочки нужна для того, чтобы лампочка моргнула при включении БМА.
         /// </summary>
-        private static bool _мерцаниеЛампочкиТч;
-        public static bool ЛампочкаТч
+        private bool _мерцаниеЛампочкиТч;
+        public bool ЛампочкаТч
         {
             get
             {
                 return _мерцаниеЛампочкиТч || КнопкаПитание == Кнопка.Горит && КнопкаПередачаВызоваТч == Кнопка.Горит
                        && (ПереключательРаботаКонтроль == 2 ||
                            (КнопкаСлСвязь == Кнопка.Горит && БМАПодключенВерно &&
-                            (BMA_M_1Parameters.КнопкаШлейфТЧ == 3 && ПереключательНаправление == 1
-                            || BMA_M_2Parameters.КнопкаШлейфТЧ == 3 && ПереключательНаправление == 2)));
+                            (BMA_M_1Parameters.getInstance().КнопкаШлейфТЧ == 3 && ПереключательНаправление == 1
+                            || BMA_M_2Parameters.getInstance().КнопкаШлейфТЧ == 3 && ПереключательНаправление == 2)));
             }
         }
 
         /// <summary>
         /// Лампочка-табло прием вызова.
         /// </summary>
-        public static bool ЛампочкаПриемВызова
+        public bool ЛампочкаПриемВызова
         {
             get
             {
@@ -267,12 +280,12 @@ namespace R440O.R440OForms.BMB
             }
         }
 
-        private static bool _лампочкаРезервВкл;
+        private bool _лампочкаРезервВкл;
 
         /// <summary>
         /// Горит если идёт прием вызова и выбрано данное направление.
         /// </summary>
-        public static bool ЛампочкаНаправление1
+        public bool ЛампочкаНаправление1
         {
             get
             {
@@ -282,7 +295,7 @@ namespace R440O.R440OForms.BMB
             }
         }
 
-        public static bool ЛампочкаНаправление2
+        public bool ЛампочкаНаправление2
         {
             get
             {
@@ -291,7 +304,7 @@ namespace R440O.R440OForms.BMB
             }
         }
 
-        public static bool ЛампочкаНаправление3
+        public bool ЛампочкаНаправление3
         {
             get
             {
@@ -300,7 +313,7 @@ namespace R440O.R440OForms.BMB
             }
         }
 
-        public static bool ЛампочкаНаправление4
+        public bool ЛампочкаНаправление4
         {
             get
             {
@@ -309,7 +322,7 @@ namespace R440O.R440OForms.BMB
             }
         }
 
-        public static bool ЛампочкаРезервВкл
+        public bool ЛампочкаРезервВкл
         {
             get { return _лампочкаРезервВкл; }
             set { _лампочкаРезервВкл = value; }
@@ -318,11 +331,11 @@ namespace R440O.R440OForms.BMB
         #endregion
 
         #region Мерцание лампочки
-        private static int _номерМерцающейЛампочкиНаправления = -1;
+        private int _номерМерцающейЛампочкиНаправления = -1;
         /// <summary>
         /// Метод мерцания лампочки перюключателя направления при включении БМА
         /// </summary>
-        public static void МерцаниеЛампочиНаправления(int НомерНаправления)
+        public void МерцаниеЛампочиНаправления(int НомерНаправления)
         {
             if (КнопкаПитание == Кнопка.Горит)
             {
@@ -348,13 +361,13 @@ namespace R440O.R440OForms.BMB
         /// <summary>
         /// 0 - первый регистр; 1 - второй регистр;
         /// </summary>
-        private static int[] Команда = { -1, -1 };
+        private int[] Команда = { -1, -1 };
 
         /// <summary>
         /// Правило отображение введеной команды на табло "Набор команды"
         /// </summary>
         /// <returns></returns>
-        private static bool ПодсветкаНабора()
+        private bool ПодсветкаНабора()
         {
             return КнопкаПитание == Кнопка.Горит && КнопкаПередачаВызоваДк == Кнопка.Отжата
                 && БМАПодключенВерно && ((ПереключательРаботаКонтроль == 1 && КнопкаСлСвязь == Кнопка.Горит)
@@ -364,16 +377,16 @@ namespace R440O.R440OForms.BMB
         /// <summary>
         /// Обнуление значени, используемых для вывода информации на табло.
         /// </summary>
-        public static void ОбнулитьНабор()
+        public void ОбнулитьНабор()
         {
-            передачаЦифр = false;            
+            передачаЦифр = false;
             Команда = new[] { -1, -1 };
         }
 
         /// <summary>
         /// Добавление числа в команду. Число добавляется при определённых условиях.
         /// </summary>
-        public static void ДобавитьЧисло(int value)
+        public void ДобавитьЧисло(int value)
         {
             if (ПодсветкаНабора())
             {
@@ -385,12 +398,12 @@ namespace R440O.R440OForms.BMB
                 }
                 else
                     if (Команда[0] != -1 && Команда[1] != -1 && value < 3)
-                    {
-                        //ПереданнаяКоманда = string.Empty;
-                        передачаЦифр = false;
-                        Команда[0] = value;
-                        Команда[1] = -1;
-                    }
+                {
+                    //ПереданнаяКоманда = string.Empty;
+                    передачаЦифр = false;
+                    Команда[0] = value;
+                    Команда[1] = -1;
+                }
             }
 
             if (RefreshForm != null) RefreshForm();
@@ -399,14 +412,14 @@ namespace R440O.R440OForms.BMB
         /// <summary>
         /// Обработка вывода информации на табло "Набор Команды" в соответствии с текущими значениями.
         /// </summary>
-        public static string НаборКоманды
+        public string НаборКоманды
         {
             get
             {
                 if (!ПодсветкаНабора() || (Команда[0] == -1 && Команда[1] == -1))
                     return string.Empty;
                 var symbol1 = Команда[0] != -1 ? string.Empty + Команда[0] : "-";
-                var symbol2 = Команда[1] != -1 ? string.Empty + Команда[1] : "-";               
+                var symbol2 = Команда[1] != -1 ? string.Empty + Команда[1] : "-";
                 return symbol1 + symbol2;
             }
         }
@@ -414,7 +427,7 @@ namespace R440O.R440OForms.BMB
         /// <summary>
         /// Команда передаётся, если отжаты режимы ТЧ и ДК, и набрана правильная команда.
         /// </summary>
-        public static Кнопка КнопкаПередачаКоманды
+        public Кнопка КнопкаПередачаКоманды
         {
             get
             {
@@ -424,25 +437,25 @@ namespace R440O.R440OForms.BMB
 
                 return _кнопкаПередачаКоманды;
             }
-            set 
-            { 
+            set
+            {
                 _кнопкаПередачаКоманды = value;
             }
         }
 
-        private static bool передачаЦифр;
+        private bool передачаЦифр;
 
         #endregion
 
         #region ПредачаКоманды
 
-        private static string ПереданнаяКоманда;
-        private static Кнопка _кнопкаПередачаКоманды;
-       
+        private string ПереданнаяКоманда;
+        private Кнопка _кнопкаПередачаКоманды;
+
         /// <summary>
         /// Обработка нажатия на клавишу передать команду, с правильным заннулением предыдущих цифр.
         /// </summary>
-        public static void ПередатьКоманду()
+        public void ПередатьКоманду()
         {
             if (КнопкаПитание == Кнопка.Горит)
                 передачаЦифр = true;
@@ -460,8 +473,8 @@ namespace R440O.R440OForms.BMB
             произвестиПередачу();
         }
 
-        private static IDisposable _таймерПередачиКоманды = null;
-        private static void произвестиПередачу()
+        private IDisposable _таймерПередачиКоманды = null;
+        private void произвестиПередачу()
         {
             if (_таймерПередачиКоманды != null)
             {
@@ -472,7 +485,7 @@ namespace R440O.R440OForms.BMB
             {
                 _идетПередачаКоманды = false;
             }, 3000);
-            BMA_M_1Parameters.ResetParameters();   
+            BMA_M_1Parameters.getInstance().ResetParameters();
         }
 
         #endregion
@@ -482,7 +495,7 @@ namespace R440O.R440OForms.BMB
         /// <summary>
         /// Вывод информации на тамбло "Прием информации". При передаче по ДК высвечивает 0.
         /// </summary>
-        public static string ПриемКоманды
+        public string ПриемКоманды
         {
             get
             {
@@ -501,14 +514,14 @@ namespace R440O.R440OForms.BMB
         }
 
         #endregion
-               
+
         #region Сигнал
 
         /// <summary>
         /// Проверка правильности подключения одного из блоков БМА к БМБ.
         /// </summary>
         /// <returns></returns>
-        private static bool БМАПодключенВерно
+        private bool БМАПодключенВерно
         {
             // Нам срать какой именно подключен
             get
@@ -521,11 +534,11 @@ namespace R440O.R440OForms.BMB
         /// БМА1 подключен верно
         /// </summary>
         /// <returns></returns>
-        private static bool БМА1ПодключенВерно
+        private bool БМА1ПодключенВерно
         {
             get
             {
-                return BMA_M_1Parameters.Питание && ПереключательНаправление == 1;
+                return BMA_M_1Parameters.getInstance().Питание && ПереключательНаправление == 1;
             }
         }
 
@@ -533,25 +546,25 @@ namespace R440O.R440OForms.BMB
         /// БМА2 подключен верно
         /// </summary>
         /// <returns></returns>
-        private static bool БМА2ПодключенВерно
+        private bool БМА2ПодключенВерно
         {
-            get { return BMA_M_2Parameters.Питание && ПереключательНаправление == 2; }
-        }     
+            get { return BMA_M_2Parameters.getInstance().Питание && ПереключательНаправление == 2; }
+        }
 
-        public static Chanel ВходнойСигнал
+        public Chanel ВходнойСигнал
         {
             get
             {
                 if (БМА1ПодключенВерно)
-                    return BMA_M_1Parameters.СигалНаБМБ;
+                    return BMA_M_1Parameters.getInstance().СигалНаБМБ;
                 if (БМА2ПодключенВерно)
-                    return BMA_M_2Parameters.СигалНаБМБ;
+                    return BMA_M_2Parameters.getInstance().СигалНаБМБ;
                 return null;
             }
         }
 
-        private static bool _идетПередачаКоманды = false;
-        public static Chanel ВыходнойСигнал
+        private bool _идетПередачаКоманды = false;
+        public Chanel ВыходнойСигнал
         {
             get
             {
@@ -568,7 +581,7 @@ namespace R440O.R440OForms.BMB
 
         #region Таймер
 
-        static BMBParameters()
+        BMBParameters()
         {
             таймерОбновленияФормы.Tick += тикТаймераОбновленияФормы;
             таймерОбновленияФормы.Enabled = true;
@@ -576,21 +589,28 @@ namespace R440O.R440OForms.BMB
             таймерОбновленияФормы.Start();
         }
 
-        private static Timer таймерОбновленияФормы = new Timer();
+        private Timer таймерОбновленияФормы = new Timer();
 
-        private static void тикТаймераОбновленияФормы(object sender, EventArgs e)
+        private void тикТаймераОбновленияФормы(object sender, EventArgs e)
         {
             ResetParameters();
         }
 
         #endregion
+        public delegate void TestModuleHandler(ActionStation action);
+        public event TestModuleHandler Action;
+        private void OnAction(string name, int value)
+        {
+            var action = new ActionStation(name, value);
+            Action?.Invoke(action);
+        }
 
-        public static void ResetParameters()
+        public void ResetParameters()
         {
             if (RefreshForm != null) RefreshForm();
         }
 
         public delegate void VoidVoidSignature();
-        public static event VoidVoidSignature RefreshForm;
+        public event VoidVoidSignature RefreshForm;
     }
 }

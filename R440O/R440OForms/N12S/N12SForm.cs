@@ -12,6 +12,7 @@ using R440O.BaseClasses;
 
 namespace R440O.R440OForms.N12S
 {
+    using global::R440O.TestModule;
     using System.Windows.Forms;
 
     /// <summary>
@@ -25,14 +26,14 @@ namespace R440O.R440OForms.N12S
         public N12SForm()
         {
             this.InitializeComponent();
-            N12SParameters.ParameterChanged += RefreshFormElements;
+            N12SParameters.getInstance().ParameterChanged += RefreshFormElements;
             this.RefreshFormElements();
         }
 
         #region Кнопка
         private void КнопкаУскор_Click(object sender, System.EventArgs e)
         {
-            N12SParameters.КнопкаУскор = !N12SParameters.КнопкаУскор;
+            N12SParameters.getInstance().КнопкаУскор = !N12SParameters.getInstance().КнопкаУскор;
         }
         #endregion
 
@@ -40,48 +41,48 @@ namespace R440O.R440OForms.N12S
         private void ТумблерА_MouseDown(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left)
-                N12SParameters.ТумблерА = -1;
+                N12SParameters.getInstance().ТумблерА = -1;
 
             if (e.Button == MouseButtons.Right)
-                N12SParameters.ТумблерА = 1;
+                N12SParameters.getInstance().ТумблерА = 1;
         }
 
         private void ТумблерА_MouseUp(object sender, MouseEventArgs e)
         {
-            N12SParameters.ТумблерА = 0;
+            N12SParameters.getInstance().ТумблерА = 0;
         }
 
         private void ТумблерБ_MouseDown(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left)
-                N12SParameters.ТумблерБ = 1;
+                N12SParameters.getInstance().ТумблерБ = 1;
 
             if (e.Button == MouseButtons.Right)
-                N12SParameters.ТумблерБ = -1;
+                N12SParameters.getInstance().ТумблерБ = -1;
         }
 
         private void ТумблерБ_MouseUp(object sender, MouseEventArgs e)
         {
-            N12SParameters.ТумблерБ = 0;
+            N12SParameters.getInstance().ТумблерБ = 0;
         }
 
         private void ТумблерСеть_Click(object sender, System.EventArgs e)
         {
-            N12SParameters.ТумблерСеть = !N12SParameters.ТумблерСеть;
+            N12SParameters.getInstance().ТумблерСеть = !N12SParameters.getInstance().ТумблерСеть;
         }
         #endregion
 
         public void RefreshFormElements()
         {
-            ТумблерСеть.BackgroundImage = N12SParameters.ТумблерСеть
+            ТумблерСеть.BackgroundImage = N12SParameters.getInstance().ТумблерСеть
                 ? ControlElementImages.tumblerType8Up
                 : ControlElementImages.tumblerType8Down;
 
-            КнопкаУскор.BackgroundImage = N12SParameters.КнопкаУскор
+            КнопкаУскор.BackgroundImage = N12SParameters.getInstance().КнопкаУскор
                 ? ControlElementImages.buttonRoundType8
                 : null;
 
-            switch (N12SParameters.ТумблерА)
+            switch (N12SParameters.getInstance().ТумблерА)
             {
                 case -1:
                     ТумблерА.BackgroundImage = ControlElementImages.tumblerType8Left;
@@ -94,7 +95,7 @@ namespace R440O.R440OForms.N12S
                     break;
             }
 
-            switch (N12SParameters.ТумблерБ)
+            switch (N12SParameters.getInstance().ТумблерБ)
             {
                 case -1:
                     ТумблерБ.BackgroundImage = ControlElementImages.tumblerType8Down;
@@ -109,56 +110,63 @@ namespace R440O.R440OForms.N12S
 
             //Индикаторы
 
-            var angle = N12SParameters.ИндикаторAlpha * (-36) + 36;
+            var angle = N12SParameters.getInstance().ИндикаторAlpha * (-36) + 36;
             ИндикаторAlphaCenter.BackgroundImage =
                 TransformImageHelper.RotateImageByAngle(ControlElementImages.N12SIndicatorCenter, angle);
 
-            angle = -N12SParameters.ИндикаторAlpha - 67;
+            angle = -N12SParameters.getInstance().ИндикаторAlpha - 67;
             ИндикаторAlpha.BackgroundImage =
                 TransformImageHelper.RotateImageByAngle(ControlElementImages.N12SIndicatorAlpha, angle);
 
-            angle = N12SParameters.ИндикаторBeta * (-36) + 36;
+            angle = N12SParameters.getInstance().ИндикаторBeta * (-36) + 36;
             ИндикаторBetaCenter.BackgroundImage =
                 TransformImageHelper.RotateImageByAngle(ControlElementImages.N12SIndicatorCenter, angle);
 
-            angle = -N12SParameters.ИндикаторBeta + 48;
+            angle = -N12SParameters.getInstance().ИндикаторBeta + 48;
             ИндикаторBeta.BackgroundImage =
                 TransformImageHelper.RotateImageByAngle(ControlElementImages.N12SIndicatorBeta, angle);
 
             //Потенциометры
 
-            angle = N12SParameters.ПотенциометрBetaИ * 1.1F - 50;
+            angle = N12SParameters.getInstance().ПотенциометрBetaИ * 1.1F - 50;
             ПотенциометрBetaИ.BackgroundImage =
                    TransformImageHelper.RotateImageByAngle(ControlElementImages.arrow, angle);
 
-            angle = N12SParameters.ПотенциометрBetaV * 1.5F;
+            angle = N12SParameters.getInstance().ПотенциометрBetaV * 1.5F;
             ПотенциометрBetaV.BackgroundImage =
                    TransformImageHelper.RotateImageByAngle(ControlElementImages.arrow, angle);
 
-            angle = N12SParameters.ПотенциометрAlphaИ * 0.18F;
+            angle = N12SParameters.getInstance().ПотенциометрAlphaИ * 0.18F;
             ПотенциометрAlphaИ.BackgroundImage =
                    TransformImageHelper.RotateImageByAngle(ControlElementImages.arrow, angle);
 
-            angle = N12SParameters.ПотенциометрAlphaV * 1.5F;
+            angle = N12SParameters.getInstance().ПотенциометрAlphaV * 1.5F;
             ПотенциометрAlphaV.BackgroundImage =
                    TransformImageHelper.RotateImageByAngle(ControlElementImages.arrow, angle);
 
 
-            ЛампочкаУпорА.BackgroundImage = N12SParameters.ЛампочкаУпорА
+            ЛампочкаУпорА.BackgroundImage = N12SParameters.getInstance().ЛампочкаУпорА
                 ? ControlElementImages.lampType6OnRed
                 : null;
 
-            ЛампочкаУпорБ.BackgroundImage = N12SParameters.ЛампочкаУпорБ
+            ЛампочкаУпорБ.BackgroundImage = N12SParameters.getInstance().ЛампочкаУпорБ
                 ? ControlElementImages.lampType6OnRed
                 : null;
 
-            ЛампочкаГотовность.BackgroundImage = (N12SParameters.ЛампочкаГотовность)
+            ЛампочкаГотовность.BackgroundImage = (N12SParameters.getInstance().ЛампочкаГотовность)
                 ? ControlElementImages.lampType13OnGreen : null;
         }
 
         private void N12SForm_FormClosed(object sender, FormClosedEventArgs e)
         {
-            N12SParameters.ParameterChanged -= RefreshFormElements;
+            if (ParametersConfig.IsTesting)
+            {
+                var blockParams = N12SParameters.getInstance();
+                bool def = blockParams.ТумблерСеть;
+
+                TestMain.Action(new JsonAdapter.ActionStation() { Name = "Н12С", Value = Convert.ToInt32(def) });
+            }
+            N12SParameters.getInstance().ParameterChanged -= RefreshFormElements;
         }
     }
 }

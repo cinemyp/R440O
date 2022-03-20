@@ -4,13 +4,13 @@
     partial class Kontur_P3Parameters
     {
         #region Кнопки
-        private static bool _КнопкаКП4Контроль;
-        public static bool КнопкаКП4Контроль
-        { 
+        private bool _КнопкаКП4Контроль;
+        public bool КнопкаКП4Контроль
+        {
             get { return _КнопкаКП4Контроль; }
-            set 
+            set
             {
-                if(!ЛампочкаПередача)
+                if (!ЛампочкаПередача)
                     _КнопкаКП4Контроль = value;
                 if (_КнопкаКП4Контроль)
                     КнопкаКП1Контроль = false;
@@ -20,7 +20,7 @@
         #endregion
 
         #region Лампочки
-        public static bool ЛампочкаКП4Канал1
+        public bool ЛампочкаКП4Канал1
         {
             get
             {
@@ -30,7 +30,7 @@
             }
         }
 
-        public static bool ЛампочкаКП4Канал2
+        public bool ЛампочкаКП4Канал2
         {
             get
             {
@@ -39,7 +39,7 @@
             }
         }
 
-        public static bool ЛампочкаКП4Канал3
+        public bool ЛампочкаКП4Канал3
         {
             get
             {
@@ -48,7 +48,7 @@
             }
         }
 
-        public static bool ЛампочкаКП4Канал4
+        public bool ЛампочкаКП4Канал4
         {
             get
             {
@@ -57,7 +57,7 @@
             }
         }
 
-        public static bool ЛампочкаКП4Канал5
+        public bool ЛампочкаКП4Канал5
         {
             get
             {
@@ -66,7 +66,7 @@
             }
         }
 
-        public static bool ЛампочкаКП4Канал6
+        public bool ЛампочкаКП4Канал6
         {
             get
             {
@@ -75,7 +75,7 @@
             }
         }
 
-        public static bool ЛампочкаКП4Канал7
+        public bool ЛампочкаКП4Канал7
         {
             get
             {
@@ -84,7 +84,7 @@
             }
         }
 
-        public static bool ЛампочкаКП4Канал8
+        public bool ЛампочкаКП4Канал8
         {
             get
             {
@@ -93,7 +93,7 @@
             }
         }
 
-        public static bool ЛампочкаКП4Канал9
+        public bool ЛампочкаКП4Канал9
         {
             get
             {
@@ -104,8 +104,8 @@
         #endregion
 
         #region Переключатели
-        private static EПереключательПриоритет _ПереключательПриоритет = EПереключательПриоритет._0;
-        public static EПереключательПриоритет ПереключательПриоритет
+        private EПереключательПриоритет _ПереключательПриоритет = EПереключательПриоритет._0;
+        public EПереключательПриоритет ПереключательПриоритет
         {
             get { return _ПереключательПриоритет; }
             set

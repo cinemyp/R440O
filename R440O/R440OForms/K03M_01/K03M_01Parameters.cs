@@ -14,15 +14,31 @@ using ShareTypes.SignalTypes;
 
 namespace R440O.R440OForms.K03M_01
 {
-    public static class K03M_01Parameters
+    public class K03M_01Parameters
     {
+        public bool firstCheck { get; set; } = true;
+
+        private static K03M_01Parameters instance;
+        public static K03M_01Parameters getInstance()
+        {
+            if (instance == null)
+                instance = new K03M_01Parameters();
+            return instance;
+        }
+        public delegate void TestModuleHandler(JsonAdapter.ActionStation action);
+        public event TestModuleHandler Action;
+        private void OnAction(string name, int value)
+        {
+            var action = new JsonAdapter.ActionStation(name, value);
+            Action?.Invoke(action);
+        }
         // Внимание, в OnParameterChanged добавлен вызов метода.
         #region событие
 
         public delegate void ParameterChangedHandler();
-        public static event ParameterChangedHandler ParameterChanged;
+        public event ParameterChangedHandler ParameterChanged;
 
-        private static void OnParameterChanged()
+        private void OnParameterChanged()
         {
             // При каждом изменении любого тумблера надо обновлять значения
             ПересчитатьМаксимальноеИМинимальноеЗнчения();
@@ -30,14 +46,14 @@ namespace R440O.R440OForms.K03M_01
             if (handler != null) handler();
         }
 
-        public static void ОбновитьСигнал()
+        public void ОбновитьСигнал()
         {
             НачатьПоискСНачала();
             ResetParameters();
-            K02M_01Parameters.ResetParameters();
+            K02M_01Parameters.getInstance().ResetParameters();
         }
 
-        public static void ResetParameters()
+        public void ResetParameters()
         {
             OnParameterChanged();
         }
@@ -46,7 +62,7 @@ namespace R440O.R440OForms.K03M_01
 
         #region Лампочки
 
-        private static int _нормированноеЗнаечниеПоиска
+        private int _нормированноеЗнаечниеПоиска
         {
             get
             {
@@ -54,47 +70,47 @@ namespace R440O.R440OForms.K03M_01
             }
         }
 
-        public static bool Лампочка0
+        public bool Лампочка0
         {
             get { return (_текущееЗначениеПоиска >= 0 && БлокВключен); }
         }
 
-        public static bool Лампочка1
+        public bool Лампочка1
         {
             get
             {
                 return БлокВключен && (_нормированноеЗнаечниеПоиска % 2) != 0;
             }
         }
-        public static bool Лампочка2
+        public bool Лампочка2
         {
             get
             {
                 return БлокВключен && ((_нормированноеЗнаечниеПоиска % 4) / 2) != 0;
             }
         }
-        public static bool Лампочка4
+        public bool Лампочка4
         {
             get
             {
                 return БлокВключен && ((_нормированноеЗнаечниеПоиска % 8) / 4) != 0;
             }
         }
-        public static bool Лампочка8
+        public bool Лампочка8
         {
             get
             {
                 return БлокВключен && ((_нормированноеЗнаечниеПоиска % 16) / 8) != 0;
             }
         }
-        public static bool Лампочка16
+        public bool Лампочка16
         {
             get
             {
                 return БлокВключен && ((_нормированноеЗнаечниеПоиска % 32) / 16) != 0;
             }
         }
-        public static bool Лампочка32
+        public bool Лампочка32
         {
             get
             {
@@ -104,24 +120,24 @@ namespace R440O.R440OForms.K03M_01
         #endregion
 
         #region Переключатели
-        private static bool _переключатель0 = false;
-        private static bool _переключатель1 = false;
-        private static bool _переключатель2 = false;
-        private static bool _переключатель4 = false;
-        private static bool _переключатель8 = false;
-        private static bool _переключатель16 = false;
-        private static bool _переключатель32 = false;
-        private static bool _переключательНепрОднокр = true;
-        private static bool _переключательАвтРучн = true;
-        private static int _статусПоиска = 0;
+        private bool _переключатель0 = false;
+        private bool _переключатель1 = false;
+        private bool _переключатель2 = false;
+        private bool _переключатель4 = false;
+        private bool _переключатель8 = false;
+        private bool _переключатель16 = false;
+        private bool _переключатель32 = false;
+        private bool _переключательНепрОднокр = true;
+        private bool _переключательАвтРучн = true;
+        private int _статусПоиска = 0;
 
 
         /// <summary>
         /// Положение переключателя контроля
         /// </summary>
-        private static int _переключательЗонаПоиска = 1;
+        private int _переключательЗонаПоиска = 1;
 
-        public static bool Переключатель0
+        public bool Переключатель0
         {
             get
             {
@@ -133,7 +149,7 @@ namespace R440O.R440OForms.K03M_01
                 ResetParameters();
             }
         }
-        public static bool Переключатель1
+        public bool Переключатель1
         {
             get
             {
@@ -145,7 +161,7 @@ namespace R440O.R440OForms.K03M_01
                 ResetParameters();
             }
         }
-        public static bool Переключатель2
+        public bool Переключатель2
         {
             get
             {
@@ -157,7 +173,7 @@ namespace R440O.R440OForms.K03M_01
                 ResetParameters();
             }
         }
-        public static bool Переключатель4
+        public bool Переключатель4
         {
             get
             {
@@ -169,7 +185,7 @@ namespace R440O.R440OForms.K03M_01
                 ResetParameters();
             }
         }
-        public static bool Переключатель8
+        public bool Переключатель8
         {
             get
             {
@@ -181,7 +197,7 @@ namespace R440O.R440OForms.K03M_01
                 ResetParameters();
             }
         }
-        public static bool Переключатель16
+        public bool Переключатель16
         {
             get
             {
@@ -193,7 +209,7 @@ namespace R440O.R440OForms.K03M_01
                 ResetParameters();
             }
         }
-        public static bool Переключатель32
+        public bool Переключатель32
         {
             get
             {
@@ -205,7 +221,7 @@ namespace R440O.R440OForms.K03M_01
                 ResetParameters();
             }
         }
-        public static bool ПереключательНепрОднокр
+        public bool ПереключательНепрОднокр
         {
             get
             {
@@ -225,7 +241,7 @@ namespace R440O.R440OForms.K03M_01
                 }
             }
         }
-        public static bool ПереключательАвтРучн
+        public bool ПереключательАвтРучн
         {
             get
             {
@@ -249,7 +265,7 @@ namespace R440O.R440OForms.K03M_01
             }
         }
 
-        public static int ПереключательЗонаПоиска
+        public int ПереключательЗонаПоиска
         {
             get
             {
@@ -274,16 +290,16 @@ namespace R440O.R440OForms.K03M_01
         // То есть -1 это на самом деле -0, а -2 это -1
         // 0 это и есть 0, то есть +0.
 
-        public static bool БлокВключен { get { return PU_K1_1Parameters.Включен; } }
+        public bool БлокВключен { get { return PU_K1_1Parameters.getInstance().Включен; } }
 
-        private static int _временнаяПозицияПоиска;
+        private int _временнаяПозицияПоиска;
 
-        public static int ВременнаяПозицияПоиска
+        public int ВременнаяПозицияПоиска
         {
             get { return _временнаяПозицияПоиска; }
         }
 
-        public static void ИзменитьВременнуюПозициюПоиска(int delta)
+        public void ИзменитьВременнуюПозициюПоиска(int delta)
         {
             if (БлокВключен)
             {
@@ -295,12 +311,12 @@ namespace R440O.R440OForms.K03M_01
                         _временнаяПозицияПоиска *= -1;
                     }
                 }
-                K02M_01Parameters.ResetParameters();
+                K02M_01Parameters.getInstance().ResetParameters();
             }
         }
 
 
-        public static KulonSignal НайденныйСигнал
+        public KulonSignal НайденныйСигнал
         {
             get
             {
@@ -308,7 +324,7 @@ namespace R440O.R440OForms.K03M_01
                     return null;
                 if (СоотвествиеТумблеровПИ)
                 {
-                    var сигналы = K01M_01Parameters.Сигнал
+                    var сигналы = K01M_01Parameters.getInstance().Сигнал
                         .Where(s => СоотвествиеСигнала(s))
                         .ToList();
                     if (сигналы.Count == 1)
@@ -324,7 +340,7 @@ namespace R440O.R440OForms.K03M_01
         /// 2 - Найдено;
         /// 3 - Ручной поиск;
         /// </summary>
-        public static int СтатусПоиска
+        public int СтатусПоиска
         {
             get { return _статусПоиска; }
             private set
@@ -333,19 +349,19 @@ namespace R440O.R440OForms.K03M_01
             }
         }
 
-        private static bool СоотвествиеЧастотыСигнала(KulonSignal сигнал)
+        private bool СоотвествиеЧастотыСигнала(KulonSignal сигнал)
         {
-            double dif = сигнал.Frequency + _текущееЗначениеПоиска - K04M_01Parameters.ЧастотаПрм;
+            double dif = сигнал.Frequency + _текущееЗначениеПоиска - K04M_01Parameters.getInstance().ЧастотаПрм;
             return dif >= 0 && dif < _шагПоиска;
         }
 
-        private static bool СоотвествиеСинхропоследовательностей(KulonSignal сигнал)
+        private bool СоотвествиеСинхропоследовательностей(KulonSignal сигнал)
         {
-            return сигнал.SynchroSequence1.SequenceEqual(K03M_01InsideParameters.Переключатели.Синхропоследовательность1)
-                && сигнал.SynchroSequence2.SequenceEqual(K03M_01InsideParameters.Переключатели.Синхропоследовательность2);
+            return сигнал.SynchroSequence1.SequenceEqual(K03M_01InsideParameters.getInstance().Переключатели.Синхропоследовательность1)
+                && сигнал.SynchroSequence2.SequenceEqual(K03M_01InsideParameters.getInstance().Переключатели.Синхропоследовательность2);
         }
 
-        private static bool СоотвествиеСигнала(KulonSignal сигнал)
+        private bool СоотвествиеСигнала(KulonSignal сигнал)
         {
             return сигнал != null && СоотвествиеЧастотыСигнала(сигнал)
                  && СоотвествиеСинхропоследовательностей(сигнал);
@@ -355,19 +371,19 @@ namespace R440O.R440OForms.K03M_01
         /// Внутри К03 и К02 - тумблеры "П-И" должны иметь одинаковое положение
         /// Прямой/инверсный сигнал
         /// </summary>
-        private static bool СоотвествиеТумблеровПИ
+        private bool СоотвествиеТумблеровПИ
         {
             get
             {
-                return K03M_01InsideParameters.ТумблерИП == K02M_01InsideParameters.ТумблерБ5;
+                return K03M_01InsideParameters.getInstance().ТумблерИП == K02M_01InsideParameters.getInstance().ТумблерБ5;
             }
         }
 
-        public static void ПересчитатьНайденоИлиНеНайдено()
+        public void ПересчитатьНайденоИлиНеНайдено()
         {
             if (СоотвествиеТумблеровПИ)
             {
-                var сигналы = K01M_01Parameters.Сигнал
+                var сигналы = K01M_01Parameters.getInstance().Сигнал
                         .Where(s => СоотвествиеСигнала(s))
                         .ToList();
                 if (сигналы.Count == 1)
@@ -385,21 +401,21 @@ namespace R440O.R440OForms.K03M_01
             }
         }
 
-        private static readonly Timer _таймерДляПоиска = new Timer();
-        private static double _текущееЗначениеПоиска;
-        private static int _максимальноеЗначениеПоиска;
-        private static int _минимальноеЗначениеПоиска;
-        private static int _шагПоиска = 500;
-        private static int _времяОдногоШага = 500;
+        private readonly Timer _таймерДляПоиска = new Timer();
+        private double _текущееЗначениеПоиска;
+        private int _максимальноеЗначениеПоиска;
+        private int _минимальноеЗначениеПоиска;
+        private int _шагПоиска = 500;
+        private int _времяОдногоШага = 500;
 
-        static K03M_01Parameters()
+        K03M_01Parameters()
         {
             _таймерДляПоиска.Tick += ТикТаймераДляПоиска;
             _таймерДляПоиска.Interval = _времяОдногоШага;
             _таймерДляПоиска.Enabled = true;
         }
 
-        public static void НачатьПоискСНачала()
+        public void НачатьПоискСНачала()
         {
             if (БлокВключен)
             {
@@ -408,37 +424,37 @@ namespace R440O.R440OForms.K03M_01
                 ПересчитатьМаксимальноеИМинимальноеЗнчения();
                 _текущееЗначениеПоиска = ПолучитьНачальноеЗначениеПоиска();
                 ResetParameters();
-                K02M_01Parameters.ResetParameters();
+                K02M_01Parameters.getInstance().ResetParameters();
             }
         }
 
-        public static void ОтменитьПоиск()
+        public void ОтменитьПоиск()
         {
             if (БлокВключен)
             {
                 СтатусПоиска = 0;
                 ResetParameters();
-                K02M_01Parameters.ResetParameters();
+                K02M_01Parameters.getInstance().ResetParameters();
             }
         }
 
-        private static void Найдено()
+        private void Найдено()
         {
             if (БлокВключен)
             {
                 СтатусПоиска = 2;
                 ResetParameters();
-                K02M_01Parameters.ResetParameters();
+                K02M_01Parameters.getInstance().ResetParameters();
             }
         }
 
-        private static void НачатьРучнойПоиск()
+        private void НачатьРучнойПоиск()
         {
             if (БлокВключен)
             {
                 СтатусПоиска = 3;
                 ResetParameters();
-                K02M_01Parameters.ResetParameters();
+                K02M_01Parameters.getInstance().ResetParameters();
             }
         }
 
@@ -447,7 +463,7 @@ namespace R440O.R440OForms.K03M_01
         /// Когда меняются параметры (тумблеры или переключатель), надо изменять
         /// максимальное и минимальное значения поиска.
         /// </summary>
-        private static void ПересчитатьМаксимальноеИМинимальноеЗнчения()
+        private void ПересчитатьМаксимальноеИМинимальноеЗнчения()
         {
             if (БлокВключен)
             {
@@ -481,7 +497,7 @@ namespace R440O.R440OForms.K03M_01
             }
         }
 
-        private static void ТикТаймераДляПоиска(object o, EventArgs e)
+        private void ТикТаймераДляПоиска(object o, EventArgs e)
         {
             if (БлокВключен)
             {
@@ -511,7 +527,7 @@ namespace R440O.R440OForms.K03M_01
         /// (тумблеры в двоичной системе число представляют почти)
         /// </summary>
         /// <returns></returns>
-        private static int ПолучитьНачальноеЗначениеПоиска()
+        private int ПолучитьНачальноеЗначениеПоиска()
         {
             int value = 0;
             value += (Переключатель1) ? 1 : 0;

@@ -8,6 +8,8 @@ using R440O.ThirdParty;
 
 namespace R440O.R440OForms.N13_1
 {
+    using global::R440O.TestModule;
+    using System;
     using System.Windows.Forms;
 
     /// <summary>
@@ -22,32 +24,39 @@ namespace R440O.R440OForms.N13_1
         {
             InitializeComponent();
 
-            N13_1Parameters.ParameterChanged += RefreshFormElements;
+            N13_1Parameters.getInstance().ParameterChanged += RefreshFormElements;
             RefreshFormElements();
         }
 
         public void RefreshFormElements()
         {
-            ЛампочкаАнодВключен.BackgroundImage = N13_1Parameters.ЛампочкаАнодВключен
+            ЛампочкаАнодВключен.BackgroundImage = N13_1Parameters.getInstance().ЛампочкаАнодВключен
                 ? ControlElementImages.lampType5OnRed
                 : null;
 
-            ЛампочкаПерегрузкаИстКоллектора.BackgroundImage = N13_1Parameters.ЛампочкаПерегрузкаИстКоллектора
+            ЛампочкаПерегрузкаИстКоллектора.BackgroundImage = N13_1Parameters.getInstance().ЛампочкаПерегрузкаИстКоллектора
                 ? ControlElementImages.lampType5OnRed
                 : null;
 
-            var angle = N13_1Parameters.ИндикаторТокЗамедлСистемы * 8F - 60;
+            var angle = N13_1Parameters.getInstance().ИндикаторТокЗамедлСистемы * 8F - 60;
             ИндикаторТокЗамедлСистемы.BackgroundImage =
                 TransformImageHelper.RotateImageByAngle(ControlElementImages.arrow2, angle);
 
-            angle = N13_1Parameters.ИндикаторТокКоллектора * 0.43F - 60;
+            angle = N13_1Parameters.getInstance().ИндикаторТокКоллектора * 0.43F - 60;
             ИндикаторТокКоллектора.BackgroundImage =
                 TransformImageHelper.RotateImageByAngle(ControlElementImages.arrow2, angle);
         }
 
         private void N13_1Form_FormClosed(object sender, FormClosedEventArgs e)
         {
-            N13_1Parameters.ParameterChanged -= RefreshFormElements;
+            if (ParametersConfig.IsTesting)
+            {
+                var blockParams = N13_1Parameters.getInstance();
+                bool def = true;
+
+                TestMain.Action(new JsonAdapter.ActionStation() { Name = "Н13-1", Value = Convert.ToInt32(def) });
+            }
+            N13_1Parameters.getInstance().ParameterChanged -= RefreshFormElements;
         }
     }
 }

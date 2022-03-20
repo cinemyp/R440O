@@ -7,77 +7,91 @@ using R440O.R440OForms.PU_K1_1;
 
 namespace R440O.R440OForms.K02M_01
 {
-    public static class K02M_01Parameters
+    public class K02M_01Parameters
     {
-        private static bool Питание
+        private static K02M_01Parameters instance;
+        public static K02M_01Parameters getInstance()
         {
-            get { return PU_K1_1Parameters.Включен; }
+            if (instance == null)
+                instance = new K02M_01Parameters();
+            return instance;
+        }
+        public delegate void TestModuleHandler(JsonAdapter.ActionStation action);
+        public event TestModuleHandler Action;
+        private void OnAction(string name, int value)
+        {
+            var action = new JsonAdapter.ActionStation(name, value);
+            Action?.Invoke(action);
+        }
+        private bool Питание
+        {
+            get { return PU_K1_1Parameters.getInstance().Включен; }
         }
 
         #region Лампочки
 
-        public static KulonSignal Сигнал
-        {
-            get 
-            {
-                return K03M_01Parameters.НайденныйСигнал;
-            }
-        }
-
-        public static bool ЛампочкаКаналыОбнаруженияЛ
+        public KulonSignal Сигнал
         {
             get
             {
-                return Питание && (K03M_01Parameters.СтатусПоиска == 2 &&
-                      K03M_01Parameters.ВременнаяПозицияПоиска <= -100 &&
-                      K03M_01Parameters.ВременнаяПозицияПоиска > -200);
+                return K03M_01Parameters.getInstance().НайденныйСигнал;
             }
         }
 
-        public static bool ЛампочкаКаналыОбнаруженияЦ
+        public bool ЛампочкаКаналыОбнаруженияЛ
         {
             get
             {
-                return Питание && (K03M_01Parameters.СтатусПоиска == 2 &&
-                        Math.Abs(K03M_01Parameters.ВременнаяПозицияПоиска) < 100);
+                return Питание && (K03M_01Parameters.getInstance().СтатусПоиска == 2 &&
+                      K03M_01Parameters.getInstance().ВременнаяПозицияПоиска <= -100 &&
+                      K03M_01Parameters.getInstance().ВременнаяПозицияПоиска > -200);
             }
         }
 
-        public static bool ЛампочкаКаналыОбнаруженияП
+        public bool ЛампочкаКаналыОбнаруженияЦ
         {
             get
             {
-                return Питание &&  (K03M_01Parameters.СтатусПоиска == 2 &&
-                    K03M_01Parameters.ВременнаяПозицияПоиска >= 100 &&
-                    K03M_01Parameters.ВременнаяПозицияПоиска < 200);
+                return Питание && (K03M_01Parameters.getInstance().СтатусПоиска == 2 &&
+                        Math.Abs(K03M_01Parameters.getInstance().ВременнаяПозицияПоиска) < 100);
             }
         }
 
-        public static bool ЛампочкаПоискСигналов
+        public bool ЛампочкаКаналыОбнаруженияП
         {
-            get { return Питание && (K03M_01Parameters.СтатусПоиска == 1 || K03M_01Parameters.СтатусПоиска == 3); }
+            get
+            {
+                return Питание && (K03M_01Parameters.getInstance().СтатусПоиска == 2 &&
+                    K03M_01Parameters.getInstance().ВременнаяПозицияПоиска >= 100 &&
+                    K03M_01Parameters.getInstance().ВременнаяПозицияПоиска < 200);
+            }
         }
 
-        public static bool ЛампочкаПилот
+        public bool ЛампочкаПоискСигналов
         {
-            get { return Питание && K03M_01Parameters.СтатусПоиска == 2; }
+            get { return Питание && (K03M_01Parameters.getInstance().СтатусПоиска == 1 || K03M_01Parameters.getInstance().СтатусПоиска == 3); }
         }
 
-        public static bool ЛампочкаИнформ
+        public bool ЛампочкаПилот
         {
-            get { return Питание && K03M_01Parameters.СтатусПоиска == 2; }
+            get { return Питание && K03M_01Parameters.getInstance().СтатусПоиска == 2; }
+        }
+
+        public bool ЛампочкаИнформ
+        {
+            get { return Питание && K03M_01Parameters.getInstance().СтатусПоиска == 2; }
         }
 
         #endregion
 
         #region Переключатели
 
-        private static int _переключательСкорость = 1;
-        private static int _переключательВклОткл = 1;
-        private static int _переключательНапряжение1К = 1;
-        private static int _переключательНапряжение2К = 1;
+        private int _переключательСкорость = 1;
+        private int _переключательВклОткл = 1;
+        private int _переключательНапряжение1К = 1;
+        private int _переключательНапряжение2К = 1;
 
-        public static int ПереключательСкорость
+        public int ПереключательСкорость
         {
             get { return _переключательСкорость; }
 
@@ -91,7 +105,7 @@ namespace R440O.R440OForms.K02M_01
             }
         }
 
-        public static int ПереключательВклОткл
+        public int ПереключательВклОткл
         {
             get { return _переключательВклОткл; }
 
@@ -105,7 +119,7 @@ namespace R440O.R440OForms.K02M_01
             }
         }
 
-        public static int ПереключательНапряжение1К
+        public int ПереключательНапряжение1К
         {
             get { return _переключательНапряжение1К; }
 
@@ -119,7 +133,7 @@ namespace R440O.R440OForms.K02M_01
             }
         }
 
-        public static int ПереключательНапряжение2К
+        public int ПереключательНапряжение2К
         {
             get { return _переключательНапряжение2К; }
 
@@ -138,20 +152,20 @@ namespace R440O.R440OForms.K02M_01
         #region событие
 
         public delegate void ParameterChangedHandler();
-        public static event ParameterChangedHandler ParameterChanged;
+        public event ParameterChangedHandler ParameterChanged;
 
-        private static void OnParameterChanged()
+        private void OnParameterChanged()
         {
             var handler = ParameterChanged;
             if (handler != null) handler();
         }
 
-        public static void ResetParameters()
+        public void ResetParameters()
         {
-            if (N18_MParameters.ПереключательВходК121 == 1 || N18_MParameters.ПереключательВходК121 == 2)
+            if (N18_MParameters.getInstance().ПереключательВходК121 == 1 || N18_MParameters.getInstance().ПереключательВходК121 == 2)
             {
-                //BMBParameters.ResetParameters();
-                N18_MParameters.ResetParameters();
+                //BMBParameters.getInstance().ResetParameters();
+                N18_MParameters.getInstance().ResetParameters();
             }
             OnParameterChanged();
         }
@@ -160,12 +174,12 @@ namespace R440O.R440OForms.K02M_01
 
         #region Кнопки
 
-        public static void КнопкаНачатьПоиск_MouseDown()
+        public void КнопкаНачатьПоиск_MouseDown()
         {
-            K03M_01Parameters.НачатьПоискСНачала();
+            K03M_01Parameters.getInstance().НачатьПоискСНачала();
         }
 
-        public static void КнопкаНачатьПоиск_MouseUp()
+        public void КнопкаНачатьПоиск_MouseUp()
         {
         }
 

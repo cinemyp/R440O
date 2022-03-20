@@ -13,33 +13,41 @@ namespace R440O.R440OForms.A205M_1
     using NKN_1;
     using ShareTypes.SignalTypes;
 
-    public static class A205M_1Parameters
+    public class A205M_1Parameters
     {
-        public static ITestModule TestModuleRef { get; set; }
+        private static A205M_1Parameters instance;
+        public static A205M_1Parameters getInstance()
+        {
+            if (instance == null)
+                instance = new A205M_1Parameters();
+            return instance;
+        }
 
-        public static bool Включен
+        public ITestModule TestModuleRef { get; set; }
+
+        public bool Включен
         {
             get
             {
-                return NKN_1Parameters.ПолноеВключение;
-                // && K05M_01Parameters.СтрелкаУровеньВЗакрашенномСекторе;
+                return NKN_1Parameters.getInstance().ПолноеВключение;
+                // && K05M_01Parameters.getInstance().СтрелкаУровеньВЗакрашенномСекторе;
             }
         }
 
-        public static bool Работа
+        public bool Работа
         {
             get
             {
-                return Включен && ((N18_MParameters.ПереключательВходК121 == 1) ||
-                       ((N18_MParameters.ПереключательВходК121 != 1) && PU_K1_1Parameters.ПереключателиВыставленыВерно /*PU_K1_2Parameters.ПереключателиВыставленыВерно*/));
+                return Включен && ((N18_MParameters.getInstance().ПереключательВходК121 == 1) ||
+                       ((N18_MParameters.getInstance().ПереключательВходК121 != 1) && PU_K1_1Parameters.getInstance().ПереключателиВыставленыВерно /*PU_K1_2Parameters.ПереключателиВыставленыВерно*/));
             }
         }
 
 
 
-        public static bool КулонК2Подключен
+        public bool КулонК2Подключен
         {
-            //get { return PU_K1_2Parameters.Включен && N18_M_H28Parameters.АктивныйКабель == 2; }
+            //get { return PU_K1_2Parameters.Включен && N18_M_H28Parameters.getInstance().АктивныйКабель == 2; }
             get { return false; }
         }
 
@@ -47,7 +55,7 @@ namespace R440O.R440OForms.A205M_1
         //----------------------------------------
         //По схеме сигнал с А205 проходит так N16 -> N13-1/N13-2 -> N16. Но это мы опускаем и идем на А503Б, так как мощность не является важным параметром
         //---------------------------------------
-        public static Signal ВыходнойСигнал
+        public Signal ВыходнойСигнал
         {
             get
             {
@@ -57,57 +65,57 @@ namespace R440O.R440OForms.A205M_1
                                  ПереключательВолнаX10 * 10 +
                                  ПереключательВолнаX1;
 
-                if (Включен && wave >= 1500 && wave <= 51499 && N15InsideParameters.ВыходПередающегоТракта != null)
+                if (Включен && wave >= 1500 && wave <= 51499 && N15InsideParameters.getInstance().ВыходПередающегоТракта != null)
                 {
-                    var signal = N15InsideParameters.ВыходПередающегоТракта;
+                    var signal = N15InsideParameters.getInstance().ВыходПередающегоТракта;
                     signal.Level = 20;
                     signal.Wave = wave;
-                    signal.Frequency = 5710000 + 10 * wave; 
-                    //if (Работа && (N18_MParameters.ПереключательВходК121 != 1) && PU_K1_1Parameters.Включен)
-                    if (PU_K1_1Parameters.КулонК1Подключен)
-                    {                        
-                        signal.KulonSignal = K05M_01Parameters.Сигнал;
+                    signal.Frequency = 5710000 + 10 * wave;
+                    //if (Работа && (N18_MParameters.getInstance().ПереключательВходК121 != 1) && PU_K1_1Parameters.getInstance().Включен)
+                    if (PU_K1_1Parameters.getInstance().КулонК1Подключен)
+                    {
+                        signal.KulonSignal = K05M_01Parameters.getInstance().Сигнал;
                         // сомтительно
-                        signal.Frequency += K05M_01Parameters.Сигнал.Frequency - K04M_01Parameters.НачальнаяЧастотаПРД;                        
-                        signal.Level = K05M_01Parameters.Сигнал.Level;
+                        signal.Frequency += K05M_01Parameters.getInstance().Сигнал.Frequency - K04M_01Parameters.getInstance().НачальнаяЧастотаПРД;
+                        signal.Level = K05M_01Parameters.getInstance().Сигнал.Level;
                     }
                     switch (ПереключательВидРаботы)
                     {
                         case 1:
-                        {
-                            if (signal.Modulation == Модуляция.ЧТ && signal.GroupSpeed >= 0.025 &&
-                                signal.GroupSpeed <= 48)
                             {
-                                return signal;
+                                if (signal.Modulation == Модуляция.ЧТ && signal.GroupSpeed >= 0.025 &&
+                                    signal.GroupSpeed <= 48)
+                                {
+                                    return signal;
+                                }
+                                break;
                             }
-                            break;
-                        }                            
                         case 2:
-                        {
-                            if (signal.Modulation == Модуляция.ЧТ && signal.GroupSpeed >= 0.025 &&
-                                signal.GroupSpeed <= 5.2)
                             {
-                                return signal;
+                                if (signal.Modulation == Модуляция.ЧТ && signal.GroupSpeed >= 0.025 &&
+                                    signal.GroupSpeed <= 5.2)
+                                {
+                                    return signal;
+                                }
+                                break;
                             }
-                            break;
-                        }                            
                         case 3:
-                        {
-                            if (signal.Modulation == Модуляция.ОФТ && signal.GroupSpeed >= 1.2 &&
-                                signal.GroupSpeed <= 5.2)
                             {
-                                return signal;
+                                if (signal.Modulation == Модуляция.ОФТ && signal.GroupSpeed >= 1.2 &&
+                                    signal.GroupSpeed <= 5.2)
+                                {
+                                    return signal;
+                                }
+                                break;
                             }
-                            break;
-                        }                            
                         default:
-                        {
-                            if (signal.Modulation == Модуляция.ОФТ && signal.GroupSpeed >= 48)
                             {
-                                return signal;
+                                if (signal.Modulation == Модуляция.ОФТ && signal.GroupSpeed >= 48)
+                                {
+                                    return signal;
+                                }
+                                break;
                             }
-                            break;
-                        }                            
                     }
                 }
                 return null;
@@ -118,35 +126,35 @@ namespace R440O.R440OForms.A205M_1
 
         #region Private fields
 
-        private static int _переключательВолнаX10000 = 0;
-        private static int _переключательВолнаХ1000 = 0;
-        private static int _переключательВолнаХ100 = 0;
-        private static int _переключательВолнаХ10 = 0;
-        private static int _переключательВолнаХ1 = 0;
-        private static int _переключательКонтроль = 1;
-        private static int _переключательВидРаботы = 1;
-        private static int _переключательВходЧТ = 1;
+        private int _переключательВолнаX10000 = 0;
+        private int _переключательВолнаХ1000 = 0;
+        private int _переключательВолнаХ100 = 0;
+        private int _переключательВолнаХ10 = 0;
+        private int _переключательВолнаХ1 = 0;
+        private int _переключательКонтроль = 1;
+        private int _переключательВидРаботы = 1;
+        private int _переключательВходЧТ = 1;
 
         #endregion
 
         #region Работа блока
 
         ////Лампочки
-        private static bool _лампочкаНормРаб;
+        private bool _лампочкаНормРаб;
 
-        public static bool ЛампочкаНормРаб
+        public bool ЛампочкаНормРаб
         {
             get { return Работа; }
         }
 
-        public static bool ЛампочкаПерегрев { get; set; }
+        public bool ЛампочкаПерегрев { get; set; }
 
-        private static bool _тумблерКЭД;
+        private bool _тумблерКЭД;
         ////Тумблеры
         /// <summary>
         /// Получает или задает положение тумблера КЭД
         /// </summary>
-        public static bool ТумблерКЭД
+        public bool ТумблерКЭД
         {
             get { return _тумблерКЭД; }
             set
@@ -160,7 +168,7 @@ namespace R440O.R440OForms.A205M_1
 
         #region Переключатели волны
 
-        public static int ПереключательВолнаX10000
+        public int ПереключательВолнаX10000
         {
             get { return _переключательВолнаX10000; }
             set
@@ -173,7 +181,7 @@ namespace R440O.R440OForms.A205M_1
             }
         }
 
-        public static int ПереключательВолнаX1000
+        public int ПереключательВолнаX1000
         {
             get { return _переключательВолнаХ1000; }
             set
@@ -186,7 +194,7 @@ namespace R440O.R440OForms.A205M_1
             }
         }
 
-        public static int ПереключательВолнаX100
+        public int ПереключательВолнаX100
         {
             get { return _переключательВолнаХ100; }
             set
@@ -199,7 +207,7 @@ namespace R440O.R440OForms.A205M_1
             }
         }
 
-        public static int ПереключательВолнаX10
+        public int ПереключательВолнаX10
         {
             get { return _переключательВолнаХ10; }
             set
@@ -212,7 +220,7 @@ namespace R440O.R440OForms.A205M_1
             }
         }
 
-        public static int ПереключательВолнаX1
+        public int ПереключательВолнаX1
         {
             get { return _переключательВолнаХ1; }
             set
@@ -229,7 +237,7 @@ namespace R440O.R440OForms.A205M_1
 
         #region Контроль блока
 
-        public static int ПереключательКонтроль
+        public int ПереключательКонтроль
         {
             get { return _переключательКонтроль; }
             set
@@ -254,13 +262,13 @@ namespace R440O.R440OForms.A205M_1
         /// 9 - ЧТ-ВТ,
         /// 10 - ВБВ
         /// </summary>
-        public static int ИндикаторКонтроль
+        public int ИндикаторКонтроль
         {
             get
             {
-                if ((N502BParameters.ЛампочкаСфазировано
-                     && N502BParameters.ТумблерЭлектрооборудование
-                     && N502BParameters.ТумблерВыпрямитель27В))
+                if ((N502BParameters.getInstance().ЛампочкаСфазировано
+                     && N502BParameters.getInstance().ТумблерЭлектрооборудование
+                     && N502BParameters.getInstance().ТумблерВыпрямитель27В))
                 {
                     switch (_переключательКонтроль)
                     {
@@ -269,16 +277,16 @@ namespace R440O.R440OForms.A205M_1
                         case 7:
                             return 30;
                         case 1:
-                            return NKN_1Parameters.ПолноеВключение ? 20 : 0;
+                            return NKN_1Parameters.getInstance().ПолноеВключение ? 20 : 0;
                         case 2:
-                            return NKN_1Parameters.ПолноеВключение ? 26 : 0;
+                            return NKN_1Parameters.getInstance().ПолноеВключение ? 26 : 0;
                         case 3:
                             return Включен ? 20 : 0;
                         case 5:
                         case 6:
                         case 8:
                         case 9:
-                            return NKN_1Parameters.ПолноеВключение ? 24 : 0;
+                            return NKN_1Parameters.getInstance().ПолноеВключение ? 24 : 0;
                         case 10:
                             return Включен ? 24 : 0;
                     }
@@ -297,7 +305,7 @@ namespace R440O.R440OForms.A205M_1
         /// 3 - ОФТ2,4-5,2,
         /// 4 - ОФТ48
         /// </summary>
-        public static int ПереключательВидРаботы
+        public int ПереключательВидРаботы
         {
             get { return _переключательВидРаботы; }
             set
@@ -314,7 +322,7 @@ namespace R440O.R440OForms.A205M_1
 
         #region ПереключательВходЧТ
 
-        public static int ПереключательВходЧТ
+        public int ПереключательВходЧТ
         {
             get { return _переключательВходЧТ; }
             set
@@ -330,22 +338,22 @@ namespace R440O.R440OForms.A205M_1
         #endregion
 
         public delegate void TestModuleHandler(ITestModule module);
-        public static event TestModuleHandler Action;
+        public event TestModuleHandler Action;
         public delegate void ParameterChangedHandler();
-        public static event ParameterChangedHandler ParameterChanged;
+        public event ParameterChangedHandler ParameterChanged;
 
-        private static void OnParameterChanged()
+        private void OnParameterChanged()
         {
             ParameterChanged?.Invoke();
             OnAction();
         }
 
-        private static void OnAction()
+        private void OnAction()
         {
             Action?.Invoke(TestModuleRef);
         }
 
-        public static void ResetParameters()
+        public void ResetParameters()
         {
             OnParameterChanged();
             //A503BParameters.ResetParameters();

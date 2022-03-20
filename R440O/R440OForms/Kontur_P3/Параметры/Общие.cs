@@ -8,8 +8,21 @@ namespace R440O.R440OForms.Kontur_P3.Параметры
 {
     partial class Kontur_P3Parameters
     {
-
-        public static void ResetToDefaultsWhenTurnOnOff()
+        private static Kontur_P3Parameters instance;
+        public static Kontur_P3Parameters getInstance()
+        {
+            if (instance == null)
+                instance = new Kontur_P3Parameters();
+            return instance;
+        }
+        public delegate void TestModuleHandler(JsonAdapter.ActionStation action);
+        public event TestModuleHandler Action;
+        private void OnAction(string name, int value)
+        {
+            var action = new JsonAdapter.ActionStation(name, value);
+            Action?.Invoke(action);
+        }
+        public void ResetToDefaultsWhenTurnOnOff()
         {
             _ТаблоГруппа = ЛампочкаСеть ? "0" : "";
             СбросОбщий();
@@ -27,13 +40,13 @@ namespace R440O.R440OForms.Kontur_P3.Параметры
                 _ТаблоАдрес2 = "";
                 _ТаблоИнформация = "";
             }
-            
+
         }
 
         public delegate void ParameterChangedHandler();
-        public static event ParameterChangedHandler RefreshForm;
+        public event ParameterChangedHandler RefreshForm;
 
-        public static void Refresh()
+        public void Refresh()
         {
             if (ЛампочкаСеть)
             {
@@ -47,7 +60,7 @@ namespace R440O.R440OForms.Kontur_P3.Параметры
             }
         }
 
-        private static void ОбновлениеТаблоАдрес2()
+        private void ОбновлениеТаблоАдрес2()
         {
             if (_КнопкаАдресК || _КнопкаПодпись1 || _КнопкаПодпись2 || _КнопкаПодпись3)
             {
@@ -74,9 +87,9 @@ namespace R440O.R440OForms.Kontur_P3.Параметры
             }
         }
 
-        private static bool КнопкаНаборККНажата;
-        private static bool КнопкаНаборККОтжата;
-        private static void ОбновлениеТаблоГруппа()
+        private bool КнопкаНаборККНажата;
+        private bool КнопкаНаборККОтжата;
+        private void ОбновлениеТаблоГруппа()
         {
             if ((_КнопкаАдресК || _КнопкаПодпись1 || _КнопкаПодпись2 || _КнопкаПодпись3))
             {
@@ -85,33 +98,33 @@ namespace R440O.R440OForms.Kontur_P3.Параметры
             }
             else
                 if (ЛампочкаПрием && КнопкаНаборККНажата)
+            {
+                ИндексГруппы = 0;
+                while (ЗначениеГруппа[ИндексГруппы] != "^00")
+                    ИндексГруппы++;
+                ЗначениеИндексГруппы = Convert.ToString(ИндексГруппы + 1);
+                КнопкаНаборККНажата = false;
+                ЗначениеИнформация = "";
+                ИндексГруппы = -1;
+            }
+            else
+            {
+                if (ИнформацияПринята && КнопкаНаборККОтжата && !ЛампочкаПрием)
                 {
-                    ИндексГруппы = 0;
-                    while (ЗначениеГруппа[ИндексГруппы] != "^00")
-                        ИндексГруппы++;
-                    ЗначениеИндексГруппы = Convert.ToString(ИндексГруппы + 1);
-                    КнопкаНаборККНажата = false;
-                    ЗначениеИнформация = "";
+                    КнопкаНаборККОтжата = false;
                     ИндексГруппы = -1;
+                    ЗначениеИндексГруппы = "0";
+                    ЗначениеИнформация = "";
                 }
-                else
-                {
-                    if (ИнформацияПринята && КнопкаНаборККОтжата && !ЛампочкаПрием)
-                    {
-                        КнопкаНаборККОтжата = false;
-                        ИндексГруппы = -1;
-                        ЗначениеИндексГруппы = "0";
-                        ЗначениеИнформация = "";
-                    }
-                }
+            }
             _ТаблоГруппа = ЗначениеИндексГруппы;
         }
 
-        private static void ОбновлениеТаблоИнформация()
+        private void ОбновлениеТаблоИнформация()
         {
             if (_КнопкаАдресК || _КнопкаПодпись1 || _КнопкаПодпись2 || _КнопкаПодпись3)
             {
-                ЗначениеИнформация = "";               
+                ЗначениеИнформация = "";
             }
             _ТаблоИнформация = ЗначениеИнформация;
         }

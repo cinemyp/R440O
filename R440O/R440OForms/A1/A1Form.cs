@@ -1,15 +1,17 @@
 ﻿namespace R440O.R440OForms.A1
 {
+    using System;
     using System.Linq;
     using System.Windows.Forms;
     using BaseClasses;
+    using global::R440O.TestModule;
 
     public partial class A1Form : Form, IRefreshableForm
     {
         public A1Form()
         {
             this.InitializeComponent();
-            A1Parameters.ParameterChanged += RefreshFormElements;
+            A1Parameters.getInstance().ParameterChanged += RefreshFormElements;
             RefreshFormElements();
         }
 
@@ -20,7 +22,7 @@
         /// </summary>
         private void КнопкаСкоростьАБ_1ТЛФ_К_Click(object sender, System.EventArgs e)
         {
-            A1Parameters.КнопкаСкоростьАб_1ТЛФК = !A1Parameters.КнопкаСкоростьАб_1ТЛФК;
+            A1Parameters.getInstance().КнопкаСкоростьАб_1ТЛФК = !A1Parameters.getInstance().КнопкаСкоростьАб_1ТЛФК;
         }
 
         /// <summary>
@@ -28,7 +30,7 @@
         /// </summary>
         private void КнопкаСкоростьГР_Click(object sender, System.EventArgs e)
         {
-            A1Parameters.КнопкаСкоростьГр = !A1Parameters.КнопкаСкоростьГр;
+            A1Parameters.getInstance().КнопкаСкоростьГр = !A1Parameters.getInstance().КнопкаСкоростьГр;
         }
 
         /// <summary>
@@ -36,7 +38,7 @@
         /// </summary>
         private void ТумблерМуДу_Click(object sender, System.EventArgs e)
         {
-            A1Parameters.ТумблерМуДу = !A1Parameters.ТумблерМуДу;
+            A1Parameters.getInstance().ТумблерМуДу = !A1Parameters.getInstance().ТумблерМуДу;
         }
 
         #endregion
@@ -45,15 +47,15 @@
 
         public void RefreshFormElements()
         {
-            this.ТумблерМуДу.BackgroundImage = A1Parameters.ТумблерМуДу
+            this.ТумблерМуДу.BackgroundImage = A1Parameters.getInstance().ТумблерМуДу
                 ? ControlElementImages.tumblerType4Up
                 : ControlElementImages.tumblerType4Down;
 
-            this.КнопкаСкоростьГР.BackgroundImage = A1Parameters.КнопкаСкоростьГр
+            this.КнопкаСкоростьГР.BackgroundImage = A1Parameters.getInstance().КнопкаСкоростьГр
                 ? null
                 : ControlElementImages.buttonRectType1;
 
-            this.КнопкаСкоростьАБ_1ТЛФ_К.BackgroundImage = A1Parameters.КнопкаСкоростьАб_1ТЛФК
+            this.КнопкаСкоростьАБ_1ТЛФ_К.BackgroundImage = A1Parameters.getInstance().КнопкаСкоростьАб_1ТЛФК
                 ? null
                 : ControlElementImages.buttonRectType1;
 
@@ -69,11 +71,11 @@
                         item.Name.Contains("ЛампочкаПУЛ2_2") ||
                         item.Name.Contains("ЛампочкаПУЛ3_2") ||
                         item.Name.Contains("ЛампочкаПитание"))
-                        item.BackgroundImage = (bool)prop.GetValue(null)
+                        item.BackgroundImage = (bool)prop.GetValue(A1Parameters.getInstance())
                             ? ControlElementImages.lampType3OnRed
                             : null;
                     else
-                        item.BackgroundImage = (bool)prop.GetValue(null)
+                        item.BackgroundImage = (bool)prop.GetValue(A1Parameters.getInstance())
                             ? ControlElementImages.lampType2OnRed
                             : null;
                     break;
@@ -82,5 +84,16 @@
         }
 
         #endregion
+
+        private void A1Form_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            if (ParametersConfig.IsTesting)
+            {
+                var blockParams = A1Parameters.getInstance();
+                bool def = !blockParams.ТумблерМуДу;
+
+                TestMain.Action(new JsonAdapter.ActionStation() { Name = "А1", Value = Convert.ToInt32(def) });
+            }
+        }
     }
 }

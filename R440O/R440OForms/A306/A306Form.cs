@@ -22,12 +22,12 @@ namespace R440O.R440OForms.A306
         public A306Form()
         {
             InitializeComponent();
-            A306Parameters.ParameterChanged += RefreshFormElements;
+            A306Parameters.getInstance().ParameterChanged += RefreshFormElements;
 
             if (ParametersConfig.IsTesting)
             {
-                A306Parameters.TestModuleRef = this;
-                A306Parameters.Action += TestMain.Action;
+                A306Parameters.getInstance().TestModuleRef = this;
+                //A306Parameters.getInstance().Action += TestMain.Action;
             }
             switch (TestMain.getIntent())
             {
@@ -42,12 +42,12 @@ namespace R440O.R440OForms.A306
 
         private void ТумблерДистанцМестн_Click(object sender, System.EventArgs e)
         {
-            A306Parameters.ТумблерДистанцМестн = !A306Parameters.ТумблерДистанцМестн;
+            A306Parameters.getInstance().ТумблерДистанцМестн = !A306Parameters.getInstance().ТумблерДистанцМестн;
         }
 
         private void ТумблерПитание_Click(object sender, System.EventArgs e)
         {
-            A306Parameters.ТумблерПитание = !A306Parameters.ТумблерПитание;
+            A306Parameters.getInstance().ТумблерПитание = !A306Parameters.getInstance().ТумблерПитание;
         }
 
         #endregion
@@ -58,7 +58,7 @@ namespace R440O.R440OForms.A306
         {
             var button = sender as Button;
             int numberOfButton = int.Parse(button.Name[5].ToString() + button.Name[6]);
-            A306Parameters.Выходы[numberOfButton] = A306Parameters.АктивныйВход;
+            A306Parameters.getInstance().Выходы[numberOfButton] = A306Parameters.getInstance().АктивныйВход;
         }
 
         private void ВходыКаналов_Click(object sender, EventArgs e)
@@ -74,7 +74,7 @@ namespace R440O.R440OForms.A306
             if (!button.Font.Bold)
                 FontChange(button);
 
-            A306Parameters.АктивныйВход = numberOfButton;
+            A306Parameters.getInstance().АктивныйВход = numberOfButton;
         }
 
         #endregion
@@ -133,7 +133,7 @@ namespace R440O.R440OForms.A306
                 if (item.Name.Contains("ВходКанала"))
                 {
                     //если кабели висят на планке
-                    if (A306Parameters.КабелиВходы[(int)char.GetNumericValue(item.Name[10])])
+                    if (A306Parameters.getInstance().КабелиВходы[(int)char.GetNumericValue(item.Name[10])])
                     {
                         var onePoint = new Point(Panel.Left + 55 * (int)char.GetNumericValue(item.Name[10]) + 140,
                             Panel.Bottom - 85);
@@ -152,9 +152,9 @@ namespace R440O.R440OForms.A306
                 {
                     int index =
                         int.Parse(Convert.ToString(Convert.ToString(item.Name[5]) + Convert.ToString(item.Name[6])));
-                    if (A306Parameters.Выходы[index] != -1 && A306Parameters.Выходы[index] <= 3)
+                    if (A306Parameters.getInstance().Выходы[index] != -1 && A306Parameters.getInstance().Выходы[index] <= 3)
                     {
-                        var onePoint = new Point(Panel.Left + 55 * A306Parameters.Выходы[index] + 142, Panel.Bottom - 80);
+                        var onePoint = new Point(Panel.Left + 55 * A306Parameters.getInstance().Выходы[index] + 142, Panel.Bottom - 80);
                         if (index <= 10)
                         {
                             //для нижнего ряда выходов
@@ -174,7 +174,7 @@ namespace R440O.R440OForms.A306
                     }
                     else //для NO
                     {
-                        if (A306Parameters.Выходы[index] == 4)
+                        if (A306Parameters.getInstance().Выходы[index] == 4)
                         {
                             НО1.Visible = true;
                             НО1.BackgroundImage = ControlElementImages.A306Input;
@@ -194,7 +194,7 @@ namespace R440O.R440OForms.A306
                             Point2.Y -= 5;
                             DrawLine(Point1_1, Point2, e);
                         }
-                        else if (A306Parameters.Выходы[index] == 5)
+                        else if (A306Parameters.getInstance().Выходы[index] == 5)
                         {
                             НО2.Visible = true;
                             НО2.BackgroundImage = ControlElementImages.A306Input;
@@ -229,24 +229,24 @@ namespace R440O.R440OForms.A306
         public void RefreshFormElements()
         {
             //Лампочки
-            ЛампочкаСетьВкл.BackgroundImage = A306Parameters.ЛампочкаСетьВкл
+            ЛампочкаСетьВкл.BackgroundImage = A306Parameters.getInstance().ЛампочкаСетьВкл
                 ? ControlElementImages.lampType5OnRed
                 : null;
 
-            ЛампочкаНО1Вкл.BackgroundImage = A306Parameters.ЛампочкаНО1Вкл
+            ЛампочкаНО1Вкл.BackgroundImage = A306Parameters.getInstance().ЛампочкаНО1Вкл
                 ? ControlElementImages.lampType5OnRed
                 : null;
 
-            ЛампочкаНО2Вкл.BackgroundImage = A306Parameters.ЛампочкаНО2Вкл
+            ЛампочкаНО2Вкл.BackgroundImage = A306Parameters.getInstance().ЛампочкаНО2Вкл
                 ? ControlElementImages.lampType5OnRed
                 : null;
 
             //Тумблер
-            ТумблерДистанцМестн.BackgroundImage = A306Parameters.ТумблерДистанцМестн
+            ТумблерДистанцМестн.BackgroundImage = A306Parameters.getInstance().ТумблерДистанцМестн
                 ? ControlElementImages.tumblerType4Up
                 : ControlElementImages.tumblerType4Down;
 
-            ТумблерПитание.BackgroundImage = A306Parameters.ТумблерПитание
+            ТумблерПитание.BackgroundImage = A306Parameters.getInstance().ТумблерПитание
                 ? ControlElementImages.tumblerType4Up
                 : ControlElementImages.tumblerType4Down;
 
@@ -255,7 +255,7 @@ namespace R440O.R440OForms.A306
             {
                 if (item.Name.Contains("ВходКанала"))
                 {
-                    if (A306Parameters.КабелиВходы[(int)Char.GetNumericValue(item.Name[10])])
+                    if (A306Parameters.getInstance().КабелиВходы[(int)Char.GetNumericValue(item.Name[10])])
                     {
                         item.Visible = true;
                         item.BackgroundImage = ControlElementImages.A306Input;
@@ -270,7 +270,7 @@ namespace R440O.R440OForms.A306
                 }
                 else if (item.Name.Contains("ВходNO"))
                 {
-                    if (A306Parameters.КабелиВходы[(int)Char.GetNumericValue(item.Name[7]) + 3])
+                    if (A306Parameters.getInstance().КабелиВходы[(int)Char.GetNumericValue(item.Name[7]) + 3])
                     {
                         item.Visible = true;
                         item.BackgroundImage = ControlElementImages.A306Input;
@@ -292,17 +292,17 @@ namespace R440O.R440OForms.A306
                 {
                     int index =
                         int.Parse(Convert.ToString(Convert.ToString(item.Name[5]) + Convert.ToString(item.Name[6])));
-                    if (A306Parameters.Выходы[index] != -1)
+                    if (A306Parameters.getInstance().Выходы[index] != -1)
                     {
                         item.BackgroundImage = ControlElementImages.A306Input;
-                        if (A306Parameters.Выходы[index] <= 3)
+                        if (A306Parameters.getInstance().Выходы[index] <= 3)
                         {
-                            item.Text = (A306Parameters.Выходы[index] + 1).ToString();
+                            item.Text = (A306Parameters.getInstance().Выходы[index] + 1).ToString();
                             item.Font = new Font("Microsoft Sans Serif", 8.25F, (FontStyle.Regular));
                         }
                         else
                         {
-                            item.Text = "НО" + (A306Parameters.Выходы[index] - 3);
+                            item.Text = "НО" + (A306Parameters.getInstance().Выходы[index] - 3);
                             item.Font = new Font("Microsoft Sans Serif", 5.25F, (FontStyle.Regular));
                         }
                     }
@@ -330,16 +330,20 @@ namespace R440O.R440OForms.A306
 
         private void A306Form_FormClosed(object sender, FormClosedEventArgs e)
         {
-            A306Parameters.ParameterChanged -= RefreshFormElements;
+            A306Parameters.getInstance().ParameterChanged -= RefreshFormElements;
             if (ParametersConfig.IsTesting)
             {
-                A306Parameters.Action -= TestMain.Action;
+                var blockParams = A306Parameters.getInstance();
+                bool def = blockParams.ТумблерДистанцМестн &&
+                    blockParams.ТумблерПитание;
+
+                TestMain.Action(new JsonAdapter.ActionStation() { Name = "А306", Value = Convert.ToInt32(def) });
             }
 
             switch (TestMain.getIntent())
             {
                 case ModulesEnum.A306_set:
-                    if(A306Parameters.Выходы[1] == 0)
+                    if(A306Parameters.getInstance().Выходы[1] == 0)
                     {
                         TestMain.setIntent(ModulesEnum.H15Inside_open);
                     }

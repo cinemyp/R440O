@@ -4,19 +4,33 @@ using System.Linq;
 
 namespace R440O.R440OForms.K05M_01Inside
 {
-    static class K05M_01InsideParameters
+    class K05M_01InsideParameters
     {
+        private static K05M_01InsideParameters instance;
+        public static K05M_01InsideParameters getInstance()
+        {
+            if (instance == null)
+                instance = new K05M_01InsideParameters();
+            return instance;
+        }
+        public delegate void TestModuleHandler(JsonAdapter.ActionStation action);
+        public event TestModuleHandler Action;
+        private void OnAction(string name, int value)
+        {
+            var action = new JsonAdapter.ActionStation(name, value);
+            Action?.Invoke(action);
+        }
         #region событие
         public delegate void ParameterChangedHandler();
-        public static event ParameterChangedHandler ParameterChanged;
+        public event ParameterChangedHandler ParameterChanged;
 
-        private static void OnParameterChanged()
+        private void OnParameterChanged()
         {
             var handler = ParameterChanged;
             if (handler != null) handler();
         }
 
-        public static void ResetParameters()
+        public void ResetParameters()
         {
             OnParameterChanged();
         }
@@ -24,19 +38,19 @@ namespace R440O.R440OForms.K05M_01Inside
 
         #region Переключатели
 
-        public static KulonIndexerClass Переключатель = new KulonIndexerClass();
+        public KulonIndexerClass Переключатель = new KulonIndexerClass();
 
         #endregion
 
         #region Тумблеры B4, B7
 
-        private static bool _ТумблерВ4;
-        private static bool _ТумблерВ7;
+        private bool _ТумблерВ4;
+        private bool _ТумблерВ7;
 
         /// <summary>
         /// Вкл/выкл кода Баркера
         /// </summary>
-        public static bool ТумблерВ4
+        public bool ТумблерВ4
         {
             get { return _ТумблерВ4; }
             set
@@ -49,14 +63,14 @@ namespace R440O.R440OForms.K05M_01Inside
         /// <summary>
         /// Переключение сигналавы выход блока
         /// </summary>
-        public static bool ТумблерВ7
+        public bool ТумблерВ7
         {
             get { return _ТумблерВ7; }
             set
             {
                 _ТумблерВ7 = value;
                 ResetParameters();
-                K03M_01Parameters.ПересчитатьНайденоИлиНеНайдено();
+                K03M_01Parameters.getInstance().ПересчитатьНайденоИлиНеНайдено();
             }
         }
 
@@ -83,8 +97,8 @@ namespace R440O.R440OForms.K05M_01Inside
                 {
                     if (value >= 0 && value <= 1) myArray[index] = value;
                 }
-                K05M_01InsideParameters.ResetParameters();
-                K03M_01Parameters.ПересчитатьНайденоИлиНеНайдено();
+                K05M_01InsideParameters.getInstance().ResetParameters();
+                K03M_01Parameters.getInstance().ПересчитатьНайденоИлиНеНайдено();
             }
         }
 
