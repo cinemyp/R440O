@@ -8,10 +8,8 @@
     using global::R440O.LearnModule;
     using global::R440O.TestModule;
 
-    public partial class N502BForm : Form, IRefreshableForm, ITestModule
+    public partial class N502BForm : Form, IRefreshableForm
     {
-        public bool IsExactModule { get; set; }
-
         public N502BForm()
         {
             InitializeComponent();
@@ -48,11 +46,9 @@
             switch (TestMain.getIntent())
             {
                 case ModulesEnum.openN502BtoCheck:
-                    IsExactModule = true;
                     TestMain.setIntent(ModulesEnum.N502Check);
                     break;
                 case ModulesEnum.openN502BtoPower:
-                    IsExactModule = true;
                     if (VoltageStabilizer.VoltageStabilizerParameters.getInstance().КабельВход > 0)
                     {
                         TestMain.setIntent(ModulesEnum.N502Power);
@@ -389,6 +385,8 @@
 
             if (ParametersConfig.IsTesting)
             {
+                N502BParameters.getInstance().Action -= TestMain.Action;
+
                 var blockParams = N502BParameters.getInstance();
                 bool def = !blockParams.ПереключательСеть &&
                     blockParams.ПереключательФазировка == 1 &&
@@ -434,7 +432,6 @@
                         (N502BParameters.getInstance().ТумблерВыпрямитель27В))
                     {
                         TestMain.setIntent(ModulesEnum.openN15);
-                        IsExactModule = false;
                     }
                     break;
             }

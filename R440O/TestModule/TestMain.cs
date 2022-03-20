@@ -25,6 +25,7 @@ namespace R440O.TestModule
         private static ActionStation expectedAction;
         private static ActionStation previousAction;
         private static List<ActionStation> standardActions;
+        private static List<ActionStation> checkedActions = new List<ActionStation>();
         private static int step = 0;
         private static bool isCheck = false;
 
@@ -67,6 +68,10 @@ namespace R440O.TestModule
                 NextStep(action);
                 System.Windows.Forms.MessageBox.Show("Проверка закончена");
             }
+            else if (checkedActions.Contains(action) && action.Value == 1)
+            {
+                //мы уже проверили блок
+            }
             else
             {
                 System.Windows.Forms.MessageBox.Show("Error");
@@ -80,6 +85,8 @@ namespace R440O.TestModule
                 return;
             previousAction = expectedAction;
             expectedAction = standardActions[step];
+
+            checkedActions.Add(previousAction);
         }
 
         #region Сделать ошибку
