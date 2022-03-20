@@ -65,6 +65,7 @@ namespace R440O.TestModule
             {
                 isCheck = false;
                 NextStep(action);
+                System.Windows.Forms.MessageBox.Show("Проверка закончена");
             }
             else
             {
