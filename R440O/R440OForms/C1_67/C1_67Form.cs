@@ -12,6 +12,7 @@ using R440O.ThirdParty;
 namespace R440O.R440OForms.C1_67
 {
     using global::R440O.LearnModule;
+    using global::R440O.TestModule;
     using System.Windows.Forms;
 
     /// <summary>
@@ -423,7 +424,18 @@ namespace R440O.R440OForms.C1_67
 
         private void C1_67Form_FormClosed(object sender, FormClosedEventArgs e)
         {
-           
+            if (ParametersConfig.IsTesting)
+            {
+                var blockParams = C1_67Parameters.getInstance();
+                bool def = !blockParams.C1_67ТумблерСеть &&
+                    blockParams.C1_67ТумблерX1X02 == "X1" &&
+                    blockParams.C1_67ПереключательУсилительУ == 1 &&
+                    blockParams.C1_67ПереключательУсиление == 11 &&
+                    blockParams.C1_67ПереключательДлительность == 7 &&
+                    blockParams.C1_67ПереключательСинхронизация1 == 1;
+
+                TestMain.Action(new JsonAdapter.ActionStation() { Name = "С1-67", Value = Convert.ToInt32(def) });
+            }
         }
     }
 }

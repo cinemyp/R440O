@@ -13,6 +13,8 @@ namespace R440O.R440OForms.Wattmeter
     using System.Reflection;
     using BaseClasses;
     using global::R440O.LearnModule;
+    using global::R440O.TestModule;
+    using System;
 
     /// <summary>
     /// Форма блока ватметр
@@ -105,7 +107,13 @@ namespace R440O.R440OForms.Wattmeter
         private void WattmeterForm_FormClosed(object sender, FormClosedEventArgs e)
         {
             WattmeterParameters.getInstance().ParameterChanged -= RefreshFormElements;
-           
+            if (ParametersConfig.IsTesting)
+            {
+                var blockParams = WattmeterParameters.getInstance();
+                bool def = !blockParams.ТумблерСеть;
+
+                TestMain.Action(new JsonAdapter.ActionStation() { Name = "Я2М-66", Value = Convert.ToInt32(def) });
+            }
         }
 
 
