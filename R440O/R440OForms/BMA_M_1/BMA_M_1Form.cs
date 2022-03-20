@@ -15,6 +15,7 @@ namespace R440O.R440OForms.BMA_M_1
     using System;
     using System.Drawing;
     using BaseClasses;
+    using global::R440O.TestModule;
 
 
     /// <summary>
@@ -408,6 +409,22 @@ namespace R440O.R440OForms.BMA_M_1
 
             #endregion
 
+        }
+
+        private void BMA_M_1Form_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            if (ParametersConfig.IsTesting)
+            {
+                var blockParams = BMA_M_1Parameters.getInstance();
+                bool def = (blockParams.ПереключательКонтроль == 1 || 
+                    blockParams.ПереключательКонтроль == 6) &&
+                    (blockParams.ПереключательРежимРаботы == 1 || 
+                    blockParams.ПереключательРежимРаботы == 2) &&
+                    blockParams.КнопкаШлейфТЧ == 0 && 
+                    blockParams.КнопкаШлейфДК == 0;
+
+                TestMain.Action(new JsonAdapter.ActionStation() { Name = "БМБ", Value = Convert.ToInt32(def) });
+            }
         }
     }
 }

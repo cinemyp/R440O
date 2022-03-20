@@ -737,6 +737,7 @@
             this.Name = "BMA_M_1Form";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "БМА-M/1";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.BMA_M_1Form_FormClosed);
             this.Panel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.ЛампочкаНеисправно)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ЛампочкаИсправно)).EndInit();
