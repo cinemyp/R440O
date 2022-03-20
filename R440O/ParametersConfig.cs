@@ -105,6 +105,8 @@ namespace R440O
             A205M_1Parameters.ПереключательВолнаX10000 = 2;
             // Настройка А-304
             A304Parameters.ПереключательВыборСтвола = 5;
+            A304Parameters.ТумблерКомплект = false;
+            A304Parameters.ТумблерУправление2 = true;
             // Настройка А-306
 
             A306Parameters.ТумблерДистанцМестн = true;

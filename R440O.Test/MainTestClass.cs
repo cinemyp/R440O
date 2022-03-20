@@ -34,7 +34,7 @@ namespace R440O.Test.MainTest
         [OneTimeSetUp]
         public void SetUpFixture()
         {
-            ParametersConfig.SetParameters();
+            ParametersConfig.SetParameters(true);
         }
 
         [SetUp]
