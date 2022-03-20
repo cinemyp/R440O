@@ -32,7 +32,6 @@ namespace R440O.R440OForms.C300M_1
 
             if (ParametersConfig.IsTesting)
             {
-                C300M_1Parameters.getInstance().TestModuleRef = this;
                 //C300M_1Parameters.getInstance().Action += TestMain.Action;
             }
             switch (TestMain.getIntent())

@@ -398,7 +398,7 @@ namespace R440O.R440OForms.BMA_M_1
                     {
                         if (item.Name == property.Name)
                         {
-                            item.BackgroundImage = Convert.ToBoolean(property.GetValue(null))
+                            item.BackgroundImage = Convert.ToBoolean(property.GetValue(BMA_M_1Parameters.getInstance()))
                             ? ControlElementImages.lampType7OnRed
                             : null;
                         }

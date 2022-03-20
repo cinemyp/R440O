@@ -104,9 +104,9 @@ namespace R440O
             A205M_1Parameters.getInstance().ПереключательВолнаX1000 = 2;
             A205M_1Parameters.getInstance().ПереключательВолнаX10000 = 2;
             // Настройка А-304
-            A304Parameters.ПереключательВыборСтвола = 5;
-            A304Parameters.ТумблерКомплект = false;
-            A304Parameters.ТумблерУправление2 = true;
+            A304Parameters.getInstance().ПереключательВыборСтвола = 5;
+            A304Parameters.getInstance().ТумблерКомплект = false;
+            A304Parameters.getInstance().ТумблерУправление2 = true;
             // Настройка А-306
 
             A306Parameters.getInstance().ТумблерДистанцМестн = true;

@@ -251,7 +251,12 @@
         {
             if (ParametersConfig.IsTesting)
             {
-                BMBParameters.getInstance().Action -= TestMain.Action;
+                var blockParams = BMBParameters.getInstance();
+                bool def = blockParams.КнопкаПитание == Кнопка.Отжата &&
+                    blockParams.КнопкаСлСвязь == Кнопка.Отжата &&
+                    blockParams.КнопкаЗвСигнал == Кнопка.Отжата;
+
+                TestMain.Action(new JsonAdapter.ActionStation() { Name = "БМБ", Value = Convert.ToInt32(def) });
             }
         }
     }
