@@ -552,41 +552,52 @@ namespace R440O.R440OForms.N15
             {
                 var blockParams = N15Parameters.getInstance();
 
-                if(TestMain.IsCheck)
+                bool def;
+                switch (TestMain.getIntent())
                 {
-                    bool def = blockParams.isFullDeactive();
-                    
-                    TestMain.Action(new JsonAdapter.ActionStation() { Module = LearnModule.ModulesEnum.Check_N15, Value = Convert.ToInt32(def) });
-                } else
-                {
-                    var localParams = N15LocalParameters.getInstance();
+                    case ModulesEnum.Check_N15:
+                        def = blockParams.isFullDeactive();
 
-                    bool def = localParams.локКнопкаН13_1 &&
-                        localParams.локТумблерЦ300М1 &&
-                        localParams.локТумблерЦ300М2 &&
-                        localParams.локТумблерЦ300М3 &&
-                        localParams.локТумблерЦ300М4 &&
-                        localParams.локТумблерН12С &&
-                        localParams.локТумблерБМА_1 &&
-                        localParams.локТумблерБМА_2 &&
-                        localParams.локТумблерАФСС &&
-                        localParams.локТумблерА1 &&
-                        localParams.локТумблерА403 &&
-                        localParams.локТумблерК1_1 &&
-                        localParams.локТумблерК1_2 &&
-                        localParams.локТумблерБ1_1 &&
-                        localParams.локТумблерБ2_1 &&
-                        localParams.локТумблерБ3_1 &&
-                        localParams.локТумблерБ1_2 &&
-                        localParams.локТумблерБ2_2 &&
-                        localParams.локТумблерБ3_2 &&
-                        localParams.локТумблерДАБ_5 &&
-                        localParams.локТумблерР_Н &&
-                        localParams.локТумблерМШУ;
+                        TestMain.Action(new JsonAdapter.ActionStation() { Module = LearnModule.ModulesEnum.Check_N15, Value = Convert.ToInt32(def) });
+                        break;
+                    case ModulesEnum.N15Power:
+                        var localParams = N15LocalParameters.getInstance();
 
-                    TestMain.Action(new JsonAdapter.ActionStation() { Module = LearnModule.ModulesEnum.N15Power, Value = Convert.ToInt32(def) });
+                        def = localParams.локКнопкаН13_1 &&
+                            localParams.локТумблерЦ300М1 &&
+                            localParams.локТумблерЦ300М2 &&
+                            localParams.локТумблерЦ300М3 &&
+                            localParams.локТумблерЦ300М4 &&
+                            localParams.локТумблерН12С &&
+                            localParams.локТумблерБМА_1 &&
+                            localParams.локТумблерБМА_2 &&
+                            localParams.локТумблерАФСС &&
+                            localParams.локТумблерА1 &&
+                            localParams.локТумблерА403 &&
+                            localParams.локТумблерК1_1 &&
+                            localParams.локТумблерК1_2 &&
+                            localParams.локТумблерБ1_1 &&
+                            localParams.локТумблерБ2_1 &&
+                            localParams.локТумблерБ3_1 &&
+                            localParams.локТумблерБ1_2 &&
+                            localParams.локТумблерБ2_2 &&
+                            localParams.локТумблерБ3_2 &&
+                            localParams.локТумблерДАБ_5 &&
+                            localParams.локТумблерР_Н &&
+                            localParams.локТумблерМШУ;
+
+                        TestMain.Action(new JsonAdapter.ActionStation() { Module = LearnModule.ModulesEnum.N15Power, Value = Convert.ToInt32(def) });
+                        break;
+                    case ModulesEnum.N15SmallLoop:
+                        localParams = N15LocalParameters.getInstance();
+                        def = localParams.локТумблерА205Base &&
+                            blockParams.ТумблерА503Б &&
+                            blockParams.ТумблерА30412;
+
+                        TestMain.Action(new JsonAdapter.ActionStation() { Module = LearnModule.ModulesEnum.N15SmallLoop, Value = Convert.ToInt32(def) });
+                        break;
+
                 }
-                
             }
 
             if (LearnMain.getIntent() == LearnModule.ModulesEnum.N15Power)

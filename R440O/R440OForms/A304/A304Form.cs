@@ -25,12 +25,12 @@
             {
                 A304Parameters.getInstance().Action += TestMain.Action;
             }
-            switch (TestMain.getIntent())
-            {
-                case LearnModule.ModulesEnum.A304_open:
-                    TestMain.setIntent(LearnModule.ModulesEnum.A304_set_trunk);
-                    break;
-            }
+            //switch (TestMain.getIntent())
+            //{
+            //    case LearnModule.ModulesEnum.A304_open:
+            //        TestMain.setIntent(LearnModule.ModulesEnum.A304_set_trunk);
+            //        break;
+            //}
             RefreshFormElements();
         }
 
@@ -196,29 +196,27 @@
 
         private void A304Form_FormClosed(object sender, FormClosedEventArgs e)
         {
+            var blockParams = A304Parameters.getInstance();
+            bool def;
+
             if (ParametersConfig.IsTesting)
             {
-                var blockParams = A304Parameters.getInstance();
-                bool def = blockParams.ТумблерКомплект &&
-                    blockParams.ТумблерУправление1 &&
-                    blockParams.ПереключательКонтроль == 1;
-
-                TestMain.Action(new JsonAdapter.ActionStation() { Module = LearnModule.ModulesEnum.Check_A304, Value = Convert.ToInt32(def) });
+                
+                
             }
             A304Parameters.getInstance().ParameterChanged -= RefreshFormElements;
             switch (TestMain.getIntent())
             {
-                case LearnModule.ModulesEnum.A304_set_trunk:
-                    if (A304Parameters.getInstance().Комплект2Включен && 
-                        A304Parameters.getInstance().ПереключательВыборСтвола == 5 && 
-                        A304Parameters.getInstance().ТумблерКомплект == false)
-                    {
-                        TestMain.setIntent(LearnModule.ModulesEnum.A306_open);
-                    }
-                    else
-                    {
-                        TestMain.setIntent(LearnModule.ModulesEnum.A304_open);
-                    }
+                case ModulesEnum.Check_A304:
+                    def = blockParams.ТумблерКомплект &&
+                    blockParams.ТумблерУправление1 &&
+                    blockParams.ПереключательКонтроль == 1;
+
+                    TestMain.Action(new JsonAdapter.ActionStation() { Module = LearnModule.ModulesEnum.Check_A304, Value = Convert.ToInt32(def) });
+                    break;
+                case LearnModule.ModulesEnum.A304_Power:
+                    def = blockParams.ПереключательВыборСтвола == 5;
+                    TestMain.Action(new JsonAdapter.ActionStation() { Module = LearnModule.ModulesEnum.A304_Power, Value = Convert.ToInt32(def) });
                     break;
             }
         }

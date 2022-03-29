@@ -6,6 +6,7 @@
     using ShareTypes.SignalTypes;
     using global::R440O.LearnModule;
     using global::R440O.TestModule;
+    using System;
 
     /// <summary>
     /// Форма внутренней части блока Н15
@@ -38,16 +39,6 @@
                     }
                     break;
             }
-            switch (TestMain.getIntent())
-            {
-                case LearnModule.ModulesEnum.H15Inside_open_from_H15:
-                    //if (TestMain.globalIntent == GlobalIntentEnum.OneChannel)
-                    //{
-                        TestMain.setIntent(LearnModule.ModulesEnum.H15Inside_power);
-                    IsExactModule = true;
-                    //}
-                    break;
-            }
         }
 
         /// <summary>
@@ -58,25 +49,21 @@
         private void N15InsideForm_FormClosed(object sender, FormClosedEventArgs e)
         {
             N15InsideParameters.getInstance().ParameterChanged -= RefreshFormElements;
-            if (ParametersConfig.IsTesting)
-            {
-                //N15InsideParameters.getInstance().Action -= TestMain.Action;
-            }
+            var blockParams = N15InsideParameters.getInstance();
+            bool def;
             switch (TestMain.getIntent())
             {
-                case LearnModule.ModulesEnum.H15Inside_power:
-                    if (N15InsideParameters.getInstance().ПереключательПУЛ480ПРМ_1 == 3 &&
-                        N15InsideParameters.getInstance().ПереключательПУЛ480ПРМ_2 == 3 &&
-                        N15InsideParameters.getInstance().ПереключательПУЛ48ПРД_1 == 3 &&
-                        N15InsideParameters.getInstance().ПереключательПУЛ48ПРД_2 == 3 &&
-                        N15InsideParameters.getInstance().ТумблерПУЛ480ПРМ_1 == Модуляция.ОФТ &&
-                        N15InsideParameters.getInstance().ТумблерПУЛ480ПРМ_2 == Модуляция.ОФТ &&
-                        N15InsideParameters.getInstance().ТумблерПУЛ48ПРД_1 == Модуляция.ОФТ &&
-                        N15InsideParameters.getInstance().ТумблерПУЛ48ПРД_2 == Модуляция.ОФТ)
-                    {
-                        TestMain.setIntent(LearnModule.ModulesEnum.N15_power_C300m1);
-                        //TODO: доделать переход на н15
-                    }
+                case ModulesEnum.N15SmallLoopInside:
+                    def = blockParams.ПереключательПУЛ480ПРМ_1 == 3 &&
+                        blockParams.ПереключательПУЛ480ПРМ_2 == 3 &&
+                        blockParams.ПереключательПУЛ48ПРД_1 == 3 &&
+                        blockParams.ПереключательПУЛ48ПРД_2 == 3 &&
+                        blockParams.ТумблерПУЛ480ПРМ_1 == Модуляция.ОФТ &&
+                        blockParams.ТумблерПУЛ480ПРМ_2 == Модуляция.ОФТ &&
+                        blockParams.ТумблерПУЛ48ПРД_1 == Модуляция.ОФТ &&
+                        blockParams.ТумблерПУЛ48ПРД_2 == Модуляция.ОФТ;
+
+                    TestMain.Action(new JsonAdapter.ActionStation() { Module = LearnModule.ModulesEnum.N15SmallLoopInside, Value = Convert.ToInt32(def) });
                     break;
             }
             Owner.Show();

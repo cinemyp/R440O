@@ -252,11 +252,20 @@
             if (ParametersConfig.IsTesting)
             {
                 var blockParams = BMBParameters.getInstance();
-                bool def = blockParams.КнопкаПитание == Кнопка.Отжата &&
+
+                if(TestMain.IsCheck)
+                {
+                    bool def = blockParams.КнопкаПитание == Кнопка.Отжата &&
                     blockParams.КнопкаСлСвязь == Кнопка.Отжата &&
                     blockParams.КнопкаЗвСигнал == Кнопка.Отжата;
 
-                TestMain.Action(new JsonAdapter.ActionStation() { Module = LearnModule.ModulesEnum.Check_BMB, Value = Convert.ToInt32(def) });
+                    TestMain.Action(new JsonAdapter.ActionStation() { Module = LearnModule.ModulesEnum.Check_BMB, Value = Convert.ToInt32(def) });
+                } else
+                {
+                    bool def = blockParams.КнопкаПитание == Кнопка.Горит;
+
+                    TestMain.Action(new JsonAdapter.ActionStation() { Module = LearnModule.ModulesEnum.BMB_Power, Value = Convert.ToInt32(def) });
+                }
             }
         }
     }

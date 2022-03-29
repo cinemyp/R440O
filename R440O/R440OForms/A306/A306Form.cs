@@ -331,26 +331,26 @@ namespace R440O.R440OForms.A306
         private void A306Form_FormClosed(object sender, FormClosedEventArgs e)
         {
             A306Parameters.getInstance().ParameterChanged -= RefreshFormElements;
-            if (ParametersConfig.IsTesting)
-            {
-                var blockParams = A306Parameters.getInstance();
-                bool def = blockParams.ТумблерДистанцМестн &&
-                    blockParams.ТумблерПитание;
 
-                TestMain.Action(new JsonAdapter.ActionStation() { Module = LearnModule.ModulesEnum.Check_A306, Value = Convert.ToInt32(def) });
-            }
+            var blockParams = A306Parameters.getInstance();
+            bool def;
 
             switch (TestMain.getIntent())
             {
-                case LearnModule.ModulesEnum.A306_set:
-                    if(A306Parameters.getInstance().Выходы[1] == 0)
-                    {
-                        TestMain.setIntent(LearnModule.ModulesEnum.H15Inside_open);
-                    }
-                    else
-                    {
-                        TestMain.setIntent(LearnModule.ModulesEnum.A306_open);
-                    }
+                case LearnModule.ModulesEnum.Check_A306:
+                    def = blockParams.ТумблерДистанцМестн &&
+                    blockParams.ТумблерПитание;
+
+                    TestMain.Action(new JsonAdapter.ActionStation() { Module = LearnModule.ModulesEnum.Check_A306, Value = Convert.ToInt32(def) });
+                    break;
+                case ModulesEnum.A306_Power:
+                    def = blockParams.Выходы[11] == 0 &&
+                        blockParams.Выходы[12] == 1 &&
+                        blockParams.Выходы[13] == 2 &&
+                        blockParams.Выходы[14] == 3 &&
+                        blockParams.Выходы[0] == 4;
+
+                    TestMain.Action(new JsonAdapter.ActionStation() { Module = LearnModule.ModulesEnum.A306_Power, Value = Convert.ToInt32(def) });
                     break;
             }
         }

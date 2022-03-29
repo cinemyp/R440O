@@ -380,10 +380,13 @@ namespace R440O.R440OForms.C300M_1
 
         private void C300M_1Form_FormClosed(object sender, FormClosedEventArgs e)
         {
-            if (ParametersConfig.IsTesting)
+
+            var blockParams = C300M_1Parameters.getInstance();
+            bool def;
+            switch (TestMain.getIntent())
             {
-                var blockParams = C300M_1Parameters.getInstance();
-                bool def = blockParams.ТумблерУправление &&
+                case ModulesEnum.Check_C300M:
+                    def = blockParams.ТумблерУправление &&
                     !blockParams.ТумблерБлокировка &&
                     !blockParams.ТумблерПределы &&
                     blockParams.ТумблерВидВключения &&
@@ -391,12 +394,12 @@ namespace R440O.R440OForms.C300M_1
                     blockParams.ТумблерАСЧ &&
                     blockParams.ТумблерРегулировкаУровня;
 
-                TestMain.Action(new JsonAdapter.ActionStation() { Module = LearnModule.ModulesEnum.Check_C300M, Value = Convert.ToInt32(def) });
-            }
-            switch (TestMain.getIntent())
-            {
-                //case LearnModule.ModulesEnum.C300_m1_Power:
-                //    TestMain.setIntent(LearnModule.ModulesEnum.C300_m1_Power);
+                    TestMain.Action(new JsonAdapter.ActionStation() { Module = LearnModule.ModulesEnum.Check_C300M, Value = Convert.ToInt32(def) });
+                    break;
+                //case ModulesEnum.A205_Power:
+                //    def = blockParams.ПереключательКонтроль == 9 &&
+                //        blockParams.ПереключательВидРаботы == 3;
+                //    TestMain.Action(new JsonAdapter.ActionStation() { Module = LearnModule.ModulesEnum.A205_Power, Value = Convert.ToInt32(def) });
                 //    break;
             }
         }

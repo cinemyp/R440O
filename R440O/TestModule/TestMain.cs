@@ -27,21 +27,22 @@ namespace R440O.TestModule
         private static List<ActionStation> standardActions;
         private static List<ActionStation> checkedActions = new List<ActionStation>();
         private static int step = 0;
-        private static bool isCheck = false;
+        private static bool isCheck = true;
         public static bool IsCheck { get { return isCheck; } }
 
-        private static bool checking = false;
-
-        private static string checkEndName = "ПроверкаЗакончена";
-
+        private static bool checking = true;
+        
         public delegate void ClosingForms();
         public static event ClosingForms close;
+
+        private static TestHelper testHelper = new TestHelper();
 
         public static void setIntent(ModulesEnum intention)
         {
             if (ParametersConfig.IsTesting == false)
                 return;
             module = intention;
+            testHelper.SetIntent(intention);
         }
         public static ModulesEnum getIntent()
         {
@@ -65,12 +66,6 @@ namespace R440O.TestModule
                 //идет проверка на дефолтные значения
                 //пользователь может трогать тумблеры, чтобы выставить необходимые
             }
-            else if (action.Name == checkEndName)
-            {
-                isCheck = false;
-                NextStep(action);
-                System.Windows.Forms.MessageBox.Show("Проверка закончена");
-            }
             else if (checkedActions.Contains(action) && action.Value == 1)
             {
                 //мы уже проверили блок
@@ -78,6 +73,13 @@ namespace R440O.TestModule
             else
             {
                 System.Windows.Forms.MessageBox.Show("Error");
+                MakeSoftMistake();
+            }
+            if (expectedAction.Module == ModulesEnum.Check_End)
+            {
+                isCheck = false;
+                NextStep(action);
+                System.Windows.Forms.MessageBox.Show("Проверка закончена");
             }
         }
 
@@ -90,6 +92,8 @@ namespace R440O.TestModule
             expectedAction = standardActions[step];
 
             checkedActions.Add(previousAction);
+
+            setIntent(expectedAction.Module);
         }
 
         #region Сделать ошибку
@@ -118,6 +122,8 @@ namespace R440O.TestModule
         private static void LoadStandard()
         {
             expectedAction = standardActions[0];
+
+            setIntent(expectedAction.Module);
         }
 
         private static void CreateStandard()
@@ -161,7 +167,7 @@ namespace R440O.TestModule
                 standardActions.Add(new ActionStation(ModulesEnum.Check_C1_67, 1, false));
                 standardActions.Add(new ActionStation(ModulesEnum.Check_Wattmeter, 1, false));
 
-                standardActions.Add(new ActionStation(checkEndName, 1, false));
+                standardActions.Add(new ActionStation(ModulesEnum.Check_End, 1, false));
             }
             
 
@@ -176,12 +182,21 @@ namespace R440O.TestModule
             standardActions.Add(new ActionStation(ModulesEnum.N15Power, 1));
 
             //БМБ
-            standardActions.Add(new ActionStation("КнопкаПитание", 1));
+            standardActions.Add(new ActionStation(ModulesEnum.BMB_Power, 1));
             //C1_67
-            standardActions.Add(new ActionStation("C1_67ТумблерСеть", 1));
+            standardActions.Add(new ActionStation(ModulesEnum.C1_67_Power, 1));
             //Я2М-67
-            standardActions.Add(new ActionStation("ТумблерСеть", 1));
+            standardActions.Add(new ActionStation(ModulesEnum.Wattmeter_Power, 1));
 
+
+
+            //Проверка по малому шлейфу
+            standardActions.Add(new ActionStation(ModulesEnum.N15SmallLoop, 1));
+            standardActions.Add(new ActionStation(ModulesEnum.A205_Power, 1));
+            standardActions.Add(new ActionStation(ModulesEnum.A304_Power, 1));
+            standardActions.Add(new ActionStation(ModulesEnum.A306_Power, 1));
+            standardActions.Add(new ActionStation(ModulesEnum.N15SmallLoopInside, 1));
+            standardActions.Add(new ActionStation(ModulesEnum.C300_m1_Power, 1));
         }
 
         public static void StartTest()
@@ -193,6 +208,9 @@ namespace R440O.TestModule
             stopwatch = new Stopwatch();
             stopwatch.Start();
             timer = EasyTimer.SetInterval(SetTimer, 60000);
+#if DEBUG
+            testHelper.Show();
+#endif
         }
 
         private static void SetTimer()

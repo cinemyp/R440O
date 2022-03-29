@@ -45,7 +45,7 @@ namespace R440O.JsonAdapter
             else
             {
                 ActionStation a = (ActionStation)obj;
-                return Value == a.Value && 
+                return Module == a.Module && 
                     Name == a.Name;
             }
         }

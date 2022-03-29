@@ -26,22 +26,10 @@ namespace R440O.R440OForms.A205M_1
             A205M_1Parameters.getInstance().ParameterChanged += RefreshFormElements;
             RefreshFormElements();
 
-            if (ParametersConfig.IsTesting)
-            {
-                A205M_1Parameters.getInstance().TestModuleRef = this;
-                //A205M_1Parameters.getInstance().Action += TestMain.Action;
-            }
-
             if (LearnMain.getIntent() == ModulesEnum.A205_m1_Open)
             {
                 LearnMain.form = this;
                 LearnMain.setIntent(ModulesEnum.A205_m1_Power);
-            }
-
-            if (TestMain.getIntent() == ModulesEnum.A205_m1_Open)
-            {
-                TestMain.setIntent(ModulesEnum.A205_m1_Power);
-                IsExactModule = true;
             }
         }
 
@@ -238,48 +226,55 @@ namespace R440O.R440OForms.A205M_1
 
         private void A205M_1Form_FormClosed(object sender, FormClosedEventArgs e)
         {
-            if (ParametersConfig.IsTesting)
+            var blockParams = A205M_1Parameters.getInstance();
+            bool def;
+            switch (TestMain.getIntent())
             {
-                var blockParams = A205M_1Parameters.getInstance();
-                bool def = blockParams.ПереключательКонтроль == 10 &&
+                case ModulesEnum.Check_A205:
+                    def = blockParams.ПереключательКонтроль == 10 &&
                     !blockParams.ТумблерКЭД;
-
-                TestMain.Action(new JsonAdapter.ActionStation() { Module = LearnModule.ModulesEnum.Check_A205, Value = Convert.ToInt32(def) });
+                    TestMain.Action(new JsonAdapter.ActionStation() { Module = LearnModule.ModulesEnum.Check_A205, Value = Convert.ToInt32(def) });
+                    break;
+                case ModulesEnum.A205_Power:
+                    def = blockParams.ПереключательКонтроль == 9 &&
+                        blockParams.ПереключательВидРаботы == 3;
+                    TestMain.Action(new JsonAdapter.ActionStation() { Module = LearnModule.ModulesEnum.A205_Power, Value = Convert.ToInt32(def) });
+                    break;
             }
             A205M_1Parameters.getInstance().ParameterChanged -= RefreshFormElements;
-            if(LearnMain.getIntent() == ModulesEnum.A205_m1_Power)
+            if (LearnMain.getIntent() == ModulesEnum.A205_m1_Power)
             {
-                if(LearnMain.globalIntent == GlobalIntentEnum.OneChannel)
+                if (LearnMain.globalIntent == GlobalIntentEnum.OneChannel)
                 {
-                    if (A205M_1Parameters.getInstance().ПереключательВидРаботы == 3 && 
+                    if (A205M_1Parameters.getInstance().ПереключательВидРаботы == 3 &&
                         A205M_1Parameters.getInstance().ПереключательВходЧТ == 1)
                     {
                         LearnMain.setIntent(ModulesEnum.H15Inside_open);
                     }
                     else LearnMain.setIntent(ModulesEnum.A205_m1_Open);
                 }
-                
             }
-            if (TestMain.getIntent() == ModulesEnum.A205_m1_Power)
-            {
-                if (TestMain.globalIntent == GlobalIntentEnum.OneChannel)
-                {
-                    if (A205M_1Parameters.getInstance().ПереключательВидРаботы == 3 && A205M_1Parameters.getInstance().ПереключательВходЧТ == 1)
-                    {
-                        TestMain.setIntent(ModulesEnum.H15Inside_open);
-                    }
-                    else TestMain.setIntent(ModulesEnum.A205_m1_Open);
-                }
-                else if (TestMain.globalIntent == GlobalIntentEnum.Normativ95)
-                {
-                    if (A205M_1Parameters.getInstance().ПереключательВидРаботы == 3 &&
-                        A205M_1Parameters.getInstance().ПереключательВходЧТ == 1)
-                    {
-                        TestMain.setIntent(ModulesEnum.openN15SmallLoop);
-                    }
-                    else TestMain.setIntent(ModulesEnum.A205_m1_Open);
-                }
-            }
+            //}
+            //if (TestMain.getIntent() == ModulesEnum.A205_m1_Power)
+            //{
+            //    if (TestMain.globalIntent == GlobalIntentEnum.OneChannel)
+            //    {
+            //        if (A205M_1Parameters.getInstance().ПереключательВидРаботы == 3 && A205M_1Parameters.getInstance().ПереключательВходЧТ == 1)
+            //        {
+            //            TestMain.setIntent(ModulesEnum.H15Inside_open);
+            //        }
+            //        else TestMain.setIntent(ModulesEnum.A205_m1_Open);
+            //    }
+            //    else if (TestMain.globalIntent == GlobalIntentEnum.Normativ95)
+            //    {
+            //        if (A205M_1Parameters.getInstance().ПереключательВидРаботы == 3 &&
+            //            A205M_1Parameters.getInstance().ПереключательВходЧТ == 1)
+            //        {
+            //            TestMain.setIntent(ModulesEnum.openN15SmallLoop);
+            //        }
+            //        else TestMain.setIntent(ModulesEnum.A205_m1_Open);
+            //    }
+            //}
         }
     }
 }

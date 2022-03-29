@@ -156,6 +156,12 @@
     <Compile Include="StationForm.Designer.cs">
       <DependentUpon>StationForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="TestModule\TestHelper.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TestModule\TestHelper.Designer.cs">
+      <DependentUpon>TestHelper.cs</DependentUpon>
+    </Compile>
     <Compile Include="TestModule\TestModuleEnum.cs" />
     <Compile Include="TestModule\TestMain.cs" />
     <Compile Include="TestModule\TestResult.cs" />
@@ -863,6 +869,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="StationForm.resx">
       <DependentUpon>StationForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TestModule\TestHelper.resx">
+      <DependentUpon>TestHelper.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="TestModule\TestResultForm.resx">
       <DependentUpon>TestResultForm.cs</DependentUpon>
