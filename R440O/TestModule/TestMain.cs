@@ -88,7 +88,7 @@ namespace R440O.TestModule
             step += 1;
             if (step >= standardActions.Count)
             {
-                FinishTest();
+                if(ParametersConfig.IsTesting) FinishTest();
                 return;
             }
             previousAction = expectedAction;
@@ -204,6 +204,9 @@ namespace R440O.TestModule
 
             //Проверка БМБ по малому кольцу
             standardActions.Add(new ActionStation(ModulesEnum.BMB_SmallLoop));
+
+            //Проверка АПН
+            standardActions.Add(new ActionStation(ModulesEnum.A403));
 
         }
 

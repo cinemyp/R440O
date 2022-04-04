@@ -305,17 +305,25 @@ namespace R440O.R440OForms.A403_1
 
         private void A403_1Form_FormClosed(object sender, FormClosedEventArgs e)
         {
-            if (ParametersConfig.IsTesting)
+            var blockParams = A403_1Parameters.getInstance();
+            bool def;
+            switch (TestMain.getIntent())
             {
-                var blockParams = A403_1Parameters.getInstance();
-                bool def = blockParams.ТумблерСеть &&
-                    !blockParams.ТумблерГотов &&
-                    !blockParams.ТумблерАвтКоррекция &&
-                    blockParams.ПереключательПроверка == 2;
-                //Комплект произвольный
-                //Неисправность АПН - не работает???
+                case LearnModule.ModulesEnum.Check_A403:
+                    def = blockParams.ТумблерСеть &&
+                        !blockParams.ТумблерГотов &&
+                        !blockParams.ТумблерАвтКоррекция &&
+                        blockParams.ПереключательПроверка == 2;
+                    //Комплект произвольный
+                    //Неисправность АПН - не работает???
 
-                TestMain.Action(new JsonAdapter.ActionStation() { Module = LearnModule.ModulesEnum.Check_A403, Value = Convert.ToInt32(def) });
+                    TestMain.Action(new JsonAdapter.ActionStation() { Module = LearnModule.ModulesEnum.Check_A403, Value = Convert.ToInt32(def) });
+                    break;
+                case LearnModule.ModulesEnum.A403:
+                    def = blockParams.A403Checked;
+                    TestMain.Action(new JsonAdapter.ActionStation() { Module = LearnModule.ModulesEnum.A403, Value = Convert.ToInt32(def) });
+
+                    break;
             }
             A403_1Parameters.getInstance().ParameterChanged -= RefreshFormElements;
             A403_1Parameters.getInstance().DisplayChanged -= RefreshDisplay;

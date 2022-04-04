@@ -78,6 +78,7 @@ namespace R440O.LearnModule
         Check_End,
         SmallLoopCheck,
         BMA_Recurs,
-        BMB_SmallLoop
+        BMB_SmallLoop,
+        A403
     }
 }

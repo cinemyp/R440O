@@ -23,13 +23,34 @@ namespace R440O.R440OForms.A403_1
                 instance = new A403_1Parameters();
             return instance;
         }
-        public delegate void TestModuleHandler(JsonAdapter.ActionStation action);
-        public event TestModuleHandler Action;
-        private void OnAction(string name, int value)
+
+        public bool A403Checked
         {
-            var action = new JsonAdapter.ActionStation(name, value);
-            Action?.Invoke(action);
+            get
+            {
+                foreach(var key in CheckTable)
+                {
+                    if(!key.Value)
+                    {
+                        return false;
+                    }
+                }
+                return true;
+            }
         }
+
+        /// <summary>
+        /// Словарь проверки значений (время - результат)
+        /// </summary>
+        private Dictionary<string, bool> CheckTable = new Dictionary<string, bool>
+        {
+            {"+131000", false },
+            {"+151000", false },
+            {"+171000", false },
+            {"+191000", false },
+            {"+211000", false }
+        };
+
         public string AlphaP = "";
         public string BetaP = "";
         public string DeltaF = "";
@@ -78,6 +99,7 @@ namespace R440O.R440OForms.A403_1
             AlphaP = location.Value.Az;
             BetaP = location.Value.Ym;
             DeltaF = location.Value.DeltaF;
+            CheckTable[location.Key] = true;
 
             N12SParameters.getInstance().FromA403 = true;
             N12SParameters.getInstance().ПотенциометрAlphaИ = GetInt(AlphaP) / 1000 + (GetInt(AlphaP) % 1000 / 10f) / 60f;
