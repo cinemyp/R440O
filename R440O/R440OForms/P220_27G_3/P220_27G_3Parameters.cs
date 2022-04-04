@@ -11,13 +11,7 @@
                 instance = new P220_27G_3Parameters();
             return instance;
         }
-        public delegate void TestModuleHandler(JsonAdapter.ActionStation action);
-        public event TestModuleHandler Action;
-        private void OnAction(string name, int value)
-        {
-            var action = new JsonAdapter.ActionStation(name, value);
-            Action?.Invoke(action);
-        }
+
         public bool Включен
         {
             get { return N15Parameters.getInstance().Включен && ТумблерСеть; }

@@ -14,13 +14,7 @@ namespace R440O.R440OForms.K03M_01Inside
                 instance = new K03M_01InsideParameters();
             return instance;
         }
-        public delegate void TestModuleHandler(JsonAdapter.ActionStation action);
-        public event TestModuleHandler Action;
-        private void OnAction(string name, int value)
-        {
-            var action = new JsonAdapter.ActionStation(name, value);
-            Action?.Invoke(action);
-        }
+
         #region Переключатели
         public  KulonIndexerClass Переключатели = new KulonIndexerClass();
         #endregion

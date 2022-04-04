@@ -19,13 +19,6 @@ namespace R440O.R440OForms.C300M_4
                 instance = new C300M_4Parameters();
             return instance;
         }
-        public delegate void TestModuleHandler(JsonAdapter.ActionStation action);
-        public event TestModuleHandler Action;
-        private void OnAction(string name, int value)
-        {
-            var action = new JsonAdapter.ActionStation(name, value);
-            Action?.Invoke(action);
-        }
 
         #region Private
 

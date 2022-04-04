@@ -15,10 +15,6 @@
             InitializeComponent();
             N502BParameters.getInstance().ParameterChanged += RefreshFormElements;
 
-            if (ParametersConfig.IsTesting)
-            {
-                N502BParameters.getInstance().Action += TestMain.Action;
-            }
             var controls = this.Controls;
             foreach(var c in controls)
             {
@@ -387,14 +383,13 @@
             N502BParameters.getInstance().НекорректноеДействие -= ВыводСообщенияНекорректноеДействие;
 
             if (ParametersConfig.IsTesting)
-            {   
-                N502BParameters.getInstance().Action -= TestMain.Action;
-
+            {
                 var blockParams = N502BParameters.getInstance();
-
-                if(TestMain.IsCheck)
+                bool def;
+                switch (TestMain.getIntent())
                 {
-                    bool def = !blockParams.ПереключательСеть &&
+                    case ModulesEnum.Check_N502B:
+                        def = !blockParams.ПереключательСеть &&
                     blockParams.ПереключательФазировка == 1 &&
                     blockParams.ПереключательТокНагрузкиИЗаряда == 1 &&
                     blockParams.ПереключательНапряжение == 4 &&
@@ -406,11 +401,10 @@
                     !blockParams.ТумблерН13_2 &&
                     !blockParams.ТумблерН15;
 
-                    TestMain.Action(new JsonAdapter.ActionStation() { Module = LearnModule.ModulesEnum.Check_N502B, Value = Convert.ToInt32(def) });
-                }
-                else if(blockParams.ПереключательСеть)
-                {
-                    bool def = blockParams.ПереключательСеть &&
+                        TestMain.Action(new JsonAdapter.ActionStation() { Module = LearnModule.ModulesEnum.Check_N502B, Value = Convert.ToInt32(def) });
+                        break;
+                    case ModulesEnum.N502Power:
+                        def = blockParams.ПереключательСеть &&
                     blockParams.ПереключательФазировка == blockParams.Фазировка &&
                     blockParams.ПереключательТокНагрузкиИЗаряда == 1 &&
                     blockParams.ПереключательНапряжение < 4 &&
@@ -421,9 +415,9 @@
                     blockParams.ТумблерН13_2 &&
                     blockParams.ТумблерН15;
 
-                    TestMain.Action(new JsonAdapter.ActionStation() { Module = LearnModule.ModulesEnum.N502Power, Value = Convert.ToInt32(def) });
+                        TestMain.Action(new JsonAdapter.ActionStation() { Module = LearnModule.ModulesEnum.N502Power, Value = Convert.ToInt32(def) });
+                        break;
                 }
-                
             }
 
             switch (LearnMain.getIntent())

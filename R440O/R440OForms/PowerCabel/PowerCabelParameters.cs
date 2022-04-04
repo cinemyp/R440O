@@ -56,20 +56,13 @@ namespace R440O.R440OForms.PowerCabel
         }
 
         public int Напряжение;
-        public delegate void TestModuleHandler(ActionStation action);
-        public event TestModuleHandler Action;
+
         public delegate void ParameterChangedHandler();
         public event ParameterChangedHandler ParameterChanged;
 
         private void OnParameterChanged()
         {
             ParameterChanged?.Invoke();
-        }
-
-        private void OnAction(string name, int value)
-        {
-            var action = new ActionStation(name, value);
-            Action?.Invoke(action);
         }
 
         public void ResetParameters()

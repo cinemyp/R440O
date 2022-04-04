@@ -21,13 +21,7 @@ namespace R440O.R440OForms.K05M_01
                 instance = new K05M_01Parameters();
             return instance;
         }
-        public delegate void TestModuleHandler(JsonAdapter.ActionStation action);
-        public event TestModuleHandler Action;
-        private void OnAction(string name, int value)
-        {
-            var action = new JsonAdapter.ActionStation(name, value);
-            Action?.Invoke(action);
-        }
+
         private bool Питание
         {
             get { return PU_K1_1Parameters.getInstance().Включен; }

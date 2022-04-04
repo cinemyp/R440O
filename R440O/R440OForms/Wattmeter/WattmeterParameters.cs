@@ -12,13 +12,6 @@ namespace R440O.R440OForms.Wattmeter
                 instance = new WattmeterParameters();
             return instance;
         }
-        public delegate void TestModuleHandler(ActionStation action);
-        public event TestModuleHandler Action;
-        private void OnAction(string name, int value)
-        {
-            var action = new ActionStation(name, value);
-            Action?.Invoke(action);
-        }
 
         public bool _тумблерСеть;
 

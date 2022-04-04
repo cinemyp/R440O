@@ -21,13 +21,7 @@ namespace R440O.R440OForms.N15Inside
                 instance = new N15InsideParameters();
             return instance;
         }
-        public delegate void TestModuleHandler(JsonAdapter.ActionStation action);
-        public event TestModuleHandler Action;
-        private void OnAction(string name, int value)
-        {
-            var action = new JsonAdapter.ActionStation(name, value);
-            Action?.Invoke(action);
-        }
+
 
         #region Работа блока
         public  bool Включен

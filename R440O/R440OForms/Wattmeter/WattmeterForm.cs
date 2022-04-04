@@ -110,18 +110,20 @@ namespace R440O.R440OForms.Wattmeter
             if (ParametersConfig.IsTesting)
             {
                 var blockParams = WattmeterParameters.getInstance();
-                if(TestMain.IsCheck)
+                bool def;
+                switch (TestMain.getIntent())
                 {
-                    bool def = !blockParams.ТумблерСеть;
+                    case ModulesEnum.Check_Wattmeter:
+                        def = !blockParams.ТумблерСеть;
 
-                    TestMain.Action(new JsonAdapter.ActionStation() { Module = LearnModule.ModulesEnum.Check_Wattmeter, Value = Convert.ToInt32(def) });
-                } else
-                {
-                    bool def = blockParams.ТумблерСеть;
+                        TestMain.Action(new JsonAdapter.ActionStation() { Module = LearnModule.ModulesEnum.Check_Wattmeter, Value = Convert.ToInt32(def) });
+                        break;
+                    case ModulesEnum.Wattmeter_Power:
+                        def = blockParams.ТумблерСеть;
 
-                    TestMain.Action(new JsonAdapter.ActionStation() { Module = LearnModule.ModulesEnum.Wattmeter_Power, Value = Convert.ToInt32(def) });
+                        TestMain.Action(new JsonAdapter.ActionStation() { Module = LearnModule.ModulesEnum.Wattmeter_Power, Value = Convert.ToInt32(def) });
+                        break;
                 }
-                
             }
         }
 

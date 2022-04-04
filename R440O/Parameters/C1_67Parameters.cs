@@ -12,13 +12,6 @@ namespace R440O.Parameters
                 instance = new C1_67Parameters();
             return instance;
         }
-        public delegate void TestModuleHandler(ActionStation action);
-        public event TestModuleHandler Action;
-        private void OnAction(string name, int value)
-        {
-            var action = new ActionStation(name, value);
-            Action?.Invoke(action);
-        }
 
         #region ПереключательУсиление
 

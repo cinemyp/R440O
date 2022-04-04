@@ -14,13 +14,7 @@ namespace R440O.Parameters
                 instance = new N12SParameters();
             return instance;
         }
-        public delegate void TestModuleHandler(JsonAdapter.ActionStation action);
-        public event TestModuleHandler Action;
-        private void OnAction(string name, int value)
-        {
-            var action = new JsonAdapter.ActionStation(name, value);
-            Action?.Invoke(action);
-        }
+
         public bool Включен { get { return ТумблерСеть && N15Parameters.getInstance().ТумблерН12С && N15Parameters.getInstance().Включен; } }
         public bool FromA403 = false;
 

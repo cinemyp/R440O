@@ -13,7 +13,7 @@ namespace R440O.JsonAdapter
     public static class StationAdapterJson
     {
         private static string namespacePath = "R440O.R440OForms.";
-
+        private static string normativPath = "Normativ.json";
         public static void StoreStationStateToJson()
         {
             var ns = GetModulesNames();
@@ -35,7 +35,12 @@ namespace R440O.JsonAdapter
 
             SerializeState(modules);
         }
-
+        public static List<ActionStation> GetNormativ()
+        {
+            string str = File.ReadAllText(normativPath);
+            var obj = Newtonsoft.Json.JsonConvert.DeserializeObject<List<ActionStation>>(str);
+            return obj;
+        }
         private static void SerializeState(object data)
         {
             string stationState = Newtonsoft.Json.JsonConvert.SerializeObject(data);

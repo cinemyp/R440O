@@ -14,8 +14,6 @@ namespace R440O.R440OForms.N15
             return instance;
         }
 
-        public delegate void TestModuleHandler(ActionStation action);
-        public  event TestModuleHandler Action;
         public delegate void ParameterChangedHandler();
         public  event ParameterChangedHandler ParameterChanged;
 
@@ -24,11 +22,6 @@ namespace R440O.R440OForms.N15
             ParameterChanged?.Invoke();
         }
 
-        private void OnAction(string name, int value)
-        {
-            var action = new ActionStation(name, value);
-            Action?.Invoke(action);
-        }
 
         #region Тумблеры левая часть
         private  bool _локТумблерЦ300М1;

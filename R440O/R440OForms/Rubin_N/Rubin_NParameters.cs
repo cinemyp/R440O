@@ -15,13 +15,7 @@ namespace R440O.R440OForms.Rubin_N
                 instance = new Rubin_NParameters();
             return instance;
         }
-        public delegate void TestModuleHandler(JsonAdapter.ActionStation action);
-        public event TestModuleHandler Action;
-        private void OnAction(string name, int value)
-        {
-            var action = new JsonAdapter.ActionStation(name, value);
-            Action?.Invoke(action);
-        }
+
         #region Переключатели
 
         private int _ПереключательГрупСкор = 1;

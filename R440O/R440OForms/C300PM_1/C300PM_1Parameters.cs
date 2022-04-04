@@ -12,13 +12,7 @@
                 instance = new C300PM_1Parameters();
             return instance;
         }
-        public delegate void TestModuleHandler(JsonAdapter.ActionStation action);
-        public event TestModuleHandler Action;
-        private void OnAction(string name, int value)
-        {
-            var action = new JsonAdapter.ActionStation(name, value);
-            Action?.Invoke(action);
-        }
+
         /// <summary>
         /// Параметр для лампочки 1 комплекта. Возможные состояния: true, false
         /// </summary>

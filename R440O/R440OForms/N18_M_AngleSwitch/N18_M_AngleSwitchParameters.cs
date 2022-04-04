@@ -11,13 +11,7 @@ namespace R440O.R440OForms.N18_M_AngleSwitch
                 instance = new N18_M_AngleSwitchParameters();
             return instance;
         }
-        public delegate void TestModuleHandler(JsonAdapter.ActionStation action);
-        public event TestModuleHandler Action;
-        private void OnAction(string name, int value)
-        {
-            var action = new JsonAdapter.ActionStation(name, value);
-            Action?.Invoke(action);
-        }
+
         public int _гнездоПРМ1 = 0;
         public int _гнездоПРМ2 = 0;
         public int _гнездоПРМ3 = 0;

@@ -27,9 +27,10 @@ namespace R440O.TestModule
         private static List<ActionStation> standardActions;
         private static List<ActionStation> checkedActions = new List<ActionStation>();
         private static int step = 0;
-        private static bool isCheck = true;
-        public static bool IsCheck { get { return isCheck; } }
-
+        /// <summary>
+        /// Флаг первоначальной проверки
+        /// Можно отключать для проверки
+        /// </summary>
         private static bool checking = false;
         
         public delegate void ClosingForms();
@@ -61,7 +62,7 @@ namespace R440O.TestModule
                 //пользователь работает с тем параметром, который нужен, 
                 //поэтому оставляем и ничего не делаем
             }
-            else if (isCheck && action.IsUserAction)
+            else if (checking && action.IsUserAction)
             {
                 //идет проверка на дефолтные значения
                 //пользователь может трогать тумблеры, чтобы выставить необходимые
@@ -72,12 +73,14 @@ namespace R440O.TestModule
             }
             else
             {
+#if DEBUG
                 System.Windows.Forms.MessageBox.Show("Error");
+#endif
                 MakeSoftMistake();
             }
             if (expectedAction.Module == ModulesEnum.Check_End)
             {
-                isCheck = false;
+                checking = false;
                 NextStep(action);
                 System.Windows.Forms.MessageBox.Show("Проверка закончена");
             }
@@ -125,14 +128,72 @@ namespace R440O.TestModule
         private static void LoadStandard()
         {
             expectedAction = standardActions[0];
-
+            if (!checking)
+            {
+                for (int i = 0; i < standardActions.Count; i++)
+                {
+                    if(standardActions[i].IsUserAction)
+                    {
+                        expectedAction = standardActions[i];
+                        break;
+                    }
+                }
+            }
             setIntent(expectedAction.Module);
         }
 
         private static void CreateStandard()
         {
-            standardActions = new List<ActionStation>();
-            if(checking)
+            standardActions = StationAdapterJson.GetNormativ();
+        }
+
+        public static void StartTest()
+        {
+            CreateStandard();
+            LoadStandard();
+            ParametersConfig.IsTesting = true;
+            testResult = new TestResult();
+            stopwatch = new Stopwatch();
+            stopwatch.Start();
+            timer = EasyTimer.SetInterval(SetTimer, 60000);
+#if DEBUG
+            testHelper.Show();
+#endif
+        }
+
+        private static void SetTimer()
+        {
+            timeInMinutes++;
+            if (timeInMinutes >= 18 && timeInMinutes < 20) //решил тест за 19 минут - оценка 4
+            {
+                //уменьшаем оценку на балл
+                testResult.MinusPoint();
+            }
+            if(timeInMinutes >= 20)
+            {
+                //уменьшаем оценку на балл
+                testResult.MinusPoint();
+                FinishTest();
+            }
+        }
+        private static void FinishTest()
+        {
+            ParametersConfig.IsTesting = false;
+            stopwatch.Stop();
+            timer.Dispose();
+            testResult.testingTime = new DateTime().AddMilliseconds(stopwatch.ElapsedMilliseconds);
+
+            //TODO: сформровать результаты и отправить на сервер
+            TestResultForm tr = new TestResultForm(testResult);
+            tr.ShowDialog();
+            //Закрыть окно станции
+            close?.Invoke();
+            //TODO: открыть главное меню
+        }
+    }
+}
+/*
+ if(checking)
             {
                 //Проверка
                 standardActions.Add(new ActionStation(ModulesEnum.Check_N502B, 1, false)); //Готово
@@ -206,53 +267,4 @@ namespace R440O.TestModule
             standardActions.Add(new ActionStation(ModulesEnum.BMB_SmallLoop));
 
             //Проверка АПН
-            standardActions.Add(new ActionStation(ModulesEnum.A403));
-
-        }
-
-        public static void StartTest()
-        {
-            CreateStandard();
-            LoadStandard();
-            isCheck = checking;
-            ParametersConfig.IsTesting = true;
-            testResult = new TestResult();
-            stopwatch = new Stopwatch();
-            stopwatch.Start();
-            timer = EasyTimer.SetInterval(SetTimer, 60000);
-#if DEBUG
-            testHelper.Show();
-#endif
-        }
-
-        private static void SetTimer()
-        {
-            timeInMinutes++;
-            if (timeInMinutes >= 18 && timeInMinutes < 20) //решил тест за 19 минут - оценка 4
-            {
-                //уменьшаем оценку на балл
-                testResult.MinusPoint();
-            }
-            if(timeInMinutes >= 20)
-            {
-                //уменьшаем оценку на балл
-                testResult.MinusPoint();
-                FinishTest();
-            }
-        }
-        private static void FinishTest()
-        {
-            ParametersConfig.IsTesting = false;
-            stopwatch.Stop();
-            timer.Dispose();
-            testResult.testingTime = new DateTime().AddMilliseconds(stopwatch.ElapsedMilliseconds);
-
-            //TODO: сформровать результаты и отправить на сервер
-            TestResultForm tr = new TestResultForm(testResult);
-            tr.ShowDialog();
-            //Закрыть окно станции
-            close?.Invoke();
-            //TODO: открыть главное меню
-        }
-    }
-}
+            standardActions.Add(new ActionStation(ModulesEnum.A403));*/

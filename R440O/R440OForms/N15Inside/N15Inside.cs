@@ -24,11 +24,6 @@
             N15InsideParameters.getInstance().ParameterChanged += RefreshFormElements;
             RefreshFormElements();
 
-            if (ParametersConfig.IsTesting)
-            {
-                N15InsideParameters.getInstance().Action += TestMain.Action;
-            }
-
             LearnMain.form = this;
             switch (LearnMain.getIntent())
             {

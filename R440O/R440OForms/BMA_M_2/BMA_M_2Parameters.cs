@@ -21,13 +21,7 @@ namespace R440O.R440OForms.BMA_M_2
                 instance = new BMA_M_2Parameters();
             return instance;
         }
-        public delegate void TestModuleHandler(JsonAdapter.ActionStation action);
-        public event TestModuleHandler Action;
-        private void OnAction(string name, int value)
-        {
-            var action = new JsonAdapter.ActionStation(name, value);
-            Action?.Invoke(action);
-        }
+
         /// <summary>
         /// В принципе это не "включен", а состояние при котором он может быть включен нажатием кнопок, т.е. питание подается
         /// а "Питание" это как раз "включен"

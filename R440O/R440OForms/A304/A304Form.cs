@@ -21,10 +21,6 @@
             this.InitializeComponent();
             A304Parameters.getInstance().ParameterChanged += RefreshFormElements;
 
-            if (ParametersConfig.IsTesting)
-            {
-                A304Parameters.getInstance().Action += TestMain.Action;
-            }
             //switch (TestMain.getIntent())
             //{
             //    case LearnModule.ModulesEnum.A304_open:

@@ -16,13 +16,7 @@ namespace R440O.R440OForms.NKN_2
                 instance = new NKN_2Parameters();
             return instance;
         }
-        public delegate void TestModuleHandler(JsonAdapter.ActionStation action);
-        public event TestModuleHandler Action;
-        private void OnAction(string name, int value)
-        {
-            var action = new JsonAdapter.ActionStation(name, value);
-            Action?.Invoke(action);
-        }
+
         public bool НеполноеВключение //без н15, горит МУ и все
         {
             get { return N502BParameters.getInstance().ВыпрямительВключен && N502BParameters.getInstance().ЭлектрообуродованиеВключено; }

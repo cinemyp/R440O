@@ -32,12 +32,6 @@ namespace R440O.R440OForms.N15
             this.InitializeComponent();
             N15Parameters.getInstance().ParameterChanged += RefreshFormElements;
 
-            if (ParametersConfig.IsTesting)
-            {
-                N15Parameters.getInstance().Action += TestMain.Action;
-                N15LocalParameters.getInstance().Action += TestMain.Action;
-            }
-
             N15Parameters.getInstance().IndicatorChanged += RefreshIndicator;
 
             RefreshFormElements();

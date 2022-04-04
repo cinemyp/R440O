@@ -20,13 +20,7 @@ namespace R440O.R440OForms.C300M_3
                 instance = new C300M_3Parameters();
             return instance;
         }
-        public delegate void TestModuleHandler(JsonAdapter.ActionStation action);
-        public event TestModuleHandler Action;
-        private void OnAction(string name, int value)
-        {
-            var action = new JsonAdapter.ActionStation(name, value);
-            Action?.Invoke(action);
-        }
+        
         #region Private
 
         private bool _сигналПойман = false;

@@ -16,13 +16,7 @@ namespace R440O.R440OForms.TLF_TCH
                 instance = new TLF_TCHParametrs();
             return instance;
         }
-        public delegate void TestModuleHandler(JsonAdapter.ActionStation action);
-        public event TestModuleHandler Action;
-        private void OnAction(string name, int value)
-        {
-            var action = new JsonAdapter.ActionStation(name, value);
-            Action?.Invoke(action);
-        }
+
         public List<int> НомераСоединений = new List<int>();
 
         public bool БМА1ПередачаКаналТЧ

@@ -11,13 +11,6 @@ namespace R440O.R440OForms.A403_3
                 instance = new A403_3Parameters();
             return instance;
         }
-        public delegate void TestModuleHandler(JsonAdapter.ActionStation action);
-        public event TestModuleHandler Action;
-        private void OnAction(string name, int value)
-        {
-            var action = new JsonAdapter.ActionStation(name, value);
-            Action?.Invoke(action);
-        }
 
         private bool _тумблерКомплект;
 
