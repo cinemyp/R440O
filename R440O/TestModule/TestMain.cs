@@ -30,7 +30,7 @@ namespace R440O.TestModule
         private static bool isCheck = true;
         public static bool IsCheck { get { return isCheck; } }
 
-        private static bool checking = true;
+        private static bool checking = false;
         
         public delegate void ClosingForms();
         public static event ClosingForms close;
@@ -203,6 +203,7 @@ namespace R440O.TestModule
         {
             CreateStandard();
             LoadStandard();
+            isCheck = checking;
             ParametersConfig.IsTesting = true;
             testResult = new TestResult();
             stopwatch = new Stopwatch();

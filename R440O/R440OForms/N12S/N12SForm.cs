@@ -161,10 +161,15 @@ namespace R440O.R440OForms.N12S
         {
             if (ParametersConfig.IsTesting)
             {
-                var blockParams = N12SParameters.getInstance();
-                bool def = blockParams.ТумблерСеть;
+                switch (TestMain.getIntent())
+                {
+                    case LearnModule.ModulesEnum.Check_N12S:
+                        var blockParams = N12SParameters.getInstance();
+                        bool def = blockParams.ТумблерСеть;
 
-                TestMain.Action(new JsonAdapter.ActionStation() { Module = LearnModule.ModulesEnum.Check_N12S, Value = Convert.ToInt32(def) });
+                        TestMain.Action(new JsonAdapter.ActionStation() { Module = LearnModule.ModulesEnum.Check_N12S, Value = Convert.ToInt32(def) });
+                        break;
+                }
             }
             N12SParameters.getInstance().ParameterChanged -= RefreshFormElements;
         }

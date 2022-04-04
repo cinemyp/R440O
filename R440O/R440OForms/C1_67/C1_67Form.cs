@@ -427,23 +427,24 @@ namespace R440O.R440OForms.C1_67
             if (ParametersConfig.IsTesting)
             {
                 var blockParams = C1_67Parameters.getInstance();
-
-                if(TestMain.IsCheck)
+                bool def;
+                switch (TestMain.getIntent())
                 {
-                    bool def = !blockParams.C1_67ТумблерСеть &&
+                    case ModulesEnum.Check_C1_67:
+                        def = !blockParams.C1_67ТумблерСеть &&
                     blockParams.C1_67ТумблерX1X02 == "X1" &&
                     blockParams.C1_67ПереключательУсилительУ == 1 &&
                     blockParams.C1_67ПереключательУсиление == 11 &&
                     blockParams.C1_67ПереключательДлительность == 7 &&
                     blockParams.C1_67ПереключательСинхронизация1 == 1;
 
-                    TestMain.Action(new JsonAdapter.ActionStation() { Module = LearnModule.ModulesEnum.Check_C1_67, Value = Convert.ToInt32(def) });
-                }
-                else
-                {
-                    bool def = blockParams.C1_67ТумблерСеть;
+                        TestMain.Action(new JsonAdapter.ActionStation() { Module = LearnModule.ModulesEnum.Check_C1_67, Value = Convert.ToInt32(def) });
+                        break;
+                    case ModulesEnum.C1_67_Power:
+                        def = blockParams.C1_67ТумблерСеть;
 
-                    TestMain.Action(new JsonAdapter.ActionStation() { Module = LearnModule.ModulesEnum.C1_67_Power, Value = Convert.ToInt32(def) });
+                        TestMain.Action(new JsonAdapter.ActionStation() { Module = LearnModule.ModulesEnum.C1_67_Power, Value = Convert.ToInt32(def) });
+                        break;
                 }
             }
         }
