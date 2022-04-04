@@ -189,7 +189,7 @@ namespace R440O.R440OForms.C300M_4
             var angle1 = C300M_4Parameters.getInstance().ИндикаторСигнал * 1.15F;
             ИндикаторСигнала.BackgroundImage =
                 TransformImageHelper.RotateImageByAngle(ControlElementImages.arrow2, angle1);
-
+            var block = C300M_4Parameters.getInstance();
             // Установка переключателей в положение последней их установки
             foreach (Control item in Panel.Controls)
             {
@@ -200,7 +200,7 @@ namespace R440O.R440OForms.C300M_4
                     {
                         if (item.Name == property.Name)
                         {
-                            var angle = System.Convert.ToInt32(property.GetValue(null)) * 30 - 135;
+                            var angle = System.Convert.ToInt32(property.GetValue(block)) * 30 - 135;
                             item.BackgroundImage = TransformImageHelper.RotateImageByAngle(ControlElementImages.toggleType3, angle);
                             break;
                         }

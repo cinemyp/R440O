@@ -87,7 +87,10 @@ namespace R440O.TestModule
         {
             step += 1;
             if (step >= standardActions.Count)
+            {
+                FinishTest();
                 return;
+            }
             previousAction = expectedAction;
             expectedAction = standardActions[step];
 
@@ -176,27 +179,32 @@ namespace R440O.TestModule
             //Проверка напряжения
             //Подключение кабеля на стабилизаторе
             standardActions.Add(new ActionStation(ModulesEnum.PowerCabelConnect, R440OForms.PowerCabel.PowerCabelParameters.getInstance().Напряжение));
-            standardActions.Add(new ActionStation(ModulesEnum.N502Power, 1));
+            standardActions.Add(new ActionStation(ModulesEnum.N502Power));
 
             //Н15
-            standardActions.Add(new ActionStation(ModulesEnum.N15Power, 1));
+            standardActions.Add(new ActionStation(ModulesEnum.N15Power));
 
             //БМБ
-            standardActions.Add(new ActionStation(ModulesEnum.BMB_Power, 1));
+            standardActions.Add(new ActionStation(ModulesEnum.BMB_Power));
             //C1_67
-            standardActions.Add(new ActionStation(ModulesEnum.C1_67_Power, 1));
+            standardActions.Add(new ActionStation(ModulesEnum.C1_67_Power));
             //Я2М-67
-            standardActions.Add(new ActionStation(ModulesEnum.Wattmeter_Power, 1));
+            standardActions.Add(new ActionStation(ModulesEnum.Wattmeter_Power));
 
 
 
             //Проверка по малому шлейфу
-            standardActions.Add(new ActionStation(ModulesEnum.N15SmallLoop, 1));
-            standardActions.Add(new ActionStation(ModulesEnum.A205_Power, 1));
-            standardActions.Add(new ActionStation(ModulesEnum.A304_Power, 1));
-            standardActions.Add(new ActionStation(ModulesEnum.A306_Power, 1));
-            standardActions.Add(new ActionStation(ModulesEnum.N15SmallLoopInside, 1));
-            standardActions.Add(new ActionStation(ModulesEnum.C300_m1_Power, 1));
+            standardActions.Add(new ActionStation(ModulesEnum.N15SmallLoop));
+            standardActions.Add(new ActionStation(ModulesEnum.A205_Power));
+            standardActions.Add(new ActionStation(ModulesEnum.A304_Power));
+            standardActions.Add(new ActionStation(ModulesEnum.A306_Power));
+            standardActions.Add(new ActionStation(ModulesEnum.N15SmallLoopInside));
+            standardActions.Add(new ActionStation(ModulesEnum.SmallLoopCheck));
+            standardActions.Add(new ActionStation(ModulesEnum.BMA_Recurs));
+
+            //Проверка БМБ по малому кольцу
+            standardActions.Add(new ActionStation(ModulesEnum.BMB_SmallLoop));
+
         }
 
         public static void StartTest()
@@ -243,14 +251,5 @@ namespace R440O.TestModule
             close?.Invoke();
             //TODO: открыть главное меню
         }
-        
-        public static void CheckTest()
-        {
-            if(R440OForms.C300M_1.C300M_1Parameters.getInstance().СигналПойман)
-            {
-                FinishTest();
-            }
-        }
-
     }
 }

@@ -75,6 +75,9 @@ namespace R440O.LearnModule
         Check_BMA,
         Check_C1_67,
         Check_Wattmeter,
-        Check_End
+        Check_End,
+        SmallLoopCheck,
+        BMA_Recurs,
+        BMB_SmallLoop
     }
 }

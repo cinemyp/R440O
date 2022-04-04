@@ -31,7 +31,6 @@ namespace R440O.R440OForms.BMA_M_1
             InitializeComponent();
             BMA_M_1Parameters.getInstance().ParameterChanged += RefreshFormElements;
             RefreshFormElements();
-
         }
 
         #region Переключатели
@@ -413,17 +412,25 @@ namespace R440O.R440OForms.BMA_M_1
 
         private void BMA_M_1Form_FormClosed(object sender, FormClosedEventArgs e)
         {
-            if (ParametersConfig.IsTesting)
+            var blockParams = BMA_M_1Parameters.getInstance();
+            bool def;
+            switch (TestMain.getIntent())
             {
-                var blockParams = BMA_M_1Parameters.getInstance();
-                bool def = (blockParams.ПереключательКонтроль == 1 || 
-                    blockParams.ПереключательКонтроль == 6) &&
-                    (blockParams.ПереключательРежимРаботы == 1 || 
-                    blockParams.ПереключательРежимРаботы == 2) &&
-                    blockParams.КнопкаШлейфТЧ == 0 && 
-                    blockParams.КнопкаШлейфДК == 0;
+                case LearnModule.ModulesEnum.Check_BMA:
+                    def = (blockParams.ПереключательКонтроль == 1 ||
+                        blockParams.ПереключательКонтроль == 6) &&
+                        (blockParams.ПереключательРежимРаботы == 1 ||
+                        blockParams.ПереключательРежимРаботы == 2) &&
+                        blockParams.КнопкаШлейфТЧ == 0 &&
+                        blockParams.КнопкаШлейфДК == 0;
 
-                TestMain.Action(new JsonAdapter.ActionStation() { Module = LearnModule.ModulesEnum.Check_BMA, Value = Convert.ToInt32(def) });
+                    TestMain.Action(new JsonAdapter.ActionStation() { Module = LearnModule.ModulesEnum.Check_BMA, Value = Convert.ToInt32(def) });
+                    break;
+                case LearnModule.ModulesEnum.BMA_Recurs:
+                    def = blockParams.RecursCorrect;
+                    TestMain.Action(new JsonAdapter.ActionStation() { Module = LearnModule.ModulesEnum.BMA_Recurs, Value = Convert.ToInt32(def) });
+
+                    break;
             }
         }
     }

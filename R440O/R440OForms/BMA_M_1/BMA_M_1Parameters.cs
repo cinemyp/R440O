@@ -15,19 +15,45 @@ namespace R440O.R440OForms.BMA_M_1
     public class BMA_M_1Parameters
     {
         private static BMA_M_1Parameters instance;
+        /// <summary>
+        /// Массив проверки реккурент, строки - режим реккуренты, столбцы - режим контроля
+        /// </summary>
+        private static bool[,] recursChecked = new bool[4, 6];
+        public bool RecursCorrect
+        {
+            get {
+                bool result = true;
+                for (int i = 0; i < 4; i++)
+                {
+                    for (int j = 0; j < 6; j++)
+                    {
+                        if(!recursChecked[i, j])
+                        {
+                            result = false;
+                            break;
+                        }
+                    }
+                    if (!result) break;
+                }
+                return result; 
+            }
+        }
         public static BMA_M_1Parameters getInstance()
         {
             if (instance == null)
                 instance = new BMA_M_1Parameters();
             return instance;
         }
-        public delegate void TestModuleHandler(JsonAdapter.ActionStation action);
-        public event TestModuleHandler Action;
-        private void OnAction(string name, int value)
+        
+        private BMA_M_1Parameters()
         {
-            var action = new JsonAdapter.ActionStation(name, value);
-            Action?.Invoke(action);
+            for (int i = 0; i < 4; i++)
+            {
+                recursChecked[i, 0] = true;
+                recursChecked[i, 5] = true;
+            }
         }
+
         /// <summary>
         /// В принципе это не "включен", а состояние при котором он может быть включен нажатием кнопок, т.е. питание подается
         /// а "Питание" это как раз "включен"
@@ -76,6 +102,7 @@ namespace R440O.R440OForms.BMA_M_1
             timer_ЛампочкаКонтрольНенорм = EasyTimer.SetTimeout(() =>
             {
                 _лампочкаКонтрольНенорм = false;
+                recursChecked[ПереключательРекуррента - 1, ПереключательКонтроль - 1] = _лампочкаКонтрольНорм;
                 OnParameterChanged();
             }, 4000);
         }

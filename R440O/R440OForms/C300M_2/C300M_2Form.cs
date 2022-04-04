@@ -196,11 +196,12 @@ namespace R440O.R440OForms.C300M_2
                 if (item.Name.Contains("Переключатель"))
                 {
                     PropertyInfo[] fieldList = typeof(C300M_2Parameters).GetProperties();
+                    var block = C300M_2Parameters.getInstance();
                     foreach (PropertyInfo property in fieldList)
                     {
                         if (item.Name == property.Name)
                         {
-                            var angle = System.Convert.ToInt32(property.GetValue(null)) * 30 - 135;
+                            var angle = System.Convert.ToInt32(property.GetValue(block)) * 30 - 135;
                             item.BackgroundImage = TransformImageHelper.RotateImageByAngle(ControlElementImages.toggleType3, angle);
                             break;
                         }

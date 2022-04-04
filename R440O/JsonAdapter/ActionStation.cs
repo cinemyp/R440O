@@ -29,7 +29,7 @@ namespace R440O.JsonAdapter
             IsUserAction = isUserAction;
         }
 
-        public ActionStation(ModulesEnum module, int value, bool isUserAction = true)
+        public ActionStation(ModulesEnum module, int value = 1, bool isUserAction = true)
         {
             Value = value;
             Module = module;

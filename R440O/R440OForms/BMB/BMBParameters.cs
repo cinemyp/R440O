@@ -23,6 +23,15 @@ namespace R440O.R440OForms.BMB
                 instance = new BMBParameters();
             return instance;
         }
+        private bool commandTranslateCorrect = false;
+        public bool CommandTranslateCorrect 
+        { 
+            get 
+            {
+                return commandTranslateCorrect;
+            } 
+        }
+
         #region ПереключательРаботаКонтроль
 
         public int ПереключательРаботаКонтроль
@@ -502,6 +511,7 @@ namespace R440O.R440OForms.BMB
                         !string.IsNullOrEmpty(ВходнойСигнал.InformationString))
                     {
                         ПереданнаяКоманда = ВходнойСигнал.InformationString;
+                        commandTranslateCorrect = ПереданнаяКоманда == НаборКоманды;
                     }
                     return ПереданнаяКоманда;
                 }
