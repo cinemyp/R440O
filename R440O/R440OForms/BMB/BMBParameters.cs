@@ -469,12 +469,17 @@ namespace R440O.R440OForms.BMB
             if (ПереключательРаботаКонтроль == 2 && БМАПодключенВерно)
             {
                 if (Команда[1] != -1)
+                {
                     ПереданнаяКоманда = НаборКоманды;
+                    commandTranslateCorrect = true;
+                }
             }
             else
             {
                 if (ВходнойСигнал != null && (!ЛампочкаДк) && Команда[1] != -1)
+                {
                     ПереданнаяКоманда = НаборКоманды;
+                }
             }
             произвестиПередачу();
         }
@@ -511,7 +516,6 @@ namespace R440O.R440OForms.BMB
                         !string.IsNullOrEmpty(ВходнойСигнал.InformationString))
                     {
                         ПереданнаяКоманда = ВходнойСигнал.InformationString;
-                        commandTranslateCorrect = ПереданнаяКоманда == НаборКоманды;
                     }
                     return ПереданнаяКоманда;
                 }

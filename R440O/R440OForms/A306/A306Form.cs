@@ -348,7 +348,7 @@ namespace R440O.R440OForms.A306
                         blockParams.Выходы[12] == 1 &&
                         blockParams.Выходы[13] == 2 &&
                         blockParams.Выходы[14] == 3 &&
-                        blockParams.Выходы[0] == 4;
+                        blockParams.Выходы[1] == 4;
 
                     TestMain.Action(new JsonAdapter.ActionStation() { Module = LearnModule.ModulesEnum.A306_Power, Value = Convert.ToInt32(def) });
                     break;

@@ -84,7 +84,7 @@
                 case ModulesEnum.PowerCabelConnect:
                     var blockParams = PowerCabelParameters.getInstance();
 
-                    TestMain.Action(new JsonAdapter.ActionStation() { Module = LearnModule.ModulesEnum.PowerCabelConnect, Value = blockParams.Напряжение });
+                    TestMain.Action(new JsonAdapter.ActionStation() { Module = LearnModule.ModulesEnum.PowerCabelConnect, Value = blockParams.Напряжение > 0 ? 1 : 0 });
                     break;
             }
         }

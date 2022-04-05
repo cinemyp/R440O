@@ -39,6 +39,9 @@ namespace R440O.JsonAdapter
         {
             string str = File.ReadAllText(normativPath);
             var obj = Newtonsoft.Json.JsonConvert.DeserializeObject<List<ActionStation>>(str);
+            
+            obj.ForEach((action) => { Enum.TryParse(action.Title, out action.Module); });
+
             return obj;
         }
         private static void SerializeState(object data)

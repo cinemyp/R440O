@@ -11,7 +11,8 @@ namespace R440O.JsonAdapter
     {
         public int Value { get; set; }
         public bool IsUserAction { get; set; }
-        public ModulesEnum Module { get; set; }
+        [NonSerialized]
+        public ModulesEnum Module;
         public string Title { get; set; }
 
         public ActionStation() { }

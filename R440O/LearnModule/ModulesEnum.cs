@@ -79,6 +79,7 @@ namespace R440O.LearnModule
         SmallLoopCheck,
         BMA_Recurs,
         BMB_SmallLoop,
-        A403
+        A403,
+        Kontur
     }
 }

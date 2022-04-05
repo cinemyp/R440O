@@ -15,6 +15,14 @@ namespace R440O.R440OForms.Kontur_P3.Параметры
                 instance = new Kontur_P3Parameters();
             return instance;
         }
+        private bool blockChecked = false;
+        public bool BlockChecked
+        {
+            get
+            {
+                return blockChecked;
+            }
+        }
         public void ResetToDefaultsWhenTurnOnOff()
         {
             _ТаблоГруппа = ЛампочкаСеть ? "0" : "";

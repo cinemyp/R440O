@@ -407,7 +407,7 @@
                         def = blockParams.ПереключательСеть &&
                     blockParams.ПереключательФазировка == blockParams.Фазировка &&
                     blockParams.ПереключательТокНагрузкиИЗаряда == 1 &&
-                    blockParams.ПереключательНапряжение < 4 &&
+                    blockParams.ПереключательНапряжение > 4 &&
                     blockParams.ПереключательКонтрольНапряжения == 1 &&
                     blockParams.ЭлектрообуродованиеВключено &&
                     blockParams.ВыпрямительВключен &&
@@ -415,7 +415,7 @@
                     blockParams.ТумблерН13_2 &&
                     blockParams.ТумблерН15;
 
-                        TestMain.Action(new JsonAdapter.ActionStation() { Module = LearnModule.ModulesEnum.N502Power, Value = Convert.ToInt32(def) });
+                        if(blockParams.ПереключательСеть) TestMain.Action(new JsonAdapter.ActionStation() { Module = LearnModule.ModulesEnum.N502Power, Value = Convert.ToInt32(def) });
                         break;
                 }
             }

@@ -828,13 +828,26 @@ namespace R440O.R440OForms.Kontur_P3
 
         private void Kontur_P3Form_FormClosed(object sender, FormClosedEventArgs e)
         {
+
+            var blockParams = Kontur_P3Parameters.getInstance();
+            bool def;
             if (ParametersConfig.IsTesting)
             {
-                var blockParams = Kontur_P3Parameters.getInstance();
-                bool def = blockParams.ТумблерСеть == EТумблерСеть.ВКЛ &&
-                    blockParams.ПереключательКонтроль == EПереключательКонтроль.СЕТЬ;
+                
+            }
+            switch(TestMain.getIntent())
+            {
+                case LearnModule.ModulesEnum.Check_KONTUR:
+                    def = blockParams.ТумблерСеть == EТумблерСеть.ВКЛ &&
+                        blockParams.ПереключательКонтроль == EПереключательКонтроль.СЕТЬ;
 
-                TestMain.Action(new JsonAdapter.ActionStation() { Module = LearnModule.ModulesEnum.Check_KONTUR, Value = Convert.ToInt32(def) });
+                    TestMain.Action(new JsonAdapter.ActionStation() { Module = LearnModule.ModulesEnum.Check_KONTUR, Value = Convert.ToInt32(def) });
+                    break;
+                case LearnModule.ModulesEnum.Kontur:
+                    def = blockParams.BlockChecked;
+
+                    TestMain.Action(new JsonAdapter.ActionStation() { Module = LearnModule.ModulesEnum.Kontur, Value = Convert.ToInt32(def) });
+                    break;
             }
         }
     }
