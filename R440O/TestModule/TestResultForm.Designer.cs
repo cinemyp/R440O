@@ -49,11 +49,11 @@
             // 
             this.ResultText.AutoSize = true;
             this.ResultText.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.ResultText.Location = new System.Drawing.Point(283, 23);
+            this.ResultText.Location = new System.Drawing.Point(311, 23);
             this.ResultText.Name = "ResultText";
-            this.ResultText.Size = new System.Drawing.Size(93, 25);
+            this.ResultText.Size = new System.Drawing.Size(94, 25);
             this.ResultText.TabIndex = 1;
-            this.ResultText.Text = "отлично";
+            this.ResultText.Text = "неудовл";
             // 
             // label2
             // 
@@ -69,7 +69,7 @@
             // 
             this.TimeResultText.AutoSize = true;
             this.TimeResultText.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.TimeResultText.Location = new System.Drawing.Point(293, 86);
+            this.TimeResultText.Location = new System.Drawing.Point(340, 90);
             this.TimeResultText.Name = "TimeResultText";
             this.TimeResultText.Size = new System.Drawing.Size(66, 25);
             this.TimeResultText.TabIndex = 3;

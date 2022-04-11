@@ -92,7 +92,6 @@
             this.R440OButtonPU_K1_2 = new System.Windows.Forms.Button();
             this.R440OPanel = new System.Windows.Forms.Panel();
             this.R440OButtonOrderScheme = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
             this.R440OPanel.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -990,7 +989,6 @@
             // 
             this.R440OPanel.BackgroundImage = global::R440O.BackgroundImages.R440O;
             this.R440OPanel.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.R440OPanel.Controls.Add(this.button1);
             this.R440OPanel.Controls.Add(this.R440OButtonK06M_02);
             this.R440OPanel.Controls.Add(this.R440OButtonK05M_02);
             this.R440OPanel.Controls.Add(this.R440OButtonK04M_02);
@@ -1071,16 +1069,6 @@
             this.R440OButtonOrderScheme.TabIndex = 58;
             this.R440OButtonOrderScheme.UseVisualStyleBackColor = false;
             this.R440OButtonOrderScheme.Click += new System.EventHandler(this.R440OButtonCommon_Click);
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(917, 6);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 68;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // R440OForm
             // 
@@ -1165,7 +1153,6 @@
         public System.Windows.Forms.Button R440OButtonK01M_02;
         public System.Windows.Forms.Button R440OButtonPU_K1_2;
         public System.Windows.Forms.Button R440OButtonN15;
-        private System.Windows.Forms.Button button1;
     }
 }
 

@@ -31,7 +31,7 @@ namespace R440O.TestModule
         /// Флаг первоначальной проверки
         /// Можно отключать для проверки
         /// </summary>
-        private static bool checking = false;
+        private static bool checking = true;
         
         public delegate void ClosingForms();
         public static event ClosingForms close;
@@ -127,6 +127,7 @@ namespace R440O.TestModule
 
         private static void LoadStandard()
         {
+            standardActions = StationAdapterJson.GetNormativ();
             expectedAction = standardActions[0];
             if (!checking)
             {
@@ -153,103 +154,25 @@ namespace R440O.TestModule
 
             setIntent(expectedAction.Module);
         }
-
         private static void CreateStandard()
         {
-            standardActions = StationAdapterJson.GetNormativ();
-        //    standardActions = new List<ActionStation>();
-
-        //    standardActions.Add(new ActionStation(ModulesEnum.Check_N502B, 1, false)); //Готово
-        //    standardActions.Add(new ActionStation(ModulesEnum.Check_N15, 1, false));
-        //    standardActions.Add(new ActionStation(ModulesEnum.Check_P220, 1, false));
-        //    standardActions.Add(new ActionStation(ModulesEnum.Check_N12S, 1, false));
-        //    standardActions.Add(new ActionStation(ModulesEnum.Check_A403, 1, false));
-        //    standardActions.Add(new ActionStation(ModulesEnum.Check_A205, 1, false));
-        //    standardActions.Add(new ActionStation(ModulesEnum.Check_N13_1, 1, false));
-        //    standardActions.Add(new ActionStation(ModulesEnum.Check_N13_2, 1, false));
-        //    standardActions.Add(new ActionStation(ModulesEnum.Check_N16, 1, false));
-        //    standardActions.Add(new ActionStation(ModulesEnum.Check_A304, 1, false));
-        //    standardActions.Add(new ActionStation(ModulesEnum.Check_A306, 1, false));
-        //    standardActions.Add(new ActionStation(ModulesEnum.Check_C300M, 1, false));
-
-        //    standardActions.Add(new ActionStation(ModulesEnum.Check_A1, 1, false));
-        //    standardActions.Add(new ActionStation(ModulesEnum.Check_B1_1, 1, false));
-        //    standardActions.Add(new ActionStation(ModulesEnum.Check_B1_2, 1, false));
-        //    standardActions.Add(new ActionStation(ModulesEnum.Check_B2_1, 1, false));
-        //    standardActions.Add(new ActionStation(ModulesEnum.Check_B2_2, 1, false));
-        //    standardActions.Add(new ActionStation(ModulesEnum.Check_B3_1, 1, false));
-        //    standardActions.Add(new ActionStation(ModulesEnum.Check_B3_2, 1, false));
-
-        //    standardActions.Add(new ActionStation(ModulesEnum.Check_DAB5, 1, false));
-        //    standardActions.Add(new ActionStation(ModulesEnum.Check_RUBIN, 1, false));
-        //    standardActions.Add(new ActionStation(ModulesEnum.Check_KONTUR, 1, false));
-
-        //    standardActions.Add(new ActionStation(ModulesEnum.Check_PU_K1_1, 1, false));
-        //    standardActions.Add(new ActionStation(ModulesEnum.Check_K03M_01_1, 1, false));
-        //    standardActions.Add(new ActionStation(ModulesEnum.Check_K05M_01, 1, false));
-        //    standardActions.Add(new ActionStation(ModulesEnum.Check_K03M_01_2, 1, false));
-
-        //    standardActions.Add(new ActionStation(ModulesEnum.Check_BMB, 1, false));
-        //    standardActions.Add(new ActionStation(ModulesEnum.Check_BMA, 1, false));
-        //    standardActions.Add(new ActionStation(ModulesEnum.Check_C1_67, 1, false));
-        //    standardActions.Add(new ActionStation(ModulesEnum.Check_Wattmeter, 1, false));
-
-        //    standardActions.Add(new ActionStation(ModulesEnum.Check_End, 1, false));
-        
-
-
-
-        ////Включение
-        ////Проверка напряжения
-        ////Подключение кабеля на стабилизаторе
-        //standardActions.Add(new ActionStation(ModulesEnum.PowerCabelConnect, R440OForms.PowerCabel.PowerCabelParameters.getInstance().Напряжение));
-        //    standardActions.Add(new ActionStation(ModulesEnum.N502Power));
-
-        //    //Н15
-        //    standardActions.Add(new ActionStation(ModulesEnum.N15Power));
-
-        //    //БМБ
-        //    standardActions.Add(new ActionStation(ModulesEnum.BMB_Power));
-        //    //C1_67
-        //    standardActions.Add(new ActionStation(ModulesEnum.C1_67_Power));
-        //    //Я2М-67
-        //    standardActions.Add(new ActionStation(ModulesEnum.Wattmeter_Power));
-
-
-
-        //    //Проверка по малому шлейфу
-        //    standardActions.Add(new ActionStation(ModulesEnum.N15SmallLoop));
-        //    standardActions.Add(new ActionStation(ModulesEnum.A205_Power));
-        //    standardActions.Add(new ActionStation(ModulesEnum.A304_Power));
-        //    standardActions.Add(new ActionStation(ModulesEnum.A306_Power));
-        //    standardActions.Add(new ActionStation(ModulesEnum.N15SmallLoopInside));
-        //    standardActions.Add(new ActionStation(ModulesEnum.SmallLoopCheck));
-        //    standardActions.Add(new ActionStation(ModulesEnum.BMA_Recurs));
-
-        //    //Проверка БМБ по малому кольцу
-        //    standardActions.Add(new ActionStation(ModulesEnum.BMB_SmallLoop));
-
-        //    //Проверка АПН
-        //    standardActions.Add(new ActionStation(ModulesEnum.A403));
-        //    standardActions.Add(new ActionStation(ModulesEnum.Kontur));
-
         //    string stationState = Newtonsoft.Json.JsonConvert.SerializeObject(standardActions);
         //    System.IO.File.WriteAllText("Normativ.json", stationState);
         }
 
         public static void StartTest()
         {
-            CreateStandard();
+            //CreateStandard();
+#if DEBUG
+            testHelper.Show();
+            checking = false;
+#endif
             LoadStandard();
             ParametersConfig.IsTesting = true;
             testResult = new TestResult();
             stopwatch = new Stopwatch();
             stopwatch.Start();
             timer = EasyTimer.SetInterval(SetTimer, 60000);
-#if DEBUG
-            testHelper.Show();
-            checking = false;
-#endif
         }
 
         private static void SetTimer()

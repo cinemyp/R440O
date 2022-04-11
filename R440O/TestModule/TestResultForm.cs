@@ -12,10 +12,18 @@ namespace R440O.TestModule
 {
     public partial class TestResultForm : Form
     {
+        private string[] marksText = new string[5] {
+            "неудовл",
+            "неудовл",
+            "удовл",
+            "хор",
+            "отл"
+        };
         public TestResultForm(TestResult tr)
         {
             InitializeComponent();
-            ResultText.Text = tr.result.ToString();
+            int markIndex = (int)tr.result - 1;
+            ResultText.Text = marksText[markIndex];
             TimeResultText.Text = tr.testingTime.ToString("mm:ss");
         }
 

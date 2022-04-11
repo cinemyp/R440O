@@ -20,9 +20,8 @@ namespace R440O.R440OForms.N15
     /// <summary>
     /// Форма блока Н-15
     /// </summary>
-    public partial class N15Form : Form, IRefreshableForm, ITestModule
+    public partial class N15Form : Form, IRefreshableForm
     {
-        public bool IsExactModule { get; set; }
         
         /// <summary>
         /// Инициализирует новый экземпляр класса <see cref="N15Form"/>
@@ -46,23 +45,6 @@ namespace R440O.R440OForms.N15
                     LearnMain.setIntent(LearnModule.ModulesEnum.H15Inside_open_from_H15);
                     break;
             }
-            switch (TestMain.getIntent())
-            {
-                case LearnModule.ModulesEnum.openN15:
-                    TestMain.setIntent(LearnModule.ModulesEnum.N15Power);
-                    IsExactModule = true;
-                    break;
-                case LearnModule.ModulesEnum.openN15SmallLoop:
-                    TestMain.setIntent(LearnModule.ModulesEnum.N15SmallLoop);
-                    IsExactModule = true;
-                    break;
-                case LearnModule.ModulesEnum.H15Inside_open:
-                    TestMain.setIntent(LearnModule.ModulesEnum.H15Inside_open_from_H15);
-                    IsExactModule = true;
-                    break;
-            }
-
-
         }
 
         #region Инициализация элементов управления
