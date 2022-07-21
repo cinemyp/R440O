@@ -165,7 +165,7 @@ namespace R440O.TestModule
             //CreateStandard();
 #if DEBUG
             testHelper.Show();
-            checking = false;
+            checking = true;
 #endif
             LoadStandard();
             ParametersConfig.IsTesting = true;

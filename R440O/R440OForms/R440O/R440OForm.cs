@@ -41,8 +41,6 @@ namespace R440O.R440OForms.R440O
                 LearnMain.setHelpForms(this, textHelper);
                 LearnMain.setIntent(ModulesEnum.openPowerCabeltoPower);
             }
-            else if(ParametersConfig.IsTesting)
-                TestMain.setIntent(ModulesEnum.openPowerCabeltoPower);
         }
 
         private bool serverErrorFlag = false;
@@ -155,11 +153,6 @@ namespace R440O.R440OForms.R440O
             VoltageStabilizer.VoltageStabilizerParameters.getInstance().SetDefaultParameters();
             PowerCabel.PowerCabelParameters.getInstance().SetDefaultParameters();
 
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            StationAdapterJson.StoreStationStateToJson();
         }
     }
 }

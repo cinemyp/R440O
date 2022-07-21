@@ -24,7 +24,7 @@ namespace R440O.JsonAdapter
             IsUserAction = isUserAction;
             Title = module.ToString();
         }
-
+        
         public override bool Equals(object obj)
         {
             if ((obj == null) || !this.GetType().Equals(obj.GetType()))

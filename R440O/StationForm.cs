@@ -22,12 +22,12 @@ namespace R440O
         public StationForm()
         {
             InitializeComponent();
-            /*
+            
             таймерПоискаСервера.Enabled = true;
             таймерПоискаСервера.Interval = 10000;
             таймерПоискаСервера.Tick += tick;
             таймерПоискаСервера.Start();
-            */
+            
         }
 
         public void tick(object sender, EventArgs e)

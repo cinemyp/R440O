@@ -7,6 +7,8 @@
     using BaseClasses;
     using global::R440O.LearnModule;
     using global::R440O.TestModule;
+    using global::R440O.Parameters;
+    using global::R440O.JsonAdapter;
 
     public partial class N502BForm : Form, IRefreshableForm
     {
@@ -42,21 +44,6 @@
                 default:
                     break;
             }
-            
-            //switch (TestMain.getIntent())
-            //{
-            //    case ModulesEnum.openN502BtoCheck:
-            //        TestMain.setIntent(ModulesEnum.N502Check);
-            //        break;
-            //    case ModulesEnum.openN502BtoPower:
-            //        if (VoltageStabilizer.VoltageStabilizerParameters.getInstance().КабельВход > 0)
-            //        {
-            //            TestMain.setIntent(ModulesEnum.N502Power);
-            //        }
-            //        break;
-            //    default:
-            //        break;
-            //}
         }
 
         private void ВыводСообщенияСтанцияСгорела()
@@ -381,7 +368,7 @@
             N502BParameters.getInstance().ParameterChanged -= RefreshFormElements;
             N502BParameters.getInstance().СтанцияСгорела -= ВыводСообщенияСтанцияСгорела;
             N502BParameters.getInstance().НекорректноеДействие -= ВыводСообщенияНекорректноеДействие;
-
+            
             if (ParametersConfig.IsTesting)
             {
                 var blockParams = N502BParameters.getInstance();
@@ -395,13 +382,18 @@
                     blockParams.ПереключательНапряжение == 4 &&
                     blockParams.ПереключательКонтрольНапряжения == 1 &&
                     !blockParams.ЭлектрообуродованиеВключено &&
-                    !blockParams.ВыпрямительВключен &&
+                    !blockParams.ВыпрямительВключен && 
                     !blockParams.ТумблерОсвещение &&
                     !blockParams.ТумблерН13_1 &&
                     !blockParams.ТумблерН13_2 &&
                     !blockParams.ТумблерН15;
 
-                        TestMain.Action(new JsonAdapter.ActionStation() { Module = LearnModule.ModulesEnum.Check_N502B, Value = Convert.ToInt32(def) });
+                        TestMain.Action(
+                            new JsonAdapter.ActionStation()
+                            {
+                                Module = LearnModule.ModulesEnum.Check_N502B,
+                                Value = Convert.ToInt32(def)
+                            });
                         break;
                     case ModulesEnum.N502Power:
                         def = blockParams.ПереключательСеть &&
@@ -415,7 +407,13 @@
                     blockParams.ТумблерН13_2 &&
                     blockParams.ТумблерН15;
 
-                        if(blockParams.ПереключательСеть) TestMain.Action(new JsonAdapter.ActionStation() { Module = LearnModule.ModulesEnum.N502Power, Value = Convert.ToInt32(def) });
+                        if (blockParams.ПереключательСеть)
+                            TestMain.Action(
+                                new ActionStation()
+                                {
+                                    Module = ModulesEnum.N502Power,
+                                    Value = Convert.ToInt32(def)
+                                });
                         break;
                 }
             }

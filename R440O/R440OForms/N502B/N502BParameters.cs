@@ -11,8 +11,9 @@ namespace R440O.R440OForms.N502B
     using N15;
     using global::R440O.BaseClasses;
     using global::R440O.JsonAdapter;
+    using global::R440O.Parameters;
 
-    public class N502BParameters
+    public class N502BParameters : BaseParameters
     {
         private static N502BParameters instance;
 

@@ -92,6 +92,7 @@
     <Compile Include="InternalBlocks\Antenna.cs" />
     <Compile Include="JsonAdapter\ActionStationEnum.cs" />
     <Compile Include="JsonAdapter\ActionStation.cs" />
+    <Compile Include="JsonAdapter\StandardStep.cs" />
     <Compile Include="JsonAdapter\StationAdapterJson.cs" />
     <Compile Include="LearnModule\GlobalIntentEnum.cs" />
     <Compile Include="LearnModule\IntentionEnum.cs" />
@@ -110,6 +111,7 @@
     <Compile Include="LearnModule\TextHelperForm.Designer.cs">
       <DependentUpon>TextHelperForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Parameters\BaseParameters.cs" />
     <Compile Include="PropertyInfoExtensions.cs" />
     <Compile Include="R440OForms\Astra\AstraParameters.cs" />
     <Compile Include="R440OForms\K01M_01\K01M_01Parameters.cs" />
@@ -174,6 +176,7 @@
     </Compile>
     <Compile Include="ThirdParty\EasyTimer.cs" />
     <Compile Include="ThirdParty\HttpHelper.cs" />
+    <Compile Include="ThirdParty\ModuleOpener.cs" />
     <Compile Include="СостоянияЭлементов\ДАБ5.cs" />
     <Compile Include="СостоянияЭлементов\Контур_П.cs" />
     <Compile Include="СостоянияЭлементов\БМА_М.cs" />

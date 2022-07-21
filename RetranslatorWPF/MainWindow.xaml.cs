@@ -27,8 +27,7 @@ namespace RetranslatorWPF
             dispatcherTimer = new DispatcherTimer();
             dispatcherTimer.Tick += new EventHandler(dispatcherTimer_Tick);
             dispatcherTimer.Interval = new TimeSpan(0, 0, 1);
-            dispatcherTimer.Start();        
-
+            dispatcherTimer.Start();
         }
 
         private string getStationString(Station station, OrderSchemeClass orderScheme)

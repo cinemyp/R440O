@@ -42,7 +42,7 @@ namespace RetranslatorWPF
             if (ipAdress==null)
                 throw new Exception("Local IP Address Not Found!");
 
-            httpListener.Prefixes.Add("http://" + ipAdress.ToString() + ":8080/");
+            httpListener.Prefixes.Add("http://" + "localhost" + ":8010/");
             httpListener.Start();
             Task.Run(() => { 
                 Listening(); 

@@ -45,6 +45,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Constants.cs" />
+    <Compile Include="JsonAdapter\ActionStation.cs" />
+    <Compile Include="JsonAdapter\StationAdapterJson.cs" />
+    <Compile Include="ModulesEnum.cs" />
     <Compile Include="OrderScheme\OrderSchemeFactory.cs" />
     <Compile Include="SignalTypes\BroadcastSignal.cs" />
     <Compile Include="SignalTypes\Chanel.cs" />

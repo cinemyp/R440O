@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using R440O.LearnModule;
-using R440O.R440OForms;
+using R440O.ThirdParty;
 
 namespace R440O.JsonAdapter
 {
@@ -15,6 +15,27 @@ namespace R440O.JsonAdapter
     {
         private static string namespacePath = "R440O.R440OForms.";
         private static string normativPath = "Normativ.json";
+        private const string standardPath = "stationState.json";
+        private static List<object> standard = new List<object>();
+
+        public static void StoreStandard()
+        {
+            SerializeState(standard);
+        }
+
+        public static void StoreState(string paramsName)
+        {
+            object module = ModuleOpener.GetModuleInstance(paramsName);
+            if (module == null) return;
+
+            object dataObject = new
+            {
+                moduleName = module.GetType().FullName,
+                moduleState = module
+            };
+            standard.Add(dataObject);
+        }
+
         public static void StoreStationStateToJson()
         {
             var ns = GetModulesNames();
@@ -22,13 +43,13 @@ namespace R440O.JsonAdapter
 
             for(int i = 0; i < ns.Length; i++)
             {
-                object module = GetModuleInstance(ns[i]);
+                object module = ModuleOpener.GetModuleInstance(ns[i]);
                 if (module == null) continue;
 
-                object dataObject = new
+                StandardStep dataObject = new StandardStep
                 {
-                    moduleName = module.GetType().FullName,
-                    moduleState = module
+                    ModuleName = module.GetType().FullName,
+                    ModuleState = module
                 };
 
                 modules[i] = dataObject;
@@ -36,6 +57,7 @@ namespace R440O.JsonAdapter
 
             SerializeState(modules);
         }
+
         public static List<ActionStation> GetNormativ()
         {
             try
@@ -49,23 +71,32 @@ namespace R440O.JsonAdapter
             }
             catch(Exception e)
             {
-                return LoadStandard();
+                return DefaultStandard();
             }
-            
         }
+
+        public static List<StandardStep> GetStandard(string path = standardPath)
+        {
+            try
+            {
+                string str = File.ReadAllText(path);
+                var obj = Newtonsoft.Json.JsonConvert.DeserializeObject<List<StandardStep>>(str);
+                
+                return obj;
+            }
+            catch (Exception e)
+            {
+#if DEBUG
+                System.Windows.Forms.MessageBox.Show("Error. Cannot get standard.\n" + e.Message);
+#endif
+                return null;
+            }
+        }
+
         private static void SerializeState(object data)
         {
             string stationState = Newtonsoft.Json.JsonConvert.SerializeObject(data);
             System.IO.File.WriteAllText("stationState.json", stationState);
-        }
-
-        private static object GetModuleInstance(string moduleName)
-        {
-            Type t = Type.GetType(moduleName);
-            var method = t.GetMethod("getInstance");
-            object instance = method?.Invoke(null, null);
-
-            return instance;
         }
 
         private static string[] GetModulesNames()
@@ -79,7 +110,7 @@ namespace R440O.JsonAdapter
                 .ToArray();
         }
 
-        private static List<ActionStation> LoadStandard()
+        private static List<ActionStation> DefaultStandard()
         {
             var standardActions = new List<ActionStation>();
 
