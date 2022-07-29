@@ -188,7 +188,11 @@ namespace R440O.R440OForms.K03M_01
                     bool def = blockParams.ПереключательЗонаПоиска == 2;
 
                     TestMain.Action(new JsonAdapter.ActionStation() { Module = LearnModule.ModulesEnum.Check_K03M_01_1, Value = Convert.ToInt32(def) });
-                    blockParams.firstCheck = false;
+
+                    if (def)
+                    {
+                        blockParams.firstCheck = false;
+                    }
                 }
                 else
                 {

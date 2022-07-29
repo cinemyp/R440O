@@ -41,7 +41,7 @@ namespace R440O.InternalBlocks
                             Id = OrderSchemeParameters.СхемаПриказ.УникальныйИдентификаторСтанции
                         });
                     }
-                    catch
+                    catch (Exception e)
                     {
                         StopServerPing();
                         ErrorEvent();

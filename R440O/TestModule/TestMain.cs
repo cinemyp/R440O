@@ -119,9 +119,15 @@ namespace R440O.TestModule
             if (ParametersConfig.IsTesting == false)
                 return;
             //TODO: прибавляем не грубую ошибку (студент совершил некорректное действие)
+            
+            softMistakes++;
+#if DEBUG
+
+#else
             if (testResult.MinusPoint() == true) //true - провалил, завершаем тест, иначе продолжаем
                 FinishTest();
-            softMistakes++;
+#endif
+
         }
         #endregion
 
@@ -187,6 +193,7 @@ namespace R440O.TestModule
             {
                 //уменьшаем оценку на балл
                 testResult.MinusPoint();
+
                 FinishTest();
             }
         }

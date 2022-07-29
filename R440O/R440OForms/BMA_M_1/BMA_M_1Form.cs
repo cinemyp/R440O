@@ -419,7 +419,7 @@ namespace R440O.R440OForms.BMA_M_1
                 case LearnModule.ModulesEnum.Check_BMA:
                     def = (blockParams.ПереключательКонтроль == 1 ||
                         blockParams.ПереключательКонтроль == 6) &&
-                        (blockParams.ПереключательРежимРаботы == 1 ||
+                        (blockParams.ПереключательРежимРаботы == 3 ||
                         blockParams.ПереключательРежимРаботы == 2) &&
                         blockParams.КнопкаШлейфТЧ == 0 &&
                         blockParams.КнопкаШлейфДК == 0;

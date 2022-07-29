@@ -211,7 +211,8 @@
                     TestMain.Action(new JsonAdapter.ActionStation() { Module = LearnModule.ModulesEnum.Check_A304, Value = Convert.ToInt32(def) });
                     break;
                 case LearnModule.ModulesEnum.A304_Power:
-                    def = blockParams.ПереключательВыборСтвола == 5;
+                    def = blockParams.ПереключательВыборСтвола == OrderScheme.OrderSchemeParameters.СхемаПриказ.ПередачаПроверкаНаСебяУсловныйНомерСтволаА5031;
+                    
                     TestMain.Action(new JsonAdapter.ActionStation() { Module = LearnModule.ModulesEnum.A304_Power, Value = Convert.ToInt32(def) });
                     break;
             }

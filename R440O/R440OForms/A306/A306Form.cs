@@ -344,11 +344,12 @@ namespace R440O.R440OForms.A306
                     TestMain.Action(new JsonAdapter.ActionStation() { Module = LearnModule.ModulesEnum.Check_A306, Value = Convert.ToInt32(def) });
                     break;
                 case ModulesEnum.A306_Power:
+                    var index = OrderScheme.OrderSchemeParameters.СхемаПриказ.ПередачаПроверкаНаСебяУсловныйНомерСтволаА5031 - 1;
                     def = blockParams.Выходы[11] == 0 &&
                         blockParams.Выходы[12] == 1 &&
                         blockParams.Выходы[13] == 2 &&
                         blockParams.Выходы[14] == 3 &&
-                        blockParams.Выходы[1] == 4;
+                        blockParams.Выходы[index] == 4;
 
                     TestMain.Action(new JsonAdapter.ActionStation() { Module = LearnModule.ModulesEnum.A306_Power, Value = Convert.ToInt32(def) });
                     break;

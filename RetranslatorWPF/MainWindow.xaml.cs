@@ -66,12 +66,18 @@ namespace RetranslatorWPF
             {
                 return content + "Сигнала нет";
             }
-            for(var i = 0; i < station.Signal.Elements[0].Chanels.Count; i++)
-            {
 
-                content += "Канал " + i+ ": " + station.Signal.InformationStringOfChanel(i);
-                content += "\n";
+            var elems = station.Signal.Elements;
+            if(elems.Count > 0)
+            {
+                for (var i = 0; i < station.Signal.Elements[0].Chanels.Count; i++)
+                {
+
+                    content += "Канал " + i + ": " + station.Signal.InformationStringOfChanel(i);
+                    content += "\n";
+                }
             }
+            
             return content;
         }
 
