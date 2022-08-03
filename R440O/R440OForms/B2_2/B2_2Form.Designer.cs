@@ -672,6 +672,7 @@
             this.Name = "B2_2Form";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Б2-2";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.B2_2Form_FormClosed);
             this.Panel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.ЛампочкаВУП_1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ЛампочкаТКСпр2)).EndInit();

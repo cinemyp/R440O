@@ -98,10 +98,10 @@ namespace R440O.ThirdParty
             {
                 try
                 {
-                    var checkString = await Get<string>(serverUrl + CheckServerUrl);
+                    var checkString = await Get<string>("http://" + serverUrl + ":8080/" + CheckServerUrl);
                     if (checkString == Constants.ServerCheckString)
                     {
-                        ServerUrl = serverUrl;
+                        ServerUrl = "http://" + serverUrl + ":8080/";
                         СерверНайден = true;
                     }
                 }
@@ -125,6 +125,12 @@ namespace R440O.ThirdParty
                 var _serverUrl = "http://" + addr + ":8080/";
                 ПроверитьАдресс(_serverUrl);
             }
+        }
+
+        public static void ПроверкаСервера(string serverUrl)
+        {
+            количествоНезавершенныЗапросов = 1;
+            ПроверитьАдресс(serverUrl);
         }
 
         public static List<string> ПолучитьСписокАдресовСети()

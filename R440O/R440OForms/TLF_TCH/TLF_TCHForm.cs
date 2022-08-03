@@ -15,7 +15,7 @@ namespace R440O.R440OForms.TLF_TCH
         public TLF_TCHForm()
         {
             InitializeComponent();
-            TLF_TCHParametrs.ParameterChanged += RefreshElements;
+            TLF_TCHParametrs.getInstance().ParameterChanged += RefreshElements;
         }
 
         public void RefreshElements()
@@ -35,7 +35,7 @@ namespace R440O.R440OForms.TLF_TCH
             foreach (Control item in Panel.Controls)
             {
                 соединен = false;
-                foreach (int номер in TLF_TCHParametrs.НомераСоединений)
+                foreach (int номер in TLF_TCHParametrs.getInstance().НомераСоединений)
                 {
                     if (item.Name == ("Штырь" + номер))
                     {
@@ -54,7 +54,7 @@ namespace R440O.R440OForms.TLF_TCH
             foreach (Control item in Panel.Controls)
             {
                 соединен = false;
-                foreach (int номер in TLF_TCHParametrs.НомераСоединений)
+                foreach (int номер in TLF_TCHParametrs.getInstance().НомераСоединений)
                 {
                     if (item.Name == ("Гнездо" + номер))
                     {
@@ -75,7 +75,7 @@ namespace R440O.R440OForms.TLF_TCH
             int НомерШтыря = text.Length == 6 ?
                 (int)char.GetNumericValue(text[5]) :
                 10 * (int)char.GetNumericValue(text[5]) + (int)char.GetNumericValue(text[6]);
-            TLF_TCHParametrs.Соеденить(НомерШтыря);
+            TLF_TCHParametrs.getInstance().Соеденить(НомерШтыря);
 
         }
 
@@ -86,7 +86,7 @@ namespace R440O.R440OForms.TLF_TCH
             int НомерГнезда = text.Length == 7 ?
                 (int)char.GetNumericValue(text[6]) :
                 10 * (int)char.GetNumericValue(text[6]) + (int)char.GetNumericValue(text[7]);
-            TLF_TCHParametrs.Соеденить(НомерГнезда);
+            TLF_TCHParametrs.getInstance().Соеденить(НомерГнезда);
         }
     }
 }

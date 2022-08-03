@@ -8,25 +8,32 @@ namespace R440O.R440OForms.Rubin_N
 {
     class Rubin_NParameters
     {
+        private static Rubin_NParameters instance;
+        public static Rubin_NParameters getInstance()
+        {
+            if (instance == null)
+                instance = new Rubin_NParameters();
+            return instance;
+        }
 
         #region Переключатели
 
-        private static int _ПереключательГрупСкор = 1;
-        private static int _ПереключательКонтроль = 1;
-        private static int _ПереключательN5063_2кБод = 1;
-        private static int _ПереключательN5063_6812кБод = 1;
-        private static int _ПереключательN5063_48кБод = 1;
-        private static int _ПереключательN4923_2кБод = 1;
-        private static int _ПереключательN4923_6812кБод = 1;
-        private static int _ПереключательN4923_48кБод = 1;
-        private static int _ПереключательN4963_2кБод = 1;
-        private static int _ПереключательN4963_6812кБод = 1;
-        private static int _ПереключательN4963_48кБод = 1;
+        private int _ПереключательГрупСкор = 1;
+        private int _ПереключательКонтроль = 1;
+        private int _ПереключательN5063_2кБод = 1;
+        private int _ПереключательN5063_6812кБод = 1;
+        private int _ПереключательN5063_48кБод = 1;
+        private int _ПереключательN4923_2кБод = 1;
+        private int _ПереключательN4923_6812кБод = 1;
+        private int _ПереключательN4923_48кБод = 1;
+        private int _ПереключательN4963_2кБод = 1;
+        private int _ПереключательN4963_6812кБод = 1;
+        private int _ПереключательN4963_48кБод = 1;
 
         /// <summary>
         /// 1: 96, 2:144, 3:240, 4:480
         /// </summary>
-        public static int ПереключательГрупСкор
+        public int ПереключательГрупСкор
         {
             get { return _ПереключательГрупСкор; }
             set
@@ -42,7 +49,7 @@ namespace R440O.R440OForms.Rubin_N
         /// <summary>
         /// 1: откл, 2:1, 3:2, 4:3
         /// </summary>
-        public static int ПереключательКонтроль
+        public int ПереключательКонтроль
         {
             get { return _ПереключательКонтроль; }
             set
@@ -58,7 +65,7 @@ namespace R440O.R440OForms.Rubin_N
         /// <summary>
         /// 1: 0, 2: 1, 3: 2, 4: 3
         /// </summary>
-        public static int ПереключательN5063_2кБод
+        public int ПереключательN5063_2кБод
         {
             get { return _ПереключательN5063_2кБод; }
             set
@@ -71,7 +78,7 @@ namespace R440O.R440OForms.Rubin_N
             }
         }
 
-        public static int ПереключательN5063_6812кБод
+        public int ПереключательN5063_6812кБод
         {
             get { return _ПереключательN5063_6812кБод; }
             set
@@ -84,7 +91,7 @@ namespace R440O.R440OForms.Rubin_N
             }
         }
 
-        public static int ПереключательN5063_48кБод
+        public int ПереключательN5063_48кБод
         {
             get { return _ПереключательN5063_48кБод; }
             set
@@ -100,7 +107,7 @@ namespace R440O.R440OForms.Rubin_N
         /// <summary>
         /// 1: 0, 2: 1, 3: 2, 4: 3
         /// </summary>
-        public static int ПереключательN4923_2кБод
+        public int ПереключательN4923_2кБод
         {
             get { return _ПереключательN4923_2кБод; }
             set
@@ -113,7 +120,7 @@ namespace R440O.R440OForms.Rubin_N
             }
         }
 
-        public static int ПереключательN4923_6812кБод
+        public int ПереключательN4923_6812кБод
         {
             get { return _ПереключательN4923_6812кБод; }
             set
@@ -126,7 +133,7 @@ namespace R440O.R440OForms.Rubin_N
             }
         }
 
-        public static int ПереключательN4923_48кБод
+        public int ПереключательN4923_48кБод
         {
             get { return _ПереключательN4923_48кБод; }
             set
@@ -142,7 +149,7 @@ namespace R440O.R440OForms.Rubin_N
         /// <summary>
         /// 1: 0, 2: 1, 3: 2, 4: 3
         /// </summary>
-        public static int ПереключательN4963_2кБод
+        public int ПереключательN4963_2кБод
         {
             get { return _ПереключательN4963_2кБод; }
             set
@@ -155,7 +162,7 @@ namespace R440O.R440OForms.Rubin_N
             }
         }
 
-        public static int ПереключательN4963_6812кБод
+        public int ПереключательN4963_6812кБод
         {
             get { return _ПереключательN4963_6812кБод; }
             set
@@ -168,7 +175,7 @@ namespace R440O.R440OForms.Rubin_N
             }
         }
 
-        public static int ПереключательN4963_48кБод
+        public int ПереключательN4963_48кБод
         {
             get { return _ПереключательN4963_48кБод; }
             set
@@ -183,15 +190,15 @@ namespace R440O.R440OForms.Rubin_N
         #endregion
 
         #region Тумблеры
-        private static bool _тумблерПолярность = true;
-        private static bool _тумблерРнБас1 = true;
-        private static bool _тумблерРнБас2 = true;
-        private static bool _тумблерРнБас3 = true;
+        private bool _тумблерПолярность = true;
+        private bool _тумблерРнБас1 = true;
+        private bool _тумблерРнБас2 = true;
+        private bool _тумблерРнБас3 = true;
 
         /// <summary>
         /// Возможные состояния: +, -
         /// </summary>
-        public static bool ТумблерПолярность
+        public bool ТумблерПолярность
         {
             get { return _тумблерПолярность; }
             set
@@ -204,7 +211,7 @@ namespace R440O.R440OForms.Rubin_N
         /// <summary>
         /// Возможные состояния: 4.8, 5.2
         /// </summary>
-        public static bool ТумблерРнБас1
+        public bool ТумблерРнБас1
         {
             get { return _тумблерРнБас1; }
             set
@@ -217,7 +224,7 @@ namespace R440O.R440OForms.Rubin_N
         /// <summary>
         /// Возможные состояния: 4.8, 5.2
         /// </summary>
-        public static bool ТумблерРнБас2
+        public bool ТумблерРнБас2
         {
             get { return _тумблерРнБас2; }
             set
@@ -230,7 +237,7 @@ namespace R440O.R440OForms.Rubin_N
         /// <summary>
         /// Возможные состояния: 4.8, 5.2
         /// </summary>
-        public static bool ТумблерРнБас3
+        public bool ТумблерРнБас3
         {
             get { return _тумблерРнБас3; }
             set
@@ -242,127 +249,127 @@ namespace R440O.R440OForms.Rubin_N
         #endregion
 
         #region Лампочки
-        public static bool ЛампочкаРнБпНеиспр
+        public bool ЛампочкаРнБпНеиспр
         {
             get { return false; }
         }
 
-        public static bool ЛампочкаРнБпМу
+        public bool ЛампочкаРнБпМу
         {
             get { return false; }
         }
 
-        public static bool ЛампочкаРнБпДу
+        public bool ЛампочкаРнБпДу
         {
             get { return false; }
         }
-        public static bool ЛампочкаРнБпПР2А
+        public bool ЛампочкаРнБпПР2А
         {
             get { return false; }
         }
-        public static bool ЛампочкаРнБп_5В
+        public bool ЛампочкаРнБп_5В
         {
             get { return false; }
         }
-        public static bool ЛампочкаРнБп_27В
-        {
-            get { return false; }
-        }
-
-        public static bool ЛампочкаРнКОсн1
-        {
-            get { return false; }
-        }
-        public static bool ЛампочкаРнКОсн2
-        {
-            get { return false; }
-        }
-        public static bool ЛампочкаРнКОсн3
-        {
-            get { return false; }
-        }
-        public static bool ЛампочкаРнКРезервный
-        {
-            get { return false; }
-        }
-        public static bool ЛампочкаРнКРезервированиеВкл
-        {
-            get { return false; }
-        }
-        public static bool ЛампочкаРнКРезервированиеОткл
-        {
-            get { return false; }
-        }
-        public static bool ЛампочкаРнКТранзит
+        public bool ЛампочкаРнБп_27В
         {
             get { return false; }
         }
 
-        public static bool ЛампочкаРнЦр_1
+        public bool ЛампочкаРнКОсн1
         {
             get { return false; }
         }
-        public static bool ЛампочкаРнЦр_2
+        public bool ЛампочкаРнКОсн2
         {
             get { return false; }
         }
-        public static bool ЛампочкаРнЦр_3
+        public bool ЛампочкаРнКОсн3
         {
             get { return false; }
         }
-        public static bool ЛампочкаРнЦр_II1
+        public bool ЛампочкаРнКРезервный
         {
             get { return false; }
         }
-        public static bool ЛампочкаРнЦр_II2
+        public bool ЛампочкаРнКРезервированиеВкл
         {
             get { return false; }
         }
-        public static bool ЛампочкаРнЦр_II3
+        public bool ЛампочкаРнКРезервированиеОткл
         {
             get { return false; }
         }
-        public static bool ЛампочкаРнЦрНеисправностьТи
-        {
-            get { return false; }
-        }
-        public static bool ЛампочкаРнЦрНеисправность48кГц
-        {
-            get { return false; }
-        }
-        public static bool ЛампочкаРнЦрНеисправностьЧтСи
+        public bool ЛампочкаРнКТранзит
         {
             get { return false; }
         }
 
-        public static bool ЛампочкаРнБас1СрывСинхр
+        public bool ЛампочкаРнЦр_1
+        {
+            get { return false; }
+        }
+        public bool ЛампочкаРнЦр_2
+        {
+            get { return false; }
+        }
+        public bool ЛампочкаРнЦр_3
+        {
+            get { return false; }
+        }
+        public bool ЛампочкаРнЦр_II1
+        {
+            get { return false; }
+        }
+        public bool ЛампочкаРнЦр_II2
+        {
+            get { return false; }
+        }
+        public bool ЛампочкаРнЦр_II3
+        {
+            get { return false; }
+        }
+        public bool ЛампочкаРнЦрНеисправностьТи
+        {
+            get { return false; }
+        }
+        public bool ЛампочкаРнЦрНеисправность48кГц
+        {
+            get { return false; }
+        }
+        public bool ЛампочкаРнЦрНеисправностьЧтСи
         {
             get { return false; }
         }
 
-        public static bool ЛампочкаРнБас2СрывСинхр
+        public bool ЛампочкаРнБас1СрывСинхр
         {
             get { return false; }
         }
 
-        public static bool ЛампочкаРнБас3СрывСинхр
+        public bool ЛампочкаРнБас2СрывСинхр
+        {
+            get { return false; }
+        }
+
+        public bool ЛампочкаРнБас3СрывСинхр
         {
             get { return false; }
         }
         #endregion
 
-        public static bool КнопкаОткл = false;
-        public static bool КнопкаВкл = false;
+        public bool КнопкаОткл = false;
+        public bool КнопкаВкл = false;
 
         public delegate void ParameterChangedHandler();
-        public static event ParameterChangedHandler ParameterChanged;
+        public event ParameterChangedHandler ParameterChanged;
 
-        public static void OnParameterChanged()
+        public void OnParameterChanged()
         {
             if (ParameterChanged != null) ParameterChanged();
         }
 
-        public static void ResetParameters()
+        public void ResetParameters()
         {
             OnParameterChanged();
         }

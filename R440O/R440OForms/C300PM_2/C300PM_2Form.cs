@@ -16,7 +16,7 @@ namespace R440O.R440OForms.C300PM_2
         public C300PM_2Form()
         {
             InitializeComponent();
-            C300PM_2Parameters.ParameterChanged += RefreshFormElements;
+            C300PM_2Parameters.getInstance().ParameterChanged += RefreshFormElements;
             RefreshFormElements();
         }
 
@@ -25,17 +25,17 @@ namespace R440O.R440OForms.C300PM_2
         /// </summary>
         public void RefreshFormElements()
         {
-            ЛампочкаКомплект1.BackgroundImage = C300PM_2Parameters.ЛампочкаКомплект1
+            ЛампочкаКомплект1.BackgroundImage = C300PM_2Parameters.getInstance().ЛампочкаКомплект1
                 ? ControlElementImages.lampType10OnGreen
                 : null;
-            ЛампочкаКомплект2.BackgroundImage = C300PM_2Parameters.ЛампочкаКомплект2
+            ЛампочкаКомплект2.BackgroundImage = C300PM_2Parameters.getInstance().ЛампочкаКомплект2
                 ? ControlElementImages.lampType10OnGreen
                 : null;
         }
 
         private void C300PM_2Form_FormClosed(object sender, FormClosedEventArgs e)
         {
-            C300PM_2Parameters.ParameterChanged -= RefreshFormElements;
+            C300PM_2Parameters.getInstance().ParameterChanged -= RefreshFormElements;
         }
     }
 }

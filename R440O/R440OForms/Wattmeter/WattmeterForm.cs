@@ -13,6 +13,8 @@ namespace R440O.R440OForms.Wattmeter
     using System.Reflection;
     using BaseClasses;
     using global::R440O.LearnModule;
+    using global::R440O.TestModule;
+    using System;
 
     /// <summary>
     /// Форма блока ватметр
@@ -27,7 +29,7 @@ namespace R440O.R440OForms.Wattmeter
         public WattmeterForm()
         {
             InitializeComponent();
-            WattmeterParameters.ParameterChanged += RefreshFormElements;
+            WattmeterParameters.getInstance().ParameterChanged += RefreshFormElements;
             RefreshFormElements();
             
         }
@@ -37,11 +39,11 @@ namespace R440O.R440OForms.Wattmeter
         /// </summary>
         public void RefreshFormElements()
         {
-            var angle = WattmeterParameters.ПереключательРежимРаботы * 30 - 105;
+            var angle = WattmeterParameters.getInstance().ПереключательРежимРаботы * 30 - 105;
             ПереключательРежимРаботы.BackgroundImage =
                 TransformImageHelper.RotateImageByAngle(ControlElementImages.toggleType3, angle);
 
-            ТумблерСеть.BackgroundImage = WattmeterParameters.ТумблерСеть
+            ТумблерСеть.BackgroundImage = WattmeterParameters.getInstance().ТумблерСеть
                 ? ControlElementImages.tumblerType4Up
                 : ControlElementImages.tumblerType4Down;
 
@@ -54,7 +56,7 @@ namespace R440O.R440OForms.Wattmeter
                     {
                         if (item.Name == property.Name)
                         {
-                            item.BackgroundImage = TransformImageHelper.RotateImageByAngle(ControlElementImages.revolverRoundBlack, System.Convert.ToInt32(property.GetValue(null)));
+                            item.BackgroundImage = TransformImageHelper.RotateImageByAngle(ControlElementImages.revolverRoundBlack, System.Convert.ToInt32(property.GetValue(WattmeterParameters.getInstance())));
                             break;
                         }
                     }
@@ -78,34 +80,51 @@ namespace R440O.R440OForms.Wattmeter
             var button = sender as Button;
             var angle = TransformImageHelper.CalculateAngle(button.Width, button.Height, e);
             var property = typeof(WattmeterParameters).GetProperty(button.Name);
-            property.SetValue(null, angle);
+            property.SetValue(WattmeterParameters.getInstance(), angle);
 
             button.BackgroundImage =
-                TransformImageHelper.RotateImageByAngle(ControlElementImages.revolverRoundBlack, (int)property.GetValue(null));
+                TransformImageHelper.RotateImageByAngle(ControlElementImages.revolverRoundBlack, (int)property.GetValue(WattmeterParameters.getInstance()));
         }
 
         private void ПереключательРежимРаботы_MouseUp(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left)
             {
-                WattmeterParameters.ПереключательРежимРаботы += 1;
+                WattmeterParameters.getInstance().ПереключательРежимРаботы += 1;
             }
 
             if (e.Button == MouseButtons.Right)
             {
-                WattmeterParameters.ПереключательРежимРаботы -= 1;
+                WattmeterParameters.getInstance().ПереключательРежимРаботы -= 1;
             }
         }
 
         private void ТумблерСеть_Click(object sender, System.EventArgs e)
         {
-            WattmeterParameters.ТумблерСеть = !WattmeterParameters.ТумблерСеть;
+            WattmeterParameters.getInstance().ТумблерСеть = !WattmeterParameters.getInstance().ТумблерСеть;
         }
 
         private void WattmeterForm_FormClosed(object sender, FormClosedEventArgs e)
         {
-            WattmeterParameters.ParameterChanged -= RefreshFormElements;
-           
+            WattmeterParameters.getInstance().ParameterChanged -= RefreshFormElements;
+            if (ParametersConfig.IsTesting)
+            {
+                var blockParams = WattmeterParameters.getInstance();
+                bool def;
+                switch (TestMain.getIntent())
+                {
+                    case ModulesEnum.Check_Wattmeter:
+                        def = !blockParams.ТумблерСеть;
+
+                        TestMain.Action(new JsonAdapter.ActionStation() { Module = LearnModule.ModulesEnum.Check_Wattmeter, Value = Convert.ToInt32(def) });
+                        break;
+                    case ModulesEnum.Wattmeter_Power:
+                        def = blockParams.ТумблерСеть;
+
+                        TestMain.Action(new JsonAdapter.ActionStation() { Module = LearnModule.ModulesEnum.Wattmeter_Power, Value = Convert.ToInt32(def) });
+                        break;
+                }
+            }
         }
 
 

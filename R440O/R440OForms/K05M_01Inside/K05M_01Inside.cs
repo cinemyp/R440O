@@ -27,7 +27,7 @@ namespace R440O.R440OForms.K05M_01Inside
         /// </summary>
         public K05M_01InsideForm()
         {
-            K05M_01InsideParameters.ParameterChanged += RefreshFormElements;
+            K05M_01InsideParameters.getInstance().ParameterChanged += RefreshFormElements;
             this.InitializeComponent();
             this.InitializeTumblers();
         }
@@ -50,7 +50,7 @@ namespace R440O.R440OForms.K05M_01Inside
                 {
                     var index = Convert.ToInt32(item.Name.Substring(item.Name.IndexOf("Переключатель") +
                                                                     "Переключатель".Length));
-                    var angle = K05M_01InsideParameters.Переключатель[index] * 30 - 10;
+                    var angle = K05M_01InsideParameters.getInstance().Переключатель[index] * 30 - 10;
                     item.BackgroundImage = TransformImageHelper.RotateImageByAngle(
                         ControlElementImages.toggleType2, angle);
                 }
@@ -60,7 +60,7 @@ namespace R440O.R440OForms.K05M_01Inside
                     {
                         var index = Convert.ToInt32(item.Name.Substring(item.Name.IndexOf("Тумблер") +
                                                                         "Тумблер".Length));
-                        item.BackgroundImage = (K05M_01InsideParameters.Переключатель[index] == 0)
+                        item.BackgroundImage = (K05M_01InsideParameters.getInstance().Переключатель[index] == 0)
                             ? ControlElementImages.tumblerType3Left
                             : ControlElementImages.tumblerType3Right;
                     }
@@ -69,10 +69,10 @@ namespace R440O.R440OForms.K05M_01Inside
                     }
                 }
             }
-            ТумблерВ4.BackgroundImage = K05M_01InsideParameters.ТумблерВ4
+            ТумблерВ4.BackgroundImage = K05M_01InsideParameters.getInstance().ТумблерВ4
                             ? ControlElementImages.tumblerType7Right
                             : ControlElementImages.tumblerType7Left;
-            ТумблерВ7.BackgroundImage = K05M_01InsideParameters.ТумблерВ7
+            ТумблерВ7.BackgroundImage = K05M_01InsideParameters.getInstance().ТумблерВ7
                             ? ControlElementImages.tumblerType7Down
                             : ControlElementImages.tumblerType7Up;
         }
@@ -85,12 +85,12 @@ namespace R440O.R440OForms.K05M_01Inside
             var property = typeof(K05M_01Parameters).GetProperty(item.Name);
             if (e.Button == MouseButtons.Left)
             {
-                K05M_01InsideParameters.Переключатель[index] += 1;
+                K05M_01InsideParameters.getInstance().Переключатель[index] += 1;
             }
 
             if (e.Button == MouseButtons.Right)
             {
-                K05M_01InsideParameters.Переключатель[index] -= 1;
+                K05M_01InsideParameters.getInstance().Переключатель[index] -= 1;
             }
         }
 
@@ -101,20 +101,20 @@ namespace R440O.R440OForms.K05M_01Inside
                                                             "Тумблер".Length));
             if (e.Button == MouseButtons.Left)
             {
-                if (K05M_01InsideParameters.Переключатель[index] == 0)
-                    K05M_01InsideParameters.Переключатель[index] = 1;
-                else K05M_01InsideParameters.Переключатель[index] = 0;
+                if (K05M_01InsideParameters.getInstance().Переключатель[index] == 0)
+                    K05M_01InsideParameters.getInstance().Переключатель[index] = 1;
+                else K05M_01InsideParameters.getInstance().Переключатель[index] = 0;
             }
         }
 
         private void ТумблерВ4_Click(object sender, EventArgs e)
         {
-            K05M_01InsideParameters.ТумблерВ4 = !K05M_01InsideParameters.ТумблерВ4;
+            K05M_01InsideParameters.getInstance().ТумблерВ4 = !K05M_01InsideParameters.getInstance().ТумблерВ4;
         }
 
         private void ТумблерВ7_Click(object sender, EventArgs e)
         {
-            K05M_01InsideParameters.ТумблерВ7 = !K05M_01InsideParameters.ТумблерВ7;
+            K05M_01InsideParameters.getInstance().ТумблерВ7 = !K05M_01InsideParameters.getInstance().ТумблерВ7;
         }
     }
 }

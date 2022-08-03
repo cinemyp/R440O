@@ -24,7 +24,7 @@ namespace R440O.R440OForms.Astra
         public AstraForm()
         {
             InitializeComponent();
-            AstraParameters.ParameterChanged += RefreshFormElements;
+            AstraParameters.getInstance().ParameterChanged += RefreshFormElements;
             RefreshFormElements();
         }
 
@@ -33,44 +33,44 @@ namespace R440O.R440OForms.Astra
         {
             //переключатели
 
-            var angle = AstraParameters.ПереключательТлгТлф * 30 - 150;
+            var angle = AstraParameters.getInstance().ПереключательТлгТлф * 30 - 150;
             ПереключательТлгТлф.BackgroundImage =
                 TransformImageHelper.RotateImageByAngle(ControlElementImages.toggleType2, angle);
 
-            angle = AstraParameters.ПереключательВнешнегоПитания * 30;
+            angle = AstraParameters.getInstance().ПереключательВнешнегоПитания * 30;
             ПереключательВнешнегоПитания.BackgroundImage =
                 TransformImageHelper.RotateImageByAngle(ControlElementImages.toggleType2, angle);
 
-            angle = AstraParameters.ПереключательКонтроль * 35 - 160;
+            angle = AstraParameters.getInstance().ПереключательКонтроль * 35 - 160;
             ПереключательКонтроль.BackgroundImage =
                 TransformImageHelper.RotateImageByAngle(ControlElementImages.toggleType2, angle);
 
-            angle = AstraParameters.ПереключательДиапазоны * 30 - 148;
+            angle = AstraParameters.getInstance().ПереключательДиапазоны * 30 - 148;
             ПереключательДиапазоны.BackgroundImage =
                 TransformImageHelper.RotateImageByAngle(ControlElementImages.toggleType2, angle);
 
-            angle = AstraParameters.ПереключательВыходаРеле * 30 - 60;
+            angle = AstraParameters.getInstance().ПереключательВыходаРеле * 30 - 60;
             ПереключательВыходаРеле.BackgroundImage =
                 TransformImageHelper.RotateImageByAngle(ControlElementImages.toggleType2, angle);
 
-            ТумблерШпУп.BackgroundImage = AstraParameters.ТумблерШпУп
+            ТумблерШпУп.BackgroundImage = AstraParameters.getInstance().ТумблерШпУп
                 ? ControlElementImages.tumblerType5Left
                 : ControlElementImages.tumblerType5Right;
 
             //регуляторы
 
             РегуляторЧастота.BackgroundImage =
-                TransformImageHelper.RotateImageByAngle(ControlElementImages.revolverRoundBlack, AstraParameters.РегуляторЧастота);
+                TransformImageHelper.RotateImageByAngle(ControlElementImages.revolverRoundBlack, AstraParameters.getInstance().РегуляторЧастота);
             РегуляторУсиление.BackgroundImage =
-                TransformImageHelper.RotateImageByAngle(ControlElementImages.revolverRoundBlack, AstraParameters.РегуляторУсиление);
+                TransformImageHelper.RotateImageByAngle(ControlElementImages.revolverRoundBlack, AstraParameters.getInstance().РегуляторУсиление);
             РегуляторУсилениеПЧ.BackgroundImage =
-                TransformImageHelper.RotateImageByAngle(ControlElementImages.revolverRoundBlack, AstraParameters.РегуляторУсилениеПЧ);
+                TransformImageHelper.RotateImageByAngle(ControlElementImages.revolverRoundBlack, AstraParameters.getInstance().РегуляторУсилениеПЧ);
 
             // кнопки
-            Кнопка150_270.Visible = !AstraParameters.Кнопка150_270;
-            Кнопка270_480.Visible = !AstraParameters.Кнопка270_480;
-            Кнопка480_860.Visible = !AstraParameters.Кнопка480_860;
-            Кнопка860_1500.Visible = !AstraParameters.Кнопка860_1500;
+            Кнопка150_270.Visible = !AstraParameters.getInstance().Кнопка150_270;
+            Кнопка270_480.Visible = !AstraParameters.getInstance().Кнопка270_480;
+            Кнопка480_860.Visible = !AstraParameters.getInstance().Кнопка480_860;
+            Кнопка860_1500.Visible = !AstraParameters.getInstance().Кнопка860_1500;
         }
 
         #endregion
@@ -103,14 +103,14 @@ namespace R440O.R440OForms.Astra
         /// <param name="numberOfButton">Номер нажатой кнопки по порядку слева направо.</param>
         private void SwitchToButton(int numberOfButton)
         {
-            AstraParameters.Кнопка150_270 = numberOfButton == 1;
-            AstraParameters.Кнопка270_480 = numberOfButton == 2;
-            AstraParameters.Кнопка480_860 = numberOfButton == 3;
-            AstraParameters.Кнопка860_1500 = numberOfButton == 4;
-            Кнопка150_270.Visible = !AstraParameters.Кнопка150_270;
-            Кнопка270_480.Visible = !AstraParameters.Кнопка270_480;
-            Кнопка480_860.Visible = !AstraParameters.Кнопка480_860;
-            Кнопка860_1500.Visible = !AstraParameters.Кнопка860_1500;
+            AstraParameters.getInstance().Кнопка150_270 = numberOfButton == 1;
+            AstraParameters.getInstance().Кнопка270_480 = numberOfButton == 2;
+            AstraParameters.getInstance().Кнопка480_860 = numberOfButton == 3;
+            AstraParameters.getInstance().Кнопка860_1500 = numberOfButton == 4;
+            Кнопка150_270.Visible = !AstraParameters.getInstance().Кнопка150_270;
+            Кнопка270_480.Visible = !AstraParameters.getInstance().Кнопка270_480;
+            Кнопка480_860.Visible = !AstraParameters.getInstance().Кнопка480_860;
+            Кнопка860_1500.Visible = !AstraParameters.getInstance().Кнопка860_1500;
         }
 
         #endregion
@@ -121,12 +121,12 @@ namespace R440O.R440OForms.Astra
         {
             if (e.Button == MouseButtons.Left)
             {
-                AstraParameters.ПереключательТлгТлф += 1;
+                AstraParameters.getInstance().ПереключательТлгТлф += 1;
             }
 
             if (e.Button == MouseButtons.Right)
             {
-                AstraParameters.ПереключательТлгТлф -= 1;
+                AstraParameters.getInstance().ПереключательТлгТлф -= 1;
             }
         }
 
@@ -134,12 +134,12 @@ namespace R440O.R440OForms.Astra
         {
             if (e.Button == MouseButtons.Left)
             {
-                AstraParameters.ПереключательВнешнегоПитания += 1;
+                AstraParameters.getInstance().ПереключательВнешнегоПитания += 1;
             }
 
             if (e.Button == MouseButtons.Right)
             {
-                AstraParameters.ПереключательВнешнегоПитания -= 1;
+                AstraParameters.getInstance().ПереключательВнешнегоПитания -= 1;
             }
         }
 
@@ -147,12 +147,12 @@ namespace R440O.R440OForms.Astra
         {
             if (e.Button == MouseButtons.Left)
             {
-                AstraParameters.ПереключательКонтроль += 1;
+                AstraParameters.getInstance().ПереключательКонтроль += 1;
             }
 
             if (e.Button == MouseButtons.Right)
             {
-                AstraParameters.ПереключательКонтроль -= 1;
+                AstraParameters.getInstance().ПереключательКонтроль -= 1;
             }
         }
 
@@ -160,12 +160,12 @@ namespace R440O.R440OForms.Astra
         {
             if (e.Button == MouseButtons.Left)
             {
-                AstraParameters.ПереключательДиапазоны += 1;
+                AstraParameters.getInstance().ПереключательДиапазоны += 1;
             }
 
             if (e.Button == MouseButtons.Right)
             {
-                AstraParameters.ПереключательДиапазоны -= 1;
+                AstraParameters.getInstance().ПереключательДиапазоны -= 1;
             }
         }
 
@@ -173,12 +173,12 @@ namespace R440O.R440OForms.Astra
         {
             if (e.Button == MouseButtons.Left)
             {
-                AstraParameters.ПереключательВыходаРеле += 1;
+                AstraParameters.getInstance().ПереключательВыходаРеле += 1;
             }
 
             if (e.Button == MouseButtons.Right)
             {
-                AstraParameters.ПереключательВыходаРеле -= 1;
+                AstraParameters.getInstance().ПереключательВыходаРеле -= 1;
             }
 
         }
@@ -187,7 +187,7 @@ namespace R440O.R440OForms.Astra
         #region Переключатель комплекта и тумблер
         private void ТумблерШпУп_Click(object sender, System.EventArgs e)
         {
-            AstraParameters.ТумблерШпУп = !AstraParameters.ТумблерШпУп;
+            AstraParameters.getInstance().ТумблерШпУп = !AstraParameters.getInstance().ТумблерШпУп;
         }
 
         private void КнопкаЧастота_MouseDown(object sender, MouseEventArgs e)
@@ -219,9 +219,9 @@ namespace R440O.R440OForms.Astra
             if (!isManipulation) return;
             var button = sender as Button;
             var angle = TransformImageHelper.CalculateAngle(button.Width, button.Height, e);
-            AstraParameters.РегуляторЧастота = angle;
+            AstraParameters.getInstance().РегуляторЧастота = angle;
             РегуляторЧастота.BackgroundImage =
-                TransformImageHelper.RotateImageByAngle(ControlElementImages.revolverRoundBlack, AstraParameters.РегуляторЧастота);
+                TransformImageHelper.RotateImageByAngle(ControlElementImages.revolverRoundBlack, AstraParameters.getInstance().РегуляторЧастота);
         }
 
         private void РегуляторУсиление_MouseMove(object sender, MouseEventArgs e)
@@ -229,9 +229,9 @@ namespace R440O.R440OForms.Astra
             if (!isManipulation) return;
             var button = sender as Button;
             var angle = TransformImageHelper.CalculateAngle(button.Width, button.Height, e);
-            AstraParameters.РегуляторУсиление = angle;
+            AstraParameters.getInstance().РегуляторУсиление = angle;
             РегуляторУсиление.BackgroundImage =
-                TransformImageHelper.RotateImageByAngle(ControlElementImages.revolverRoundBlack, AstraParameters.РегуляторУсиление);
+                TransformImageHelper.RotateImageByAngle(ControlElementImages.revolverRoundBlack, AstraParameters.getInstance().РегуляторУсиление);
         }
 
         private void РегуляторУсилениеПЧ_MouseMove(object sender, MouseEventArgs e)
@@ -239,15 +239,15 @@ namespace R440O.R440OForms.Astra
             if (!isManipulation) return;
             var button = sender as Button;
             var angle = TransformImageHelper.CalculateAngle(button.Width, button.Height, e);
-            AstraParameters.РегуляторУсилениеПЧ = angle;
+            AstraParameters.getInstance().РегуляторУсилениеПЧ = angle;
             РегуляторУсилениеПЧ.BackgroundImage =
-                TransformImageHelper.RotateImageByAngle(ControlElementImages.revolverRoundBlack, AstraParameters.РегуляторУсилениеПЧ);
+                TransformImageHelper.RotateImageByAngle(ControlElementImages.revolverRoundBlack, AstraParameters.getInstance().РегуляторУсилениеПЧ);
         }
         #endregion
 
         private void AstraForm_FormClosed(object sender, FormClosedEventArgs e)
         {
-            AstraParameters.ParameterChanged -= RefreshFormElements;
+            AstraParameters.getInstance().ParameterChanged -= RefreshFormElements;
         }
     }
 }

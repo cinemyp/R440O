@@ -17,17 +17,13 @@ namespace R440O
     {
         private Timer таймерПоискаСервера = new Timer();
         private R440OForm r440OForm;
+
+        private string IpAddress { get; set; }
         private bool IsLearning { get; set; }
         
         public StationForm()
         {
             InitializeComponent();
-            /*
-            таймерПоискаСервера.Enabled = true;
-            таймерПоискаСервера.Interval = 10000;
-            таймерПоискаСервера.Tick += tick;
-            таймерПоискаСервера.Start();
-            */
         }
 
         public void tick(object sender, EventArgs e)
@@ -36,11 +32,13 @@ namespace R440O
             {
                 if (HttpHelper.СерверНайден)
                 {
-                    RunR400O(IsLearning);
+                    btnExaming.Enabled = true;
+                    btnLearning.Enabled = true;
+                    btnConnect.Enabled = true;
                 }
                 else
                 {
-                    HttpHelper.ПоискСервера();
+                    HttpHelper.ПроверкаСервера(IpAddress);
                 }
             }
         }
@@ -55,8 +53,12 @@ namespace R440O
             r440OForm = new R440OForm();
             r440OForm.FormClosedEvent += OnR440oFormClosed;
             r440OForm.Show();
+            if(!isLearning)
+            {
+                TestMain.StartTest();
+            }
         }
-
+        
         private void OfflineWorkButton_Click(object sender, EventArgs e)
         {
             IsLearning = true;
@@ -76,9 +78,22 @@ namespace R440O
 
         private void btnExaming_Click(object sender, EventArgs e)
         {
-            IsLearning = false;
-            RunR400O(IsLearning);
-            TestMain.StartTest();
+            RunR400O(false);
+        }
+
+        private void btnConnect_Click(object sender, EventArgs e)
+        {
+            var ip = tbIpAddress.Text;
+            IpAddress = ip;
+
+            таймерПоискаСервера.Enabled = true;
+            таймерПоискаСервера.Interval = 3000;
+            таймерПоискаСервера.Tick += tick;
+            таймерПоискаСервера.Start();
+            
+            btnExaming.Enabled = false;
+            btnLearning.Enabled = false;
+            btnConnect.Enabled = false;
         }
     }
 }

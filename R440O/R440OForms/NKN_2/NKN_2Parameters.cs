@@ -7,21 +7,29 @@ namespace R440O.R440OForms.NKN_2
     /// <summary>
     /// Параметры блока НКН-2
     /// </summary>
-    public static class NKN_2Parameters
+    public class NKN_2Parameters
     {
-        public static bool НеполноеВключение //без н15, горит МУ и все
+        private static NKN_2Parameters instance;
+        public static NKN_2Parameters getInstance()
         {
-            get { return N502BParameters.ВыпрямительВключен && N502BParameters.ЭлектрообуродованиеВключено; }
+            if (instance == null)
+                instance = new NKN_2Parameters();
+            return instance;
         }
 
-        public static bool ПолноеВключение //горят лампочки фаз
+        public bool НеполноеВключение //без н15, горит МУ и все
         {
-            get { return НеполноеВключение && Питание220Включено && N15Parameters.Включен; }
+            get { return N502BParameters.getInstance().ВыпрямительВключен && N502BParameters.getInstance().ЭлектрообуродованиеВключено; }
         }
 
-        private static bool _дистанционноеВключение;
+        public bool ПолноеВключение //горят лампочки фаз
+        {
+            get { return НеполноеВключение && Питание220Включено && N15Parameters.getInstance().Включен; }
+        }
 
-        public static bool ДистанционноеВключение
+        private bool _дистанционноеВключение;
+
+        public bool ДистанционноеВключение
         {
             get { return _дистанционноеВключение; }
             set
@@ -30,29 +38,29 @@ namespace R440O.R440OForms.NKN_2
             }
         }
 
-        public static bool ЛампочкаМУ
+        public bool ЛампочкаМУ
         {
             get { return НеполноеВключение; }
         }
 
-        public static bool ЛампочкаФаза1
+        public bool ЛампочкаФаза1
         {
             get { return ПолноеВключение; }
         }
 
-        public static bool ЛампочкаФаза2
+        public bool ЛампочкаФаза2
         {
             get { return ПолноеВключение; }
         }
 
-        public static bool ЛампочкаФаза3
+        public bool ЛампочкаФаза3
         {
             get { return ПолноеВключение; }
         }
 
-        private static bool _питание220Включено;
+        private bool _питание220Включено;
 
-        public static bool Питание220Включено
+        public bool Питание220Включено
         {
             get { return _питание220Включено; }
             set
@@ -61,23 +69,23 @@ namespace R440O.R440OForms.NKN_2
                 _питание220Включено = value;
 
                 OnParameterChanged();
-                N15Parameters.ResetParametersAlternative();
+                N15Parameters.getInstance().ResetParametersAlternative();
                 A205M_2Parameters.ResetParameters();
             }
         }
 
         public delegate void ParameterChangedHandler();
-        public static event ParameterChangedHandler ParameterChanged;
+        public event ParameterChangedHandler ParameterChanged;
 
-        private static void OnParameterChanged()
+        private void OnParameterChanged()
         {
             var handler = ParameterChanged;
             if (handler != null) handler();
         }
 
-        public static void ResetParameters()
+        public void ResetParameters()
         {
-            if ((N15Parameters.НеполноеВключение && !N15Parameters.Включен && НеполноеВключение && ПолноеВключение) || !НеполноеВключение)
+            if ((N15Parameters.getInstance().НеполноеВключение && !N15Parameters.getInstance().Включен && НеполноеВключение && ПолноеВключение) || !НеполноеВключение)
                 _питание220Включено = false;
             OnParameterChanged();
         }

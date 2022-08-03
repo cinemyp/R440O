@@ -26,7 +26,7 @@ namespace R440O.R440OForms.K02M_01
         public K02M_01Form()
         {
             InitializeComponent();
-            K02M_01Parameters.ParameterChanged += RefreshFormElements;
+            K02M_01Parameters.getInstance().ParameterChanged += RefreshFormElements;
             RefreshFormElements();
         }
 
@@ -39,19 +39,19 @@ namespace R440O.R440OForms.K02M_01
         #region Инициализация
         private void InitializeToggles()
         {
-            var angle = K02M_01Parameters.ПереключательСкорость * 45 - 90;
+            var angle = K02M_01Parameters.getInstance().ПереключательСкорость * 45 - 90;
             ПереключательСкорость.BackgroundImage =
                 TransformImageHelper.RotateImageByAngle(ControlElementImages.toggleType2, angle);
 
-            angle = K02M_01Parameters.ПереключательВклОткл * 60 - 90;
+            angle = K02M_01Parameters.getInstance().ПереключательВклОткл * 60 - 90;
             ПереключательВклОткл.BackgroundImage =
                 TransformImageHelper.RotateImageByAngle(ControlElementImages.toggleType2, angle);
 
-            angle = K02M_01Parameters.ПереключательНапряжение1К * 30 - 75;
+            angle = K02M_01Parameters.getInstance().ПереключательНапряжение1К * 30 - 75;
             ПереключательНапряжение1К.BackgroundImage =
                 TransformImageHelper.RotateImageByAngle(ControlElementImages.toggleType2, angle);
 
-            angle = K02M_01Parameters.ПереключательНапряжение2К * 30 - 75;
+            angle = K02M_01Parameters.getInstance().ПереключательНапряжение2К * 30 - 75;
             ПереключательНапряжение2К.BackgroundImage =
                 TransformImageHelper.RotateImageByAngle(ControlElementImages.toggleType2, angle);
         }
@@ -66,13 +66,13 @@ namespace R440O.R440OForms.K02M_01
                 {
                     if (item.Name == "ЛампочкаПоискСигналов")
                     {
-                        item.BackgroundImage = (bool)property.GetValue(null)
+                        item.BackgroundImage = (bool)property.GetValue(K02M_01Parameters.getInstance())
                             ? ControlElementImages.lampType1OnRed
                             : null;
                     }
                     else if (item.Name.Contains("Лампочка"))
                     {
-                        item.BackgroundImage = (bool)property.GetValue(null)
+                        item.BackgroundImage = (bool)property.GetValue(K02M_01Parameters.getInstance())
                             ? ControlElementImages.lampType9OnGreen
                             : null;
                     }
@@ -97,13 +97,13 @@ namespace R440O.R440OForms.K02M_01
 
         private void КнопкаПоиск_MouseDown(object sender, MouseEventArgs e)
         {
-            K02M_01Parameters.КнопкаНачатьПоиск_MouseDown();
+            K02M_01Parameters.getInstance().КнопкаНачатьПоиск_MouseDown();
             КнопкаПоиск.BackgroundImage = null;
         }
 
         private void K02M_01КнопкаПоиск_MouseUp(object sender, MouseEventArgs e)
         {
-            K02M_01Parameters.КнопкаНачатьПоиск_MouseUp();
+            K02M_01Parameters.getInstance().КнопкаНачатьПоиск_MouseUp();
             КнопкаПоиск.BackgroundImage = ControlElementImages.buttonRoundType5;
         }
         #endregion
@@ -113,12 +113,12 @@ namespace R440O.R440OForms.K02M_01
         {
             if (e.Button == MouseButtons.Left)
             {
-                K02M_01Parameters.ПереключательСкорость += 1;
+                K02M_01Parameters.getInstance().ПереключательСкорость += 1;
             }
 
             if (e.Button == MouseButtons.Right)
             {
-                K02M_01Parameters.ПереключательСкорость -= 1;
+                K02M_01Parameters.getInstance().ПереключательСкорость -= 1;
             }
         }
 
@@ -126,12 +126,12 @@ namespace R440O.R440OForms.K02M_01
         {
             if (e.Button == MouseButtons.Left)
             {
-                K02M_01Parameters.ПереключательВклОткл += 1;
+                K02M_01Parameters.getInstance().ПереключательВклОткл += 1;
             }
 
             if (e.Button == MouseButtons.Right)
             {
-                K02M_01Parameters.ПереключательВклОткл -= 1;
+                K02M_01Parameters.getInstance().ПереключательВклОткл -= 1;
             }
         }
 
@@ -139,12 +139,12 @@ namespace R440O.R440OForms.K02M_01
         {
             if (e.Button == MouseButtons.Left)
             {
-                K02M_01Parameters.ПереключательНапряжение1К += 1;
+                K02M_01Parameters.getInstance().ПереключательНапряжение1К += 1;
             }
 
             if (e.Button == MouseButtons.Right)
             {
-                K02M_01Parameters.ПереключательНапряжение1К -= 1;
+                K02M_01Parameters.getInstance().ПереключательНапряжение1К -= 1;
             }
         }
 
@@ -152,19 +152,19 @@ namespace R440O.R440OForms.K02M_01
         {
             if (e.Button == MouseButtons.Left)
             {
-                K02M_01Parameters.ПереключательНапряжение2К += 1;
+                K02M_01Parameters.getInstance().ПереключательНапряжение2К += 1;
             }
 
             if (e.Button == MouseButtons.Right)
             {
-                K02M_01Parameters.ПереключательНапряжение2К -= 1;
+                K02M_01Parameters.getInstance().ПереключательНапряжение2К -= 1;
             }
         }
         #endregion
 
         private void K02M_01Form_FormClosed(object sender, FormClosedEventArgs e)
         {
-            K02M_01Parameters.ParameterChanged -= RefreshFormElements;
+            K02M_01Parameters.getInstance().ParameterChanged -= RefreshFormElements;
         }
     }
 }

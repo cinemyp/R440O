@@ -12,6 +12,8 @@ namespace R440O.R440OForms.N16
     using System;
     using System.Windows.Forms;
     using BaseClasses;
+    using global::R440O.TestModule;
+
     /// <summary>
     /// Форма блока Н-16
     /// </summary>
@@ -187,6 +189,17 @@ namespace R440O.R440OForms.N16
 
         private void N16Form_FormClosed(object sender, FormClosedEventArgs e)
         {
+            if (ParametersConfig.IsTesting)
+            {
+                bool def = !N16Parameters.КнопкаАнтенна &&
+                    !N16Parameters.КнопкаН13_1 &&
+                    !N16Parameters.КнопкаН13_12 &&
+                    !N16Parameters.КнопкаН13_2 &&
+                    !N16Parameters.КнопкаЭквивалент &&
+                    !N16Parameters.КнопкаВкл;
+
+                TestMain.Action(new JsonAdapter.ActionStation() { Module = LearnModule.ModulesEnum.Check_N16, Value = Convert.ToInt32(def) });
+            }
             N16Parameters.ParameterChanged -= RefreshFormElements;
         }
     }

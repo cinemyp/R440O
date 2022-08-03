@@ -1,6 +1,8 @@
 ﻿namespace R440O.R440OForms.PU_K1_1
 {
+    using System;
     using System.Windows.Forms;
+    using global::R440O.TestModule;
     using Parameters;
     using ThirdParty;
 
@@ -15,7 +17,7 @@
         public PU_K1_1Form()
         {
             InitializeComponent();
-            PU_K1_1Parameters.ParameterChanged += RefreshFormElements;
+            PU_K1_1Parameters.getInstance().ParameterChanged += RefreshFormElements;
             RefreshFormElements();
         }
 
@@ -32,11 +34,11 @@
         /// </summary>
         private void InitializeTogglePosition()
         {
-            var angle = PU_K1_1Parameters.ПереключательКаналы * 30 - 75;
+            var angle = PU_K1_1Parameters.getInstance().ПереключательКаналы * 30 - 75;
             ПереключательКаналы.BackgroundImage =
                 TransformImageHelper.RotateImageByAngle(ControlElementImages.toggleType3, angle);
 
-            angle = PU_K1_1Parameters.ПереключательНапряжение * 28 - 180;
+            angle = PU_K1_1Parameters.getInstance().ПереключательНапряжение * 28 - 180;
             ПереключательНапряжение.BackgroundImage =
                 TransformImageHelper.RotateImageByAngle(ControlElementImages.toggleType3, angle);
         }
@@ -47,14 +49,14 @@
         /// </summary>
         private void InitializeIndicatorPosition()
         {
-            var angle = PU_K1_1Parameters.Напряжение*6-60;
+            var angle = PU_K1_1Parameters.getInstance().Напряжение*6-60;
             СтрелкаКонтроляНапряжения.BackgroundImage =
                 TransformImageHelper.RotateImageByAngle(ControlElementImages.arrow2, angle);
         }
 
         private void InitializeTumblers()
         {
-            switch (PU_K1_1Parameters.ТумблерПитание)
+            switch (PU_K1_1Parameters.getInstance().ТумблерПитание)
             {
                 case 0:
                 {
@@ -72,14 +74,14 @@
                 }
                     break;
             }
-            this.ТумблерВентВкл.BackgroundImage = PU_K1_1Parameters.ТумблерВентВкл
+            this.ТумблерВентВкл.BackgroundImage = PU_K1_1Parameters.getInstance().ТумблерВентВкл
                 ? ControlElementImages.tumblerType4Up
                 : ControlElementImages.tumblerType4Down;
         }
 
         private void InitializeLamp()
         {
-            ЛампочкаCеть.BackgroundImage = PU_K1_1Parameters.ЛампочкаCеть
+            ЛампочкаCеть.BackgroundImage = PU_K1_1Parameters.getInstance().ЛампочкаCеть
                ? ControlElementImages.lampType9OnGreen
                : null;
         }
@@ -89,24 +91,24 @@
             switch (e.Button)
             {
                 case MouseButtons.Left:
-                    switch (PU_K1_1Parameters.ТумблерПитание)
+                    switch (PU_K1_1Parameters.getInstance().ТумблерПитание)
                     {
                         case 0:
-                            PU_K1_1Parameters.ТумблерПитание = 1;
+                            PU_K1_1Parameters.getInstance().ТумблерПитание = 1;
                             break;
                         case 1:
-                            PU_K1_1Parameters.ТумблерПитание = 2;
+                            PU_K1_1Parameters.getInstance().ТумблерПитание = 2;
                             break;
                     }
                     break;
                 case MouseButtons.Right:
-                    switch (PU_K1_1Parameters.ТумблерПитание)
+                    switch (PU_K1_1Parameters.getInstance().ТумблерПитание)
                     {
                         case 2:
-                            PU_K1_1Parameters.ТумблерПитание = 1;
+                            PU_K1_1Parameters.getInstance().ТумблерПитание = 1;
                             break;
                         case 1:
-                            PU_K1_1Parameters.ТумблерПитание = 0;
+                            PU_K1_1Parameters.getInstance().ТумблерПитание = 0;
                             break;
                     }
                     break;
@@ -117,11 +119,11 @@
         {
             if (e.Button == MouseButtons.Left)
             {
-                PU_K1_1Parameters.ПереключательКаналы++;
+                PU_K1_1Parameters.getInstance().ПереключательКаналы++;
             }
             else
             {
-                PU_K1_1Parameters.ПереключательКаналы--;
+                PU_K1_1Parameters.getInstance().ПереключательКаналы--;
             }
         }
 
@@ -129,20 +131,29 @@
         {
             if (e.Button == MouseButtons.Left)
             {
-                PU_K1_1Parameters.ПереключательНапряжение++;
+                PU_K1_1Parameters.getInstance().ПереключательНапряжение++;
             }
             else
             {
-                PU_K1_1Parameters.ПереключательНапряжение--;
+                PU_K1_1Parameters.getInstance().ПереключательНапряжение--;
             }
         }
        
 
         private void ТумблерВентВкл_Click(object sender, System.EventArgs e)
         {
-            PU_K1_1Parameters.ТумблерВентВкл = !PU_K1_1Parameters.ТумблерВентВкл;
+            PU_K1_1Parameters.getInstance().ТумблерВентВкл = !PU_K1_1Parameters.getInstance().ТумблерВентВкл;
         }
 
+        private void PU_K1_1Form_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            if (ParametersConfig.IsTesting)
+            {
+                var blockParams = PU_K1_1Parameters.getInstance();
+                bool def = blockParams.ТумблерПитание == 0;
 
+                TestMain.Action(new JsonAdapter.ActionStation() { Module = LearnModule.ModulesEnum.Check_PU_K1_1, Value = Convert.ToInt32(def) });
+            }
+        }
     }
 }

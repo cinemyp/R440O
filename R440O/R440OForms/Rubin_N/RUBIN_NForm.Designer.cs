@@ -784,6 +784,7 @@
             this.Name = "Rubin_NForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "РУБИН-Н";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Rubin_NForm_FormClosed);
             this.Rubin_NPanel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.ЛампочкаN1422РезервированиеОткл)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ЛампочкаN1422РезервированиеВкл)).EndInit();

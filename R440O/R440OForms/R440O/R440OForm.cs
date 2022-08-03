@@ -13,6 +13,8 @@ namespace R440O.R440OForms.R440O
     using global::R440O.LearnModule;
     using global::R440O.TestModule;
     using System.Threading;
+    using System.Collections.Generic;
+    using global::R440O.JsonAdapter;
 
     /// <summary>
     /// Форма станции Р440-О
@@ -39,8 +41,6 @@ namespace R440O.R440OForms.R440O
                 LearnMain.setHelpForms(this, textHelper);
                 LearnMain.setIntent(ModulesEnum.openPowerCabeltoPower);
             }
-            else if(ParametersConfig.IsTesting)
-                TestMain.setIntent(ModulesEnum.openPowerCabeltoPower);
         }
 
         private bool serverErrorFlag = false;
@@ -86,14 +86,31 @@ namespace R440O.R440OForms.R440O
                 const string r440OFormsString = "R440O.R440OForms.";
                 var typeName = r440OFormsString + blockName + "." + formName;
                 // ReSharper disable once AssignNullToNotNullAttribute by trycatch
-                var thisForm = Activator.CreateInstance(Type.GetType(typeName));
+                var type = Type.GetType(typeName);
+                var thisForm = Activator.CreateInstance(type);
                 var newForm = (Form)thisForm;
+                var controls = newForm.Controls[0].Controls;
+                List<Button> list = new List<Button>();
+
+                foreach (var c in controls.OfType<Button>())
+                {
+                    c.Click += (send, ev) => ClickHandler(send, ev);
+                    list.Add(c);
+                }
+
                 newForm.Show(this);
             }
             catch (Exception ex)
             {
                 throw;
             }
+        }
+
+        private void ClickHandler(object sender, EventArgs e)
+        {
+            var obj = (Button)sender;
+            var parent = obj.Parent.Parent;
+            
         }
 
         private void R440OForm_FormClosed(object sender, FormClosedEventArgs e)
@@ -129,12 +146,12 @@ namespace R440O.R440OForms.R440O
 
         private void SetDefaultParameters()
         {
-            A306.A306Parameters.SetDefaultParameters();
-            A304.A304Parameters.SetDefaultParameters();
-            N15.N15Parameters.SetDefaultParameters();
-            N502B.N502BParameters.SetDefaultParameters();
-            VoltageStabilizer.VoltageStabilizerParameters.SetDefaultParameters();
-            PowerCabel.PowerCabelParameters.SetDefaultParameters();
+            A306.A306Parameters.getInstance().SetDefaultParameters();
+            A304.A304Parameters.getInstance().SetDefaultParameters();
+            N15.N15Parameters.getInstance().SetDefaultParameters();
+            N502B.N502BParameters.getInstance().SetDefaultParameters();
+            VoltageStabilizer.VoltageStabilizerParameters.getInstance().SetDefaultParameters();
+            PowerCabel.PowerCabelParameters.getInstance().SetDefaultParameters();
 
         }
     }

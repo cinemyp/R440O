@@ -194,6 +194,7 @@
             this.Name = "K05M_01Form";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "K05M-1";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.K05M_01Form_FormClosed);
             this.K05M_01Panel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.СтрелкаУровень)).EndInit();
             this.ResumeLayout(false);

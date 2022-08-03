@@ -1358,6 +1358,7 @@
             this.Name = "DAB_5Form";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "ДАБ-5";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.DAB_5Form_FormClosed);
             this.Panel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.Лампочка2КомплектПрдДаб5_1ВыхТч)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Лампочка2КомплектПрдДаб5_1ВыхКк)).EndInit();

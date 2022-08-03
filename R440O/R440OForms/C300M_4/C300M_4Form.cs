@@ -29,8 +29,8 @@ namespace R440O.R440OForms.C300M_4
         {
 
             InitializeComponent();
-            C300M_4Parameters.ParameterChanged += RefreshFormElements;
-            C300M_4Parameters.IndicatorChanged += RefreshIndicator;
+            C300M_4Parameters.getInstance().ParameterChanged += RefreshFormElements;
+            C300M_4Parameters.getInstance().IndicatorChanged += RefreshIndicator;
             RefreshIndicator();
             RefreshFormElements();
         }
@@ -42,7 +42,7 @@ namespace R440O.R440OForms.C300M_4
         private void КнопкаВидРаботы_Click(object sender, EventArgs e)
         {
             var button = sender as Button;
-            C300M_4Parameters.КнопкиВидРаботы[(int)Char.GetNumericValue(button.Name[15])] = true;
+            C300M_4Parameters.getInstance().КнопкиВидРаботы[(int)Char.GetNumericValue(button.Name[15])] = true;
         }
 
         private void КнопкаВидРаботыСброс_MouseDown(object sender, MouseEventArgs e)
@@ -50,7 +50,7 @@ namespace R440O.R440OForms.C300M_4
             this.КнопкаВидРаботыСброс.BackgroundImage = null;
             this.КнопкаВидРаботыСброс.Text = "";
 
-            C300M_4Parameters.КнопкиВидРаботы[10] = true;
+            C300M_4Parameters.getInstance().КнопкиВидРаботы[10] = true;
 
         }
 
@@ -58,7 +58,7 @@ namespace R440O.R440OForms.C300M_4
         {
             this.КнопкаВидРаботыСброс.BackgroundImage = ControlElementImages.buttonSquareWhite;
             this.КнопкаВидРаботыСброс.Text = "СБРОС";
-            C300M_4Parameters.КнопкиВидРаботы[10] = false;
+            C300M_4Parameters.getInstance().КнопкиВидРаботы[10] = false;
         }
         #endregion
 
@@ -67,7 +67,7 @@ namespace R440O.R440OForms.C300M_4
         private void КнопкаКонтрольРежима_Click(object sender, System.EventArgs e)
         {
             var button = sender as Button;
-            C300M_4Parameters.КнопкиКонтрольРежима[(int)Char.GetNumericValue(button.Name[20])] = true;
+            C300M_4Parameters.getInstance().КнопкиКонтрольРежима[(int)Char.GetNumericValue(button.Name[20])] = true;
         }
 
         private void КнопкаКонтрольРежимаМинус27_MouseDown(object sender, MouseEventArgs e)
@@ -75,7 +75,7 @@ namespace R440O.R440OForms.C300M_4
             КнопкаКонтрольРежимаМинус27.BackgroundImage = null;
             КнопкаКонтрольРежимаМинус27.Text = "";
 
-            C300M_4Parameters.КнопкиКонтрольРежима[10] = true;
+            C300M_4Parameters.getInstance().КнопкиКонтрольРежима[10] = true;
         }
 
         private void КнопкаКонтрольРежимаМинус27_MouseUp(object sender, MouseEventArgs e)
@@ -83,27 +83,27 @@ namespace R440O.R440OForms.C300M_4
             КнопкаКонтрольРежимаМинус27.BackgroundImage = ControlElementImages.buttonSquareWhite;
             КнопкаКонтрольРежимаМинус27.Text = "-27";
 
-            C300M_4Parameters.КнопкиКонтрольРежима[10] = false;
+            C300M_4Parameters.getInstance().КнопкиКонтрольРежима[10] = false;
         }
         #endregion
 
         #region Кнопка Индикация волны
         private void КнопкаИндикацияВолны_MouseDown(object sender, MouseEventArgs e)
         {
-            C300M_4Parameters.КнопкаИндикацияВолны = true;
+            C300M_4Parameters.getInstance().КнопкаИндикацияВолны = true;
             this.КнопкаИндикацияВолны.BackgroundImage = null;
 
-            if (C300M_4Parameters.КнопкаИндикацияВолны)
+            if (C300M_4Parameters.getInstance().КнопкаИндикацияВолны)
             {
-                ИндикаторВолна1000.Text = (C300M_4Parameters.ПереключательВолна1000 <= 4)
-                ? System.Convert.ToString(C300M_4Parameters.ПереключательВолна1000)
+                ИндикаторВолна1000.Text = (C300M_4Parameters.getInstance().ПереключательВолна1000 <= 4)
+                ? System.Convert.ToString(C300M_4Parameters.getInstance().ПереключательВолна1000)
                 : "4";
                 ИндикаторВолна1000.Visible = true;
-                ИндикаторВолна100.Text = System.Convert.ToString(C300M_4Parameters.ПереключательВолна100);
+                ИндикаторВолна100.Text = System.Convert.ToString(C300M_4Parameters.getInstance().ПереключательВолна100);
                 ИндикаторВолна100.Visible = true;
-                ИндикаторВолна10.Text = System.Convert.ToString(C300M_4Parameters.ПереключательВолна10);
+                ИндикаторВолна10.Text = System.Convert.ToString(C300M_4Parameters.getInstance().ПереключательВолна10);
                 ИндикаторВолна10.Visible = true;
-                ИндикаторВолна1.Text = System.Convert.ToString(C300M_4Parameters.ПереключательВолна1);
+                ИндикаторВолна1.Text = System.Convert.ToString(C300M_4Parameters.getInstance().ПереключательВолна1);
                 ИндикаторВолна1.Visible = true;
             }
 
@@ -111,7 +111,7 @@ namespace R440O.R440OForms.C300M_4
 
         private void КнопкаИндикацияВолны_MouseUp(object sender, MouseEventArgs e)
         {
-            C300M_4Parameters.КнопкаИндикацияВолны = false;
+            C300M_4Parameters.getInstance().КнопкаИндикацияВолны = false;
             this.КнопкаИндикацияВолны.BackgroundImage = ControlElementImages.buttonSquareWhite;
 
             ИндикаторВолна1000.Visible = false;
@@ -126,12 +126,12 @@ namespace R440O.R440OForms.C300M_4
         {
             if (e.Button == MouseButtons.Left)
             {
-                C300M_4Parameters.ПереключательВолна1000 += 1;
+                C300M_4Parameters.getInstance().ПереключательВолна1000 += 1;
             }
 
             if (e.Button == MouseButtons.Right)
             {
-                C300M_4Parameters.ПереключательВолна1000 -= 1;
+                C300M_4Parameters.getInstance().ПереключательВолна1000 -= 1;
             }
         }
 
@@ -139,12 +139,12 @@ namespace R440O.R440OForms.C300M_4
         {
             if (e.Button == MouseButtons.Left)
             {
-                C300M_4Parameters.ПереключательВолна100 += 1;
+                C300M_4Parameters.getInstance().ПереключательВолна100 += 1;
             }
 
             if (e.Button == MouseButtons.Right)
             {
-                C300M_4Parameters.ПереключательВолна100 -= 1;
+                C300M_4Parameters.getInstance().ПереключательВолна100 -= 1;
             }
         }
 
@@ -152,12 +152,12 @@ namespace R440O.R440OForms.C300M_4
         {
             if (e.Button == MouseButtons.Left)
             {
-                C300M_4Parameters.ПереключательВолна10 += 1;
+                C300M_4Parameters.getInstance().ПереключательВолна10 += 1;
             }
 
             if (e.Button == MouseButtons.Right)
             {
-                C300M_4Parameters.ПереключательВолна10 -= 1;
+                C300M_4Parameters.getInstance().ПереключательВолна10 -= 1;
             }
         }
 
@@ -165,12 +165,12 @@ namespace R440O.R440OForms.C300M_4
         {
             if (e.Button == MouseButtons.Left)
             {
-                C300M_4Parameters.ПереключательВолна1 += 1;
+                C300M_4Parameters.getInstance().ПереключательВолна1 += 1;
             }
 
             if (e.Button == MouseButtons.Right)
             {
-                C300M_4Parameters.ПереключательВолна1 -= 1;
+                C300M_4Parameters.getInstance().ПереключательВолна1 -= 1;
             }
         }
         #endregion
@@ -179,17 +179,17 @@ namespace R440O.R440OForms.C300M_4
 
         public void RefreshIndicator()
         {
-            var angle = C300M_4Parameters.ИндикаторСигнал * 1.15F;
+            var angle = C300M_4Parameters.getInstance().ИндикаторСигнал * 1.15F;
             ИндикаторСигнала.BackgroundImage =
                 TransformImageHelper.RotateImageByAngle(ControlElementImages.arrow2, angle);
         }
 
         public void RefreshFormElements()
         {
-            var angle1 = C300M_4Parameters.ИндикаторСигнал * 1.15F;
+            var angle1 = C300M_4Parameters.getInstance().ИндикаторСигнал * 1.15F;
             ИндикаторСигнала.BackgroundImage =
                 TransformImageHelper.RotateImageByAngle(ControlElementImages.arrow2, angle1);
-
+            var block = C300M_4Parameters.getInstance();
             // Установка переключателей в положение последней их установки
             foreach (Control item in Panel.Controls)
             {
@@ -200,7 +200,7 @@ namespace R440O.R440OForms.C300M_4
                     {
                         if (item.Name == property.Name)
                         {
-                            var angle = System.Convert.ToInt32(property.GetValue(null)) * 30 - 135;
+                            var angle = System.Convert.ToInt32(property.GetValue(block)) * 30 - 135;
                             item.BackgroundImage = TransformImageHelper.RotateImageByAngle(ControlElementImages.toggleType3, angle);
                             break;
                         }
@@ -212,62 +212,62 @@ namespace R440O.R440OForms.C300M_4
             foreach (Control item in Panel.Controls)
             {
                 if (item.Name.Contains("КнопкаВидРаботы") && !item.Name.Contains("Сброс"))
-                    item.Visible = !(C300M_4Parameters.КнопкиВидРаботы[(int)Char.GetNumericValue(item.Name[15])]);
+                    item.Visible = !(C300M_4Parameters.getInstance().КнопкиВидРаботы[(int)Char.GetNumericValue(item.Name[15])]);
             }
 
             foreach (Control item in Panel.Controls)
             {
                 if (item.Name.Contains("КнопкаКонтрольРежима") && !item.Name.Contains("Минус27"))
-                    item.Visible = !(C300M_4Parameters.КнопкиКонтрольРежима[(int)Char.GetNumericValue(item.Name[20])]);
+                    item.Visible = !(C300M_4Parameters.getInstance().КнопкиКонтрольРежима[(int)Char.GetNumericValue(item.Name[20])]);
             }
 
             // Установка тумблеров в положение последней их установки
-            ТумблерУправление.BackgroundImage = C300M_4Parameters.ТумблерУправление
+            ТумблерУправление.BackgroundImage = C300M_4Parameters.getInstance().ТумблерУправление
                 ? ControlElementImages.tumblerType4Up
                 : ControlElementImages.tumblerType4Down;
 
-            ТумблерВведение.BackgroundImage = C300M_4Parameters.ТумблерВведение
+            ТумблерВведение.BackgroundImage = C300M_4Parameters.getInstance().ТумблерВведение
                 ? ControlElementImages.tumblerType3Up
                 : ControlElementImages.tumblerType3Down;
 
-            ТумблерБлокировка.BackgroundImage = C300M_4Parameters.ТумблерБлокировка
+            ТумблерБлокировка.BackgroundImage = C300M_4Parameters.getInstance().ТумблерБлокировка
                 ? ControlElementImages.tumblerType3Up
                 : ControlElementImages.tumblerType3Down;
 
-            ТумблерВидВключения.BackgroundImage = C300M_4Parameters.ТумблерВидВключения
+            ТумблерВидВключения.BackgroundImage = C300M_4Parameters.getInstance().ТумблерВидВключения
                 ? ControlElementImages.tumblerType3Up
                 : ControlElementImages.tumblerType3Down;
 
-            ТумблерАнализСимметрии.BackgroundImage = C300M_4Parameters.ТумблерАнализСимметрии
+            ТумблерАнализСимметрии.BackgroundImage = C300M_4Parameters.getInstance().ТумблерАнализСимметрии
                 ? ControlElementImages.tumblerType3Up
                 : ControlElementImages.tumblerType3Down;
 
-            ТумблерАСЧ.BackgroundImage = C300M_4Parameters.ТумблерАСЧ
+            ТумблерАСЧ.BackgroundImage = C300M_4Parameters.getInstance().ТумблерАСЧ
                 ? ControlElementImages.tumblerType3Up
                 : ControlElementImages.tumblerType3Down;
 
-            ТумблерРегулировкаУровня.BackgroundImage = C300M_4Parameters.ТумблерРегулировкаУровня
+            ТумблерРегулировкаУровня.BackgroundImage = C300M_4Parameters.getInstance().ТумблерРегулировкаУровня
                 ? ControlElementImages.tumblerType3Up
                 : ControlElementImages.tumblerType3Down;
 
-            ТумблерВидМодуляции.BackgroundImage = C300M_4Parameters.ТумблерВидМодуляции
+            ТумблерВидМодуляции.BackgroundImage = C300M_4Parameters.getInstance().ТумблерВидМодуляции
                 ? ControlElementImages.tumblerType3Up
                 : ControlElementImages.tumblerType3Down;
 
-            ТумблерПределы.BackgroundImage = C300M_4Parameters.ТумблерПределы
+            ТумблерПределы.BackgroundImage = C300M_4Parameters.getInstance().ТумблерПределы
                 ? ControlElementImages.tumblerType3Right
                 : ControlElementImages.tumblerType3Left;
 
             // Установка лампочек
-            ЛампочкаСигнал.BackgroundImage = C300M_4Parameters.ЛампочкаСигнал
+            ЛампочкаСигнал.BackgroundImage = C300M_4Parameters.getInstance().ЛампочкаСигнал
                 ? ControlElementImages.lampType13OnGreen
                 : null;
 
-            ЛампочкаПитание.BackgroundImage = C300M_4Parameters.ЛампочкаПитание
+            ЛампочкаПитание.BackgroundImage = C300M_4Parameters.getInstance().ЛампочкаПитание
                 ? ControlElementImages.lampType13OnGreen
                 : null;
 
-            ЛампочкаПоиск.BackgroundImage = C300M_4Parameters.ЛампочкаПоиск
+            ЛампочкаПоиск.BackgroundImage = C300M_4Parameters.getInstance().ЛампочкаПоиск
                 ? ControlElementImages.lampType13OnGreen
                 : null;
         }
@@ -276,47 +276,47 @@ namespace R440O.R440OForms.C300M_4
         #region Тумблеры
         private void ТумблерВведение_Click(object sender, System.EventArgs e)
         {
-            C300M_4Parameters.ТумблерВведение = !C300M_4Parameters.ТумблерВведение;
+            C300M_4Parameters.getInstance().ТумблерВведение = !C300M_4Parameters.getInstance().ТумблерВведение;
         }
 
         private void ТумблерБлокировка_Click(object sender, System.EventArgs e)
         {
-            C300M_4Parameters.ТумблерБлокировка = !C300M_4Parameters.ТумблерБлокировка;
+            C300M_4Parameters.getInstance().ТумблерБлокировка = !C300M_4Parameters.getInstance().ТумблерБлокировка;
         }
 
         private void ТумблерВидВключения_Click(object sender, System.EventArgs e)
         {
-            C300M_4Parameters.ТумблерВидВключения = !C300M_4Parameters.ТумблерВидВключения;
+            C300M_4Parameters.getInstance().ТумблерВидВключения = !C300M_4Parameters.getInstance().ТумблерВидВключения;
         }
 
         private void ТумблерАнализСимметрии_Click(object sender, System.EventArgs e)
         {
-            C300M_4Parameters.ТумблерАнализСимметрии = !C300M_4Parameters.ТумблерАнализСимметрии;
+            C300M_4Parameters.getInstance().ТумблерАнализСимметрии = !C300M_4Parameters.getInstance().ТумблерАнализСимметрии;
         }
 
         private void ТумблерАСЧ_Click(object sender, System.EventArgs e)
         {
-            C300M_4Parameters.ТумблерАСЧ = !C300M_4Parameters.ТумблерАСЧ;
+            C300M_4Parameters.getInstance().ТумблерАСЧ = !C300M_4Parameters.getInstance().ТумблерАСЧ;
         }
 
         private void ТумблерРегулировкаУровня_Click(object sender, System.EventArgs e)
         {
-            C300M_4Parameters.ТумблерРегулировкаУровня = !C300M_4Parameters.ТумблерРегулировкаУровня;
+            C300M_4Parameters.getInstance().ТумблерРегулировкаУровня = !C300M_4Parameters.getInstance().ТумблерРегулировкаУровня;
         }
 
         private void ТумблерВидМодуляции_Click(object sender, System.EventArgs e)
         {
-            C300M_4Parameters.ТумблерВидМодуляции = !C300M_4Parameters.ТумблерВидМодуляции;
+            C300M_4Parameters.getInstance().ТумблерВидМодуляции = !C300M_4Parameters.getInstance().ТумблерВидМодуляции;
         }
 
         private void ТумблерПределы_Click(object sender, System.EventArgs e)
         {
-            C300M_4Parameters.ТумблерПределы = !C300M_4Parameters.ТумблерПределы;
+            C300M_4Parameters.getInstance().ТумблерПределы = !C300M_4Parameters.getInstance().ТумблерПределы;
         }
 
         private void ТумблерУправление_Click(object sender, System.EventArgs e)
         {
-            C300M_4Parameters.ТумблерУправление = !C300M_4Parameters.ТумблерУправление;
+            C300M_4Parameters.getInstance().ТумблерУправление = !C300M_4Parameters.getInstance().ТумблерУправление;
         }
         #endregion
 
@@ -325,7 +325,7 @@ namespace R440O.R440OForms.C300M_4
         {
             КнопкаПитаниеВкл.BackgroundImage = null;
             КнопкаПитаниеВкл.Text = "";
-            C300M_4Parameters.КнопкиПитание = true;
+            C300M_4Parameters.getInstance().КнопкиПитание = true;
         }
 
         private void КнопкаПитаниеВкл_MouseUp(object sender, MouseEventArgs e)
@@ -338,7 +338,7 @@ namespace R440O.R440OForms.C300M_4
         {
             КнопкаПитаниеВыкл.BackgroundImage = null;
             КнопкаПитаниеВыкл.Text = "";
-            C300M_4Parameters.КнопкиПитание = false;
+            C300M_4Parameters.getInstance().КнопкиПитание = false;
         }
 
         private void КнопкаПитаниеВыкл_MouseUp(object sender, MouseEventArgs e)
@@ -353,22 +353,22 @@ namespace R440O.R440OForms.C300M_4
         {
             КнопкаПоиск.BackgroundImage = null;
             КнопкаПоиск.Text = "";
-            C300M_4Parameters.КнопкаПоиск = true;
+            C300M_4Parameters.getInstance().КнопкаПоиск = true;
         }
 
         private void КнопкаПоиск_MouseUp(object sender, MouseEventArgs e)
         {
             КнопкаПоиск.BackgroundImage = ControlElementImages.buttonSquareWhite;
             КнопкаПоиск.Text = "ВКЛ";
-            C300M_4Parameters.КнопкаПоиск = false;
+            C300M_4Parameters.getInstance().КнопкаПоиск = false;
         }
 
         #endregion
 
         private void C300M_2Form_FormClosed(object sender, FormClosedEventArgs e)
         {
-            C300M_4Parameters.ParameterChanged -= RefreshFormElements;
-            C300M_4Parameters.IndicatorChanged -= RefreshIndicator;
+            C300M_4Parameters.getInstance().ParameterChanged -= RefreshFormElements;
+            C300M_4Parameters.getInstance().IndicatorChanged -= RefreshIndicator;
         }
     }
 }

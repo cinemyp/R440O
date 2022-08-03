@@ -290,6 +290,7 @@
             this.Name = "A1Form";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "A1";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.A1Form_FormClosed);
             this.Panel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.ЛампочкаНеиспр)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ЛампочкаФСПК)).EndInit();

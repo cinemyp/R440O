@@ -9,9 +9,17 @@ namespace R440O.R440OForms.TLF_TCH
 {
     class TLF_TCHParametrs
     {
-        public static List<int> НомераСоединений = new List<int>();
+        private static TLF_TCHParametrs instance;
+        public static TLF_TCHParametrs getInstance()
+        {
+            if (instance == null)
+                instance = new TLF_TCHParametrs();
+            return instance;
+        }
 
-        public static bool БМА1ПередачаКаналТЧ
+        public List<int> НомераСоединений = new List<int>();
+
+        public bool БМА1ПередачаКаналТЧ
         {
             get
             {
@@ -20,7 +28,7 @@ namespace R440O.R440OForms.TLF_TCH
             }
         }
 
-        public static bool БМА1ПриемКаналТЧ
+        public bool БМА1ПриемКаналТЧ
         {
             get
             {
@@ -30,7 +38,7 @@ namespace R440O.R440OForms.TLF_TCH
         }
 
 
-        public static void Соеденить(int номер)
+        public void Соеденить(int номер)
         {
             int n = НомераСоединений.FindIndex(x => x == номер);
             if (n == -1)
@@ -42,16 +50,16 @@ namespace R440O.R440OForms.TLF_TCH
 
         public delegate void ParameterChangedHandler();
 
-        public static event ParameterChangedHandler ParameterChanged;
+        public event ParameterChangedHandler ParameterChanged;
 
         /// <summary>
         /// Вызов события, что значения параметров данной формы изменились.
         /// </summary>
-        private static void OnParameterChanged()
+        private void OnParameterChanged()
         {
             var handler = ParameterChanged;
             if (handler != null) handler();
-            BMA_M_1Parameters.ResetParameters();
+            BMA_M_1Parameters.getInstance().ResetParameters();
         }
     }
 

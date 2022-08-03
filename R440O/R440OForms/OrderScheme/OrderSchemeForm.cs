@@ -28,21 +28,21 @@
         /// </summary>
         private void CorrectStation()
         {
-            //C300M_1Parameters.КнопкаВидРаботы = 8;
-            //N15Parameters.ТумблерА503Б = false;
-            //N15InsideParameters.ПереключательПУЛ480ПРМ_1 = 8;
-            //N18_MParameters.ПереключательВходБ22 = 1;
-            //N18_MParameters.ПереключательПРМ1 = 1;
-            //N18_MParameters.ПереключательПРМ2 = 1;
-            //N18_MParameters.Переключатель48ПрмЩв = 1;
+            //C300M_1Parameters.getInstance().КнопкаВидРаботы = 8;
+            //N15Parameters.getInstance().ТумблерА503Б = false;
+            //N15InsideParameters.getInstance().ПереключательПУЛ480ПРМ_1 = 8;
+            //N18_MParameters.getInstance().ПереключательВходБ22 = 1;
+            //N18_MParameters.getInstance().ПереключательПРМ1 = 1;
+            //N18_MParameters.getInstance().ПереключательПРМ2 = 1;
+            //N18_MParameters.getInstance().Переключатель48ПрмЩв = 1;
 
-            //B3_1Parameters.КолодкаКРПР = 2;
-            //B3_1Parameters.КолодкаОКпр1Ас = true;
-            //B3_1Parameters.КолодкаУКК1 = 9;
+            //B3_1Parameters.getInstance().КолодкаКРПР = 2;
+            //B3_1Parameters.getInstance().КолодкаОКпр1Ас = true;
+            //B3_1Parameters.getInstance().КолодкаУКК1 = 9;
 
-            //B3_2Parameters.КолодкаКРПР = 2;
-            //B3_2Parameters.КолодкаОКпр1Ас = true;
-            //B3_2Parameters.КолодкаУКК1 = 9;
+            //B3_2Parameters.getInstance().КолодкаКРПР = 2;
+            //B3_2Parameters.getInstance().КолодкаОКпр1Ас = true;
+            //B3_2Parameters.getInstance().КолодкаУКК1 = 9;
         }
 
         private void InitializeParameters()

@@ -152,6 +152,7 @@
             this.Name = "PU_K1_1Form";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "ПУЛЬТ УПРАВЛЕНИЯ К1-1";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.PU_K1_1Form_FormClosed);
             this.Panel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.СтрелкаКонтроляНапряжения)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ЛампочкаCеть)).EndInit();

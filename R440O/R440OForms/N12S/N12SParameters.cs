@@ -5,30 +5,38 @@ using R440O.R440OForms.N15;
 
 namespace R440O.Parameters
 {
-    public static class N12SParameters
+    public class N12SParameters
     {
-        public static bool Включен { get { return ТумблерСеть && N15Parameters.ТумблерН12С && N15Parameters.Включен; } }
-        public static bool FromA403 = false;
+        private static N12SParameters instance;
+        public static N12SParameters getInstance()
+        {
+            if (instance == null)
+                instance = new N12SParameters();
+            return instance;
+        }
 
-        private static int _тумблерА;
-        private static int _тумблерБ;
-        private static bool _тумблерСеть;
-        private static bool _кнопкаУскор;
-        private static float _потенциометрBetaИ = 0;
-        private static float _потенциометрBetaV = 0;
-        private static float _потенциометрAlphaИ = 0;
-        private static float _потенциометрAlphaV = 0;
+        public bool Включен { get { return ТумблерСеть && N15Parameters.getInstance().ТумблерН12С && N15Parameters.getInstance().Включен; } }
+        public bool FromA403 = false;
+
+        private int _тумблерА;
+        private int _тумблерБ;
+        private bool _тумблерСеть;
+        private bool _кнопкаУскор;
+        private float _потенциометрBetaИ = 0;
+        private float _потенциометрBetaV = 0;
+        private float _потенциометрAlphaИ = 0;
+        private float _потенциометрAlphaV = 0;
 
         #region Тумблеры и кнопка
 
-        public static bool ТумблерСеть
+        public bool ТумблерСеть
         {
             get { return _тумблерСеть; }
             set
             {
                 _тумблерСеть = value;
                 OnParameterChanged();
-                N15Parameters.ResetParametersAlternative();
+                N15Parameters.getInstance().ResetParametersAlternative();
             }
         }
 
@@ -36,7 +44,7 @@ namespace R440O.Parameters
         /// Тумблер для вращения индикатора альфа
         /// Возможные состояния: -1 - вращение влево, 0 - никуда, 1 - вправо
         /// </summary>
-        public static int ТумблерА
+        public int ТумблерА
         {
             get { return _тумблерА; }
             set
@@ -81,7 +89,7 @@ namespace R440O.Parameters
         /// Тумблер для вращения индикатора бета
         /// Возможные состояния: -1 - вращение влево, 0 - никуда, 1 - вправо
         /// </summary>
-        public static int ТумблерБ
+        public int ТумблерБ
         {
             get { return _тумблерБ; }
             set
@@ -124,7 +132,7 @@ namespace R440O.Parameters
         /// <summary>
         /// Кнопка для увеличения скорости вращения индикаторов
         /// </summary>
-        public static bool КнопкаУскор
+        public bool КнопкаУскор
         {
             get { return _кнопкаУскор; }
             set
@@ -136,17 +144,17 @@ namespace R440O.Parameters
         #endregion
 
         #region Лампочки
-        public static bool ЛампочкаУпорА
+        public bool ЛампочкаУпорА
         {
             get { return (ИндикаторAlpha <= -270 || ИндикаторAlpha >= 270) && Включен; }
         }
 
-        public static bool ЛампочкаУпорБ
+        public bool ЛампочкаУпорБ
         {
             get { return (ИндикаторBeta <= 0 || ИндикаторBeta >= 90) && Включен; }
         }
 
-        public static bool ЛампочкаГотовность
+        public bool ЛампочкаГотовность
         {
             get { return Включен; }
         }
@@ -157,12 +165,12 @@ namespace R440O.Parameters
         /// <summary>
         /// значения от -270 до 270, но крутиться могут произвольно
         /// </summary>
-        public static float ИндикаторAlpha { get; set; }
+        public float ИндикаторAlpha { get; set; }
 
         /// <summary>
         /// значения от 0 до 90, но крутиться могут произвольно
         /// </summary>
-        public static float ИндикаторBeta { get; set; }
+        public float ИндикаторBeta { get; set; }
 
         #endregion
 
@@ -170,7 +178,7 @@ namespace R440O.Parameters
 
         #region ПотенциометрBetaИ
 
-        public static float ПотенциометрBetaИ
+        public float ПотенциометрBetaИ
         {
             get
             {
@@ -185,14 +193,14 @@ namespace R440O.Parameters
                 }
                 if (value >= 0 && value <= 90 && !ЛампочкаУпорБ) _потенциометрBetaИ = value;
                 OnParameterChanged();
-                A403_1Parameters.ResetDisplay();
+                A403_1Parameters.getInstance().ResetDisplay();
             }
         }
         #endregion
 
         #region ПотенциометрBetaV
 
-        public static float ПотенциометрBetaV
+        public float ПотенциометрBetaV
         {
             get
             {
@@ -227,7 +235,7 @@ namespace R440O.Parameters
 
         #region ПотенциометрAlphaИ
 
-        public static float ПотенциометрAlphaИ
+        public float ПотенциометрAlphaИ
         {
             get
             {
@@ -242,14 +250,14 @@ namespace R440O.Parameters
                 }
                 if (value >= -270 && value <= 270 && !ЛампочкаУпорА) _потенциометрAlphaИ = value;
                 OnParameterChanged();
-                A403_1Parameters.ResetDisplay();
+                A403_1Parameters.getInstance().ResetDisplay();
             }
         }
         #endregion
 
         #region ПотенциометрAlphaV
 
-        public static float ПотенциометрAlphaV
+        public float ПотенциометрAlphaV
         {
             get
             {
@@ -289,13 +297,13 @@ namespace R440O.Parameters
         /// <summary>
         /// Таймер для доведения потенциометров
         /// </summary>
-        private static Timer timer = new Timer();
+        private Timer timer = new Timer();
 
         #region Альфа
         /// <summary>
         /// Вращение индиктора альфа вправо
         /// </summary>
-        static void timerAlphaRight_Tick(object sender, EventArgs e)
+        void timerAlphaRight_Tick(object sender, EventArgs e)
         {
             ИндикаторAlpha += 0.5F;
             ПотенциометрAlphaИ += 0.5F;
@@ -313,7 +321,7 @@ namespace R440O.Parameters
         /// <summary>
         /// Вращение индиктора альфа влево
         /// </summary>
-        static void timerAlphaLeft_Tick(object sender, EventArgs e)
+        void timerAlphaLeft_Tick(object sender, EventArgs e)
         {
             ИндикаторAlpha -= 0.5F;
             ПотенциометрAlphaИ -= 0.5F;
@@ -331,7 +339,7 @@ namespace R440O.Parameters
         /// <summary>
         /// возврат стрелки потенциометра альфа
         /// </summary>
-        static void timerAlphaReturn_Tick(object sender, EventArgs e)
+        void timerAlphaReturn_Tick(object sender, EventArgs e)
         {
             if (ПотенциометрAlphaV > 0)
                 ПотенциометрAlphaV -= 0.1F;
@@ -346,7 +354,7 @@ namespace R440O.Parameters
         /// <summary>
         /// Вращение индиктора бета вправо
         /// </summary>
-        static void timerBetaRight_Tick(object sender, EventArgs e)
+        void timerBetaRight_Tick(object sender, EventArgs e)
         {
             ИндикаторBeta += 0.5F;
             ПотенциометрBetaИ += 0.5F;
@@ -364,7 +372,7 @@ namespace R440O.Parameters
         /// <summary>
         /// Вращение индиктора бета влево
         /// </summary>
-        static void timerBetaLeft_Tick(object sender, EventArgs e)
+        void timerBetaLeft_Tick(object sender, EventArgs e)
         {
             ИндикаторBeta -= 0.5F;
             ПотенциометрBetaИ -= 0.5F;
@@ -382,7 +390,7 @@ namespace R440O.Parameters
         /// <summary>
         /// возврат стрелки потенциометра бета
         /// </summary>
-        static void timerBetaReturn_Tick(object sender, EventArgs e)
+        void timerBetaReturn_Tick(object sender, EventArgs e)
         {
             if (ПотенциометрBetaV > 0)
                 ПотенциометрBetaV -= КнопкаУскор ? 0.2F : 0.4F;
@@ -396,15 +404,15 @@ namespace R440O.Parameters
         #endregion
 
         public delegate void ParameterChangedHandler();
-        public static event ParameterChangedHandler ParameterChanged;
+        public event ParameterChangedHandler ParameterChanged;
 
-        private static void OnParameterChanged()
+        private void OnParameterChanged()
         {
             var handler = ParameterChanged;
             if (handler != null) handler();
         }
 
-        public static void ResetParameters()
+        public void ResetParameters()
         {
             OnParameterChanged();
         }

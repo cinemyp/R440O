@@ -2,18 +2,26 @@
 
 namespace R440O.R440OForms.K04M_01
 {
-    public static class K04M_01Parameters
+    public class K04M_01Parameters
     {
-        public static int НачальнаяЧастотаПРМ = 65000;
+        private static K04M_01Parameters instance;
+        public static K04M_01Parameters getInstance()
+        {
+            if (instance == null)
+                instance = new K04M_01Parameters();
+            return instance;
+        }
 
-        public static int НачальнаяЧастотаПРД = 70000;
+        public int НачальнаяЧастотаПРМ = 65000;
 
-        public static int ЧастотаПрм
+        public int НачальнаяЧастотаПРД = 70000;
+
+        public int ЧастотаПрм
         {
             get { return НачальнаяЧастотаПРМ + _переключательПрмМгц * 1000 + _переключательПрмКгц100 * 100; }
         }
 
-        public static int ЧастотаПрд
+        public int ЧастотаПрд
         {
             get
             {
@@ -23,14 +31,14 @@ namespace R440O.R440OForms.K04M_01
         }
 
 
-        private static int _переключательПрдМгц;
-        private static int _переключательПрдКгц100;
-        private static int _переключательПрдКгц10;
-        private static int _переключательПрдКгц1;
-        private static int _переключательПрмМгц;
-        private static int _переключательПрмКгц100;
+        private int _переключательПрдМгц;
+        private int _переключательПрдКгц100;
+        private int _переключательПрдКгц10;
+        private int _переключательПрдКгц1;
+        private int _переключательПрмМгц;
+        private int _переключательПрмКгц100;
 
-        public static int ПереключательПрдМгц
+        public int ПереключательПрдМгц
         {
             get
             {
@@ -42,11 +50,11 @@ namespace R440O.R440OForms.K04M_01
                 if (value >= 0 && value <= 9)
                 {
                     _переключательПрдМгц = value;
-                    K03M_01Parameters.ПересчитатьНайденоИлиНеНайдено();
+                    K03M_01Parameters.getInstance().ПересчитатьНайденоИлиНеНайдено();
                 }
             }
         }
-        public static int ПереключательПрдКгц100
+        public int ПереключательПрдКгц100
         {
             get
             {
@@ -58,12 +66,12 @@ namespace R440O.R440OForms.K04M_01
                 if (value >= 0 && value <= 9)
                 {
                     _переключательПрдКгц100 = value;
-                    K03M_01Parameters.ПересчитатьНайденоИлиНеНайдено();
+                    K03M_01Parameters.getInstance().ПересчитатьНайденоИлиНеНайдено();
                 }
             }
         }
 
-        public static int ПереключательПрдКгц10
+        public int ПереключательПрдКгц10
         {
             get
             {
@@ -75,12 +83,12 @@ namespace R440O.R440OForms.K04M_01
                 if (value >= 0 && value <= 9)
                 {
                     _переключательПрдКгц10 = value;
-                    K03M_01Parameters.ПересчитатьНайденоИлиНеНайдено();
+                    K03M_01Parameters.getInstance().ПересчитатьНайденоИлиНеНайдено();
                 }
             }
         }
 
-        public static int ПереключательПрдКгц1
+        public int ПереключательПрдКгц1
         {
             get
             {
@@ -92,12 +100,12 @@ namespace R440O.R440OForms.K04M_01
                 if (value >= 0 && value <= 9)
                 {
                     _переключательПрдКгц1 = value;
-                    K03M_01Parameters.ПересчитатьНайденоИлиНеНайдено();
+                    K03M_01Parameters.getInstance().ПересчитатьНайденоИлиНеНайдено();
                 }
             }
         }
 
-        public static int ПереключательПрмМгц
+        public int ПереключательПрмМгц
         {
             get
             {
@@ -109,11 +117,11 @@ namespace R440O.R440OForms.K04M_01
                 if (value >= 0 && value <= 9)
                 {
                     _переключательПрмМгц = value;
-                    K03M_01Parameters.ПересчитатьНайденоИлиНеНайдено();
+                    K03M_01Parameters.getInstance().ПересчитатьНайденоИлиНеНайдено();
                 }
             }
         }
-        public static int ПереключательПрмКгц100
+        public int ПереключательПрмКгц100
         {
             get
             {
@@ -125,7 +133,7 @@ namespace R440O.R440OForms.K04M_01
                 if (value >= 0 && value <= 9)
                 {
                     _переключательПрмКгц100 = value;
-                    K03M_01Parameters.ПересчитатьНайденоИлиНеНайдено();
+                    K03M_01Parameters.getInstance().ПересчитатьНайденоИлиНеНайдено();
                 }
             }
         }

@@ -3,13 +3,23 @@
 namespace R440O.R440OForms.PowerCabel
 {
     using global::R440O.BaseClasses;
+    using global::R440O.JsonAdapter;
     using N502B;
 
-    public static class PowerCabelParameters
+    public class PowerCabelParameters
     {
-        public static ITestModule TestModuleRef { get; set; }
+        private static PowerCabelParameters instance;
 
-        static PowerCabelParameters()
+        public static PowerCabelParameters getInstance()
+        {
+            if (instance == null)
+                instance = new PowerCabelParameters();
+            return instance;
+        }
+
+        public ITestModule TestModuleRef { get; set; }
+
+        protected PowerCabelParameters()
         {
             Напряжение = 380;
             var generator = new Random();
@@ -17,9 +27,9 @@ namespace R440O.R440OForms.PowerCabel
             Напряжение = zeroToOne > 0.5F ? 380 : 220;            
         }
 
-        private static bool _тумблерОсвещение;
+        private bool _тумблерОсвещение;
 
-        public static bool ТумблерОсвещение
+        public bool ТумблерОсвещение
         {
             get { return _тумблерОсвещение; }
             set
@@ -29,40 +39,33 @@ namespace R440O.R440OForms.PowerCabel
             }
         }
 
-        private static bool _кабельСеть;
+        private bool _кабельСеть;
 
-        public static bool КабельСеть
+        public bool КабельСеть
         {
             get { return _кабельСеть; }
             set
             {
-                if (!N502BParameters.ПереключательСеть) _кабельСеть = value;
+                if (!N502BParameters.getInstance().ПереключательСеть) _кабельСеть = value;
                 else СтанцияСгорела();
                 
                 OnParameterChanged();
 
-                N502BParameters.ResetParameters();
+                N502BParameters.getInstance().ResetParameters();
             }
         }
 
-        public static int Напряжение;
-        public delegate void TestModuleHandler(ITestModule module);
-        public static event TestModuleHandler Action;
-        public delegate void ParameterChangedHandler();
-        public static event ParameterChangedHandler ParameterChanged;
+        public int Напряжение;
 
-        private static void OnParameterChanged()
+        public delegate void ParameterChangedHandler();
+        public event ParameterChangedHandler ParameterChanged;
+
+        private void OnParameterChanged()
         {
             ParameterChanged?.Invoke();
-            OnAction();
         }
 
-        private static void OnAction()
-        {
-            Action?.Invoke(TestModuleRef);
-        }
-
-        public static void ResetParameters()
+        public void ResetParameters()
         {
             OnParameterChanged();
         }
@@ -70,9 +73,9 @@ namespace R440O.R440OForms.PowerCabel
         /// <summary>
         /// Вызывается, если пользователь совершил неправильные действия по обесточиванию станции.
         /// </summary>
-        public static event ParameterChangedHandler СтанцияСгорела;
+        public event ParameterChangedHandler СтанцияСгорела;
 
-        public static void SetDefaultParameters()
+        public void SetDefaultParameters()
         {
             ТумблерОсвещение = false;
             КабельСеть = false;

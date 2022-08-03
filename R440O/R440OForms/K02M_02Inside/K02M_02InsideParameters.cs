@@ -2,9 +2,17 @@
 {
     internal class K02M_02InsideParameters
     {
+        private static K02M_02InsideParameters instance;
+        public static K02M_02InsideParameters getInstance()
+        {
+            if (instance == null)
+                instance = new K02M_02InsideParameters();
+            return instance;
+        }
+
         ////Лампочки
-        public static bool _K02M_02InsideТумблерБ5;
-        public static bool K02M_02InsideТумблерБ5
+        public bool _K02M_02InsideТумблерБ5;
+        public bool K02M_02InsideТумблерБ5
         {
             get
             {

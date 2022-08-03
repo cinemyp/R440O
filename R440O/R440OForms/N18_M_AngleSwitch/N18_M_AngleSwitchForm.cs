@@ -9,7 +9,7 @@ namespace R440O.R440OForms.N18_M_AngleSwitch
         public N18_M_AngleSwitchForm()
         {
             InitializeComponent();
-            N18_M_AngleSwitchParameters.ParameterChanged += RefreshFormElements;
+            N18_M_AngleSwitchParameters.getInstance().ParameterChanged += RefreshFormElements;
             RefreshFormElements();
         }
 
@@ -18,7 +18,8 @@ namespace R440O.R440OForms.N18_M_AngleSwitch
             foreach (Control control in Controls)
             {
                 var parameter = typeof(N18_M_AngleSwitchParameters).GetProperty(control.Name);
-                switch ((int)parameter.GetValue(this))
+                var block = N18_M_AngleSwitchParameters.getInstance();
+                switch ((int)parameter.GetValue(block))
                 {
                     case 1: control.BackgroundImage = ControlElementImages.kabelInputK11;
                         break;
@@ -38,18 +39,19 @@ namespace R440O.R440OForms.N18_M_AngleSwitch
             {
                 var parametersList = typeof(N18_M_AngleSwitchParameters).GetProperties();
                 var parameter = typeof(N18_M_AngleSwitchParameters).GetProperty(button.Name);
+                var block = N18_M_AngleSwitchParameters.getInstance();
 
                 int newValue = 0;
 
                 if (e.Button == MouseButtons.Left)
                 {
-                    newValue = ((int)parameter.GetValue(this) != 1) ? 1 : 0;
+                    newValue = ((int)parameter.GetValue(block) != 1) ? 1 : 0;
                 }
                 if (e.Button == MouseButtons.Right)
                 {
-                    newValue = ((int)parameter.GetValue(this) != 2) ? 2 : 0;
+                    newValue = ((int)parameter.GetValue(block) != 2) ? 2 : 0;
                 }
-                parameter.SetValue(this, newValue);
+                parameter.SetValue(block, newValue);
             }
         }
     }

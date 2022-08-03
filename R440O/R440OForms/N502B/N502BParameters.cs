@@ -10,13 +10,21 @@ namespace R440O.R440OForms.N502B
     using VoltageStabilizer;
     using N15;
     using global::R440O.BaseClasses;
+    using global::R440O.JsonAdapter;
+    using global::R440O.Parameters;
 
-    public static class N502BParameters
+    public class N502BParameters : BaseParameters
     {
-        static bool ModuleHasDone { get; set; }
-        public static ITestModule TestModuleRef { get; set; }
+        private static N502BParameters instance;
 
-        static N502BParameters()
+        public static N502BParameters getInstance()
+        {
+            if (instance == null)
+                instance = new N502BParameters();
+            return instance;
+        }
+        
+        protected N502BParameters()
         {
             StationTimer = new Timer();
 
@@ -26,17 +34,17 @@ namespace R440O.R440OForms.N502B
         }
 
         #region Время работы станции
-        public static Timer StationTimer;
+        public Timer StationTimer;
 
         /// <summary>
         /// Таймер используемый, для определения времени, которое станция проработала.
         /// </summary>
-        public static TimeSpan ВремяРаботыСтанции;
+        public TimeSpan ВремяРаботыСтанции;
 
         /// <summary>
         /// Проверка условий, при выполнении которых ведётся учёт времени работы на станции.
         /// </summary>
-        public static void СледитьЗаВременем()
+        public void СледитьЗаВременем()
         {
             ВремяРаботыСтанции = Settings.Default.TimeofWork;
             StationTimer = new Timer
@@ -45,11 +53,11 @@ namespace R440O.R440OForms.N502B
                 Interval = 60 * 1000
             };
             StationTimer.Tick += StationTimer_Tick;
-            if (PowerCabelParameters.КабельСеть && ПереключательСеть) StationTimer.Start();
+            if (PowerCabelParameters.getInstance().КабельСеть && ПереключательСеть) StationTimer.Start();
             else StationTimer.Stop();
         }
 
-        private static void StationTimer_Tick(object sender, EventArgs e)
+        private void StationTimer_Tick(object sender, EventArgs e)
         {
             ВремяРаботыСтанции += new TimeSpan(0, 0, 1, 0);
             Settings.Default.TimeofWork = ВремяРаботыСтанции;
@@ -63,71 +71,71 @@ namespace R440O.R440OForms.N502B
         /// <summary>
         /// Лампочка сеть - горит при подключенном кабеле Сеть
         /// </summary>
-        public static bool ЛампочкаСеть
+        public bool ЛампочкаСеть
         {
-            get { return PowerCabelParameters.КабельСеть; }
+            get { return PowerCabelParameters.getInstance().КабельСеть; }
         }
 
         /// <summary>
         /// Лампочка сфазировано - горит при наличии нагрузки
         /// </summary>
-        public static bool ЛампочкаСфазировано
+        public bool ЛампочкаСфазировано
         {
             get { return Нагрузка; }
         }
 
-        //public static bool ЛампочкаРбпПроверка;
-        //public static bool ЛампочкаРбпПредохранитель;
+        //public  bool ЛампочкаРбпПроверка;
+        //public  bool ЛампочкаРбпПредохранитель;
 
         #endregion
 
         #region Тумблеры
         #region private
-        private static bool _тумблерЭлектрооборудование;
-        private static bool _тумблерВыпрямитель27В;
-        private static bool _тумблерН15;
-        private static bool _тумблерОсвещение;
-        private static bool _тумблерН13_1;
-        private static bool _тумблерН13_2;
-        private static int _тумблерОсвещение1 = 2;
-        private static int _тумблерОсвещение2 = 2;
+        private bool _тумблерЭлектрооборудование;
+        private bool _тумблерВыпрямитель27В;
+        private bool _тумблерН15;
+        private bool _тумблерОсвещение;
+        private bool _тумблерН13_1;
+        private bool _тумблерН13_2;
+        private int _тумблерОсвещение1 = 2;
+        private int _тумблерОсвещение2 = 2;
         #endregion
 
         #region public
 
-        public static bool ТумблерЭлектрооборудование
+        public bool ТумблерЭлектрооборудование
         {
             get { return _тумблерЭлектрооборудование; }
             set
             {
                 _тумблерЭлектрооборудование = value;
-                N15Parameters.ResetParameters();
+                N15Parameters.getInstance().ResetParameters();
                 OnParameterChanged();
             }
         }
 
-        public static bool ТумблерВыпрямитель27В
+        public bool ТумблерВыпрямитель27В
         {
             get { return _тумблерВыпрямитель27В; }
             set
             {
                 _тумблерВыпрямитель27В = value;
-                N15Parameters.ResetParameters();
+                N15Parameters.getInstance().ResetParameters();
                 OnParameterChanged();
             }
         }
-        public static bool ТумблерН15
+        public bool ТумблерН15
         {
             get { return _тумблерН15; }
             set
             {
                 _тумблерН15 = value;
-                N15Parameters.ResetParameters();
+                N15Parameters.getInstance().ResetParameters();
                 OnParameterChanged();
             }
         }
 
-        public static bool ТумблерОсвещение
+        public bool ТумблерОсвещение
         {
             get { return _тумблерОсвещение; }
             set
@@ -137,27 +145,27 @@ namespace R440O.R440OForms.N502B
             }
         }
 
-        public static bool ТумблерН13_1
+        public bool ТумблерН13_1
         {
             get { return _тумблерН13_1; }
             set
             {
                 _тумблерН13_1 = value;
-                N15Parameters.Н13_1 = false;
-                N15Parameters.ResetParametersAlternative();
+                N15Parameters.getInstance().Н13_1 = false;
+                N15Parameters.getInstance().ResetParametersAlternative();
                 N16Parameters.ResetParameters();
                 OnParameterChanged();
             }
         }
 
-        public static bool ТумблерН13_2
+        public bool ТумблерН13_2
         {
             get { return _тумблерН13_2; }
             set
             {
                 _тумблерН13_2 = value;
-                N15Parameters.Н13_2 = false;
-                N15Parameters.ResetParametersAlternative();
+                N15Parameters.getInstance().Н13_2 = false;
+                N15Parameters.getInstance().ResetParametersAlternative();
                 N16Parameters.ResetParameters();
                 OnParameterChanged();
             }
@@ -166,7 +174,7 @@ namespace R440O.R440OForms.N502B
         /// <summary>
         /// Возможные состояния: 1 - Полное, 2 - Откл, 3- Дежурное
         /// </summary>
-        public static int ТумблерОсвещение1
+        public int ТумблерОсвещение1
         {
             get { return _тумблерОсвещение1; }
             set
@@ -179,7 +187,7 @@ namespace R440O.R440OForms.N502B
         /// <summary>
         /// Возможные состояния: 1- Полное, 2- Откл, 3- Частичное
         /// </summary>
-        public static int ТумблерОсвещение2
+        public int ТумблерОсвещение2
         {
             get { return _тумблерОсвещение2; }
             set
@@ -193,23 +201,23 @@ namespace R440O.R440OForms.N502B
 
         #region Переключатели
 
-        private static bool _переключательСеть;
-        private static int _переключательНапряжение = 1;
-        private static int _переключательФазировка = 1;
-        private static int _переключательКонтрольНапряжения = 2;
-        private static int _переключательТокНагрузкиИЗаряда = 1;
+        private bool _переключательСеть;
+        private int _переключательНапряжение = 1;
+        private int _переключательФазировка = 1;
+        private int _переключательКонтрольНапряжения = 2;
+        private int _переключательТокНагрузкиИЗаряда = 1;
 
         /// <summary>
         /// Переключатель включения блока.
         /// При неправильно подключенном кабеле на блоке Стабилизатора, выводится сообщение об ошибке
         /// </summary>
-        public static bool ПереключательСеть
+        public bool ПереключательСеть
         {
             get { return _переключательСеть; }
             set
             {
-                if (!VoltageStabilizerParameters.КабельПодключенПравильно
-                    && VoltageStabilizerParameters.КабельВход != 0
+                if (!VoltageStabilizerParameters.getInstance().КабельПодключенПравильно
+                    && VoltageStabilizerParameters.getInstance().КабельВход != 0
                     && !_переключательСеть
                     && ЛампочкаСеть
                     && СтанцияСгорела != null)
@@ -222,7 +230,7 @@ namespace R440O.R440OForms.N502B
                     //Нагрузка слетает при переключении
                     Нагрузка = false;
                 }
-                VoltageStabilizerParameters.ResetParameters();
+                VoltageStabilizerParameters.getInstance().ResetParameters();
                 OnParameterChanged();
             }
         }
@@ -231,7 +239,7 @@ namespace R440O.R440OForms.N502B
         /// <summary>
         /// 1,2,3 - сеть. 4 - нейтральное. 5,6,7 - нагрузка. 
         /// </summary>
-        public static int ПереключательНапряжение
+        public int ПереключательНапряжение
         {
             get { return _переключательНапряжение; }
             set
@@ -245,7 +253,7 @@ namespace R440O.R440OForms.N502B
         /// <summary>
         /// 
         /// </summary>
-        public static int ПереключательФазировка
+        public int ПереключательФазировка
         {
             get { return _переключательФазировка; }
             set
@@ -266,7 +274,7 @@ namespace R440O.R440OForms.N502B
         }
 
 
-        public static int ПереключательКонтрольНапряжения
+        public int ПереключательКонтрольНапряжения
         {
             get { return _переключательКонтрольНапряжения; }
             set
@@ -277,7 +285,7 @@ namespace R440O.R440OForms.N502B
             }
         }
 
-        public static int ПереключательТокНагрузкиИЗаряда
+        public int ПереключательТокНагрузкиИЗаряда
         {
             get { return _переключательТокНагрузкиИЗаряда; }
             set
@@ -290,40 +298,40 @@ namespace R440O.R440OForms.N502B
         #endregion
 
         #region Нагрузка и Фазировка
-        private static bool _нагрузка = false;
+        private bool _нагрузка = false;
 
         /// <summary>
         /// Переменная определяющая наличие нагрузки. Сбрасывает все зависимые блоки в том случае, если значение нагрузки изменило
         /// сь
         /// </summary>
-        public static bool Нагрузка
+        public bool Нагрузка
         {
             get { return _нагрузка; }
             set
             {
                 bool flag = value != _нагрузка;
                 _нагрузка = value;
-                if (flag) N15Parameters.ResetParameters();
+                if (flag) N15Parameters.getInstance().ResetParameters();
             }
         }
 
         /// <summary>
         /// Текущее требуемое для фазировки положение.
         /// </summary>
-        public static int Фазировка;
+        public int Фазировка;
 
-        private static bool _кнопкаВклНагрузки;
+        private bool _кнопкаВклНагрузки;
 
         /// <summary>
         /// Кнопка подачи нагрузки. Если всё выставлено верно, то при нажатии будет нагрузка.
         /// </summary>
-        public static bool КнопкаВклНагрузки
+        public bool КнопкаВклНагрузки
         {
             get { return _кнопкаВклНагрузки; }
             set
             {
                 _кнопкаВклНагрузки = value;
-                if (value && !Нагрузка && ПереключательСеть && VoltageStabilizerParameters.КабельПодключенПравильно &&
+                if (value && !Нагрузка && ПереключательСеть && VoltageStabilizerParameters.getInstance().КабельПодключенПравильно &&
                     ЛампочкаСеть && ПереключательФазировка == Фазировка) Нагрузка = true;
                 OnParameterChanged();
             }
@@ -332,7 +340,7 @@ namespace R440O.R440OForms.N502B
         #endregion
 
         #region Индикаторы
-        public static int ИндикаторНапряжение
+        public int ИндикаторНапряжение
         {
             get
             {
@@ -343,11 +351,11 @@ namespace R440O.R440OForms.N502B
                         case 1:
                         case 2:
                         case 3:
-                            return PowerCabelParameters.Напряжение;
+                            return PowerCabelParameters.getInstance().Напряжение;
                         case 5:
                         case 6:
                         case 7:
-                            if ((Нагрузка && VoltageStabilizerParameters.КабельПодключенПравильно) &&
+                            if ((Нагрузка && VoltageStabilizerParameters.getInstance().КабельПодключенПравильно) &&
                                 (ЛампочкаСфазировано || (КнопкаВклНагрузки && !ЛампочкаСфазировано))) return 220;
                             else return 0;
                         default:
@@ -362,7 +370,7 @@ namespace R440O.R440OForms.N502B
         /// <summary>
         /// Вычисление величины тока, используемой на станции.
         /// </summary>
-        public static int ИндикаторТокНагрузки
+        public int ИндикаторТокНагрузки
         {
             get
             {
@@ -374,7 +382,7 @@ namespace R440O.R440OForms.N502B
         /// Определяет количество включенных на данный момент блоков.
         /// </summary>
         /// <returns></returns>
-        private static int ВключенныеБлоки()
+        private int ВключенныеБлоки()
         {
             var propertyList = typeof(N15Parameters).GetProperties().ToArray();
             var quantity = 0;
@@ -382,7 +390,7 @@ namespace R440O.R440OForms.N502B
             {
                 if (property.Name.Contains("Лампочка"))
                 {
-                    if ((bool)property.GetValue(null))
+                    if ((bool)property.GetValue(N15Parameters.getInstance()))
                     {
                         quantity++;
                     }
@@ -392,7 +400,7 @@ namespace R440O.R440OForms.N502B
             return quantity;
         }
 
-        public static int ИндикаторКонтрольНапряжения
+        public int ИндикаторКонтрольНапряжения
         {
             get
             {
@@ -415,7 +423,7 @@ namespace R440O.R440OForms.N502B
             }
         }
 
-        public static int ИндикаторТокНагрузкиИЗаряда
+        public int ИндикаторТокНагрузкиИЗаряда
         {
             get
             {
@@ -429,39 +437,31 @@ namespace R440O.R440OForms.N502B
         }
         #endregion
 
-        public delegate void TestModuleHandler(ITestModule module);
-        public static event TestModuleHandler Action;
         public delegate void ParameterChangedHandler();
-        public static event ParameterChangedHandler ParameterChanged;
+        public event ParameterChangedHandler ParameterChanged;
 
         /// <summary>
         /// Событие возникающее, если пользователь осуществил неправильные действия, которые привели к выходу станции из строя.
         /// </summary>
-        public static event ParameterChangedHandler СтанцияСгорела;
-        public static event ParameterChangedHandler НекорректноеДействие;
+        public event ParameterChangedHandler СтанцияСгорела;
+        public event ParameterChangedHandler НекорректноеДействие;
 
-        private static void OnParameterChanged()
+        private void OnParameterChanged()
         {
             ParameterChanged?.Invoke();
-            OnAction();
         }
 
-        private static void OnAction()
-        {
-            Action?.Invoke(TestModuleRef);
-        }
-
-        public static void ResetParameters()
+        public void ResetParameters()
         {
             OnParameterChanged();
         }
-        
+
 
         #region Вспомогательные переменные, для обращения к блоку
         /// <summary>
         /// Определение, включено ли Электрообуродование
         /// </summary>
-        public static bool ЭлектрообуродованиеВключено
+        public bool ЭлектрообуродованиеВключено
         {
             get { return ЛампочкаСфазировано && ТумблерЭлектрооборудование; }
         }
@@ -469,7 +469,7 @@ namespace R440O.R440OForms.N502B
         /// <summary>
         /// Определение, включён ли Выпрямитель
         /// </summary>
-        public static bool ВыпрямительВключен
+        public bool ВыпрямительВключен
         {
             get { return ЛампочкаСфазировано && ТумблерВыпрямитель27В; }
         }
@@ -477,13 +477,13 @@ namespace R440O.R440OForms.N502B
         /// <summary>
         /// Определение, включён ли Н15
         /// </summary>
-        public static bool Н15Включен
+        public bool Н15Включен
         {
             get { return ЛампочкаСфазировано && ТумблерН15; }
         }
         #endregion
 
-        public static void SetDefaultParameters()
+        public void SetDefaultParameters()
         {
             ПереключательСеть = false;
             ПереключательНапряжение = 1;

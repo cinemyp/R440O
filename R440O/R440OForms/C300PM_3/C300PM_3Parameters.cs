@@ -2,35 +2,42 @@
 {
     using A304;
 
-    public static class C300PM_3Parameters
+    public class C300PM_3Parameters
     {
+        private static C300PM_3Parameters instance;
+        public static C300PM_3Parameters getInstance()
+        {
+            if (instance == null)
+                instance = new C300PM_3Parameters();
+            return instance;
+        }
         /// <summary>
         /// Параметр для лампочки 1 комплекта. Возможные состояния: true, false
         /// </summary>
-        public static bool ЛампочкаКомплект1
+        public bool ЛампочкаКомплект1
         {
-            get { return A304Parameters.Лампочка1К; }
+            get { return A304Parameters.getInstance().Лампочка1К; }
         }
 
         /// <summary>
         /// Параметр для лампочки 2 комплекта. Возможные состояния: true, false
         /// </summary>
-        public static bool ЛампочкаКомплект2
+        public bool ЛампочкаКомплект2
         {
-            get { return A304Parameters.Лампочка2К; }
+            get { return A304Parameters.getInstance().Лампочка2К; }
         }
 
         public delegate void ParameterChangedHandler();
 
-        public static event ParameterChangedHandler ParameterChanged;
+        public event ParameterChangedHandler ParameterChanged;
 
-        private static void OnParameterChanged()
+        private void OnParameterChanged()
         {
             var handler = ParameterChanged;
             if (handler != null) handler();
         }
 
-        public static void ResetParameters()
+        public void ResetParameters()
         {
             OnParameterChanged();
         }

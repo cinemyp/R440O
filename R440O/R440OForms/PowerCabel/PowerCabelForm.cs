@@ -19,28 +19,16 @@
         public PowerCabelForm()
         {
             InitializeComponent();
-            PowerCabelParameters.ParameterChanged += RefreshFormElements;
-            PowerCabelParameters.СтанцияСгорела += ВыводСообщенияСтанцияСгорела;
-
-            if (ParametersConfig.IsTesting)
-            {
-                PowerCabelParameters.TestModuleRef = this;
-                PowerCabelParameters.Action += TestMain.Action;
-            }
+            PowerCabelParameters.getInstance().ParameterChanged += RefreshFormElements;
+            PowerCabelParameters.getInstance().СтанцияСгорела += ВыводСообщенияСтанцияСгорела;
 
             this.RefreshFormElements();
 
-            if (LearnMain.getIntent() == ModulesEnum.openPowerCabeltoPower)
+            if (LearnMain.getIntent() == LearnModule.ModulesEnum.openPowerCabeltoPower)
             {
-                LearnMain.setIntent(ModulesEnum.PowerCabelConnect);
+                LearnMain.setIntent(LearnModule.ModulesEnum.PowerCabelConnect);
                 LearnMain.form = this;
                 LearnMain.Action();
-            }
-
-            if (TestMain.getIntent() == ModulesEnum.openPowerCabeltoPower)
-            {
-                TestMain.setIntent(ModulesEnum.PowerCabelConnect);
-                IsExactModule = true;
             }
         }
         private void ВыводСообщенияСтанцияСгорела()
@@ -52,14 +40,14 @@
         #region Кабель СЕТЬ
         private void КабельСеть_Click(object sender, EventArgs e)
         {
-            PowerCabelParameters.КабельСеть = !PowerCabelParameters.КабельСеть;
+            PowerCabelParameters.getInstance().КабельСеть = !PowerCabelParameters.getInstance().КабельСеть;
         }
         #endregion
 
         #region Тумблер ОСВЕЩЕНИЕ
         private void ТумблерОсвещение_Click(object sender, EventArgs e)
         {
-            PowerCabelParameters.ТумблерОсвещение = !PowerCabelParameters.ТумблерОсвещение;
+            PowerCabelParameters.getInstance().ТумблерОсвещение = !PowerCabelParameters.getInstance().ТумблерОсвещение;
         }
         #endregion
 
@@ -67,11 +55,11 @@
 
         public void RefreshFormElements()
         {
-            ТумблерОсвещение.BackgroundImage = (PowerCabelParameters.ТумблерОсвещение)
+            ТумблерОсвещение.BackgroundImage = (PowerCabelParameters.getInstance().ТумблерОсвещение)
                 ? ControlElementImages.tumblerType4Right
                 : ControlElementImages.tumblerType4Left;
 
-            КабельСеть.BackgroundImage = (PowerCabelParameters.КабельСеть)
+            КабельСеть.BackgroundImage = (PowerCabelParameters.getInstance().КабельСеть)
                 ? ControlElementImages.powerCabelEnter
                 : null;
         }
@@ -79,23 +67,25 @@
         
         private void PowerCabelForm_FormClosed(object sender, FormClosedEventArgs e)
         {
-            if (!PowerCabelParameters.КабельСеть)
+            if (!PowerCabelParameters.getInstance().КабельСеть)
             {
-                LearnMain.setIntent(ModulesEnum.openPowerCabeltoPower);
-                TestMain.setIntent(ModulesEnum.openPowerCabeltoPower);
+                LearnMain.setIntent(LearnModule.ModulesEnum.openPowerCabeltoPower);
             }
             else
             {
-                LearnMain.setIntent(ModulesEnum.openN502BtoCheck);
-                TestMain.setIntent(ModulesEnum.openN502BtoCheck);
+                LearnMain.setIntent(LearnModule.ModulesEnum.openN502BtoCheck);
             }
 
-            PowerCabelParameters.ParameterChanged -= RefreshFormElements;
-            PowerCabelParameters.СтанцияСгорела -= ВыводСообщенияСтанцияСгорела;
-
-            if (ParametersConfig.IsTesting)
+            PowerCabelParameters.getInstance().ParameterChanged -= RefreshFormElements;
+            PowerCabelParameters.getInstance().СтанцияСгорела -= ВыводСообщенияСтанцияСгорела;
+            
+            switch (TestMain.getIntent())
             {
-                PowerCabelParameters.Action -= TestMain.Action;
+                case ModulesEnum.PowerCabelConnect:
+                    var blockParams = PowerCabelParameters.getInstance();
+
+                    TestMain.Action(new JsonAdapter.ActionStation() { Module = LearnModule.ModulesEnum.PowerCabelConnect, Value = blockParams.Напряжение > 0 ? 1 : 0 });
+                    break;
             }
         }
     }

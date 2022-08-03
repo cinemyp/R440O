@@ -5,17 +5,25 @@ using R440O.R440OForms.K03M_01;
 
 namespace R440O.R440OForms.K03M_01Inside
 {
-    static class K03M_01InsideParameters
+    class K03M_01InsideParameters
     {
+        private static K03M_01InsideParameters instance;
+        public static K03M_01InsideParameters getInstance()
+        {
+            if (instance == null)
+                instance = new K03M_01InsideParameters();
+            return instance;
+        }
+
         #region Переключатели
-        public static KulonIndexerClass Переключатели = new KulonIndexerClass();
+        public  KulonIndexerClass Переключатели = new KulonIndexerClass();
         #endregion
 
         #region ТумблерИП и ВклВыкл
-        private static bool _тумблерИП;
-        private static bool _тумблерВклОткл;
+        private  bool _тумблерИП;
+        private  bool _тумблерВклОткл;
 
-        public static bool ТумблерИП
+        public  bool ТумблерИП
         {
             get
             {
@@ -28,7 +36,7 @@ namespace R440O.R440OForms.K03M_01Inside
             }
 
         }
-        public static bool ТумблерВклОткл
+        public  bool ТумблерВклОткл
         {
             get
             {
@@ -47,17 +55,17 @@ namespace R440O.R440OForms.K03M_01Inside
         #region событие
 
         public delegate void ParameterChangedHandler();
-        public static event ParameterChangedHandler ParameterChanged;
+        public  event ParameterChangedHandler ParameterChanged;
 
-        private static void OnParameterChanged()
+        private  void OnParameterChanged()
         {
             var handler = ParameterChanged;
             if (handler != null) handler();
         }
 
-        public static void ResetParameters()
+        public  void ResetParameters()
         {
-            K03M_01Parameters.ПересчитатьНайденоИлиНеНайдено();
+            K03M_01Parameters.getInstance().ПересчитатьНайденоИлиНеНайдено();
             OnParameterChanged();
         }
 
@@ -84,8 +92,8 @@ namespace R440O.R440OForms.K03M_01Inside
                 {
                     if (value >= 0 && value <= 1) myArray[index] = value;
                 }
-                K03M_01InsideParameters.ResetParameters();
-                K03M_01Parameters.ПересчитатьНайденоИлиНеНайдено();
+                K03M_01InsideParameters.getInstance().ResetParameters();
+                K03M_01Parameters.getInstance().ПересчитатьНайденоИлиНеНайдено();
             }
         }
 

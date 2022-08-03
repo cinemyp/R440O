@@ -8,17 +8,17 @@ namespace R440O.R440OForms.N18_M_H28
         public N18_M_H28Form()
         {
             InitializeComponent();
-            N18_M_H28Parameters.ParameterChanged += RefreshFormElements;
+            N18_M_H28Parameters.getInstance().ParameterChanged += RefreshFormElements;
             RefreshFormElements();
         }
 
         public void RefreshFormElements()
         {
-            КабельК11.Visible = N18_M_H28Parameters.АктивныйКабель != 1;
-            КабельК12.Visible = N18_M_H28Parameters.АктивныйКабель != 2;
+            КабельК11.Visible = N18_M_H28Parameters.getInstance().АктивныйКабель != 1;
+            КабельК12.Visible = N18_M_H28Parameters.getInstance().АктивныйКабель != 2;
 
             АктивныйКабель.Visible = true;
-            switch (N18_M_H28Parameters.АктивныйКабель)
+            switch (N18_M_H28Parameters.getInstance().АктивныйКабель)
             {
                 case 1: АктивныйКабель.BackgroundImage = ControlElementImages.kabelInputK11; break;
                 case 2: АктивныйКабель.BackgroundImage = ControlElementImages.kabelInputK12; break;
@@ -29,17 +29,17 @@ namespace R440O.R440OForms.N18_M_H28
 
         private void КабельК11_Click(object sender, EventArgs e)
         {
-            N18_M_H28Parameters.АктивныйКабель = 1;
+            N18_M_H28Parameters.getInstance().АктивныйКабель = 1;
         }
 
         private void КабельК12_Click(object sender, EventArgs e)
         {
-            N18_M_H28Parameters.АктивныйКабель = 2;
+            N18_M_H28Parameters.getInstance().АктивныйКабель = 2;
         }
 
         private void АктивныйКабель_Click(object sender, EventArgs e)
         {
-            N18_M_H28Parameters.АктивныйКабель = 0;
+            N18_M_H28Parameters.getInstance().АктивныйКабель = 0;
         }
     }
 }

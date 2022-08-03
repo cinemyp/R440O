@@ -2,27 +2,34 @@
 
 namespace R440O.Parameters
 {
-    public static class AstraParameters
+    public class AstraParameters
     {
+        private static AstraParameters instance;
+        public static AstraParameters getInstance()
+        {
+            if (instance == null)
+                instance = new AstraParameters();
+            return instance;
+        }
 
         #region Переключатели
 
         #region private
-        private static int _переключательВнешнегоПитания = 1;
-        private static int _переключательКонтроль = 1;
-        private static int _переключательДиапазоны = 1;
-        private static int _переключательВыходаРеле = 1;
-        private static int _переключательТлгТлф = 1;
-        private static bool _тумблерШпУп = true;
-        private static int _регуляторУсиление;
-        private static int _регуляторУсилениеПЧ;
+        private int _переключательВнешнегоПитания = 1;
+        private int _переключательКонтроль = 1;
+        private int _переключательДиапазоны = 1;
+        private int _переключательВыходаРеле = 1;
+        private int _переключательТлгТлф = 1;
+        private bool _тумблерШпУп = true;
+        private int _регуляторУсиление;
+        private int _регуляторУсилениеПЧ;
         #endregion
 
         #region public
         /// <summary>
         /// 1: флг_рру; 2: флг_ару
         /// </summary>
-        public static int ПереключательТлгТлф
+        public int ПереключательТлгТлф
         {
             get { return _переключательТлгТлф; }
             set
@@ -39,7 +46,7 @@ namespace R440O.Parameters
         /// <summary>
         /// 1: 115; 2: +12; 3:220; 4: Выкл;
         /// </summary>
-        public static int ПереключательВнешнегоПитания
+        public int ПереключательВнешнегоПитания
         {
             get { return _переключательВнешнегоПитания; }
             set
@@ -56,7 +63,7 @@ namespace R440O.Parameters
         /// <summary>
         /// 1: настройка; 2: гетер; 3: +12в;
         /// </summary>
-        public static int ПереключательКонтроль
+        public int ПереключательКонтроль
         {
             get { return _переключательКонтроль; }
             set
@@ -72,7 +79,7 @@ namespace R440O.Parameters
         /// <summary>
         /// 1: выкл; 2: 12-150кгц; 3: 1.15мГц; 4: 2.5мгц; 5: 5мгц; 6: 10мгц; 7: 15мгц; 8: 20мгц; 9: 25мгц;
         /// </summary>
-        public static int ПереключательДиапазоны
+        public int ПереключательДиапазоны
         {
             get { return _переключательДиапазоны; }
             set
@@ -88,7 +95,7 @@ namespace R440O.Parameters
         /// <summary>
         /// 1: пч; 2: реле; 3: выкл;
         /// </summary>
-        public static int ПереключательВыходаРеле
+        public int ПереключательВыходаРеле
         {
             get { return _переключательВыходаРеле; }
             set
@@ -104,7 +111,7 @@ namespace R440O.Parameters
         /// <summary>
         /// Положение тумблера ШпУп. true - шп, false - уп
         /// </summary>
-        public static bool ТумблерШпУп
+        public bool ТумблерШпУп
         {
             get { return _тумблерШпУп; }
             set
@@ -118,30 +125,30 @@ namespace R440O.Parameters
 
         #region Кнопки
 
-        private static bool _кнопка150_270;
-        private static bool _кнопка270_480;
-        private static bool _кнопка480_860;
-        private static bool _кнопка860_1500;
+        private bool _кнопка150_270;
+        private bool _кнопка270_480;
+        private bool _кнопка480_860;
+        private bool _кнопка860_1500;
 
-        public static bool Кнопка150_270
+        public bool Кнопка150_270
         {
             get { return _кнопка150_270; }
             set { _кнопка150_270 = value; }
         }
 
-        public static bool Кнопка270_480
+        public bool Кнопка270_480
         {
             get { return _кнопка270_480; }
             set { _кнопка270_480 = value; }
         }
 
-        public static bool Кнопка480_860
+        public bool Кнопка480_860
         {
             get { return _кнопка480_860; }
             set { _кнопка480_860 = value; }
         }
 
-        public static bool Кнопка860_1500
+        public bool Кнопка860_1500
         {
             get { return _кнопка860_1500; }
             set { _кнопка860_1500 = value; }
@@ -151,9 +158,9 @@ namespace R440O.Parameters
 
         #region Регуляторы
 
-        public static int РегуляторЧастота { get; set; }
+        public int РегуляторЧастота { get; set; }
 
-        public static int РегуляторУсиление
+        public int РегуляторУсиление
         {
             get { return _регуляторУсиление; }
             set
@@ -163,7 +170,7 @@ namespace R440O.Parameters
             }
         }
 
-        public static int РегуляторУсилениеПЧ
+        public int РегуляторУсилениеПЧ
         {
             get { return _регуляторУсилениеПЧ; }
             set
@@ -176,15 +183,15 @@ namespace R440O.Parameters
         #endregion
 
         public delegate void ParameterChangedHandler();
-        public static event ParameterChangedHandler ParameterChanged;
+        public event ParameterChangedHandler ParameterChanged;
 
-        private static void OnParameterChanged()
+        private void OnParameterChanged()
         {
             var handler = ParameterChanged;
             if (handler != null) handler();
         }
 
-        public static void ResetParameters()
+        public void ResetParameters()
         {
             OnParameterChanged();
         }

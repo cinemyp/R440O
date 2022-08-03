@@ -3,6 +3,8 @@ using R440O.BaseClasses;
 
 namespace R440O.R440OForms.A306
 {
+    using global::R440O.LearnModule;
+    using global::R440O.TestModule;
     using System;
     using System.Drawing;
     using System.Windows.Forms;
@@ -10,27 +12,42 @@ namespace R440O.R440OForms.A306
     /// <summary>
     /// Форма блока А306
     /// </summary>
-    public partial class A306Form : Form, IRefreshableForm
+    public partial class A306Form : Form, IRefreshableForm, ITestModule
     {
+        public bool IsExactModule { get; set; }
+
         /// <summary>
         /// Инициализирует новый экземпляр класса <see cref="A306Form"/>.
         /// </summary>
         public A306Form()
         {
             InitializeComponent();
-            A306Parameters.ParameterChanged += RefreshFormElements;
+            A306Parameters.getInstance().ParameterChanged += RefreshFormElements;
+
+            if (ParametersConfig.IsTesting)
+            {
+                A306Parameters.getInstance().TestModuleRef = this;
+                //A306Parameters.getInstance().Action += TestMain.Action;
+            }
+            switch (TestMain.getIntent())
+            {
+                case LearnModule.ModulesEnum.A306_open:
+                    TestMain.setIntent(LearnModule.ModulesEnum.A306_set);
+                    IsExactModule = true;
+                    break;
+            }
         }
 
         #region Тумблеры
 
         private void ТумблерДистанцМестн_Click(object sender, System.EventArgs e)
         {
-            A306Parameters.ТумблерДистанцМестн = !A306Parameters.ТумблерДистанцМестн;
+            A306Parameters.getInstance().ТумблерДистанцМестн = !A306Parameters.getInstance().ТумблерДистанцМестн;
         }
 
         private void ТумблерПитание_Click(object sender, System.EventArgs e)
         {
-            A306Parameters.ТумблерПитание = !A306Parameters.ТумблерПитание;
+            A306Parameters.getInstance().ТумблерПитание = !A306Parameters.getInstance().ТумблерПитание;
         }
 
         #endregion
@@ -41,7 +58,7 @@ namespace R440O.R440OForms.A306
         {
             var button = sender as Button;
             int numberOfButton = int.Parse(button.Name[5].ToString() + button.Name[6]);
-            A306Parameters.Выходы[numberOfButton] = A306Parameters.АктивныйВход;
+            A306Parameters.getInstance().Выходы[numberOfButton] = A306Parameters.getInstance().АктивныйВход;
         }
 
         private void ВходыКаналов_Click(object sender, EventArgs e)
@@ -57,7 +74,7 @@ namespace R440O.R440OForms.A306
             if (!button.Font.Bold)
                 FontChange(button);
 
-            A306Parameters.АктивныйВход = numberOfButton;
+            A306Parameters.getInstance().АктивныйВход = numberOfButton;
         }
 
         #endregion
@@ -116,7 +133,7 @@ namespace R440O.R440OForms.A306
                 if (item.Name.Contains("ВходКанала"))
                 {
                     //если кабели висят на планке
-                    if (A306Parameters.КабелиВходы[(int)char.GetNumericValue(item.Name[10])])
+                    if (A306Parameters.getInstance().КабелиВходы[(int)char.GetNumericValue(item.Name[10])])
                     {
                         var onePoint = new Point(Panel.Left + 55 * (int)char.GetNumericValue(item.Name[10]) + 140,
                             Panel.Bottom - 85);
@@ -135,9 +152,9 @@ namespace R440O.R440OForms.A306
                 {
                     int index =
                         int.Parse(Convert.ToString(Convert.ToString(item.Name[5]) + Convert.ToString(item.Name[6])));
-                    if (A306Parameters.Выходы[index] != -1 && A306Parameters.Выходы[index] <= 3)
+                    if (A306Parameters.getInstance().Выходы[index] != -1 && A306Parameters.getInstance().Выходы[index] <= 3)
                     {
-                        var onePoint = new Point(Panel.Left + 55 * A306Parameters.Выходы[index] + 142, Panel.Bottom - 80);
+                        var onePoint = new Point(Panel.Left + 55 * A306Parameters.getInstance().Выходы[index] + 142, Panel.Bottom - 80);
                         if (index <= 10)
                         {
                             //для нижнего ряда выходов
@@ -157,7 +174,7 @@ namespace R440O.R440OForms.A306
                     }
                     else //для NO
                     {
-                        if (A306Parameters.Выходы[index] == 4)
+                        if (A306Parameters.getInstance().Выходы[index] == 4)
                         {
                             НО1.Visible = true;
                             НО1.BackgroundImage = ControlElementImages.A306Input;
@@ -177,7 +194,7 @@ namespace R440O.R440OForms.A306
                             Point2.Y -= 5;
                             DrawLine(Point1_1, Point2, e);
                         }
-                        else if (A306Parameters.Выходы[index] == 5)
+                        else if (A306Parameters.getInstance().Выходы[index] == 5)
                         {
                             НО2.Visible = true;
                             НО2.BackgroundImage = ControlElementImages.A306Input;
@@ -212,24 +229,24 @@ namespace R440O.R440OForms.A306
         public void RefreshFormElements()
         {
             //Лампочки
-            ЛампочкаСетьВкл.BackgroundImage = A306Parameters.ЛампочкаСетьВкл
+            ЛампочкаСетьВкл.BackgroundImage = A306Parameters.getInstance().ЛампочкаСетьВкл
                 ? ControlElementImages.lampType5OnRed
                 : null;
 
-            ЛампочкаНО1Вкл.BackgroundImage = A306Parameters.ЛампочкаНО1Вкл
+            ЛампочкаНО1Вкл.BackgroundImage = A306Parameters.getInstance().ЛампочкаНО1Вкл
                 ? ControlElementImages.lampType5OnRed
                 : null;
 
-            ЛампочкаНО2Вкл.BackgroundImage = A306Parameters.ЛампочкаНО2Вкл
+            ЛампочкаНО2Вкл.BackgroundImage = A306Parameters.getInstance().ЛампочкаНО2Вкл
                 ? ControlElementImages.lampType5OnRed
                 : null;
 
             //Тумблер
-            ТумблерДистанцМестн.BackgroundImage = A306Parameters.ТумблерДистанцМестн
+            ТумблерДистанцМестн.BackgroundImage = A306Parameters.getInstance().ТумблерДистанцМестн
                 ? ControlElementImages.tumblerType4Up
                 : ControlElementImages.tumblerType4Down;
 
-            ТумблерПитание.BackgroundImage = A306Parameters.ТумблерПитание
+            ТумблерПитание.BackgroundImage = A306Parameters.getInstance().ТумблерПитание
                 ? ControlElementImages.tumblerType4Up
                 : ControlElementImages.tumblerType4Down;
 
@@ -238,7 +255,7 @@ namespace R440O.R440OForms.A306
             {
                 if (item.Name.Contains("ВходКанала"))
                 {
-                    if (A306Parameters.КабелиВходы[(int)Char.GetNumericValue(item.Name[10])])
+                    if (A306Parameters.getInstance().КабелиВходы[(int)Char.GetNumericValue(item.Name[10])])
                     {
                         item.Visible = true;
                         item.BackgroundImage = ControlElementImages.A306Input;
@@ -253,7 +270,7 @@ namespace R440O.R440OForms.A306
                 }
                 else if (item.Name.Contains("ВходNO"))
                 {
-                    if (A306Parameters.КабелиВходы[(int)Char.GetNumericValue(item.Name[7]) + 3])
+                    if (A306Parameters.getInstance().КабелиВходы[(int)Char.GetNumericValue(item.Name[7]) + 3])
                     {
                         item.Visible = true;
                         item.BackgroundImage = ControlElementImages.A306Input;
@@ -275,17 +292,17 @@ namespace R440O.R440OForms.A306
                 {
                     int index =
                         int.Parse(Convert.ToString(Convert.ToString(item.Name[5]) + Convert.ToString(item.Name[6])));
-                    if (A306Parameters.Выходы[index] != -1)
+                    if (A306Parameters.getInstance().Выходы[index] != -1)
                     {
                         item.BackgroundImage = ControlElementImages.A306Input;
-                        if (A306Parameters.Выходы[index] <= 3)
+                        if (A306Parameters.getInstance().Выходы[index] <= 3)
                         {
-                            item.Text = (A306Parameters.Выходы[index] + 1).ToString();
+                            item.Text = (A306Parameters.getInstance().Выходы[index] + 1).ToString();
                             item.Font = new Font("Microsoft Sans Serif", 8.25F, (FontStyle.Regular));
                         }
                         else
                         {
-                            item.Text = "НО" + (A306Parameters.Выходы[index] - 3);
+                            item.Text = "НО" + (A306Parameters.getInstance().Выходы[index] - 3);
                             item.Font = new Font("Microsoft Sans Serif", 5.25F, (FontStyle.Regular));
                         }
                     }
@@ -313,7 +330,30 @@ namespace R440O.R440OForms.A306
 
         private void A306Form_FormClosed(object sender, FormClosedEventArgs e)
         {
-            A306Parameters.ParameterChanged -= RefreshFormElements;
+            A306Parameters.getInstance().ParameterChanged -= RefreshFormElements;
+
+            var blockParams = A306Parameters.getInstance();
+            bool def;
+
+            switch (TestMain.getIntent())
+            {
+                case LearnModule.ModulesEnum.Check_A306:
+                    def = blockParams.ТумблерДистанцМестн &&
+                    blockParams.ТумблерПитание;
+
+                    TestMain.Action(new JsonAdapter.ActionStation() { Module = LearnModule.ModulesEnum.Check_A306, Value = Convert.ToInt32(def) });
+                    break;
+                case ModulesEnum.A306_Power:
+                    var index = OrderScheme.OrderSchemeParameters.СхемаПриказ.ПередачаПроверкаНаСебяУсловныйНомерСтволаА5031 - 1;
+                    def = blockParams.Выходы[11] == 0 &&
+                        blockParams.Выходы[12] == 1 &&
+                        blockParams.Выходы[13] == 2 &&
+                        blockParams.Выходы[14] == 3 &&
+                        blockParams.Выходы[index] == 4;
+
+                    TestMain.Action(new JsonAdapter.ActionStation() { Module = LearnModule.ModulesEnum.A306_Power, Value = Convert.ToInt32(def) });
+                    break;
+            }
         }
     }
 }

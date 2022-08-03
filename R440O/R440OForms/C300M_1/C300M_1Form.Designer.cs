@@ -945,6 +945,7 @@
             this.Name = "C300M_1Form";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Ц300M-1";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.C300M_1Form_FormClosed);
             this.C300M_1Panel.ResumeLayout(false);
             this.C300M_1Panel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();

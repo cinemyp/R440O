@@ -11,7 +11,9 @@ using R440O.ThirdParty;
 
 namespace R440O.R440OForms.K03M_01
 {
+    using System;
     using System.Windows.Forms;
+    using global::R440O.TestModule;
     using K03M_01Inside;
 
     /// <summary>
@@ -31,7 +33,7 @@ namespace R440O.R440OForms.K03M_01
 
         public K03M_01Form()
         {
-            K03M_01Parameters.ParameterChanged += RefreshFormElements;
+            K03M_01Parameters.getInstance().ParameterChanged += RefreshFormElements;
             this.InitializeComponent();
             RefreshFormElements();
         }
@@ -48,13 +50,13 @@ namespace R440O.R440OForms.K03M_01
                     if (item.Name.Contains("Переключатель") 
                         && !item.Name.Contains("ПереключательНапряжение"))
                     {
-                        item.BackgroundImage = (bool)property.GetValue(null)
+                        item.BackgroundImage = (bool)property.GetValue(K03M_01Parameters.getInstance())
                             ? ControlElementImages.tumblerType3Up
                             : ControlElementImages.tumblerType3Down;
                     }
                 }
             }
-            var angle = K03M_01Parameters.ПереключательЗонаПоиска * 30 - 75;
+            var angle = K03M_01Parameters.getInstance().ПереключательЗонаПоиска * 30 - 75;
             ПереключательНапряжение.BackgroundImage =
                 TransformImageHelper.RotateImageByAngle(ControlElementImages.toggleType2, angle);
         }
@@ -69,7 +71,7 @@ namespace R440O.R440OForms.K03M_01
                 {
                     if (item.Name.Contains("Лампочка"))
                     {
-                        item.BackgroundImage = (bool)property.GetValue(null)
+                        item.BackgroundImage = (bool)property.GetValue(K03M_01Parameters.getInstance())
                             ? ControlElementImages.lampType9OnGreen
                             : null;
                     }
@@ -112,7 +114,7 @@ namespace R440O.R440OForms.K03M_01
             var fieldList = typeof(K03M_01Parameters).GetProperties();
             foreach (var property in fieldList.Where(property => item != null && item.Name == property.Name))
             {
-                property.SetValue(null, !(bool)property.GetValue(null));            
+                property.SetValue(K03M_01Parameters.getInstance(), !(bool)property.GetValue(K03M_01Parameters.getInstance()));            
             }
         } 
         #endregion
@@ -136,43 +138,77 @@ namespace R440O.R440OForms.K03M_01
         {
             if (e.Button == MouseButtons.Left)
             {
-                K03M_01Parameters.ПереключательЗонаПоиска += 1;
+                K03M_01Parameters.getInstance().ПереключательЗонаПоиска += 1;
             }
 
             if (e.Button == MouseButtons.Right)
             {
-                K03M_01Parameters.ПереключательЗонаПоиска -= 1;
+                K03M_01Parameters.getInstance().ПереключательЗонаПоиска -= 1;
             }
         }
 
         private void КнопкаЛТЧ_Click(object sender, System.EventArgs e)
         {
-            K03M_01Parameters.ИзменитьВременнуюПозициюПоиска(-100);
+            K03M_01Parameters.getInstance().ИзменитьВременнуюПозициюПоиска(-100);
         }
 
         private void КнопкаПТЧ_Click(object sender, System.EventArgs e)
         {
-            K03M_01Parameters.ИзменитьВременнуюПозициюПоиска(100);
+            K03M_01Parameters.getInstance().ИзменитьВременнуюПозициюПоиска(100);
         }
 
         private void КнопкаЛТВ_Click(object sender, System.EventArgs e)
         {
-            K03M_01Parameters.ИзменитьВременнуюПозициюПоиска(-10);
+            K03M_01Parameters.getInstance().ИзменитьВременнуюПозициюПоиска(-10);
         }
 
         private void КнопкаПТВ_Click(object sender, System.EventArgs e)
         {
-            K03M_01Parameters.ИзменитьВременнуюПозициюПоиска(10);
+            K03M_01Parameters.getInstance().ИзменитьВременнуюПозициюПоиска(10);
         }
 
         private void КнопкаЛГ_Click(object sender, System.EventArgs e)
         {
-            K03M_01Parameters.ИзменитьВременнуюПозициюПоиска(-1);
+            K03M_01Parameters.getInstance().ИзменитьВременнуюПозициюПоиска(-1);
         }
 
         private void КнопкаПГ_Click(object sender, System.EventArgs e)
         {
-            K03M_01Parameters.ИзменитьВременнуюПозициюПоиска(1);
+            K03M_01Parameters.getInstance().ИзменитьВременнуюПозициюПоиска(1);
+        }
+
+        private void K03M_01Form_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            if (ParametersConfig.IsTesting)
+            {
+                var blockParams = K03M_01Parameters.getInstance();
+
+                if (blockParams.firstCheck)
+                {
+                    bool def = blockParams.ПереключательЗонаПоиска == 2;
+
+                    TestMain.Action(new JsonAdapter.ActionStation() { Module = LearnModule.ModulesEnum.Check_K03M_01_1, Value = Convert.ToInt32(def) });
+
+                    if (def)
+                    {
+                        blockParams.firstCheck = false;
+                    }
+                }
+                else
+                {
+                    bool def = blockParams.Переключатель0 && 
+                        blockParams.Переключатель4 &&
+                        !blockParams.Переключатель1 &&
+                        !blockParams.Переключатель2 &&
+                        !blockParams.Переключатель8 &&
+                        !blockParams.Переключатель16 &&
+                        !blockParams.Переключатель32 &&
+                        blockParams.ПереключательНепрОднокр &&
+                        blockParams.ПереключательАвтРучн;
+
+                    TestMain.Action(new JsonAdapter.ActionStation() { Module = LearnModule.ModulesEnum.Check_K03M_01_2, Value = Convert.ToInt32(def) });
+                }
+            }
         }
     }
 }

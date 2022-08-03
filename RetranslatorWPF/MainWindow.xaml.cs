@@ -27,8 +27,7 @@ namespace RetranslatorWPF
             dispatcherTimer = new DispatcherTimer();
             dispatcherTimer.Tick += new EventHandler(dispatcherTimer_Tick);
             dispatcherTimer.Interval = new TimeSpan(0, 0, 1);
-            dispatcherTimer.Start();        
-
+            dispatcherTimer.Start();
         }
 
         private string getStationString(Station station, OrderSchemeClass orderScheme)
@@ -67,12 +66,18 @@ namespace RetranslatorWPF
             {
                 return content + "Сигнала нет";
             }
-            for(var i = 0; i < station.Signal.Elements[0].Chanels.Count; i++)
-            {
 
-                content += "Канал " + i+ ": " + station.Signal.InformationStringOfChanel(i);
-                content += "\n";
+            var elems = station.Signal.Elements;
+            if(elems.Count > 0)
+            {
+                for (var i = 0; i < station.Signal.Elements[0].Chanels.Count; i++)
+                {
+
+                    content += "Канал " + i + ": " + station.Signal.InformationStringOfChanel(i);
+                    content += "\n";
+                }
             }
+            
             return content;
         }
 

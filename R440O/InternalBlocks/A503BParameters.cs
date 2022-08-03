@@ -25,7 +25,7 @@ namespace R440O.InternalBlocks
         /// </summary>
         public static bool Включен
         {
-            get { return N15Parameters.НеполноеВключение && N15Parameters.ТумблерА503Б; }
+            get { return N15Parameters.getInstance().НеполноеВключение && N15Parameters.getInstance().ТумблерА503Б; }
         }
 
         /// <summary>
@@ -55,7 +55,7 @@ namespace R440O.InternalBlocks
         /*
         public static void ResetParameters()
         {
-            MSHUParameters.ResetParameters();
+            MSHUParameters.getInstance().ResetParameters();
         }
         */ 
          

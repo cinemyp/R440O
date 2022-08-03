@@ -4,10 +4,10 @@
     using СостоянияЭлементов.Контур_П;
     partial class Kontur_P3Parameters
     {
-        private static bool КП3;
+        private bool КП3;
         #region Ламппочки
-        public static bool ЛампочкаКП3Сбой = false;
-        public static bool ЛампочкаКП3Канал10
+        public bool ЛампочкаКП3Сбой = false;
+        public bool ЛампочкаКП3Канал10
         {
             get
             {
@@ -17,7 +17,7 @@
                         || ЗначениеАдресК == ЗначениеПодпись3) && КП3;
             }
         }
-        public static bool ЛампочкаКП3Канал11
+        public bool ЛампочкаКП3Канал11
         {
             get
             {
@@ -27,7 +27,7 @@
                         || ЗначениеАдресК == ЗначениеПодпись3) && КП3;
             }
         }
-        public static bool ЛампочкаКП3Канал12
+        public bool ЛампочкаКП3Канал12
         {
             get
             {
@@ -39,14 +39,14 @@
         }
         #endregion
 
-        private static bool _КнопкаКП3Канал10;
-        public static bool КнопкаКП3Канал10 { get { return _КнопкаКП3Канал10; } set { _КнопкаКП3Канал10 = value; Refresh(); } }
-        private static bool _КнопкаКП3Канал11;
-        public static bool КнопкаКП3Канал11 { get { return _КнопкаКП3Канал11; } set { _КнопкаКП3Канал11 = value; Refresh(); } }
-        private static bool _КнопкаКП3Канал12;
-        public static bool КнопкаКП3Канал12 { get { return _КнопкаКП3Канал12; } set { _КнопкаКП3Канал12 = value; Refresh(); } }
+        private bool _КнопкаКП3Канал10;
+        public bool КнопкаКП3Канал10 { get { return _КнопкаКП3Канал10; } set { _КнопкаКП3Канал10 = value; Refresh(); } }
+        private bool _КнопкаКП3Канал11;
+        public bool КнопкаКП3Канал11 { get { return _КнопкаКП3Канал11; } set { _КнопкаКП3Канал11 = value; Refresh(); } }
+        private bool _КнопкаКП3Канал12;
+        public bool КнопкаКП3Канал12 { get { return _КнопкаКП3Канал12; } set { _КнопкаКП3Канал12 = value; Refresh(); } }
 
-        public static void НажатаКнопкаКанал10()
+        public void НажатаКнопкаКанал10()
         {
             if (ЛампочкаСеть)
             {
@@ -72,7 +72,7 @@
             }
         }
 
-        public static void НажатаКнопкаКанал11()
+        public void НажатаКнопкаКанал11()
         {
             if (ЛампочкаСеть)
             {
@@ -98,9 +98,9 @@
             }
         }
 
-       
 
-        private static void ЗаполнениеТаблоНаКП2()
+
+        private void ЗаполнениеТаблоНаКП2()
         {
             ЗначениеГруппыКП2 = ЗначениеГруппа;
             ИндексГруппыКП2 = 0;
@@ -126,18 +126,18 @@
                 ТекущееЗначениеГрупыКП2 = "000";
                 ИндексГруппыКП2 = 0;
             }
-            
+
         }
-        private static void ОчищениеТаблоНаКП2()
+        private void ОчищениеТаблоНаКП2()
         {
-            ЗначениеГруппыКП2 = new string[] { "", "", "", "", "", "", "", "", ""};
+            ЗначениеГруппыКП2 = new string[] { "", "", "", "", "", "", "", "", "" };
             ИндексГруппыКП2 = 0;
             ТекущееЗначение1КП2 = "";
             ТекущееЗначение2КП2 = "";
             ТекущееЗначениеГрупыКП2 = "";
         }
-            
-        public static void НажатаКнопкаКанал12()
+
+        public void НажатаКнопкаКанал12()
         {
             if (ЛампочкаСеть)
             {

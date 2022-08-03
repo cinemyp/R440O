@@ -18,25 +18,14 @@
         public VoltageStabilizerForm()
         {
             InitializeComponent();
-            VoltageStabilizerParameters.ParameterChanged += RefreshFormElements;
-            VoltageStabilizerParameters.ОператорСтанцииПораженТоком += ВыводСообщенияОператорСтанцииПоражёнТоком;
+            VoltageStabilizerParameters.getInstance().ParameterChanged += RefreshFormElements;
+            VoltageStabilizerParameters.getInstance().ОператорСтанцииПораженТоком += ВыводСообщенияОператорСтанцииПоражёнТоком;
             RefreshFormElements();
 
-            if (ParametersConfig.IsTesting)
-            {
-                VoltageStabilizerParameters.TestModuleRef = this;
-                VoltageStabilizerParameters.Action += TestMain.Action;
-            }
-
-            if (LearnMain.getIntent()==ModulesEnum.openVoltageStabilizer)
+            if (LearnMain.getIntent()==LearnModule.ModulesEnum.openVoltageStabilizer)
             {
                 LearnMain.form = this;
-                LearnMain.setIntent(ModulesEnum.VoltageStabilizerSetUp);
-            }
-            if (TestMain.getIntent() == ModulesEnum.openVoltageStabilizer)
-            {
-                IsExactModule = true;
-                TestMain.setIntent(ModulesEnum.VoltageStabilizerSetUp);
+                LearnMain.setIntent(LearnModule.ModulesEnum.VoltageStabilizerSetUp);
             }
         }
 
@@ -56,14 +45,14 @@
         /// </summary>
         private void КабельВход1_Click(object sender, System.EventArgs e)
         {
-            switch (VoltageStabilizerParameters.КабельВход)
+            switch (VoltageStabilizerParameters.getInstance().КабельВход)
             {
                 case 0:
                 case 380:
-                    VoltageStabilizerParameters.КабельВход = 220;
+                    VoltageStabilizerParameters.getInstance().КабельВход = 220;
                     break;
                 case 220:
-                    VoltageStabilizerParameters.КабельВход = 0;
+                    VoltageStabilizerParameters.getInstance().КабельВход = 0;
                     break;
             }
         }
@@ -76,12 +65,12 @@
         /// </summary>
         private void КабельВход2_Click(object sender, System.EventArgs e)
         {
-            switch (VoltageStabilizerParameters.КабельВход)
+            switch (VoltageStabilizerParameters.getInstance().КабельВход)
             {
                 case 0:
-                case 220: VoltageStabilizerParameters.КабельВход = 380;
+                case 220: VoltageStabilizerParameters.getInstance().КабельВход = 380;
                     break;
-                case 380: VoltageStabilizerParameters.КабельВход = 0;
+                case 380: VoltageStabilizerParameters.getInstance().КабельВход = 0;
                     break;
             }
         }
@@ -91,15 +80,15 @@
         /// </summary>
         private void ПереключательКонтрольНапр_MouseUp(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Left) VoltageStabilizerParameters.ПереключательКонтрольНапр += 1;
-            if (e.Button == MouseButtons.Right) VoltageStabilizerParameters.ПереключательКонтрольНапр -= 1;
+            if (e.Button == MouseButtons.Left) VoltageStabilizerParameters.getInstance().ПереключательКонтрольНапр += 1;
+            if (e.Button == MouseButtons.Right) VoltageStabilizerParameters.getInstance().ПереключательКонтрольНапр -= 1;
         }
 
         #endregion
 
         public void RefreshFormElements()
         {
-            switch (VoltageStabilizerParameters.КабельВход)
+            switch (VoltageStabilizerParameters.getInstance().КабельВход)
             {
                 case 0:
                     КабельВход1.BackgroundImage = null;
@@ -114,46 +103,34 @@
                     КабельВход2.BackgroundImage = ControlElementImages.voltageStabilizerInput;
                     break;
             }
-            var angle = VoltageStabilizerParameters.ПереключательКонтрольНапр * 30 - 195;
+            var angle = VoltageStabilizerParameters.getInstance().ПереключательКонтрольНапр * 30 - 195;
             ПереключательКонтрольНапр.BackgroundImage =
                 TransformImageHelper.RotateImageByAngle(ControlElementImages.toggleType3, angle);
             ИндикаторНапряжения.Invalidate();
 
-            ЛампочкаСетьВкл.BackgroundImage = VoltageStabilizerParameters.ЛампочкаСеть
+            ЛампочкаСетьВкл.BackgroundImage = VoltageStabilizerParameters.getInstance().ЛампочкаСеть
                 ? ControlElementImages.lampType13OnGreen
                 : null;
 
-            ЛампочкаАвария.BackgroundImage = VoltageStabilizerParameters.ЛампочкаАвария
+            ЛампочкаАвария.BackgroundImage = VoltageStabilizerParameters.getInstance().ЛампочкаАвария
                 ? ControlElementImages.lampType6OnRed
                 : null;
 
-            angle = (int) (VoltageStabilizerParameters.ИндикаторНапряжение * 0.3 - 75);
+            angle = (int) (VoltageStabilizerParameters.getInstance().ИндикаторНапряжение * 0.3 - 75);
             ИндикаторНапряжения.BackgroundImage =
                 TransformImageHelper.RotateImageByAngle(ControlElementImages.arrow2, angle);
         }
 
         private void VoltageStabilizerForm_FormClosed(object sender, FormClosedEventArgs e)
         {
-            VoltageStabilizerParameters.ParameterChanged -= RefreshFormElements;
-            VoltageStabilizerParameters.ОператорСтанцииПораженТоком -= ВыводСообщенияОператорСтанцииПоражёнТоком;
+            VoltageStabilizerParameters.getInstance().ParameterChanged -= RefreshFormElements;
+            VoltageStabilizerParameters.getInstance().ОператорСтанцииПораженТоком -= ВыводСообщенияОператорСтанцииПоражёнТоком;
 
-            if (ParametersConfig.IsTesting)
-            {
-                VoltageStabilizerParameters.Action -= TestMain.Action;
-            }
-
-            if ((LearnMain.getIntent() == ModulesEnum.VoltageStabilizerSetUp)
-                && (VoltageStabilizerParameters.КабельВход>0))
+            if ((LearnMain.getIntent() == LearnModule.ModulesEnum.VoltageStabilizerSetUp)
+                && (VoltageStabilizerParameters.getInstance().КабельВход>0))
             { 
-                LearnMain.setIntent(ModulesEnum.openN502BtoPower);
-            } else LearnMain.setIntent(ModulesEnum.openVoltageStabilizer);
-
-            if ((TestMain.getIntent() == ModulesEnum.VoltageStabilizerSetUp)
-                && (VoltageStabilizerParameters.КабельВход > 0))
-            {
-                TestMain.setIntent(ModulesEnum.openN502BtoPower);
-            }
-            else TestMain.setIntent(ModulesEnum.openVoltageStabilizer);
+                LearnMain.setIntent(LearnModule.ModulesEnum.openN502BtoPower);
+            } else LearnMain.setIntent(LearnModule.ModulesEnum.openVoltageStabilizer);
         }
     }
 }

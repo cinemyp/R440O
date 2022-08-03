@@ -20,9 +20,8 @@ namespace R440O.R440OForms.N15
     /// <summary>
     /// Форма блока Н-15
     /// </summary>
-    public partial class N15Form : Form, IRefreshableForm, ITestModule
+    public partial class N15Form : Form, IRefreshableForm
     {
-        public bool IsExactModule { get; set; }
         
         /// <summary>
         /// Инициализирует новый экземпляр класса <see cref="N15Form"/>
@@ -30,53 +29,29 @@ namespace R440O.R440OForms.N15
         public N15Form()
         {
             this.InitializeComponent();
-            N15Parameters.ParameterChanged += RefreshFormElements;
+            N15Parameters.getInstance().ParameterChanged += RefreshFormElements;
 
-            if (ParametersConfig.IsTesting)
-            {
-                N15Parameters.TestModuleRef = this;
-                N15Parameters.Action += TestMain.Action;
-                N15LocalParameters.TestModuleRef = this;
-                N15LocalParameters.Action += TestMain.Action;
-            }
-
-            N15Parameters.IndicatorChanged += RefreshIndicator;
+            N15Parameters.getInstance().IndicatorChanged += RefreshIndicator;
 
             RefreshFormElements();
 
             LearnMain.form = this;
             switch (LearnMain.getIntent())
             {
-                case ModulesEnum.openN15:
-                    LearnMain.setIntent(ModulesEnum.N15Power);
+                case LearnModule.ModulesEnum.openN15:
+                    LearnMain.setIntent(LearnModule.ModulesEnum.N15Power);
                     break;
-                case ModulesEnum.H15Inside_open:
-                    LearnMain.setIntent(ModulesEnum.H15Inside_open_from_H15);
-                    break;
-            }
-            switch (TestMain.getIntent())
-            {
-                case ModulesEnum.openN15:
-                    TestMain.setIntent(ModulesEnum.N15Power);
-                    IsExactModule = true;
-                    break;
-                case ModulesEnum.openN15SmallLoop:
-                    TestMain.setIntent(ModulesEnum.N15SmallLoop);
-                    IsExactModule = true;
-                    break;
-                case ModulesEnum.H15Inside_open:
-                    TestMain.setIntent(ModulesEnum.H15Inside_open_from_H15);
+                case LearnModule.ModulesEnum.H15Inside_open:
+                    LearnMain.setIntent(LearnModule.ModulesEnum.H15Inside_open_from_H15);
                     break;
             }
-
-
         }
 
         #region Инициализация элементов управления
 
         public void RefreshIndicator()
         {
-            var angle = N15Parameters.ИндикаторМощностьВыхода * 1.05F;
+            var angle = N15Parameters.getInstance().ИндикаторМощностьВыхода * 1.05F;
             ИндикаторМощностьВыхода.BackgroundImage =
                 TransformImageHelper.RotateImageByAngle(ControlElementImages.arrow2, angle);
         }
@@ -90,7 +65,7 @@ namespace R440O.R440OForms.N15
 
             РегуляторУровень.BackgroundImage = TransformImageHelper.RotateImageByAngle(
                     ControlElementImages.revolverRoundSmall,
-                    (float)N15Parameters.РегуляторУровень);
+                    (float)N15Parameters.getInstance().РегуляторУровень);
         }
 
         /// <summary>
@@ -98,16 +73,16 @@ namespace R440O.R440OForms.N15
         /// </summary>
         private void InitializeButtons()
         {
-            КнопкаПРМНаведениеЦ300М1.Visible = !N15Parameters.КнопкаПРМНаведениеЦ300М1;
-            КнопкаПРМНаведениеЦ300М2.Visible = !N15Parameters.КнопкаПРМНаведениеЦ300М2;
-            КнопкаПРМНаведениеЦ300М3.Visible = !N15Parameters.КнопкаПРМНаведениеЦ300М3;
-            КнопкаПРМНаведениеЦ300М4.Visible = !N15Parameters.КнопкаПРМНаведениеЦ300М4;
-            КнопкаМощностьАнт.Visible = !N15Parameters.КнопкаМощностьАнт;
-            КнопкаМощностьН16.Visible = !N15Parameters.КнопкаМощностьН16;
+            КнопкаПРМНаведениеЦ300М1.Visible = !N15Parameters.getInstance().КнопкаПРМНаведениеЦ300М1;
+            КнопкаПРМНаведениеЦ300М2.Visible = !N15Parameters.getInstance().КнопкаПРМНаведениеЦ300М2;
+            КнопкаПРМНаведениеЦ300М3.Visible = !N15Parameters.getInstance().КнопкаПРМНаведениеЦ300М3;
+            КнопкаПРМНаведениеЦ300М4.Visible = !N15Parameters.getInstance().КнопкаПРМНаведениеЦ300М4;
+            КнопкаМощностьАнт.Visible = !N15Parameters.getInstance().КнопкаМощностьАнт;
+            КнопкаМощностьН16.Visible = !N15Parameters.getInstance().КнопкаМощностьН16;
 
-            КнопкаН13_1.Visible = !N15LocalParameters.локКнопкаН13_1;
-            КнопкаН13_2.Visible = !N15LocalParameters.локКнопкаН13_2;
-            КнопкаН13_12.Visible = !N15LocalParameters.локКнопкаН13_12;
+            КнопкаН13_1.Visible = !N15LocalParameters.getInstance().локКнопкаН13_1;
+            КнопкаН13_2.Visible = !N15LocalParameters.getInstance().локКнопкаН13_2;
+            КнопкаН13_12.Visible = !N15LocalParameters.getInstance().локКнопкаН13_12;
         }
 
         /// <summary>
@@ -126,35 +101,35 @@ namespace R440O.R440OForms.N15
                                                                         !property.Name.Contains("АнтЭкв") &&
                                                                         !property.Name.Contains("А20512")))
                 {
-                    item.BackgroundImage = (bool)property.GetValue(null)
+                    item.BackgroundImage = (bool)property.GetValue(N15LocalParameters.getInstance())
                         ? ControlElementImages.tumblerType3Up
                         : ControlElementImages.tumblerType3Down;
                 }
             }
 
-            ТумблерА20512.BackgroundImage = N15LocalParameters.локТумблерА20512
+            ТумблерА20512.BackgroundImage = N15LocalParameters.getInstance().локТумблерА20512
                 ? ControlElementImages.tumblerType4Up
                 : ControlElementImages.tumblerType4Down;
 
 
             //Тумблеры левой и правой части для которых не требуется нажатие на кнопку ВКЛ
-            ТумблерА30412.BackgroundImage = N15Parameters.ТумблерА30412
+            ТумблерА30412.BackgroundImage = N15Parameters.getInstance().ТумблерА30412
                 ? ControlElementImages.tumblerType3Up
                 : ControlElementImages.tumblerType3Down;
 
-            ТумблерА503Б.BackgroundImage = N15Parameters.ТумблерА503Б
+            ТумблерА503Б.BackgroundImage = N15Parameters.getInstance().ТумблерА503Б
                 ? ControlElementImages.tumblerType3Up
                 : ControlElementImages.tumblerType3Down;
 
-            ТумблерАнтЭкв.BackgroundImage = N15LocalParameters.локТумблерАнтЭкв
+            ТумблерАнтЭкв.BackgroundImage = N15LocalParameters.getInstance().локТумблерАнтЭкв
                 ? ControlElementImages.tumblerType4Up
                 : ControlElementImages.tumblerType4Down;
 
-            ТумблерТлфТлгПрд.BackgroundImage = N15Parameters.ТумблерТлфТлгПрд
+            ТумблерТлфТлгПрд.BackgroundImage = N15Parameters.getInstance().ТумблерТлфТлгПрд
                 ? ControlElementImages.tumblerType4Up
                 : ControlElementImages.tumblerType4Down;
 
-            ТумблерТлфТлгПрм.BackgroundImage = N15Parameters.ТумблерТлфТлгПрм
+            ТумблерТлфТлгПрм.BackgroundImage = N15Parameters.getInstance().ТумблерТлфТлгПрм
                 ? ControlElementImages.tumblerType4Up
                 : ControlElementImages.tumblerType4Down;
 
@@ -175,13 +150,13 @@ namespace R440O.R440OForms.N15
                     if (item.Name.Contains("Ц300М") || item.Name.Contains("ППВ") || item.Name.Contains("А205") ||
                         item.Name.Contains("УМ1"))
                     {
-                        item.BackgroundImage = (bool)property.GetValue(null)
+                        item.BackgroundImage = (bool)property.GetValue(N15Parameters.getInstance())
                             ? ControlElementImages.lampType8OnRed
                             : null;
                     }
                     else
                     {
-                        item.BackgroundImage = (bool)property.GetValue(null)
+                        item.BackgroundImage = (bool)property.GetValue(N15Parameters.getInstance())
                             ? ControlElementImages.lampType5OnRed
                             : null;
                     }
@@ -207,12 +182,12 @@ namespace R440O.R440OForms.N15
             var propertyList = typeof(N15LocalParameters).GetProperties();
             foreach (var property in propertyList.Where(property => ("лок" + item.Name) == property.Name && !item.Name.Contains("А20512")))
             {
-                item.BackgroundImage = (bool)property.GetValue(null)
+                item.BackgroundImage = (bool)property.GetValue(N15LocalParameters.getInstance())
                         ? ControlElementImages.tumblerType3Up
                         : ControlElementImages.tumblerType3Down;
             }
 
-            ТумблерА20512.BackgroundImage = N15LocalParameters.локТумблерА20512
+            ТумблерА20512.BackgroundImage = N15LocalParameters.getInstance().локТумблерА20512
                 ? ControlElementImages.tumblerType4Up
                 : ControlElementImages.tumblerType4Down;
         }
@@ -223,24 +198,28 @@ namespace R440O.R440OForms.N15
         private void КнопкаСтанцияВкл_MouseDown(object sender, MouseEventArgs e)
         {
             this.КнопкаСтанцияВкл.BackgroundImage = null;
-            N15Parameters.SetCurrentParameters();
-            N15Parameters.ResetParameters();
+            N15Parameters.getInstance().КнопкаСтанцияВкл = true;
+            N15Parameters.getInstance().SetCurrentParameters();
+            N15Parameters.getInstance().ResetParameters();
         }
 
         private void КнопкаСтанцияВкл_MouseUp(object sender, MouseEventArgs e)
         {
+            N15Parameters.getInstance().КнопкаСтанцияВкл = false;
             this.КнопкаСтанцияВкл.BackgroundImage = ControlElementImages.buttonN15On;
         }
 
         private void КнопкаСтанцияВыкл_MouseDown(object sender, MouseEventArgs e)
         {
             this.КнопкаСтанцияВыкл.BackgroundImage = null;
-            N15Parameters.ResetCurrentParameters();
-            N15Parameters.ResetParameters();
+            N15Parameters.getInstance().КнопкаСтанцияВыкл = false;
+            N15Parameters.getInstance().ResetCurrentParameters();
+            N15Parameters.getInstance().ResetParameters();
         }
 
         private void КнопкаСтанцияВыкл_MouseUp(object sender, MouseEventArgs e)
         {
+            N15Parameters.getInstance().КнопкаСтанцияВыкл = true;
             this.КнопкаСтанцияВыкл.BackgroundImage = ControlElementImages.buttonN15Off;
         }
 
@@ -262,62 +241,62 @@ namespace R440O.R440OForms.N15
 
         private void КнопкаПРМНаведениеЦ300М1_Click(object sender, EventArgs e)
         {
-            N15Parameters.КнопкаПРМНаведениеЦ300М1 = true;
-            N15Parameters.КнопкаПРМНаведениеЦ300М2 = false;
-            N15Parameters.КнопкаПРМНаведениеЦ300М3 = false;
-            N15Parameters.КнопкаПРМНаведениеЦ300М4 = false;
-            N15Parameters.КнопкаМощностьН16 = false;
-            N15Parameters.КнопкаМощностьАнт = false;
+            N15Parameters.getInstance().КнопкаПРМНаведениеЦ300М1 = true;
+            N15Parameters.getInstance().КнопкаПРМНаведениеЦ300М2 = false;
+            N15Parameters.getInstance().КнопкаПРМНаведениеЦ300М3 = false;
+            N15Parameters.getInstance().КнопкаПРМНаведениеЦ300М4 = false;
+            N15Parameters.getInstance().КнопкаМощностьН16 = false;
+            N15Parameters.getInstance().КнопкаМощностьАнт = false;
         }
 
         private void КнопкаПРМНаведениеЦ300М2_Click(object sender, EventArgs e)
         {
-            N15Parameters.КнопкаПРМНаведениеЦ300М1 = false;
-            N15Parameters.КнопкаПРМНаведениеЦ300М2 = true;
-            N15Parameters.КнопкаПРМНаведениеЦ300М3 = false;
-            N15Parameters.КнопкаПРМНаведениеЦ300М4 = false;
-            N15Parameters.КнопкаМощностьН16 = false;
-            N15Parameters.КнопкаМощностьАнт = false;
+            N15Parameters.getInstance().КнопкаПРМНаведениеЦ300М1 = false;
+            N15Parameters.getInstance().КнопкаПРМНаведениеЦ300М2 = true;
+            N15Parameters.getInstance().КнопкаПРМНаведениеЦ300М3 = false;
+            N15Parameters.getInstance().КнопкаПРМНаведениеЦ300М4 = false;
+            N15Parameters.getInstance().КнопкаМощностьН16 = false;
+            N15Parameters.getInstance().КнопкаМощностьАнт = false;
         }
 
         private void КнопкаПРМНаведениеЦ300М3_Click(object sender, EventArgs e)
         {
-            N15Parameters.КнопкаПРМНаведениеЦ300М1 = false;
-            N15Parameters.КнопкаПРМНаведениеЦ300М2 = false;
-            N15Parameters.КнопкаПРМНаведениеЦ300М3 = true;
-            N15Parameters.КнопкаПРМНаведениеЦ300М4 = false;
-            N15Parameters.КнопкаМощностьН16 = false;
-            N15Parameters.КнопкаМощностьАнт = false;
+            N15Parameters.getInstance().КнопкаПРМНаведениеЦ300М1 = false;
+            N15Parameters.getInstance().КнопкаПРМНаведениеЦ300М2 = false;
+            N15Parameters.getInstance().КнопкаПРМНаведениеЦ300М3 = true;
+            N15Parameters.getInstance().КнопкаПРМНаведениеЦ300М4 = false;
+            N15Parameters.getInstance().КнопкаМощностьН16 = false;
+            N15Parameters.getInstance().КнопкаМощностьАнт = false;
         }
 
         private void КнопкаПРМНаведениеЦ300М4_Click(object sender, EventArgs e)
         {
-            N15Parameters.КнопкаПРМНаведениеЦ300М1 = false;
-            N15Parameters.КнопкаПРМНаведениеЦ300М2 = false;
-            N15Parameters.КнопкаПРМНаведениеЦ300М3 = false;
-            N15Parameters.КнопкаПРМНаведениеЦ300М4 = true;
-            N15Parameters.КнопкаМощностьН16 = false;
-            N15Parameters.КнопкаМощностьАнт = false;
+            N15Parameters.getInstance().КнопкаПРМНаведениеЦ300М1 = false;
+            N15Parameters.getInstance().КнопкаПРМНаведениеЦ300М2 = false;
+            N15Parameters.getInstance().КнопкаПРМНаведениеЦ300М3 = false;
+            N15Parameters.getInstance().КнопкаПРМНаведениеЦ300М4 = true;
+            N15Parameters.getInstance().КнопкаМощностьН16 = false;
+            N15Parameters.getInstance().КнопкаМощностьАнт = false;
         }
 
         private void КнопкаМощностьН16_Click(object sender, EventArgs e)
         {
-            N15Parameters.КнопкаПРМНаведениеЦ300М1 = false;
-            N15Parameters.КнопкаПРМНаведениеЦ300М2 = false;
-            N15Parameters.КнопкаПРМНаведениеЦ300М3 = false;
-            N15Parameters.КнопкаПРМНаведениеЦ300М4 = false;
-            N15Parameters.КнопкаМощностьН16 = true;
-            N15Parameters.КнопкаМощностьАнт = false;
+            N15Parameters.getInstance().КнопкаПРМНаведениеЦ300М1 = false;
+            N15Parameters.getInstance().КнопкаПРМНаведениеЦ300М2 = false;
+            N15Parameters.getInstance().КнопкаПРМНаведениеЦ300М3 = false;
+            N15Parameters.getInstance().КнопкаПРМНаведениеЦ300М4 = false;
+            N15Parameters.getInstance().КнопкаМощностьН16 = true;
+            N15Parameters.getInstance().КнопкаМощностьАнт = false;
         }
 
         private void КнопкаМощностьАнт_Click(object sender, EventArgs e)
         {
-            N15Parameters.КнопкаПРМНаведениеЦ300М1 = false;
-            N15Parameters.КнопкаПРМНаведениеЦ300М2 = false;
-            N15Parameters.КнопкаПРМНаведениеЦ300М3 = false;
-            N15Parameters.КнопкаПРМНаведениеЦ300М4 = false;
-            N15Parameters.КнопкаМощностьН16 = false;
-            N15Parameters.КнопкаМощностьАнт = true;
+            N15Parameters.getInstance().КнопкаПРМНаведениеЦ300М1 = false;
+            N15Parameters.getInstance().КнопкаПРМНаведениеЦ300М2 = false;
+            N15Parameters.getInstance().КнопкаПРМНаведениеЦ300М3 = false;
+            N15Parameters.getInstance().КнопкаПРМНаведениеЦ300М4 = false;
+            N15Parameters.getInstance().КнопкаМощностьН16 = false;
+            N15Parameters.getInstance().КнопкаМощностьАнт = true;
         }
 
         private void КнопкаМощностьСброс_MouseDown(object sender, MouseEventArgs e)
@@ -325,12 +304,12 @@ namespace R440O.R440OForms.N15
             this.КнопкаМощностьСброс.BackgroundImage = null;
             this.КнопкаМощностьСброс.Text = string.Empty;
 
-            N15Parameters.КнопкаПРМНаведениеЦ300М1 = false;
-            N15Parameters.КнопкаПРМНаведениеЦ300М2 = false;
-            N15Parameters.КнопкаПРМНаведениеЦ300М3 = false;
-            N15Parameters.КнопкаПРМНаведениеЦ300М4 = false;
-            N15Parameters.КнопкаМощностьН16 = false;
-            N15Parameters.КнопкаМощностьАнт = false;
+            N15Parameters.getInstance().КнопкаПРМНаведениеЦ300М1 = false;
+            N15Parameters.getInstance().КнопкаПРМНаведениеЦ300М2 = false;
+            N15Parameters.getInstance().КнопкаПРМНаведениеЦ300М3 = false;
+            N15Parameters.getInstance().КнопкаПРМНаведениеЦ300М4 = false;
+            N15Parameters.getInstance().КнопкаМощностьН16 = false;
+            N15Parameters.getInstance().КнопкаМощностьАнт = false;
         }
 
         private void КнопкаМощностьСброс_MouseUp(object sender, MouseEventArgs e)
@@ -348,9 +327,9 @@ namespace R440O.R440OForms.N15
             this.КнопкаН13_2.Visible = true;
             this.КнопкаН13_12.Visible = true;
 
-            N15LocalParameters.локКнопкаН13_1 = true;
-            N15LocalParameters.локКнопкаН13_2 = false;
-            N15LocalParameters.локКнопкаН13_12 = false;
+            N15LocalParameters.getInstance().локКнопкаН13_1 = true;
+            N15LocalParameters.getInstance().локКнопкаН13_2 = false;
+            N15LocalParameters.getInstance().локКнопкаН13_12 = false;
             N16Parameters.ЩелевойМостН13 = 1;
         }
 
@@ -360,9 +339,9 @@ namespace R440O.R440OForms.N15
             this.КнопкаН13_1.Visible = true;
             this.КнопкаН13_12.Visible = true;
 
-            N15LocalParameters.локКнопкаН13_1 = false;
-            N15LocalParameters.локКнопкаН13_2 = true;
-            N15LocalParameters.локКнопкаН13_12 = false;
+            N15LocalParameters.getInstance().локКнопкаН13_1 = false;
+            N15LocalParameters.getInstance().локКнопкаН13_2 = true;
+            N15LocalParameters.getInstance().локКнопкаН13_12 = false;
             N16Parameters.ЩелевойМостН13 = 2;
         }
 
@@ -372,15 +351,15 @@ namespace R440O.R440OForms.N15
             this.КнопкаН13_1.Visible = true;
             this.КнопкаН13_2.Visible = true;
 
-            N15LocalParameters.локКнопкаН13_1 = false;
-            N15LocalParameters.локКнопкаН13_2 = false;
-            N15LocalParameters.локКнопкаН13_12 = true;
+            N15LocalParameters.getInstance().локКнопкаН13_1 = false;
+            N15LocalParameters.getInstance().локКнопкаН13_2 = false;
+            N15LocalParameters.getInstance().локКнопкаН13_12 = true;
             N16Parameters.ЩелевойМостН13 = 3;
         }
 
         private void КнопкаСброс_MouseUp(object sender, MouseEventArgs e)
         {
-            N15Parameters.КнопкаН13 = 0;
+            N15Parameters.getInstance().КнопкаН13 = 0;
             this.КнопкаСброс.BackgroundImage = ControlElementImages.buttonSquareWhite;
             this.КнопкаСброс.Text = "СБРОС";
         }
@@ -390,16 +369,16 @@ namespace R440O.R440OForms.N15
             this.КнопкаСброс.BackgroundImage = null;
             this.КнопкаСброс.Text = string.Empty;
 
-            N15LocalParameters.локКнопкаН13_1 = false;
-            N15LocalParameters.локКнопкаН13_2 = false;
-            N15LocalParameters.локКнопкаН13_12 = false;
+            N15LocalParameters.getInstance().локКнопкаН13_1 = false;
+            N15LocalParameters.getInstance().локКнопкаН13_2 = false;
+            N15LocalParameters.getInstance().локКнопкаН13_12 = false;
             N16Parameters.ЩелевойМостН13 = 0;
         }
         #endregion
 
         #region Регуляторы
 
-        private static bool isManipulation;
+        private bool isManipulation;
         
         private void Регулятор_MouseDown(object sender, MouseEventArgs e)
         {
@@ -411,10 +390,10 @@ namespace R440O.R440OForms.N15
             if (!isManipulation) return;
             var button = sender as Button;
             var angle = TransformImageHelper.CalculateAngle(button.Width, button.Height, e);
-            N15Parameters.РегуляторУровень = angle;
+            N15Parameters.getInstance().РегуляторУровень = angle;
             button.BackgroundImage = TransformImageHelper.RotateImageByAngle(
                     ControlElementImages.revolverRoundSmall,
-                    (float)N15Parameters.РегуляторУровень);
+                    (float)N15Parameters.getInstance().РегуляторУровень);
         }
 
         private void Регулятор_MouseUp(object sender, MouseEventArgs e)
@@ -428,40 +407,40 @@ namespace R440O.R440OForms.N15
         {
             var button = sender as Button;
             var localParameter = typeof(N15LocalParameters).GetProperty("лок" + button.Name);
-            var newValue = !(bool)localParameter.GetValue(null);
-            localParameter.SetValue(null, newValue);
+            var newValue = !(bool)localParameter.GetValue(N15LocalParameters.getInstance());
+            localParameter.SetValue(N15LocalParameters.getInstance(), newValue);
             RefreshFormElement(button.Name);
         }
         private void ТумблерА30412_Click(object sender, EventArgs e)
         {
-            N15Parameters.ТумблерА30412 = !N15Parameters.ТумблерА30412;
+            N15Parameters.getInstance().ТумблерА30412 = !N15Parameters.getInstance().ТумблерА30412;
         }
 
         private void ТумблерА503Б_Click(object sender, EventArgs e)
         {
-            N15Parameters.ТумблерА503Б = !N15Parameters.ТумблерА503Б;
+            N15Parameters.getInstance().ТумблерА503Б = !N15Parameters.getInstance().ТумблерА503Б;
         }
 
         private void ТумблерАнтЭкв_Click(object sender, EventArgs e)
         {
-            N15LocalParameters.локТумблерАнтЭкв = !N15LocalParameters.локТумблерАнтЭкв;
-            N16Parameters.КоаксиальныйПереключатель = N15LocalParameters.локТумблерАнтЭкв;
+            N15LocalParameters.getInstance().локТумблерАнтЭкв = !N15LocalParameters.getInstance().локТумблерАнтЭкв;
+            N16Parameters.КоаксиальныйПереключатель = N15LocalParameters.getInstance().локТумблерАнтЭкв;
         }
 
         private void ТумблерТлфТлгПрм_Click(object sender, EventArgs e)
         {
-            N15Parameters.ТумблерТлфТлгПрм = !N15Parameters.ТумблерТлфТлгПрм;
+            N15Parameters.getInstance().ТумблерТлфТлгПрм = !N15Parameters.getInstance().ТумблерТлфТлгПрм;
         }
 
         private void ТумблерТлфТлгПрд_Click(object sender, EventArgs e)
         {
-            N15Parameters.ТумблерТлфТлгПрд = !N15Parameters.ТумблерТлфТлгПрд;
+            N15Parameters.getInstance().ТумблерТлфТлгПрд = !N15Parameters.getInstance().ТумблерТлфТлгПрд;
         }
 
         #region Тумблеры с 3 положениями
         private void Тумблер5Мгц_MouseUp(object sender, MouseEventArgs e)
         {
-            N15Parameters.Тумблер5Мгц = 0;
+            N15Parameters.getInstance().Тумблер5Мгц = 0;
             Тумблер5Мгц.BackgroundImage = null;
         }
 
@@ -469,19 +448,19 @@ namespace R440O.R440OForms.N15
         {
             if (e.Button == MouseButtons.Left)
             {
-                N15Parameters.Тумблер5Мгц = 1;
+                N15Parameters.getInstance().Тумблер5Мгц = 1;
                 Тумблер5Мгц.BackgroundImage = ControlElementImages.tumblerType2Down;
             }
             if (e.Button == MouseButtons.Right)
             {
-                N15Parameters.Тумблер5Мгц = -1;
+                N15Parameters.getInstance().Тумблер5Мгц = -1;
                 Тумблер5Мгц.BackgroundImage = ControlElementImages.tumblerType2Up;
             }
         }
 
         private void ТумблерФаза_MouseUp(object sender, MouseEventArgs e)
         {
-            N15Parameters.ТумблерФаза = 0;
+            N15Parameters.getInstance().ТумблерФаза = 0;
             ТумблерФаза.BackgroundImage = null;
         }
 
@@ -489,19 +468,19 @@ namespace R440O.R440OForms.N15
         {
             if (e.Button == MouseButtons.Left)
             {
-                N15Parameters.ТумблерФаза = 1;
+                N15Parameters.getInstance().ТумблерФаза = 1;
                 ТумблерФаза.BackgroundImage = ControlElementImages.tumblerType2Down;
             }
             if (e.Button == MouseButtons.Right)
             {
-                N15Parameters.ТумблерФаза = -1;
+                N15Parameters.getInstance().ТумблерФаза = -1;
                 ТумблерФаза.BackgroundImage = ControlElementImages.tumblerType2Up;
             }
         }
 
         private void ТумблерУров1_MouseUp(object sender, MouseEventArgs e)
         {
-            N15Parameters.ТумблерУров1 = 0;
+            N15Parameters.getInstance().ТумблерУров1 = 0;
             ТумблерУров1.BackgroundImage = null;
         }
 
@@ -509,19 +488,19 @@ namespace R440O.R440OForms.N15
         {
             if (e.Button == MouseButtons.Left)
             {
-                N15Parameters.ТумблерУров1 = 1;
+                N15Parameters.getInstance().ТумблерУров1 = 1;
                 ТумблерУров1.BackgroundImage = ControlElementImages.tumblerType2Down;
             }
             if (e.Button == MouseButtons.Right)
             {
-                N15Parameters.ТумблерУров1 = -1;
+                N15Parameters.getInstance().ТумблерУров1 = -1;
                 ТумблерУров1.BackgroundImage = ControlElementImages.tumblerType2Up;
             }
         }
 
         private void ТумблерУров2_MouseUp(object sender, MouseEventArgs e)
         {
-            N15Parameters.ТумблерУров2 = 0;
+            N15Parameters.getInstance().ТумблерУров2 = 0;
             ТумблерУров2.BackgroundImage = null;
         }
 
@@ -529,12 +508,12 @@ namespace R440O.R440OForms.N15
         {
             if (e.Button == MouseButtons.Left)
             {
-                N15Parameters.ТумблерУров2 = 1;
+                N15Parameters.getInstance().ТумблерУров2 = 1;
                 ТумблерУров2.BackgroundImage = ControlElementImages.tumblerType2Down;
             }
             if (e.Button == MouseButtons.Right)
             {
-                N15Parameters.ТумблерУров2 = -1;
+                N15Parameters.getInstance().ТумблерУров2 = -1;
                 ТумблерУров2.BackgroundImage = ControlElementImages.tumblerType2Up;
             }
         }
@@ -543,54 +522,77 @@ namespace R440O.R440OForms.N15
 
         private void N15Form_FormClosed(object sender, FormClosedEventArgs e)
         {
-            N15Parameters.ParameterChanged -= RefreshFormElements;
+            N15Parameters.getInstance().ParameterChanged -= RefreshFormElements;
 
             if (ParametersConfig.IsTesting)
             {
-                N15Parameters.Action -= TestMain.Action;
-                N15LocalParameters.Action -= TestMain.Action;
+                var blockParams = N15Parameters.getInstance();
+
+                bool def;
+                switch (TestMain.getIntent())
+                {
+                    case ModulesEnum.Check_N15:
+                        def = blockParams.isFullDeactive();
+
+                        TestMain.Action(new JsonAdapter.ActionStation() { Module = LearnModule.ModulesEnum.Check_N15, Value = Convert.ToInt32(def) });
+                        break;
+                    case ModulesEnum.N15Power:
+                        var localParams = N15LocalParameters.getInstance();
+
+                        def = localParams.локКнопкаН13_1 &&
+                            localParams.локТумблерЦ300М1 &&
+                            localParams.локТумблерЦ300М2 &&
+                            localParams.локТумблерЦ300М3 &&
+                            localParams.локТумблерЦ300М4 &&
+                            localParams.локТумблерН12С &&
+                            localParams.локТумблерБМА_1 &&
+                            localParams.локТумблерБМА_2 &&
+                            localParams.локТумблерАФСС &&
+                            localParams.локТумблерА1 &&
+                            localParams.локТумблерА403 &&
+                            localParams.локТумблерК1_1 &&
+                            localParams.локТумблерК1_2 &&
+                            localParams.локТумблерБ1_1 &&
+                            localParams.локТумблерБ2_1 &&
+                            localParams.локТумблерБ3_1 &&
+                            localParams.локТумблерБ1_2 &&
+                            localParams.локТумблерБ2_2 &&
+                            localParams.локТумблерБ3_2 &&
+                            localParams.локТумблерДАБ_5 &&
+                            localParams.локТумблерР_Н &&
+                            localParams.локТумблерМШУ;
+
+                        TestMain.Action(new JsonAdapter.ActionStation() { Module = LearnModule.ModulesEnum.N15Power, Value = Convert.ToInt32(def) });
+                        break;
+                    case ModulesEnum.N15SmallLoop:
+                        localParams = N15LocalParameters.getInstance();
+                        def = localParams.локТумблерА205Base &&
+                            blockParams.ТумблерА503Б &&
+                            blockParams.ТумблерА30412;
+
+                        TestMain.Action(new JsonAdapter.ActionStation() { Module = LearnModule.ModulesEnum.N15SmallLoop, Value = Convert.ToInt32(def) });
+                        break;
+
+                }
             }
 
-            if (LearnMain.getIntent() == ModulesEnum.N15Power)
+            if (LearnMain.getIntent() == LearnModule.ModulesEnum.N15Power)
             {
                 if (LearnMain.globalIntent == GlobalIntentEnum.OneChannel)
                 {
-                    if (N15Parameters.ТумблерЦ300М1 && N15Parameters.ТумблерЦ300М2 && N15Parameters.ТумблерЦ300М3 && N15Parameters.ТумблерЦ300М4 &&
-                        N15Parameters.ТумблерАФСС && !N15Parameters.ТумблерАнтЭкв && N15Parameters.ТумблерА403 && N15Parameters.ЛампочкаБМА_1 &&
-                        N15Parameters.ЛампочкаБМА_2 && N15Parameters.ЛампочкаМШУ && N15Parameters.ТумблерТлфТлгПрд && N15Parameters.ТумблерТлфТлгПрм)
+                    if (N15Parameters.getInstance().ТумблерЦ300М1 && N15Parameters.getInstance().ТумблерЦ300М2 && N15Parameters.getInstance().ТумблерЦ300М3 && N15Parameters.getInstance().ТумблерЦ300М4 &&
+                        N15Parameters.getInstance().ТумблерАФСС && !N15Parameters.getInstance().ТумблерАнтЭкв && N15Parameters.getInstance().ТумблерА403 && N15Parameters.getInstance().ЛампочкаБМА_1 &&
+                        N15Parameters.getInstance().ЛампочкаБМА_2 && N15Parameters.getInstance().ЛампочкаМШУ && N15Parameters.getInstance().ТумблерТлфТлгПрд && N15Parameters.getInstance().ТумблерТлфТлгПрм)
                     {
-                        LearnMain.setIntent(ModulesEnum.A205_m1_Open);
+                        LearnMain.setIntent(LearnModule.ModulesEnum.A205_m1_Open);
                     }
                     else
                     {
-                        LearnMain.setIntent(ModulesEnum.openN15);
+                        LearnMain.setIntent(LearnModule.ModulesEnum.openN15);
                     }
                 }
             }
-            switch(TestMain.getIntent())
-            {
-                //NB: здесь оставлена проверка на 95 норматив
-                case ModulesEnum.N15Power:
-                    if (N15LocalParameters.локТумблерА205Base && N15LocalParameters.локТумблерА20512 && N15Parameters.Н13_1)
-                    {
-                        TestMain.setIntent(ModulesEnum.A205_m1_Open);
-                    }
-                    else
-                    {
-                        TestMain.setIntent(ModulesEnum.openN15);
-                    }
-                    break;
-                case ModulesEnum.N15SmallLoop:
-                    if (N15Parameters.ТумблерМШУ && N15Parameters.ТумблерН12С && N15Parameters.ТумблерА503Б)
-                    {
-                        TestMain.setIntent(ModulesEnum.A304_open);
-                    }
-                    else
-                    {
-                        TestMain.setIntent(ModulesEnum.openN15SmallLoop);
-                    }
-                    break;
-            }
+            
         }
     }
 
