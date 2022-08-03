@@ -15,9 +15,10 @@ namespace R440O
 {
     public partial class StationForm : Form
     {
-        private const string SERVER_FOUND = "Сервер найден!";
         private Timer таймерПоискаСервера = new Timer();
         private R440OForm r440OForm;
+
+        private string IpAddress { get; set; }
         private bool IsLearning { get; set; }
         
         public StationForm()
@@ -32,12 +33,12 @@ namespace R440O
                 if (HttpHelper.СерверНайден)
                 {
                     btnExaming.Enabled = true;
-                    label1.Text = SERVER_FOUND;
-                    RunR400O(IsLearning);
+                    btnLearning.Enabled = true;
+                    btnConnect.Enabled = true;
                 }
                 else
                 {
-                    HttpHelper.ПоискСервера();
+                    HttpHelper.ПроверкаСервера(IpAddress);
                 }
             }
         }
@@ -57,7 +58,7 @@ namespace R440O
                 TestMain.StartTest();
             }
         }
-
+        
         private void OfflineWorkButton_Click(object sender, EventArgs e)
         {
             IsLearning = true;
@@ -77,13 +78,22 @@ namespace R440O
 
         private void btnExaming_Click(object sender, EventArgs e)
         {
+            RunR400O(false);
+        }
+
+        private void btnConnect_Click(object sender, EventArgs e)
+        {
+            var ip = tbIpAddress.Text;
+            IpAddress = ip;
+
             таймерПоискаСервера.Enabled = true;
-            таймерПоискаСервера.Interval = 10000;
+            таймерПоискаСервера.Interval = 3000;
             таймерПоискаСервера.Tick += tick;
             таймерПоискаСервера.Start();
-            label1.Visible = true;
+            
             btnExaming.Enabled = false;
             btnLearning.Enabled = false;
+            btnConnect.Enabled = false;
         }
     }
 }
