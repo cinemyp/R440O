@@ -81,6 +81,12 @@ namespace ShareTypes
         BMB_SmallLoop,
         A403,
         Kontur,
+        Kulon_Voltage,
+        Kulon_K03M,
+        Kulon_K02M,
+        Kulon_K05M,
+        Kulon_K04M,
+        Kulon_Search,
         Retranslator
     }
 }

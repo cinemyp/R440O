@@ -9,6 +9,7 @@ using R440O.R440OForms.N15;
 using R440O.R440OForms.N18_M_H28;
 using R440O.R440OForms.N18_M;
 using R440O.ThirdParty;
+using System.Linq;
 
 namespace R440O.R440OForms.PU_K1_1
 {
@@ -21,6 +22,17 @@ namespace R440O.R440OForms.PU_K1_1
                 instance = new PU_K1_1Parameters();
             return instance;
         }
+
+        private bool[] VoltagePoints = new bool[12];
+        public bool VoltageChecked
+        {
+            get
+            {
+                return VoltagePoints.All(item => item == true);
+            }
+        }
+
+
         public bool Включен
         {
             get
@@ -36,7 +48,8 @@ namespace R440O.R440OForms.PU_K1_1
             {
                 return КулонК1Подключен && K05M_01Parameters.getInstance().СтрелкаУровеньВЗакрашенномСекторе &&
                        (K05M_01Parameters.getInstance().ПереключательПередачаКонтроль == 0 ||
-                        (K05M_01Parameters.getInstance().ПереключательПередачаКонтроль == 2 && K05M_01Parameters.getInstance().ПереключательОслабление == 0));
+                        (K05M_01Parameters.getInstance().ПереключательПередачаКонтроль == 2 && 
+                        K05M_01Parameters.getInstance().ПереключательОслабление == 0));
             }
         }
         public bool КулонК1Подключен
@@ -125,7 +138,7 @@ namespace R440O.R440OForms.PU_K1_1
                     _ПереключательНапряжение = value;
                     if (Включен)
                     {
-                        АктивизироватьСтрелкуНапряжения();
+                        АктивизироватьСтрелкуНапряжения(value);
                     }
                     OnParameterChanged();
                 }
@@ -146,12 +159,13 @@ namespace R440O.R440OForms.PU_K1_1
                 }
             }
         }
-        public void АктивизироватьСтрелкуНапряжения()
+        public void АктивизироватьСтрелкуНапряжения(int voltagePoint = 1)
         {
             Напряжение = 7;
             EasyTimer.SetTimeout((() =>
             {
                 Напряжение = 10;
+                VoltagePoints[voltagePoint - 1] = true;
                 OnParameterChanged();
             }), 300);
         }

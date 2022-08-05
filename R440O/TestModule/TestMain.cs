@@ -83,7 +83,9 @@ namespace R440O.TestModule
             {
                 checking = false;
                 NextStep(action);
+#if DEBUG
                 System.Windows.Forms.MessageBox.Show("Проверка закончена");
+#endif
             }
         }
 

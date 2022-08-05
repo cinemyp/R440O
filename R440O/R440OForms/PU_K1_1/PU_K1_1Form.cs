@@ -150,9 +150,21 @@
             if (ParametersConfig.IsTesting)
             {
                 var blockParams = PU_K1_1Parameters.getInstance();
-                bool def = blockParams.ТумблерПитание == 0;
+                bool def = false;
 
-                TestMain.Action(new ShareTypes.JsonAdapter.ActionStation() { Module = ShareTypes.ModulesEnum.Check_PU_K1_1, Value = Convert.ToInt32(def) });
+                switch (TestMain.getIntent())
+                {
+                    case ShareTypes.ModulesEnum.Check_PU_K1_1:
+                        def = blockParams.ТумблерПитание == 0;
+                        TestMain.Action(new ShareTypes.JsonAdapter.ActionStation() { Module = ShareTypes.ModulesEnum.Check_PU_K1_1, Value = Convert.ToInt32(def) });
+                        break;
+                    case ShareTypes.ModulesEnum.Kulon_Voltage:
+                        def = blockParams.ТумблерПитание == 0 && 
+                            blockParams.VoltageChecked;
+                        TestMain.Action(new ShareTypes.JsonAdapter.ActionStation() { Module = ShareTypes.ModulesEnum.Kulon_Voltage, Value = Convert.ToInt32(def) });
+                        break;
+                }
+
             }
         }
     }
