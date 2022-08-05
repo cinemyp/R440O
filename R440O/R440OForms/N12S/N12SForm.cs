@@ -163,11 +163,11 @@ namespace R440O.R440OForms.N12S
             {
                 switch (TestMain.getIntent())
                 {
-                    case LearnModule.ModulesEnum.Check_N12S:
+                    case ShareTypes.ModulesEnum.Check_N12S:
                         var blockParams = N12SParameters.getInstance();
                         bool def = blockParams.ТумблерСеть;
 
-                        TestMain.Action(new JsonAdapter.ActionStation() { Module = LearnModule.ModulesEnum.Check_N12S, Value = Convert.ToInt32(def) });
+                        TestMain.Action(new ShareTypes.JsonAdapter.ActionStation() { Module = ShareTypes.ModulesEnum.Check_N12S, Value = Convert.ToInt32(def) });
                         break;
                 }
             }

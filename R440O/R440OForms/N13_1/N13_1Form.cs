@@ -54,7 +54,7 @@ namespace R440O.R440OForms.N13_1
                 var blockParams = N13_1Parameters.getInstance();
                 bool def = true;
 
-                TestMain.Action(new JsonAdapter.ActionStation() { Module = LearnModule.ModulesEnum.Check_N13_1, Value = Convert.ToInt32(def) });
+                TestMain.Action(new ShareTypes.JsonAdapter.ActionStation() { Module = ShareTypes.ModulesEnum.Check_N13_1, Value = Convert.ToInt32(def) });
             }
             N13_1Parameters.getInstance().ParameterChanged -= RefreshFormElements;
         }

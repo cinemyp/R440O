@@ -187,7 +187,7 @@ namespace R440O.R440OForms.K03M_01
                 {
                     bool def = blockParams.ПереключательЗонаПоиска == 2;
 
-                    TestMain.Action(new JsonAdapter.ActionStation() { Module = LearnModule.ModulesEnum.Check_K03M_01_1, Value = Convert.ToInt32(def) });
+                    TestMain.Action(new ShareTypes.JsonAdapter.ActionStation() { Module = ShareTypes.ModulesEnum.Check_K03M_01_1, Value = Convert.ToInt32(def) });
 
                     if (def)
                     {
@@ -206,7 +206,7 @@ namespace R440O.R440OForms.K03M_01
                         blockParams.ПереключательНепрОднокр &&
                         blockParams.ПереключательАвтРучн;
 
-                    TestMain.Action(new JsonAdapter.ActionStation() { Module = LearnModule.ModulesEnum.Check_K03M_01_2, Value = Convert.ToInt32(def) });
+                    TestMain.Action(new ShareTypes.JsonAdapter.ActionStation() { Module = ShareTypes.ModulesEnum.Check_K03M_01_2, Value = Convert.ToInt32(def) });
                 }
             }
         }

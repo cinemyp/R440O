@@ -17,6 +17,8 @@ namespace R440O.R440OForms.A403_1
     using ThirdParty;
     using BaseClasses;
     using global::R440O.TestModule;
+    using ShareTypes.JsonAdapter;
+    using ShareTypes;
 
     /// <summary>
     /// Форма блока А403-1
@@ -309,7 +311,7 @@ namespace R440O.R440OForms.A403_1
             bool def;
             switch (TestMain.getIntent())
             {
-                case LearnModule.ModulesEnum.Check_A403:
+                case ShareTypes.ModulesEnum.Check_A403:
                     def = blockParams.ТумблерСеть &&
                         !blockParams.ТумблерГотов &&
                         !blockParams.ТумблерАвтКоррекция &&
@@ -317,11 +319,11 @@ namespace R440O.R440OForms.A403_1
                     //Комплект произвольный
                     //Неисправность АПН - не работает???
 
-                    TestMain.Action(new JsonAdapter.ActionStation() { Module = LearnModule.ModulesEnum.Check_A403, Value = Convert.ToInt32(def) });
+                    TestMain.Action(new ShareTypes.JsonAdapter.ActionStation() { Module = ShareTypes.ModulesEnum.Check_A403, Value = Convert.ToInt32(def) });
                     break;
-                case LearnModule.ModulesEnum.A403:
+                case ShareTypes.ModulesEnum.A403:
                     def = blockParams.A403Checked;
-                    TestMain.Action(new JsonAdapter.ActionStation() { Module = LearnModule.ModulesEnum.A403, Value = Convert.ToInt32(def) });
+                    TestMain.Action(new ShareTypes.JsonAdapter.ActionStation() { Module = ShareTypes.ModulesEnum.A403, Value = Convert.ToInt32(def) });
 
                     break;
             }

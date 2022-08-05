@@ -6,6 +6,8 @@ namespace R440O.R440OForms.B1_1
     using System.Windows.Forms;
     using BaseClasses;
     using global::R440O.TestModule;
+    using ShareTypes;
+    using ShareTypes.JsonAdapter;
 
     /// <summary>
     /// Форма блока Б1-1
@@ -137,7 +139,7 @@ namespace R440O.R440OForms.B1_1
                 var blockParams = B1_1Parameters.getInstance();
                 bool def = !blockParams.ТумблерМуДу;
 
-                TestMain.Action(new JsonAdapter.ActionStation() { Module = LearnModule.ModulesEnum.Check_B1_1, Value = Convert.ToInt32(def) });
+                TestMain.Action(new ShareTypes.JsonAdapter.ActionStation() { Module = ShareTypes.ModulesEnum.Check_B1_1, Value = Convert.ToInt32(def) });
             }
         }
     }

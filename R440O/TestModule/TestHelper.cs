@@ -16,7 +16,7 @@ namespace R440O.TestModule
         {
             InitializeComponent();
         }
-        public void SetIntent(LearnModule.ModulesEnum intent)
+        public void SetIntent(ShareTypes.ModulesEnum intent)
         {
             labelCurrentIntent.Text = intent.ToString();
         }

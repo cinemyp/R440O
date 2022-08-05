@@ -9,6 +9,8 @@ namespace R440O.R440OForms.A205M_1
     using global::R440O.LearnModule;
     using global::R440O.TestModule;
     using System;
+    using ShareTypes.JsonAdapter;
+    using ShareTypes;
 
     /// <summary>
     /// Форма блока А205М-1
@@ -230,15 +232,15 @@ namespace R440O.R440OForms.A205M_1
             bool def;
             switch (TestMain.getIntent())
             {
-                case ModulesEnum.Check_A205:
+                case ShareTypes.ModulesEnum.Check_A205:
                     def = blockParams.ПереключательКонтроль == 10 &&
                     !blockParams.ТумблерКЭД;
-                    TestMain.Action(new JsonAdapter.ActionStation() { Module = LearnModule.ModulesEnum.Check_A205, Value = Convert.ToInt32(def) });
+                    TestMain.Action(new ShareTypes.JsonAdapter.ActionStation() { Module = ShareTypes.ModulesEnum.Check_A205, Value = Convert.ToInt32(def) });
                     break;
-                case ModulesEnum.A205_Power:
+                case ShareTypes.ModulesEnum.A205_Power:
                     def = blockParams.ПереключательКонтроль == 9 &&
                         blockParams.ПереключательВидРаботы == 3;
-                    TestMain.Action(new JsonAdapter.ActionStation() { Module = LearnModule.ModulesEnum.A205_Power, Value = Convert.ToInt32(def) });
+                    TestMain.Action(new ShareTypes.JsonAdapter.ActionStation() { Module = ShareTypes.ModulesEnum.A205_Power, Value = Convert.ToInt32(def) });
                     break;
             }
             A205M_1Parameters.getInstance().ParameterChanged -= RefreshFormElements;

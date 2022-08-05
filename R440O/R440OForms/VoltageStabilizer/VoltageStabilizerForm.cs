@@ -4,6 +4,7 @@
     using BaseClasses;
     using global::R440O.LearnModule;
     using global::R440O.TestModule;
+    using ShareTypes;
     using ThirdParty;
 
     /// <summary>
@@ -22,10 +23,10 @@
             VoltageStabilizerParameters.getInstance().ОператорСтанцииПораженТоком += ВыводСообщенияОператорСтанцииПоражёнТоком;
             RefreshFormElements();
 
-            if (LearnMain.getIntent()==LearnModule.ModulesEnum.openVoltageStabilizer)
+            if (LearnMain.getIntent()==ModulesEnum.openVoltageStabilizer)
             {
                 LearnMain.form = this;
-                LearnMain.setIntent(LearnModule.ModulesEnum.VoltageStabilizerSetUp);
+                LearnMain.setIntent(ModulesEnum.VoltageStabilizerSetUp);
             }
         }
 
@@ -126,11 +127,11 @@
             VoltageStabilizerParameters.getInstance().ParameterChanged -= RefreshFormElements;
             VoltageStabilizerParameters.getInstance().ОператорСтанцииПораженТоком -= ВыводСообщенияОператорСтанцииПоражёнТоком;
 
-            if ((LearnMain.getIntent() == LearnModule.ModulesEnum.VoltageStabilizerSetUp)
+            if ((LearnMain.getIntent() == ModulesEnum.VoltageStabilizerSetUp)
                 && (VoltageStabilizerParameters.getInstance().КабельВход>0))
             { 
-                LearnMain.setIntent(LearnModule.ModulesEnum.openN502BtoPower);
-            } else LearnMain.setIntent(LearnModule.ModulesEnum.openVoltageStabilizer);
+                LearnMain.setIntent(ModulesEnum.openN502BtoPower);
+            } else LearnMain.setIntent(ModulesEnum.openVoltageStabilizer);
         }
     }
 }

@@ -57,7 +57,7 @@
                 bool def = blockParams.ТумблерСеть &&
                     blockParams.ТумблерУправление;
 
-                TestMain.Action(new JsonAdapter.ActionStation() { Module = LearnModule.ModulesEnum.Check_P220, Value = Convert.ToInt32(def) });
+                TestMain.Action(new ShareTypes.JsonAdapter.ActionStation() { Module = ShareTypes.ModulesEnum.Check_P220, Value = Convert.ToInt32(def) });
             }
             P220_27G_2Parameters.getInstance().ParameterChanged -= RefreshFormElements;
         }

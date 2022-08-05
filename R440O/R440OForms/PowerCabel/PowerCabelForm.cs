@@ -3,6 +3,7 @@
     using BaseClasses;
     using global::R440O.LearnModule;
     using global::R440O.TestModule;
+    using ShareTypes;
     using System;
     using System.Windows.Forms;
 
@@ -24,9 +25,9 @@
 
             this.RefreshFormElements();
 
-            if (LearnMain.getIntent() == LearnModule.ModulesEnum.openPowerCabeltoPower)
+            if (LearnMain.getIntent() == ModulesEnum.openPowerCabeltoPower)
             {
-                LearnMain.setIntent(LearnModule.ModulesEnum.PowerCabelConnect);
+                LearnMain.setIntent(ModulesEnum.PowerCabelConnect);
                 LearnMain.form = this;
                 LearnMain.Action();
             }
@@ -69,11 +70,11 @@
         {
             if (!PowerCabelParameters.getInstance().КабельСеть)
             {
-                LearnMain.setIntent(LearnModule.ModulesEnum.openPowerCabeltoPower);
+                LearnMain.setIntent(ModulesEnum.openPowerCabeltoPower);
             }
             else
             {
-                LearnMain.setIntent(LearnModule.ModulesEnum.openN502BtoCheck);
+                LearnMain.setIntent(ModulesEnum.openN502BtoCheck);
             }
 
             PowerCabelParameters.getInstance().ParameterChanged -= RefreshFormElements;
@@ -81,10 +82,10 @@
             
             switch (TestMain.getIntent())
             {
-                case ModulesEnum.PowerCabelConnect:
+                case ShareTypes.ModulesEnum.PowerCabelConnect:
                     var blockParams = PowerCabelParameters.getInstance();
 
-                    TestMain.Action(new JsonAdapter.ActionStation() { Module = LearnModule.ModulesEnum.PowerCabelConnect, Value = blockParams.Напряжение > 0 ? 1 : 0 });
+                    TestMain.Action(new ShareTypes.JsonAdapter.ActionStation() { Module = ShareTypes.ModulesEnum.PowerCabelConnect, Value = blockParams.Напряжение > 0 ? 1 : 0 });
                     break;
             }
         }

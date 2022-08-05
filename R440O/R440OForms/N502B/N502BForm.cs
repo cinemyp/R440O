@@ -9,6 +9,7 @@
     using global::R440O.TestModule;
     using global::R440O.Parameters;
     using global::R440O.JsonAdapter;
+    using ShareTypes;
 
     public partial class N502BForm : Form, IRefreshableForm
     {
@@ -30,11 +31,11 @@
 
             switch (LearnMain.getIntent())
             {
-                case ModulesEnum.openN502BtoCheck:
+                case ShareTypes.ModulesEnum.openN502BtoCheck:
                     LearnMain.form = this;
                     LearnMain.setIntent(ModulesEnum.N502Check);
                     break;
-                case ModulesEnum.openN502BtoPower:
+                case ShareTypes.ModulesEnum.openN502BtoPower:
                     if (VoltageStabilizer.VoltageStabilizerParameters.getInstance().КабельВход > 0)
                     {
                         LearnMain.form = this;
@@ -375,7 +376,7 @@
                 bool def;
                 switch (TestMain.getIntent())
                 {
-                    case ModulesEnum.Check_N502B:
+                    case ShareTypes.ModulesEnum.Check_N502B:
                         def = !blockParams.ПереключательСеть &&
                     blockParams.ПереключательФазировка == 1 &&
                     blockParams.ПереключательТокНагрузкиИЗаряда == 1 &&
@@ -389,13 +390,13 @@
                     !blockParams.ТумблерН15;
 
                         TestMain.Action(
-                            new JsonAdapter.ActionStation()
+                            new ShareTypes.JsonAdapter.ActionStation()
                             {
-                                Module = LearnModule.ModulesEnum.Check_N502B,
+                                Module = ShareTypes.ModulesEnum.Check_N502B,
                                 Value = Convert.ToInt32(def)
                             });
                         break;
-                    case ModulesEnum.N502Power:
+                    case ShareTypes.ModulesEnum.N502Power:
                         def = blockParams.ПереключательСеть &&
                     blockParams.ПереключательФазировка == blockParams.Фазировка &&
                     blockParams.ПереключательТокНагрузкиИЗаряда == 1 &&
@@ -409,9 +410,9 @@
 
                         if (blockParams.ПереключательСеть)
                             TestMain.Action(
-                                new ActionStation()
+                                new ShareTypes.JsonAdapter.ActionStation()
                                 {
-                                    Module = ModulesEnum.N502Power,
+                                    Module = ShareTypes.ModulesEnum.N502Power,
                                     Value = Convert.ToInt32(def)
                                 });
                         break;
@@ -420,10 +421,10 @@
 
             switch (LearnMain.getIntent())
             {
-                case ModulesEnum.N502Check:
+                case ShareTypes.ModulesEnum.N502Check:
                     LearnMain.setIntent(ModulesEnum.openVoltageStabilizer);
                     break;
-                case ModulesEnum.N502Power:
+                case ShareTypes.ModulesEnum.N502Power:
                     if ((N502BParameters.getInstance().ЛампочкаСфазировано) &&
                         (N502BParameters.getInstance().Н15Включен) &&
                         (N502BParameters.getInstance().ТумблерЭлектрооборудование) &&
@@ -435,10 +436,10 @@
             }
             //switch (TestMain.getIntent())
             //{
-            //    case ModulesEnum.N502Check:
+            //    case ShareTypes.ModulesEnum.N502Check:
             //        TestMain.setIntent(ModulesEnum.openVoltageStabilizer);
             //        break;
-            //    case ModulesEnum.N502Power:
+            //    case ShareTypes.ModulesEnum.N502Power:
             //        if ((N502BParameters.getInstance().ЛампочкаСфазировано) &&
             //            (N502BParameters.getInstance().Н15Включен) &&
             //            (N502BParameters.getInstance().ТумблерЭлектрооборудование) &&

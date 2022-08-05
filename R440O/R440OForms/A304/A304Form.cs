@@ -5,6 +5,8 @@
     using BaseClasses;
     using global::R440O.LearnModule;
     using global::R440O.TestModule;
+    using ShareTypes;
+    using ShareTypes.JsonAdapter;
     using ThirdParty;
 
     /// <summary>
@@ -23,8 +25,8 @@
 
             //switch (TestMain.getIntent())
             //{
-            //    case LearnModule.ModulesEnum.A304_open:
-            //        TestMain.setIntent(LearnModule.ModulesEnum.A304_set_trunk);
+            //    case ShareTypes.ModulesEnum.A304_open:
+            //        TestMain.setIntent(ShareTypes.ModulesEnum.A304_set_trunk);
             //        break;
             //}
             RefreshFormElements();
@@ -203,17 +205,17 @@
             A304Parameters.getInstance().ParameterChanged -= RefreshFormElements;
             switch (TestMain.getIntent())
             {
-                case ModulesEnum.Check_A304:
+                case ShareTypes.ModulesEnum.Check_A304:
                     def = blockParams.ТумблерКомплект &&
                     blockParams.ТумблерУправление1 &&
                     blockParams.ПереключательКонтроль == 1;
 
-                    TestMain.Action(new JsonAdapter.ActionStation() { Module = LearnModule.ModulesEnum.Check_A304, Value = Convert.ToInt32(def) });
+                    TestMain.Action(new ShareTypes.JsonAdapter.ActionStation() { Module = ShareTypes.ModulesEnum.Check_A304, Value = Convert.ToInt32(def) });
                     break;
-                case LearnModule.ModulesEnum.A304_Power:
+                case ShareTypes.ModulesEnum.A304_Power:
                     def = blockParams.ПереключательВыборСтвола == OrderScheme.OrderSchemeParameters.СхемаПриказ.ПередачаПроверкаНаСебяУсловныйНомерСтволаА5031;
                     
-                    TestMain.Action(new JsonAdapter.ActionStation() { Module = LearnModule.ModulesEnum.A304_Power, Value = Convert.ToInt32(def) });
+                    TestMain.Action(new ShareTypes.JsonAdapter.ActionStation() { Module = ShareTypes.ModulesEnum.A304_Power, Value = Convert.ToInt32(def) });
                     break;
             }
         }

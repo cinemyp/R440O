@@ -837,16 +837,16 @@ namespace R440O.R440OForms.Kontur_P3
             }
             switch(TestMain.getIntent())
             {
-                case LearnModule.ModulesEnum.Check_KONTUR:
+                case ShareTypes.ModulesEnum.Check_KONTUR:
                     def = blockParams.ТумблерСеть == EТумблерСеть.ВКЛ &&
                         blockParams.ПереключательКонтроль == EПереключательКонтроль.СЕТЬ;
 
-                    TestMain.Action(new JsonAdapter.ActionStation() { Module = LearnModule.ModulesEnum.Check_KONTUR, Value = Convert.ToInt32(def) });
+                    TestMain.Action(new ShareTypes.JsonAdapter.ActionStation() { Module = ShareTypes.ModulesEnum.Check_KONTUR, Value = Convert.ToInt32(def) });
                     break;
-                case LearnModule.ModulesEnum.Kontur:
+                case ShareTypes.ModulesEnum.Kontur:
                     def = blockParams.BlockChecked;
 
-                    TestMain.Action(new JsonAdapter.ActionStation() { Module = LearnModule.ModulesEnum.Kontur, Value = Convert.ToInt32(def) });
+                    TestMain.Action(new ShareTypes.JsonAdapter.ActionStation() { Module = ShareTypes.ModulesEnum.Kontur, Value = Convert.ToInt32(def) });
                     break;
             }
         }

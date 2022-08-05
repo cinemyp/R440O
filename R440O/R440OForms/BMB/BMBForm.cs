@@ -251,19 +251,19 @@
                 bool def;
                 switch (TestMain.getIntent())
                 {
-                    case ModulesEnum.Check_BMB:
+                    case ShareTypes.ModulesEnum.Check_BMB:
                         def = blockParams.КнопкаПитание == Кнопка.Отжата &&
                     blockParams.КнопкаСлСвязь == Кнопка.Отжата &&
                     blockParams.КнопкаЗвСигнал == Кнопка.Отжата;
-                        TestMain.Action(new JsonAdapter.ActionStation() { Module = LearnModule.ModulesEnum.Check_BMB, Value = Convert.ToInt32(def) });
+                        TestMain.Action(new ShareTypes.JsonAdapter.ActionStation() { Module = ShareTypes.ModulesEnum.Check_BMB, Value = Convert.ToInt32(def) });
                         break;
-                    case ModulesEnum.BMB_Power:
+                    case ShareTypes.ModulesEnum.BMB_Power:
                         def = blockParams.КнопкаПитание == Кнопка.Горит;
-                        TestMain.Action(new JsonAdapter.ActionStation() { Module = LearnModule.ModulesEnum.BMB_Power, Value = Convert.ToInt32(def) });
+                        TestMain.Action(new ShareTypes.JsonAdapter.ActionStation() { Module = ShareTypes.ModulesEnum.BMB_Power, Value = Convert.ToInt32(def) });
                         break;
-                    case ModulesEnum.BMB_SmallLoop:
+                    case ShareTypes.ModulesEnum.BMB_SmallLoop:
                         def = blockParams.CommandTranslateCorrect;
-                        TestMain.Action(new JsonAdapter.ActionStation() { Module = LearnModule.ModulesEnum.BMB_SmallLoop, Value = Convert.ToInt32(def) });
+                        TestMain.Action(new ShareTypes.JsonAdapter.ActionStation() { Module = ShareTypes.ModulesEnum.BMB_SmallLoop, Value = Convert.ToInt32(def) });
 
                         break;
                 }

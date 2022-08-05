@@ -15,6 +15,7 @@ namespace R440O.R440OForms.R440O
     using System.Threading;
     using System.Collections.Generic;
     using global::R440O.JsonAdapter;
+    using ShareTypes;
 
     /// <summary>
     /// Форма станции Р440-О
@@ -139,7 +140,7 @@ namespace R440O.R440OForms.R440O
 
             //switch (TestMain.getIntent())
             //{
-            //    case ModulesEnum.PowerCabelConnect:
+            //    case ShareTypes.ModulesEnum.PowerCabelConnect:
             //        break;
             //}
         }

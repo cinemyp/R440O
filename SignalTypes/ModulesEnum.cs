@@ -80,6 +80,7 @@ namespace ShareTypes
         BMA_Recurs,
         BMB_SmallLoop,
         A403,
-        Kontur
+        Kontur,
+        Retranslator
     }
 }

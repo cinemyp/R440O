@@ -5,6 +5,7 @@ namespace R440O.R440OForms.A306
 {
     using global::R440O.LearnModule;
     using global::R440O.TestModule;
+    using ShareTypes;
     using System;
     using System.Drawing;
     using System.Windows.Forms;
@@ -31,8 +32,8 @@ namespace R440O.R440OForms.A306
             }
             switch (TestMain.getIntent())
             {
-                case LearnModule.ModulesEnum.A306_open:
-                    TestMain.setIntent(LearnModule.ModulesEnum.A306_set);
+                case ShareTypes.ModulesEnum.A306_open:
+                    TestMain.setIntent(ModulesEnum.A306_set);
                     IsExactModule = true;
                     break;
             }
@@ -337,13 +338,13 @@ namespace R440O.R440OForms.A306
 
             switch (TestMain.getIntent())
             {
-                case LearnModule.ModulesEnum.Check_A306:
+                case ShareTypes.ModulesEnum.Check_A306:
                     def = blockParams.ТумблерДистанцМестн &&
                     blockParams.ТумблерПитание;
 
-                    TestMain.Action(new JsonAdapter.ActionStation() { Module = LearnModule.ModulesEnum.Check_A306, Value = Convert.ToInt32(def) });
+                    TestMain.Action(new ShareTypes.JsonAdapter.ActionStation() { Module = ShareTypes.ModulesEnum.Check_A306, Value = Convert.ToInt32(def) });
                     break;
-                case ModulesEnum.A306_Power:
+                case ShareTypes.ModulesEnum.A306_Power:
                     var index = OrderScheme.OrderSchemeParameters.СхемаПриказ.ПередачаПроверкаНаСебяУсловныйНомерСтволаА5031 - 1;
                     def = blockParams.Выходы[11] == 0 &&
                         blockParams.Выходы[12] == 1 &&
@@ -351,7 +352,7 @@ namespace R440O.R440OForms.A306
                         blockParams.Выходы[14] == 3 &&
                         blockParams.Выходы[index] == 4;
 
-                    TestMain.Action(new JsonAdapter.ActionStation() { Module = LearnModule.ModulesEnum.A306_Power, Value = Convert.ToInt32(def) });
+                    TestMain.Action(new ShareTypes.JsonAdapter.ActionStation() { Module = ShareTypes.ModulesEnum.A306_Power, Value = Convert.ToInt32(def) });
                     break;
             }
         }

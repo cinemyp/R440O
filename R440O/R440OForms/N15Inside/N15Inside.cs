@@ -7,6 +7,7 @@
     using global::R440O.LearnModule;
     using global::R440O.TestModule;
     using System;
+    using ShareTypes;
 
     /// <summary>
     /// Форма внутренней части блока Н15
@@ -27,10 +28,10 @@
             LearnMain.form = this;
             switch (LearnMain.getIntent())
             {
-                case LearnModule.ModulesEnum.H15Inside_open_from_H15:
+                case ShareTypes.ModulesEnum.H15Inside_open_from_H15:
                     if (LearnMain.globalIntent == GlobalIntentEnum.OneChannel)
                     {
-                        LearnMain.setIntent(LearnModule.ModulesEnum.H15Inside_power);
+                        LearnMain.setIntent(ModulesEnum.H15Inside_power);
                     }
                     break;
             }
@@ -48,7 +49,7 @@
             bool def;
             switch (TestMain.getIntent())
             {
-                case ModulesEnum.N15SmallLoopInside:
+                case ShareTypes.ModulesEnum.N15SmallLoopInside:
                     def = blockParams.ПереключательПУЛ480ПРМ_1 == 3 &&
                         blockParams.ПереключательПУЛ480ПРМ_2 == 3 &&
                         blockParams.ПереключательПУЛ48ПРД_1 == 3 &&
@@ -58,7 +59,7 @@
                         blockParams.ТумблерПУЛ48ПРД_1 == Модуляция.ОФТ &&
                         blockParams.ТумблерПУЛ48ПРД_2 == Модуляция.ОФТ;
 
-                    TestMain.Action(new JsonAdapter.ActionStation() { Module = LearnModule.ModulesEnum.N15SmallLoopInside, Value = Convert.ToInt32(def) });
+                    TestMain.Action(new ShareTypes.JsonAdapter.ActionStation() { Module = ShareTypes.ModulesEnum.N15SmallLoopInside, Value = Convert.ToInt32(def) });
                     break;
             }
             Owner.Show();

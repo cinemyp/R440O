@@ -430,7 +430,7 @@ namespace R440O.R440OForms.C1_67
                 bool def;
                 switch (TestMain.getIntent())
                 {
-                    case ModulesEnum.Check_C1_67:
+                    case ShareTypes.ModulesEnum.Check_C1_67:
                         def = !blockParams.C1_67ТумблерСеть &&
                     blockParams.C1_67ТумблерX1X02 == "X1" &&
                     blockParams.C1_67ПереключательУсилительУ == 1 &&
@@ -438,12 +438,12 @@ namespace R440O.R440OForms.C1_67
                     blockParams.C1_67ПереключательДлительность == 7 &&
                     blockParams.C1_67ПереключательСинхронизация1 == 1;
 
-                        TestMain.Action(new JsonAdapter.ActionStation() { Module = LearnModule.ModulesEnum.Check_C1_67, Value = Convert.ToInt32(def) });
+                        TestMain.Action(new ShareTypes.JsonAdapter.ActionStation() { Module = ShareTypes.ModulesEnum.Check_C1_67, Value = Convert.ToInt32(def) });
                         break;
-                    case ModulesEnum.C1_67_Power:
+                    case ShareTypes.ModulesEnum.C1_67_Power:
                         def = blockParams.C1_67ТумблерСеть;
 
-                        TestMain.Action(new JsonAdapter.ActionStation() { Module = LearnModule.ModulesEnum.C1_67_Power, Value = Convert.ToInt32(def) });
+                        TestMain.Action(new ShareTypes.JsonAdapter.ActionStation() { Module = ShareTypes.ModulesEnum.C1_67_Power, Value = Convert.ToInt32(def) });
                         break;
                 }
             }

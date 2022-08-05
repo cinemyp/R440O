@@ -416,7 +416,7 @@ namespace R440O.R440OForms.BMA_M_1
             bool def;
             switch (TestMain.getIntent())
             {
-                case LearnModule.ModulesEnum.Check_BMA:
+                case ShareTypes.ModulesEnum.Check_BMA:
                     def = (blockParams.ПереключательКонтроль == 1 ||
                         blockParams.ПереключательКонтроль == 6) &&
                         (blockParams.ПереключательРежимРаботы == 3 ||
@@ -424,11 +424,11 @@ namespace R440O.R440OForms.BMA_M_1
                         blockParams.КнопкаШлейфТЧ == 0 &&
                         blockParams.КнопкаШлейфДК == 0;
 
-                    TestMain.Action(new JsonAdapter.ActionStation() { Module = LearnModule.ModulesEnum.Check_BMA, Value = Convert.ToInt32(def) });
+                    TestMain.Action(new ShareTypes.JsonAdapter.ActionStation() { Module = ShareTypes.ModulesEnum.Check_BMA, Value = Convert.ToInt32(def) });
                     break;
-                case LearnModule.ModulesEnum.BMA_Recurs:
+                case ShareTypes.ModulesEnum.BMA_Recurs:
                     def = blockParams.RecursCorrect;
-                    TestMain.Action(new JsonAdapter.ActionStation() { Module = LearnModule.ModulesEnum.BMA_Recurs, Value = Convert.ToInt32(def) });
+                    TestMain.Action(new ShareTypes.JsonAdapter.ActionStation() { Module = ShareTypes.ModulesEnum.BMA_Recurs, Value = Convert.ToInt32(def) });
 
                     break;
             }

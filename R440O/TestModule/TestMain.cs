@@ -1,9 +1,10 @@
 ﻿using R440O.BaseClasses;
 using R440O.JsonAdapter;
-using R440O.LearnModule;
 using R440O.R440OForms.N502B;
 using R440O.R440OForms.R440O;
 using R440O.ThirdParty;
+using ShareTypes;
+using ShareTypes.JsonAdapter;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -12,9 +13,9 @@ namespace R440O.TestModule
 {
     static class TestMain
     {
-        private static ModulesEnum module = ModulesEnum.nill;
+        private static ModulesEnum module = ShareTypes.ModulesEnum.nill;
         //static IntentionEnum intent = IntentionEnum.open;  Понять как можно использовать 
-        public static GlobalIntentEnum globalIntent { get; set; } = GlobalIntentEnum.Normativ95;
+        public static LearnModule.GlobalIntentEnum globalIntent { get; set; } = LearnModule.GlobalIntentEnum.Normativ95;
         
         private static int softMistakes;
         private static IDisposable timer;

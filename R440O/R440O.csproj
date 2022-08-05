@@ -91,12 +91,9 @@
     </Compile>
     <Compile Include="InternalBlocks\Antenna.cs" />
     <Compile Include="JsonAdapter\ActionStationEnum.cs" />
-    <Compile Include="JsonAdapter\ActionStation.cs" />
     <Compile Include="JsonAdapter\StandardStep.cs" />
-    <Compile Include="JsonAdapter\StationAdapterJson.cs" />
     <Compile Include="LearnModule\GlobalIntentEnum.cs" />
     <Compile Include="LearnModule\IntentionEnum.cs" />
-    <Compile Include="LearnModule\ModulesEnum.cs" />
     <Compile Include="LearnModule\LearnMain.cs" />
     <Compile Include="LearnModule\HighLightModule.cs" />
     <Compile Include="LearnModule\LearnTypeSelector.cs">

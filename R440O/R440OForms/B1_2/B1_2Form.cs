@@ -137,7 +137,7 @@ namespace R440O.R440OForms.B1_2
                 var blockParams = B1_2Parameters.getInstance();
                 bool def = !blockParams.ТумблерМуДу;
 
-                TestMain.Action(new JsonAdapter.ActionStation() { Module = LearnModule.ModulesEnum.Check_B1_2, Value = Convert.ToInt32(def) });
+                TestMain.Action(new ShareTypes.JsonAdapter.ActionStation() { Module = ShareTypes.ModulesEnum.Check_B1_2, Value = Convert.ToInt32(def) });
             }
         }
     }

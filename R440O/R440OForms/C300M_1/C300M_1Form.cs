@@ -13,6 +13,7 @@ namespace R440O.R440OForms.C300M_1
     using global::R440O.TestModule;
     using global::R440O.BaseClasses;
     using global::R440O.LearnModule;
+    using ShareTypes;
 
     /// <summary>
     /// Форма блока С300М_2
@@ -36,8 +37,8 @@ namespace R440O.R440OForms.C300M_1
             }
             switch (TestMain.getIntent())
             {
-                case LearnModule.ModulesEnum.C300_m1_Open:
-                    TestMain.setIntent(LearnModule.ModulesEnum.C300_m1_Power);
+                case ShareTypes.ModulesEnum.C300_m1_Open:
+                    TestMain.setIntent(ModulesEnum.C300_m1_Power);
                     IsExactModule = true;
                     break;
             }
@@ -385,7 +386,7 @@ namespace R440O.R440OForms.C300M_1
             bool def;
             switch (TestMain.getIntent())
             {
-                case ModulesEnum.Check_C300M:
+                case ShareTypes.ModulesEnum.Check_C300M:
                     def = blockParams.ТумблерУправление &&
                     !blockParams.ТумблерБлокировка &&
                     !blockParams.ТумблерПределы &&
@@ -394,12 +395,12 @@ namespace R440O.R440OForms.C300M_1
                     blockParams.ТумблерАСЧ &&
                     blockParams.ТумблерРегулировкаУровня;
 
-                    TestMain.Action(new JsonAdapter.ActionStation() { Module = LearnModule.ModulesEnum.Check_C300M, Value = Convert.ToInt32(def) });
+                    TestMain.Action(new ShareTypes.JsonAdapter.ActionStation() { Module = ShareTypes.ModulesEnum.Check_C300M, Value = Convert.ToInt32(def) });
                     break;
-                case ModulesEnum.SmallLoopCheck:
+                case ShareTypes.ModulesEnum.SmallLoopCheck:
                     def = blockParams.СигналПойман &&
                         !blockParams.ПоискИдет;
-                    TestMain.Action(new JsonAdapter.ActionStation() { Module = LearnModule.ModulesEnum.SmallLoopCheck, Value = Convert.ToInt32(def) });
+                    TestMain.Action(new ShareTypes.JsonAdapter.ActionStation() { Module = ShareTypes.ModulesEnum.SmallLoopCheck, Value = Convert.ToInt32(def) });
                     break;
             }
         }

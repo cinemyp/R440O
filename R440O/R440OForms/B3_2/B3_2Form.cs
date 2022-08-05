@@ -178,7 +178,7 @@
                 var blockParams = B3_2Parameters.getInstance();
                 bool def = !blockParams.ТумблерМуДу;
 
-                TestMain.Action(new JsonAdapter.ActionStation() { Module = LearnModule.ModulesEnum.Check_B3_2, Value = Convert.ToInt32(def) });
+                TestMain.Action(new ShareTypes.JsonAdapter.ActionStation() { Module = ShareTypes.ModulesEnum.Check_B3_2, Value = Convert.ToInt32(def) });
             }
         }
     }

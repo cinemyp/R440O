@@ -198,7 +198,7 @@ namespace R440O.R440OForms.N16
                     !N16Parameters.КнопкаЭквивалент &&
                     !N16Parameters.КнопкаВкл;
 
-                TestMain.Action(new JsonAdapter.ActionStation() { Module = LearnModule.ModulesEnum.Check_N16, Value = Convert.ToInt32(def) });
+                TestMain.Action(new ShareTypes.JsonAdapter.ActionStation() { Module = ShareTypes.ModulesEnum.Check_N16, Value = Convert.ToInt32(def) });
             }
             N16Parameters.ParameterChanged -= RefreshFormElements;
         }

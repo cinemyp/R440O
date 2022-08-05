@@ -5,6 +5,8 @@
     using System.Windows.Forms;
     using BaseClasses;
     using global::R440O.TestModule;
+    using ShareTypes;
+    using ShareTypes.JsonAdapter;
 
     public partial class A1Form : Form, IRefreshableForm
     {
@@ -92,7 +94,7 @@
                 var blockParams = A1Parameters.getInstance();
                 bool def = !blockParams.ТумблерМуДу;
 
-                TestMain.Action(new JsonAdapter.ActionStation() { Module = LearnModule.ModulesEnum.Check_A1, Value = Convert.ToInt32(def) });
+                TestMain.Action(new ShareTypes.JsonAdapter.ActionStation() { Module = ShareTypes.ModulesEnum.Check_A1, Value = Convert.ToInt32(def) });
             }
         }
     }
