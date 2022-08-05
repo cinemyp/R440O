@@ -24,7 +24,7 @@ namespace R440O.ThirdParty
         private static List<string> списокАдресовСети = ПолучитьСписокАдресовСети();
 
         private static int количествоНезавершенныЗапросов = 0;
-        public static bool ПоискИдет { get { return количествоНезавершенныЗапросов != 0; } }
+        public static bool ПоискИдет { get; private set; }
 
         private static bool _серверНайден = false;
         public static bool СерверНайден
@@ -35,6 +35,7 @@ namespace R440O.ThirdParty
                 _серверНайден = value;
             }
         }
+        public static bool ConnectError { get; private set; }
 
         private static async Task<T1> Post<T1, T2>(string url, T2 body) where T1 : class
         {
@@ -94,68 +95,81 @@ namespace R440O.ThirdParty
 
         public static async void ПроверитьАдресс(string serverUrl)
         {
-            if (!СерверНайден)
+            if (!СерверНайден && !ПоискИдет)
             {
                 try
                 {
+                    ConnectError = false;
+                    ПоискИдет = true;
+                    ServerUrl = "";
                     var checkString = await Get<string>("http://" + serverUrl + ":8080/" + CheckServerUrl);
                     if (checkString == Constants.ServerCheckString)
                     {
                         ServerUrl = "http://" + serverUrl + ":8080/";
                         СерверНайден = true;
+                        ПоискИдет = false;
                     }
                 }
                 catch (System.UriFormatException e)
                 {
                     //т.к. иногда присутствуют ipv6 адресса
+                    ПоискИдет = false;
                 }
                 catch (System.Net.Http.HttpRequestException e)
                 {
                     //т.к. не все подключения активны (например, если установлен virtualbox)
+                    ConnectError = true;
+                    ПоискИдет = false;
+
                 }
             }
-            количествоНезавершенныЗапросов--;
         }
 
-        public static void ПоискСервера()
+        //public static void ПоискСервера()
+        //{
+        //    количествоНезавершенныЗапросов = списокАдресовСети.Count;
+        //    foreach (var addr in списокАдресовСети)
+        //    {
+        //        var _serverUrl = "http://" + addr + ":8080/";
+        //        ПроверитьАдресс(_serverUrl);
+        //    }
+        //}
+
+        public static void StopSearch()
         {
-            количествоНезавершенныЗапросов = списокАдресовСети.Count;
-            foreach (var addr in списокАдресовСети)
-            {
-                var _serverUrl = "http://" + addr + ":8080/";
-                ПроверитьАдресс(_serverUrl);
-            }
+            ConnectError = false;
+            СерверНайден = false;
         }
 
         public static void ПроверкаСервера(string serverUrl)
         {
-            количествоНезавершенныЗапросов = 1;
             ПроверитьАдресс(serverUrl);
         }
 
         public static List<string> ПолучитьСписокАдресовСети()
         {
-            System.Diagnostics.Process process = new System.Diagnostics.Process();
-            process.StartInfo.FileName = "cmd.exe";
-            process.StartInfo.Arguments = "/c arp -a";
-            process.StartInfo.CreateNoWindow = false;
-            process.StartInfo.UseShellExecute = false;
-            process.StartInfo.RedirectStandardOutput = true;
-            process.Start();
-            List<string> addresses = new List<string>();
-            Regex ipRegex = new Regex(@"\b\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\b");
-            while (!process.StandardOutput.EndOfStream)
-            {
-                string line = process.StandardOutput.ReadLine();
-                MatchCollection result = ipRegex.Matches(line);
-                if (result.Count != 0 && result[0] != null)
-                {
-                    addresses.Add(result[0].ToString());
-                }
-            }
-            process.WaitForExit();
-            process.Close();
-            return addresses;
+            return null;
+            //System.Diagnostics.Process process = new System.Diagnostics.Process();
+            //process.StartInfo.FileName = "cmd.exe";
+            //process.StartInfo.Arguments = "/c arp -a";
+            //process.StartInfo.CreateNoWindow = false;
+            //process.StartInfo.UseShellExecute = false;
+            //process.StartInfo.RedirectStandardOutput = true;
+            //process.Start();
+            //List<string> addresses = new List<string>();
+            //Regex ipRegex = new Regex(@"\b\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\b");
+            //while (!process.StandardOutput.EndOfStream)
+            //{
+            //    string line = process.StandardOutput.ReadLine();
+            //    MatchCollection result = ipRegex.Matches(line);
+            //    if (result.Count != 0 && result[0] != null)
+            //    {
+            //        addresses.Add(result[0].ToString());
+            //    }
+            //}
+            //process.WaitForExit();
+            //process.Close();
+            //return addresses;
         }
 
     }

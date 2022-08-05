@@ -35,12 +35,20 @@ namespace R440O
                     btnExaming.Enabled = true;
                     btnLearning.Enabled = true;
                     btnConnect.Enabled = true;
+
+                    pbConnectionGot.Visible = true;
+                    StopSearch(false);
+                }
+                else if (HttpHelper.ConnectError)
+                {
+                    StopSearch(true);
                 }
                 else
                 {
                     HttpHelper.ПроверкаСервера(IpAddress);
                 }
             }
+
         }
 
         public void RunR400O(bool isLearning)
@@ -81,19 +89,47 @@ namespace R440O
             RunR400O(false);
         }
 
-        private void btnConnect_Click(object sender, EventArgs e)
+        private void StartSearch()
         {
-            var ip = tbIpAddress.Text;
-            IpAddress = ip;
+            HttpHelper.StopSearch();
 
             таймерПоискаСервера.Enabled = true;
             таймерПоискаСервера.Interval = 3000;
             таймерПоискаСервера.Tick += tick;
             таймерПоискаСервера.Start();
-            
+
             btnExaming.Enabled = false;
             btnLearning.Enabled = false;
             btnConnect.Enabled = false;
+
+            pbConnectionError.Visible = false;
+            pbConnectionGot.Visible = false;
+        }
+
+        private void StopSearch(bool error = false)
+        {
+            таймерПоискаСервера.Stop();
+            btnLearning.Enabled = true;
+            btnConnect.Enabled = true;
+
+            if(error)
+            {
+                pbConnectionError.Visible = true;
+                pbConnectionError.BringToFront();
+
+                HttpHelper.StopSearch();
+                return;
+            }
+
+            btnExaming.Enabled = true;
+        }
+
+        private void btnConnect_Click(object sender, EventArgs e)
+        {
+            var ip = tbIpAddress.Text;
+            IpAddress = ip;
+
+            StartSearch();
         }
     }
 }

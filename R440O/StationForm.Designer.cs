@@ -28,15 +28,22 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(StationForm));
             this.label1 = new System.Windows.Forms.Label();
             this.btnLearning = new System.Windows.Forms.Button();
             this.btnExaming = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.pbConnectionError = new System.Windows.Forms.PictureBox();
             this.tbIpAddress = new System.Windows.Forms.TextBox();
             this.btnConnect = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
+            this.pbConnectionGot = new System.Windows.Forms.PictureBox();
+            this.ttError = new System.Windows.Forms.ToolTip(this.components);
+            this.ttConnectionGot = new System.Windows.Forms.ToolTip(this.components);
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbConnectionError)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbConnectionGot)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -51,7 +58,7 @@
             // 
             // btnLearning
             // 
-            this.btnLearning.Location = new System.Drawing.Point(12, 54);
+            this.btnLearning.Location = new System.Drawing.Point(15, 53);
             this.btnLearning.Name = "btnLearning";
             this.btnLearning.Size = new System.Drawing.Size(136, 26);
             this.btnLearning.TabIndex = 2;
@@ -72,13 +79,28 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.pbConnectionError);
             this.panel1.Controls.Add(this.tbIpAddress);
             this.panel1.Controls.Add(this.btnConnect);
             this.panel1.Controls.Add(this.label2);
+            this.panel1.Controls.Add(this.pbConnectionGot);
             this.panel1.Location = new System.Drawing.Point(228, 12);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(233, 125);
             this.panel1.TabIndex = 4;
+            // 
+            // pbConnectionError
+            // 
+            this.pbConnectionError.BackColor = System.Drawing.Color.Transparent;
+            this.pbConnectionError.Image = ((System.Drawing.Image)(resources.GetObject("pbConnectionError.Image")));
+            this.pbConnectionError.Location = new System.Drawing.Point(136, 41);
+            this.pbConnectionError.Name = "pbConnectionError";
+            this.pbConnectionError.Size = new System.Drawing.Size(26, 26);
+            this.pbConnectionError.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pbConnectionError.TabIndex = 7;
+            this.pbConnectionError.TabStop = false;
+            this.ttError.SetToolTip(this.pbConnectionError, "Ошибка подключения");
+            this.pbConnectionError.Visible = false;
             // 
             // tbIpAddress
             // 
@@ -108,6 +130,22 @@
             this.label2.TabIndex = 5;
             this.label2.Text = "Введите IP-адрес сервера";
             // 
+            // pbConnectionGot
+            // 
+            this.pbConnectionGot.Image = global::R440O.Properties.Resources.correct;
+            this.pbConnectionGot.Location = new System.Drawing.Point(136, 42);
+            this.pbConnectionGot.Name = "pbConnectionGot";
+            this.pbConnectionGot.Size = new System.Drawing.Size(26, 26);
+            this.pbConnectionGot.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pbConnectionGot.TabIndex = 8;
+            this.pbConnectionGot.TabStop = false;
+            this.ttConnectionGot.SetToolTip(this.pbConnectionGot, "Подключение прошло успешно!");
+            this.pbConnectionGot.Visible = false;
+            // 
+            // ttError
+            // 
+            this.ttError.ToolTipTitle = "Ошибка подключения";
+            // 
             // StationForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -122,6 +160,8 @@
             this.Text = "Симулятор станции Р-440-О";
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbConnectionError)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbConnectionGot)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -136,5 +176,9 @@
         private System.Windows.Forms.Button btnConnect;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox tbIpAddress;
+        private System.Windows.Forms.PictureBox pbConnectionError;
+        private System.Windows.Forms.ToolTip ttError;
+        private System.Windows.Forms.PictureBox pbConnectionGot;
+        private System.Windows.Forms.ToolTip ttConnectionGot;
     }
 }

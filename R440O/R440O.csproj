@@ -1259,6 +1259,10 @@
     <None Include="Resources\kabel_profile%28K12%29.png" />
     <None Include="Resources\kabel_input%28K11%291th.png" />
     <None Include="Resources\kabel_input%28K12%291th.png" />
+    <None Include="Resources\ConnectionError.png" />
+    <None Include="Resources\error.png" />
+    <None Include="Resources\error1.png" />
+    <None Include="Resources\correct.png" />
     <Content Include="Resources\lampType13OnGreen.png" />
     <Content Include="Resources\N18_M_Gnezdo.png" />
     <None Include="Resources\panel.png" />
