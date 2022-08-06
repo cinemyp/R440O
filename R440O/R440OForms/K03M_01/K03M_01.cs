@@ -182,21 +182,16 @@ namespace R440O.R440OForms.K03M_01
             if (ParametersConfig.IsTesting)
             {
                 var blockParams = K03M_01Parameters.getInstance();
+                bool def = false;
 
-                if (blockParams.firstCheck)
+                switch (TestMain.getIntent())
                 {
-                    bool def = blockParams.ПереключательЗонаПоиска == 2;
-
-                    TestMain.Action(new ShareTypes.JsonAdapter.ActionStation() { Module = ShareTypes.ModulesEnum.Check_K03M_01_1, Value = Convert.ToInt32(def) });
-
-                    if (def)
-                    {
-                        blockParams.firstCheck = false;
-                    }
-                }
-                else
-                {
-                    bool def = blockParams.Переключатель0 && 
+                    case ShareTypes.ModulesEnum.Check_K03M_01_1:
+                        def = blockParams.ПереключательЗонаПоиска == 2;
+                        TestMain.Action(new ShareTypes.JsonAdapter.ActionStation() { Module = ShareTypes.ModulesEnum.Check_K03M_01_1, Value = Convert.ToInt32(def) });
+                        break;
+                    case ShareTypes.ModulesEnum.Check_K03M_01_2:
+                        def = blockParams.Переключатель0 &&
                         blockParams.Переключатель4 &&
                         !blockParams.Переключатель1 &&
                         !blockParams.Переключатель2 &&
@@ -205,8 +200,23 @@ namespace R440O.R440OForms.K03M_01
                         !blockParams.Переключатель32 &&
                         blockParams.ПереключательНепрОднокр &&
                         blockParams.ПереключательАвтРучн;
+                        TestMain.Action(new ShareTypes.JsonAdapter.ActionStation() { Module = ShareTypes.ModulesEnum.Check_K03M_01_2, Value = Convert.ToInt32(def) });
+                        break;
+                    case ShareTypes.ModulesEnum.Kulon_K03M:
+                        def =
+                        blockParams.ПереключательЗонаПоиска == 2 &&
+                        blockParams.Переключатель0 &&
+                        blockParams.Переключатель1 &&
+                        !blockParams.Переключатель2 &&
+                        !blockParams.Переключатель4 &&
+                        !blockParams.Переключатель8 &&
+                        !blockParams.Переключатель16 &&
+                        !blockParams.Переключатель32 &&
+                        blockParams.ПереключательНепрОднокр &&
+                        blockParams.ПереключательАвтРучн;
 
-                    TestMain.Action(new ShareTypes.JsonAdapter.ActionStation() { Module = ShareTypes.ModulesEnum.Check_K03M_01_2, Value = Convert.ToInt32(def) });
+                        TestMain.Action(new ShareTypes.JsonAdapter.ActionStation() { Module = ShareTypes.ModulesEnum.Kulon_K03M, Value = Convert.ToInt32(def) });
+                        break;
                 }
             }
         }

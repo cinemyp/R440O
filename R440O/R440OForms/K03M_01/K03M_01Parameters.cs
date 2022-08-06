@@ -16,8 +16,6 @@ namespace R440O.R440OForms.K03M_01
 {
     public class K03M_01Parameters
     {
-        public bool firstCheck { get; set; } = true;
-
         private static K03M_01Parameters instance;
         public static K03M_01Parameters getInstance()
         {

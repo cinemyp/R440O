@@ -12,6 +12,7 @@ using R440O.R440OForms.K02M_01Inside;
 using R440O.R440OForms.K03M_01;
 using R440O.ThirdParty;
 using R440O.BaseClasses;
+using R440O.TestModule;
 
 namespace R440O.R440OForms.K02M_01
 {
@@ -165,6 +166,23 @@ namespace R440O.R440OForms.K02M_01
         private void K02M_01Form_FormClosed(object sender, FormClosedEventArgs e)
         {
             K02M_01Parameters.getInstance().ParameterChanged -= RefreshFormElements;
+
+            var blockParams = K02M_01Parameters.getInstance();
+            var k03Params = K03M_01Parameters.getInstance();
+            bool def = false;
+
+            switch (TestMain.getIntent())
+            {
+                case ShareTypes.ModulesEnum.Kulon_K02M:
+                    def = blockParams.ПереключательНапряжение1К == 1 &&
+                        blockParams.ПереключательНапряжение2К == 3;
+                    TestMain.Action(new ShareTypes.JsonAdapter.ActionStation() { Module = ShareTypes.ModulesEnum.Kulon_K02M, Value = Convert.ToInt32(def) });
+                    break;
+                case ShareTypes.ModulesEnum.Kulon_Search:
+                    def = k03Params.СтатусПоиска == 2;
+                    TestMain.Action(new ShareTypes.JsonAdapter.ActionStation() { Module = ShareTypes.ModulesEnum.Kulon_Search, Value = Convert.ToInt32(def) });
+                    break;
+            }
         }
     }
 }

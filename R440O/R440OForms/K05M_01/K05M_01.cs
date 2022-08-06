@@ -118,10 +118,22 @@ namespace R440O.R440OForms.K05M_01
             if (ParametersConfig.IsTesting)
             {
                 var blockParams = K05M_01Parameters.getInstance();
-                bool def = blockParams.ПереключательОслабление == 0 &&
-                    blockParams.ПереключательПередачаКонтроль == 0;
+                bool def = false;
 
-                TestMain.Action(new ShareTypes.JsonAdapter.ActionStation() { Module = ShareTypes.ModulesEnum.Check_K05M_01, Value = Convert.ToInt32(def) });
+                switch (TestMain.getIntent())
+                {
+                    case ShareTypes.ModulesEnum.Check_K05M_01:
+                        def = blockParams.ПереключательОслабление == 0 &&
+                        blockParams.ПереключательПередачаКонтроль == 0;
+                        TestMain.Action(new ShareTypes.JsonAdapter.ActionStation() { Module = ShareTypes.ModulesEnum.Check_K05M_01, Value = Convert.ToInt32(def) });
+                        break;
+                    case ShareTypes.ModulesEnum.Kulon_K05M:
+                        def = blockParams.ПереключательОслабление == 0 &&
+                        blockParams.ПереключательКанал1 == 0 &&
+                        blockParams.ПереключательКанал2 == 2;
+                        TestMain.Action(new ShareTypes.JsonAdapter.ActionStation() { Module = ShareTypes.ModulesEnum.Kulon_K05M, Value = Convert.ToInt32(def) });
+                        break;
+                }
             }
         }
     }

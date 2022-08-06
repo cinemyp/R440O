@@ -7,6 +7,7 @@
 using System;
 using System.Linq;
 using System.Windows.Forms;
+using R440O.TestModule;
 using R440O.ThirdParty;
 
 namespace R440O.R440OForms.K04M_01
@@ -68,6 +69,23 @@ namespace R440O.R440OForms.K04M_01
         private void Крышка_Click(object sender, EventArgs e)
         {
             Крышка.Visible = false;
+        }
+
+        private void K04M_01Form_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            if (ParametersConfig.IsTesting)
+            {
+                var blockParams = K04M_01Parameters.getInstance();
+                bool def = false;
+
+                switch (TestMain.getIntent())
+                {
+                    case ShareTypes.ModulesEnum.Kulon_K04M:
+                        def = blockParams.ПереключательПрмМгц == 5;
+                        TestMain.Action(new ShareTypes.JsonAdapter.ActionStation() { Module = ShareTypes.ModulesEnum.Kulon_K04M, Value = Convert.ToInt32(def) });
+                        break;
+                }
+            }
         }
     }
 }

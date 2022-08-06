@@ -179,6 +179,7 @@
             this.Name = "K04M_01Form";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "K04M-1";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.K04M_01Form_FormClosed);
             this.K04M_01Panel.ResumeLayout(false);
             this.ResumeLayout(false);
 
