@@ -86,7 +86,6 @@ namespace ShareTypes
         Kulon_K02M,
         Kulon_K05M,
         Kulon_K04M,
-        Kulon_Search,
-        Retranslator
+        Kulon_Search
     }
 }

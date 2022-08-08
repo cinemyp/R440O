@@ -44,7 +44,6 @@ namespace R440O.R440OForms.A403_1
         /// </summary>
         private Dictionary<string, bool> CheckTable = new Dictionary<string, bool>
         {
-            {"+131000", false },
             {"+151000", false },
             {"+171000", false },
             {"+191000", false },
