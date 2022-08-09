@@ -142,7 +142,7 @@ namespace R440O.TestModule
             {
                 for (int i = 0; i < standardActions.Count; i++)
                 {
-                    if(standardActions[i].IsUserAction)
+                    if (standardActions[i].IsUserAction)
                     {
                         expectedAction = standardActions[i];
                         break;

@@ -12,7 +12,7 @@
 ; Имя приложения
 #define   Name       "R440O"
 ; Версия приложения
-#define   Version    "0.0.1"
+#define   Version    "0.0.3"
 ; Фирма-разработчик
 #define   Publisher  "VUC ISPU"
 ; Сафт фирмы разработчика
@@ -46,7 +46,7 @@ OutputDir=.\setup
 OutputBaseFileName=setup
 
 ; Файл иконки
-SetupIconFile=D:\Source\R440O\R440O\car.ico
+SetupIconFile=C:\Users\User\source\repos\R440O\R440O\car.ico
 
 ; Параметры сжатия
 Compression=lzma
@@ -70,6 +70,9 @@ Source: "..\R440O\bin\Release\R440O.exe"; DestDir: "{app}"; Flags: ignoreversion
 
 ; Прилагающиеся ресурсы
 Source: "..\R440O\bin\Release\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
+
+; Сервер
+Source: "..\RetranslatorWPF\bin\Release\*"; DestDir: "{app}\Server"; Flags: ignoreversion recursesubdirs createallsubdirs
 
 ; .NET Framework 4.0
 Source: ".\dotNetFx40_Full_x86_x64.exe"; DestDir: "{tmp}"; Flags: deleteafterinstall; Check: not IsRequiredDotNetDetected
