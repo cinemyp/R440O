@@ -67,7 +67,7 @@ namespace RetranslatorWPF
             var ipAdress = host
                     .AddressList
                     .Where(ip => ip.AddressFamily == AddressFamily.InterNetwork)
-                    .FirstOrDefault(ip => ip.ToString().Contains("192.168"));
+                    .FirstOrDefault(ip => !ip.ToString().Contains("169.254"));
             //если установлен virtualbox, то первым адрессом может идти его адресс, т.е. вылетит ошибка
             
             return ipAdress;
