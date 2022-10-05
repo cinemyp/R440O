@@ -32,8 +32,6 @@ namespace RetranslatorWPF
             System.Net.IPAddress ipAdress;
             if (!HttpListener.IsSupported)
                 throw new NotImplementedException();
-
-            IPHostEntry host = Dns.GetHostEntry(Dns.GetHostName());
             
             ipAdress = GetPhysicalIpAddress();
 
