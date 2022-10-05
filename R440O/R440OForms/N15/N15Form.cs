@@ -579,8 +579,8 @@ namespace R440O.R440OForms.N15
 
             if (LearnMain.getIntent() == ModulesEnum.N15Power)
             {
-                if (LearnMain.globalIntent == GlobalIntentEnum.OneChannel)
-                {
+                //if (LearnMain.globalIntent == GlobalIntentEnum.OneChannel)
+                //{
                     if (N15Parameters.getInstance().ТумблерЦ300М1 && N15Parameters.getInstance().ТумблерЦ300М2 && N15Parameters.getInstance().ТумблерЦ300М3 && N15Parameters.getInstance().ТумблерЦ300М4 &&
                         N15Parameters.getInstance().ТумблерАФСС && !N15Parameters.getInstance().ТумблерАнтЭкв && N15Parameters.getInstance().ТумблерА403 && N15Parameters.getInstance().ЛампочкаБМА_1 &&
                         N15Parameters.getInstance().ЛампочкаБМА_2 && N15Parameters.getInstance().ЛампочкаМШУ && N15Parameters.getInstance().ТумблерТлфТлгПрд && N15Parameters.getInstance().ТумблерТлфТлгПрм)
@@ -591,7 +591,7 @@ namespace R440O.R440OForms.N15
                     {
                         LearnMain.setIntent(ModulesEnum.openN15);
                     }
-                }
+                //}
             }
             
         }
