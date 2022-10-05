@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using ShareTypes.OrderScheme;
 using System.Net.Sockets;
 using Newtonsoft.Json;
-
+using System.Net.NetworkInformation;
 
 namespace RetranslatorWPF
 {
@@ -34,19 +34,36 @@ namespace RetranslatorWPF
                 throw new NotImplementedException();
 
             IPHostEntry host = Dns.GetHostEntry(Dns.GetHostName());
-
-            ipAdress = host
-                .AddressList
-                .FirstOrDefault(ip => ip.AddressFamily == AddressFamily.InterNetwork);
-            //если установлен virtualbox, то первым адрессом может идти его адресс, т.е. вылетит ошибка
-            if (ipAdress==null)
-                throw new Exception("Local IP Address Not Found!");
+            
+            ipAdress = GetPhysicalIpAddress();
 
             httpListener.Prefixes.Add("http://" + ipAdress.ToString() + ":8080/");
             httpListener.Start();
             Task.Run(() => { 
                 Listening(); 
             });
+        }
+
+        private IPAddress GetPhysicalIpAddress()
+        {
+            foreach (NetworkInterface ni in NetworkInterface.GetAllNetworkInterfaces())
+            {
+                var addr = ni.GetIPProperties().GatewayAddresses.FirstOrDefault();
+                if (addr != null && !addr.Address.ToString().Equals("0.0.0.0"))
+                {
+                    if (ni.NetworkInterfaceType == NetworkInterfaceType.Wireless80211 || ni.NetworkInterfaceType == NetworkInterfaceType.Ethernet)
+                    {
+                        foreach (UnicastIPAddressInformation ip in ni.GetIPProperties().UnicastAddresses)
+                        {
+                            if (ip.Address.AddressFamily == AddressFamily.InterNetwork)
+                            {
+                                return ip.Address;
+                            }
+                        }
+                    }
+                }
+            }
+            return null;
         }
 
         private void Listening()
