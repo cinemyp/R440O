@@ -32,7 +32,7 @@ namespace RetranslatorWPF
             System.Net.IPAddress ipAdress;
             if (!HttpListener.IsSupported)
                 throw new NotImplementedException();
-            
+
             ipAdress = GetPhysicalIpAddress();
 
             httpListener.Prefixes.Add("http://" + ipAdress.ToString() + ":8080/");
@@ -46,6 +46,8 @@ namespace RetranslatorWPF
         {
             foreach (NetworkInterface ni in NetworkInterface.GetAllNetworkInterfaces())
             {
+                var t1 = ni.GetIPProperties();
+
                 var addr = ni.GetIPProperties().GatewayAddresses.FirstOrDefault();
                 if (addr != null && !addr.Address.ToString().Equals("0.0.0.0"))
                 {
@@ -61,7 +63,14 @@ namespace RetranslatorWPF
                     }
                 }
             }
-            return null;
+            IPHostEntry host = Dns.GetHostEntry(Dns.GetHostName());
+            var ipAdress = host
+                    .AddressList
+                    .Where(ip => ip.AddressFamily == AddressFamily.InterNetwork)
+                    .FirstOrDefault(ip => ip.ToString().Contains("192.168"));
+            //если установлен virtualbox, то первым адрессом может идти его адресс, т.е. вылетит ошибка
+            
+            return ipAdress;
         }
 
         private void Listening()
